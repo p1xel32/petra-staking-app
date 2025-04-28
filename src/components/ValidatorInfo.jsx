@@ -6,7 +6,7 @@ function ValidatorInfo() {
   useEffect(() => {
     async function fetchValidatorInfo() {
       try {
-        const response = await fetch('https://fullnode.mainnet.aptoslabs.com/v1/validators?limit=100');
+        const response = await fetch('/api/get-validator');
         const data = await response.json();
         const validator = data.result.find(
           (v) =>
