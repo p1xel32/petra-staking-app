@@ -1,14 +1,23 @@
 export default async function handler(req, res) {
   try {
-    const response = await fetch('https://fullnode.mainnet.aptoslabs.com/v1/validators?limit=100', {
+    const fetchResponse = await fetch('https://fullnode.mainnet.aptoslabs.com/v1/validators?limit=100', {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-      },
+        'Accept': 'application/json'
+      }
     });
-    const data = await response.json();
+
+    if (!fetchResponse.ok) {
+      console.error('Failed to fetch from Aptos API', fetchResponse.statusText);
+      return res.status(500).json({ error: 'Failed to fetch from Aptos API' });
+    }
+
+    const data = await fetchResponse.json();
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error fetching validator info:', error);
-    res.status(500).json({ error: 'Failed to fetch validator info' });
+    console.error('Server error in get-validator:', error);
+    res.status(500).json({ error: 'Server error in get-validator' });
   }
 }
+
