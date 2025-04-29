@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { body } = await request('https://explorer.mainnet.aptoslabs.com/graphql', {
+    const { body } = await request('https://explorer-api.mainnet.aptoslabs.com/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
