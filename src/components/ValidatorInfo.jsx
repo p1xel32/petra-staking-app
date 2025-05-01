@@ -1,55 +1,56 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Aptos, Network } from '@aptos-labs/ts-sdk';
 
-const VALIDATOR_OWNER = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
-const FULLNODE_URL = `https://fullnode.mainnet.aptoslabs.com/v1/accounts/${VALIDATOR_OWNER}/resources`;
+const client = new Aptos({
+  network: Network.MAINNET,
+});
 
-function formatApt(value) {
-  return (Number(value) / 1e8).toLocaleString(undefined, { maximumFractionDigits: 2 });
-}
+const VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 
-function formatTimestamp(secs) {
-  const date = new Date(Number(secs) * 1000);
-  return date.toUTCString().replace('GMT', 'UTC');
-}
-
-export default function ValidatorInfo() {
+function ValidatorInfo() {
   const [info, setInfo] = useState(null);
+  const [apr, setApr] = useState(null);
 
   useEffect(() => {
-    async function fetchValidatorInfo() {
+    const fetchInfo = async () => {
       try {
-        const res = await fetch(FULLNODE_URL);
-        const data = await res.json();
+        const resources = await client.getAccountResources({ accountAddress: VALIDATOR_POOL_ADDRESS });
+        const pool = resources.find(r => r.type === '0x1::stake::StakePool');
+        const delegation = resources.find(r => r.type.startsWith('0x1::delegation_pool::DelegationPool'));
 
-        const stakePool = data.find((r) => r.type === '0x1::stake::StakePool')?.data;
-        const delegationPool = data.find((r) => r.type === '0x1::delegation_pool::DelegationPool')?.data;
+        if (!pool || !delegation) throw new Error('StakePool or DelegationPool not found');
 
-        if (!stakePool || !delegationPool) throw new Error('Validator resources not found');
+        const activeStake = Number(pool.data.active.value);
+        const commission = Number(delegation.data.operator_commission_percentage) / 100;
+
+        const totalCoins = Number(delegation.data.active_shares.total_coins);
+        const totalShares = Number(delegation.data.active_shares.total_shares);
+        const aprValue = (activeStake / totalShares) * 100;
 
         setInfo({
-          operator: stakePool.operator_address,
-          totalStake: formatApt(stakePool.active.value),
-          commission: (Number(delegationPool.operator_commission_percentage) / 100).toFixed(2),
-          lockedUntil: formatTimestamp(stakePool.locked_until_secs)
+          poolAddress: VALIDATOR_POOL_ADDRESS,
+          delegated: totalCoins / 1e8,
+          commission,
         });
+        setApr(aprValue.toFixed(2));
       } catch (err) {
-        console.error('Failed to load validator info:', err);
-        setInfo(null);
+        console.error('Error fetching validator info:', err);
       }
-    }
+    };
 
-    fetchValidatorInfo();
+    fetchInfo();
   }, []);
 
   if (!info) return <p>Loading validator info...</p>;
 
   return (
-    <div className="text-center mb-6">
-      <h2 className="text-2xl font-bold mb-2">Validator Info</h2>
-      <p><strong>Operator:</strong> {info.operator}</p>
-      <p><strong>Total Stake:</strong> {info.totalStake} APT</p>
-      <p><strong>Commission:</strong> {info.commission} %</p>
-      <p><strong>Lockup Ends:</strong> {info.lockedUntil}</p>
+    <div className="mb-4 text-center">
+      <p><strong>Stake Pool Address:</strong> {info.poolAddress}</p>
+      <p><strong>Delegated Voting Power:</strong> {info.delegated.toLocaleString()} APT</p>
+      <p><strong>Commission Percentage:</strong> {info.commission} %</p>
+      <p><strong>APR:</strong> {apr ?? 'NaN'}%</p>
     </div>
   );
 }
+
+export default ValidatorInfo;

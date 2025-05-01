@@ -13,7 +13,7 @@ function App() {
       <ConnectWalletButton onConnect={setAccount} />
       {account && (
         <>
-          <ValidatorInfo />
+          <ValidatorInfo account={account} />
           <StakeUnstakeControls account={account} />
         </>
       )}

@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/proxy.mjs": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}

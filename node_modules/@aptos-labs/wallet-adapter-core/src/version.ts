@@ -1,0 +1,1 @@
+export const WALLET_ADAPTER_CORE_VERSION = "5.4.1";

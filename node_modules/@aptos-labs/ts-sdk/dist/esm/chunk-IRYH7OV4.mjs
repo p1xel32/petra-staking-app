@@ -1,0 +1,2 @@
+import{h as e}from"./chunk-P23N7FX6.mjs";async function i(o){o.minimumLedgerVersion!==void 0&&await e({aptosConfig:o.config,minimumLedgerVersion:o.minimumLedgerVersion,processorType:o.processorType})}export{i as a};
+//# sourceMappingURL=chunk-IRYH7OV4.mjs.map
