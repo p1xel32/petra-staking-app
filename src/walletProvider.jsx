@@ -1,33 +1,22 @@
-// src/walletProvider.jsx
 import React from "react";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 
-// 1. REMOVE the import for the old Petra plugin package
-// import { PetraWallet } from "petra-plugin-wallet-adapter"; // <-- DELETE or COMMENT OUT
-
-// Define other wallets ONLY IF they are non-AIP-62 (legacy) AND needed.
-// If Google/Apple/DevT are also AIP-62 compatible, they might also be auto-detected
-// or need to be added to optInWallets if you want them. If they are legacy, keep them here.
-// For now, let's assume we only want Petra available via optInWallets.
-const legacyPlugins = [
-  // Add instances of any required LEGACY (non-AIP-62) wallet plugins here, if any.
-  // Example: new SomeLegacyWallet()
-];
+// Array for any legacy (non-AIP-62) wallet plugins, if needed.
+// For modern wallets like Petra, Martian, Pontem, etc., that follow AIP-62,
+// auto-detection is preferred (by not specifying `optInWallets` or providing an empty array).
+const legacyPlugins = [];
 
 export function WalletProvider({ children }) {
-
   return (
     <AptosWalletAdapterProvider
-      // 2. Pass any necessary LEGACY plugins here (if applicable, otherwise remove/empty array)
-      plugins={legacyPlugins}
-
-      // 3. ADD the optInWallets prop for modern AIP-62 wallets like Petra
-      //    This tells the adapter to look for and include Petra if available.
-      optInWallets={['Petra']} // Use the standard name 'Petra'
-
-      autoConnect={false} // Keep autoConnect settings as desired
-      // Optional: Add onError handler
+      plugins={legacyPlugins} // Pass any legacy (non-AIP-62) plugins here
+      // By omitting `optInWallets` or providing an empty array,
+      // the adapter will attempt to auto-detect all installed AIP-62 compliant wallets.
+      // If you wanted to strictly limit to specific wallets, e.g., only Petra:
+      // optInWallets={['Petra']}
+      autoConnect={false} // Set to true to attempt auto-reconnection on page load
       onError={(error) => {
+        // Centralized error logging for adapter-level issues
         console.error("Wallet Provider Error:", error);
       }}
     >

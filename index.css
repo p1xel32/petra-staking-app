@@ -1,3 +1,10 @@
+/* src/index.css */
+
+@import 'antd/dist/reset.css'; 
+@import '@aptos-labs/wallet-adapter-ant-design/dist/index.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 4. Ваши кастомные стили (если есть) */
+/* ... */
