@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Aptos, Network } from '@aptos-labs/ts-sdk';
-import { Landmark, TrendingUp as AprIcon, Info, Clock, UserCircle, Activity, AlertCircle, CheckCircle2, ExternalLink } from 'lucide-react';
+// Added CheckSquare to the import list
+import { Landmark, Users, Percent, TrendingUp as AprIcon, Info, Clock, UserCircle, Activity, AlertCircle, CheckCircle2, ExternalLink, Package, Hourglass, Layers, CheckSquare } from 'lucide-react';
 
 // Initialize Aptos client for Mainnet
 const client = new Aptos({
@@ -26,6 +27,27 @@ function formatRemainingTime(totalSeconds) {
   if (minutes > 0 || (days === 0 && hours === 0)) parts.push(`${minutes}m`);
   return parts.length > 0 ? `in ${parts.join(' ')}` : "Soon";
 }
+
+// Reusable component for displaying each row of information
+const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-semibold", link = null, subValue = null, iconColor = "text-purple-400" }) => (
+  <div className="flex justify-between items-center py-2.5 border-b border-gray-700/60 last:border-b-0">
+    <span className="text-gray-400 flex items-center text-sm">
+      {Icon && <Icon size={16} className={`mr-2 ${iconColor}`} />} {/* Icon with color */}
+      {label}:
+    </span>
+    {link ? (
+      <a href={link} target="_blank" rel="noopener noreferrer" className={`font-mono text-sm break-all text-right ${valueClasses} hover:text-purple-300 transition-colors duration-150 flex items-center gap-1`}>
+        {value} <ExternalLink size={12} />
+      </a>
+    ) : (
+      <div className="text-right">
+        <span className={`text-sm ${valueClasses}`}>{value}</span>
+        {subValue && <p className="text-xs text-gray-500">{subValue}</p>}
+      </div>
+    )}
+  </div>
+);
+
 
 function ValidatorInfo({ account, refreshTrigger }) {
   const [info, setInfo] = useState(null);
@@ -116,10 +138,11 @@ function ValidatorInfo({ account, refreshTrigger }) {
       console.error('Error in fetchUserAndPoolData:', err);
       setError(err.message || 'Failed to fetch/process data');
     } finally { setLoading(false); }
-  }, [account]);
+  }, [account]); // Removed fetchUserAndPoolData from here as it might cause issues with refreshTrigger logic
 
   useEffect(() => {
     fetchUserAndPoolData();
+    // The effect depends on account, the memoized fetch function, and the refresh trigger
   }, [account, fetchUserAndPoolData, refreshTrigger]);
 
   const unlockDateString = unlockTimestamp ? new Date(unlockTimestamp * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
@@ -129,90 +152,95 @@ function ValidatorInfo({ account, refreshTrigger }) {
 
   if (loading || (!info && !error && account !== undefined)) {
       return (
-        // The parent div in App.jsx provides the card styling (bg-gray-800/80, p-6 etc.)
-        <div className="w-full text-center"> {/* Removed card styles from here */}
-          <Activity size={32} className="text-blue-400 animate-spin mx-auto mb-3" />
-          <p className="text-gray-400">Loading validator info...</p>
+        <div className="w-full text-center py-8">
+          <Activity size={36} className="text-purple-400 animate-spin mx-auto mb-4" />
+          <p className="text-gray-400 text-lg">Loading Validator Info...</p>
         </div>
       );
   }
   if (error) {
       return (
-        <div className="w-full text-center"> {/* Removed card styles from here */}
-          <AlertCircle size={32} className="text-red-400 mx-auto mb-3" />
-          <p className="text-red-400">Error: {error}</p>
+        <div className="w-full text-center py-8">
+          <AlertCircle size={36} className="text-red-400 mx-auto mb-4" />
+          <p className="text-red-400 text-lg">Error: {error}</p>
         </div>
       );
   }
   if (!info) {
       return (
-        <div className="w-full text-center"> {/* Removed card styles from here */}
-          <Info size={32} className="text-yellow-400 mx-auto mb-3" />
-          <p className="text-gray-500">Validator info not available.</p>
+        <div className="w-full text-center py-8">
+          <Info size={36} className="text-yellow-400 mx-auto mb-4" />
+          <p className="text-gray-500 text-lg">Validator info currently unavailable.</p>
         </div>
       );
   }
 
   return (
-    // Root div of this component no longer needs card styling (bg-gray-800, p-6, rounded-xl, shadow-2xl)
-    // as it's applied by the wrapper in App.jsx. It just needs w-full and text colors.
+    // Root div inherits card styling from App.jsx wrapper.
     <div className="w-full text-gray-200">
-      <h2 className="text-xl font-bold mb-4 text-center text-gray-100">Validator Pool Details</h2>
-      <div className="space-y-3 text-sm"> {/* Increased spacing a bit */}
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400 flex items-center gap-2"><Landmark size={16}/>Address:</span>
-          <a
-            href={`https://explorer.aptoslabs.com/account/${info.poolAddress}?network=mainnet`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono break-all text-right text-purple-400 hover:text-purple-300 transition-colors duration-150 flex items-center gap-1"
-          >
-            {`${info.poolAddress.substring(0, 6)}...${info.poolAddress.substring(info.poolAddress.length - 4)}`}
-            <ExternalLink size={12} />
-          </a>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400 flex items-center gap-2"><UserCircle size={16}/>Total Delegated:</span>
-          <span className="font-semibold text-gray-100">{info.delegated.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} APT</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400 flex items-center gap-2"><Info size={16}/>Commission:</span>
-          <span className="font-semibold text-gray-100">{info.commission.toFixed(2)} %</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400 flex items-center gap-2"><AprIcon size={16}/>Est. Net APR:</span>
-          <div className="text-right">
-            <span className="font-semibold text-lg text-green-400">{netApr ?? 'N/A'}%</span>
-            {grossApr !== null && (<p className="text-xs text-gray-500">(Gross: {grossApr}%)</p>)}
-          </div>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400 flex items-center gap-2"><Clock size={16}/>Pool Lockup Ends:</span>
-          <div className="text-right text-gray-300">
-            <span>{unlockDateString}</span>
-            {unlockTimestamp && remainingSeconds > 0 && (<span className="text-xs text-gray-500 ml-1">({unlockRemainingString})</span>)}
-            {unlockTimestamp && remainingSeconds <= 0 && (<span className="text-xs text-green-400 ml-1">(Unlocked)</span>)}
-          </div>
-        </div>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-100">Validator Pool Details</h2>
+      <div className="space-y-3">
+        <InfoRow
+            icon={Landmark}
+            label="Address"
+            value={`${info.poolAddress.substring(0, 8)}...${info.poolAddress.substring(info.poolAddress.length - 6)}`}
+            valueClasses="text-purple-300"
+            link={`https://explorer.aptoslabs.com/account/${info.poolAddress}?network=mainnet`}
+        />
+        <InfoRow
+            icon={Layers}
+            label="Total Delegated"
+            value={`${info.delegated.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} APT`}
+        />
+        <InfoRow
+            icon={Percent}
+            label="Commission"
+            value={`${info.commission.toFixed(2)} %`}
+        />
+        <InfoRow
+            icon={AprIcon}
+            label="Est. Net APR"
+            value={`${netApr ?? 'N/A'}%`}
+            valueClasses="font-bold text-xl text-green-400"
+            subValue={grossApr !== null ? `(Gross: ${grossApr}%)` : '(APR N/A)'}
+        />
+        <InfoRow
+            icon={Clock}
+            label="Pool Lockup Ends"
+            value={unlockDateString}
+            valueClasses="text-gray-300"
+            subValue={unlockTimestamp && remainingSeconds > 0 ? unlockRemainingString : (unlockTimestamp ? '(Unlocked)' : null)}
+        />
       </div>
 
+      {/* User Specific Info Section - Render only if account is connected */}
       {account && (
         <>
-          <hr className="my-5 border-t border-gray-700"/>
-          <h3 className="text-lg font-semibold mb-3 text-center text-gray-100">Your Stake</h3>
-          <div className="space-y-2 text-sm"> {/* Increased spacing a bit */}
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400">Active:</span>
-              <span className="font-semibold text-green-400">{userActiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400">Pending Inactive:</span>
-              <span className="font-semibold text-yellow-400">{userPendingInactiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400">Inactive (Withdrawable):</span>
-              <span className="font-semibold text-blue-400">{userInactiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT</span>
-            </div>
+          <hr className="my-6 border-t border-gray-700/60"/>
+          <h3 className="text-xl font-semibold mb-4 text-center text-gray-100">Your Stake</h3>
+          <div className="space-y-2.5 text-sm">
+            {/* Using CheckSquare icon here */}
+            <InfoRow
+                icon={CheckSquare}
+                label="Active"
+                value={`${userActiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                valueClasses="font-semibold text-green-400"
+                iconColor="text-green-400"
+            />
+            <InfoRow
+                icon={Hourglass}
+                label="Pending Inactive"
+                value={`${userPendingInactiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                valueClasses="font-semibold text-yellow-400"
+                iconColor="text-yellow-400"
+            />
+            <InfoRow
+                icon={Package}
+                label="Inactive (Withdrawable)"
+                value={`${userInactiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                valueClasses="font-semibold text-blue-400"
+                iconColor="text-blue-400"
+            />
           </div>
         </>
       )}
