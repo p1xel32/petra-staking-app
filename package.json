@@ -17,6 +17,8 @@
     "@aptos-labs/wallet-standard": "^0.3.1",
     "antd": "^5.24.9",
     "buffer": "^6.0.3",
+    "framer-motion": "^12.10.1",
+    "lucide-react": "^0.508.0",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
