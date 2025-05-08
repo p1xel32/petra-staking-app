@@ -34,7 +34,7 @@ To run this application on your local machine:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/p1xel32/petra-staking-app.git](https://github.com/p1xel32/petra-staking-app.git)
+    git clone https://github.com/p1xel32/petra-staking-app.git
     cd petra-staking-app
     ```
 
