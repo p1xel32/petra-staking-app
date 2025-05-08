@@ -3,7 +3,7 @@
 [![Vercel Deployment](https://img.shields.io/github/deployments/p1xel32/petra-staking-app/production?label=Vercel&logo=vercel&style=flat-square)](https://petra-staking-app.vercel.app/)
 [![GitHub License](https://img.shields.io/github/license/p1xel32/petra-staking-app?style=flat-square)](LICENSE) A simple, clean, and modern web interface for staking APT tokens on the Aptos blockchain. This application provides a user-friendly way to delegate your APT to a specific validator's delegation pool and manage your stake.
 
-**Live Application:** [**https://petra-staking-app.vercel.app/**](https://petra-staking-app.vercel.app/)
+**Live Application:** [**https://aptcore.one/**](https://aptcore.one/)
 
 *(This application is associated with the aptcore.one initiative/validator, providing a dedicated interface for its delegators. Replace/remove this line if not applicable).*
 
