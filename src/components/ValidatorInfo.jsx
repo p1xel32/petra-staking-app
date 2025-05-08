@@ -1,21 +1,17 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Aptos, Network } from '@aptos-labs/ts-sdk';
-// Added CheckSquare to the import list
-import { Landmark, Users, Percent, TrendingUp as AprIcon, Info, Clock, UserCircle, Activity, AlertCircle, CheckCircle2, ExternalLink, Package, Hourglass, Layers, CheckSquare } from 'lucide-react';
+import { Landmark, Users, Percent, TrendingUp as AprIcon, Info, Clock, Activity, AlertCircle, ExternalLink, Package, Hourglass, Layers, CheckSquare } from 'lucide-react';
 
-// Initialize Aptos client for Mainnet
 const client = new Aptos({
   network: Network.MAINNET,
 });
 
-// --- Configuration ---
 const VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 const FRAMEWORK_ADDRESS = '0x1';
 const STAKING_CONFIG_RESOURCE_TYPE = '0x1::staking_config::StakingConfig';
 const BLOCK_RESOURCE_TYPE = '0x1::block::BlockResource';
 const OCTAS_PER_APT = 100_000_000;
 
-// Helper function to format remaining seconds
 function formatRemainingTime(totalSeconds) {
   if (totalSeconds <= 0) return "Unlocked";
   const days = Math.floor(totalSeconds / (3600 * 24));
@@ -28,11 +24,10 @@ function formatRemainingTime(totalSeconds) {
   return parts.length > 0 ? `in ${parts.join(' ')}` : "Soon";
 }
 
-// Reusable component for displaying each row of information
 const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-semibold", link = null, subValue = null, iconColor = "text-purple-400" }) => (
   <div className="flex justify-between items-center py-2.5 border-b border-gray-700/60 last:border-b-0">
     <span className="text-gray-400 flex items-center text-sm">
-      {Icon && <Icon size={16} className={`mr-2 ${iconColor}`} />} {/* Icon with color */}
+      {Icon && <Icon size={16} className={`mr-2 ${iconColor}`} />}
       {label}:
     </span>
     {link ? (
@@ -42,7 +37,7 @@ const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-
     ) : (
       <div className="text-right">
         <span className={`text-sm ${valueClasses}`}>{value}</span>
-        {subValue && <p className="text-xs text-gray-500">{subValue}</p>}
+        {subValue && <p className="text-xs text-zinc-400">{subValue}</p>}
       </div>
     )}
   </div>
@@ -88,11 +83,15 @@ function ValidatorInfo({ account, refreshTrigger }) {
         let missing = [];
         if (!delegation) missing.push("DelegationPool"); if (!pool) missing.push("StakePool");
         if (!stakingConfigResource) missing.push(STAKING_CONFIG_RESOURCE_TYPE); if (!blockInfoResource) missing.push(BLOCK_RESOURCE_TYPE);
-        throw new Error(`Required resources not found: ${missing.join(', ')}. Verify paths.`);
+        throw new Error(`Required Aptos resources not found: ${missing.join(', ')}. Please check Aptos network status or resource paths.`);
       }
 
       const configData = stakingConfigResource;
       const blockData = blockInfoResource;
+
+      if (!delegation.data || !pool.data) {
+        throw new Error("Delegation pool or stake pool data is missing.");
+      }
 
       const totalCoins = BigInt(delegation.data.active_shares.total_coins);
       const delegatedAmountApt = Number(totalCoins) / OCTAS_PER_APT;
@@ -102,8 +101,12 @@ function ValidatorInfo({ account, refreshTrigger }) {
       const lockedUntilSecs = Number(pool.data.locked_until_secs);
       setUnlockTimestamp(lockedUntilSecs);
 
+      if (!configData || !blockData) {
+        throw new Error("Staking config or block resource data is missing after assignment.");
+      }
+
       if (configData.rewards_rate === undefined || configData.rewards_rate_denominator === undefined || blockData.epoch_interval === undefined) {
-         throw new Error(`Could not find required fields for APR. Verify names.`);
+         throw new Error(`Could not find required fields for APR calculation. Please check Aptos SDK documentation for current field names.`);
       }
       const rewardRate = BigInt(configData.rewards_rate);
       const denominator = BigInt(configData.rewards_rate_denominator);
@@ -118,7 +121,7 @@ function ValidatorInfo({ account, refreshTrigger }) {
           const scaledAnnualRateNumerator = rewardRate * epochsPerYear * scaleFactor;
           const scaledAnnualRateBasisPoints = scaledAnnualRateNumerator / denominator;
           calculatedGrossApr = Number(scaledAnnualRateBasisPoints) / 100;
-      } else { console.warn("Cannot calculate APR."); }
+      } else { console.warn("Cannot calculate Aptos APR due to zero denominator or epoch interval."); }
 
       let calculatedNetApr = null;
       if (calculatedGrossApr !== null) { calculatedNetApr = calculatedGrossApr * (1 - commissionRate); }
@@ -132,17 +135,17 @@ function ValidatorInfo({ account, refreshTrigger }) {
             setUserActiveStakeApt(Number(BigInt(userStakeResult[0])) / OCTAS_PER_APT);
             setUserInactiveStakeApt(Number(BigInt(userStakeResult[1])) / OCTAS_PER_APT);
             setUserPendingInactiveStakeApt(Number(BigInt(userStakeResult[2])) / OCTAS_PER_APT);
-        } else { console.warn("Unexpected user stake result format.", userStakeResult); }
+        } else { console.warn("Unexpected user stake result format from Aptos blockchain.", userStakeResult); }
       }
+
     } catch (err) {
-      console.error('Error in fetchUserAndPoolData:', err);
-      setError(err.message || 'Failed to fetch/process data');
+      console.error('Error fetching Aptos pool/user data:', err);
+      setError(err.message || 'Failed to fetch or process Aptos staking data');
     } finally { setLoading(false); }
-  }, [account]); // Removed fetchUserAndPoolData from here as it might cause issues with refreshTrigger logic
+  }, [account]);
 
   useEffect(() => {
     fetchUserAndPoolData();
-    // The effect depends on account, the memoized fetch function, and the refresh trigger
   }, [account, fetchUserAndPoolData, refreshTrigger]);
 
   const unlockDateString = unlockTimestamp ? new Date(unlockTimestamp * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
@@ -154,7 +157,7 @@ function ValidatorInfo({ account, refreshTrigger }) {
       return (
         <div className="w-full text-center py-8">
           <Activity size={36} className="text-purple-400 animate-spin mx-auto mb-4" />
-          <p className="text-gray-400 text-lg">Loading Validator Info...</p>
+          <p className="text-gray-400 text-lg">Loading Aptos Validator Info...</p>
         </div>
       );
   }
@@ -163,80 +166,80 @@ function ValidatorInfo({ account, refreshTrigger }) {
         <div className="w-full text-center py-8">
           <AlertCircle size={36} className="text-red-400 mx-auto mb-4" />
           <p className="text-red-400 text-lg">Error: {error}</p>
+          <p className="text-sm text-gray-500 mt-2">Could not load Aptos staking data. Please try again later.</p>
         </div>
       );
   }
-  if (!info) {
+   if (!info) {
       return (
         <div className="w-full text-center py-8">
           <Info size={36} className="text-yellow-400 mx-auto mb-4" />
-          <p className="text-gray-500 text-lg">Validator info currently unavailable.</p>
+          <p className="text-gray-500 text-lg">Aptos validator pool information is currently unavailable.</p>
         </div>
       );
   }
 
   return (
-    // Root div inherits card styling from App.jsx wrapper.
     <div className="w-full text-gray-200">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-100">Validator Pool Details</h2>
-      <div className="space-y-3">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-100">
+        aptcore.one Aptos Staking: Validator Pool Details
+      </h2>
+      <div className="space-y-3 mb-6">
         <InfoRow
             icon={Landmark}
-            label="Address"
+            label="Validator Pool Address"
             value={`${info.poolAddress.substring(0, 8)}...${info.poolAddress.substring(info.poolAddress.length - 6)}`}
             valueClasses="text-purple-300"
             link={`https://explorer.aptoslabs.com/account/${info.poolAddress}?network=mainnet`}
         />
         <InfoRow
             icon={Layers}
-            label="Total Delegated"
+            label="Total APT Delegated to Pool"
             value={`${info.delegated.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} APT`}
         />
         <InfoRow
             icon={Percent}
-            label="Commission"
+            label="Validator Commission Rate"
             value={`${info.commission.toFixed(2)} %`}
         />
         <InfoRow
             icon={AprIcon}
-            label="Est. Net APR"
+            label="Est. Net Aptos Staking APR"
             value={`${netApr ?? 'N/A'}%`}
             valueClasses="font-bold text-xl text-green-400"
-            subValue={grossApr !== null ? `(Gross: ${grossApr}%)` : '(APR N/A)'}
+            subValue={grossApr !== null ? `(Est. Gross Staking APR: ${grossApr}%)` : '(APR Currently Unavailable)'}
         />
         <InfoRow
             icon={Clock}
-            label="Pool Lockup Ends"
+            label="Pool Lockup Period Ends"
             value={unlockDateString}
             valueClasses="text-gray-300"
-            subValue={unlockTimestamp && remainingSeconds > 0 ? unlockRemainingString : (unlockTimestamp ? '(Unlocked)' : null)}
+            subValue={unlockTimestamp && remainingSeconds > 0 ? unlockRemainingString : (unlockTimestamp ? '(Unlocked - Ready for unstake/withdraw)' : null)}
         />
       </div>
 
-      {/* User Specific Info Section - Render only if account is connected */}
       {account && (
         <>
           <hr className="my-6 border-t border-gray-700/60"/>
-          <h3 className="text-xl font-semibold mb-4 text-center text-gray-100">Your Stake</h3>
+          <h3 className="text-xl font-semibold mb-4 text-center text-gray-100">Your Current Aptos (APT) Stake with aptcore.one</h3>
           <div className="space-y-2.5 text-sm">
-            {/* Using CheckSquare icon here */}
             <InfoRow
                 icon={CheckSquare}
-                label="Active"
+                label="Your Active APT Stake"
                 value={`${userActiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
                 valueClasses="font-semibold text-green-400"
                 iconColor="text-green-400"
             />
             <InfoRow
                 icon={Hourglass}
-                label="Pending Inactive"
+                label="APT Pending Unstake"
                 value={`${userPendingInactiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
                 valueClasses="font-semibold text-yellow-400"
                 iconColor="text-yellow-400"
             />
             <InfoRow
                 icon={Package}
-                label="Inactive (Withdrawable)"
+                label="APT Ready to Withdraw"
                 value={`${userInactiveStakeApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
                 valueClasses="font-semibold text-blue-400"
                 iconColor="text-blue-400"
