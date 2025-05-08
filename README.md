@@ -74,8 +74,7 @@ Staking involves risks, including potential smart contract vulnerabilities (alth
 
 ## 📜 License
 
-This project is open source. Consider adding a license file (e.g., MIT License). If you add one, update the badge at the top of this README.
-
+MIT License
 ---
 
 *Keywords: Aptos, Aptos Network, Staking, APT Staking, Delegate APT, Petra Wallet, Martian Wallet, Pontem Wallet, Aptos Wallet Adapter, Delegation Pool, Validator, Blockchain, Crypto, Web3, React, Vite, Tailwind CSS, aptcore.one*
