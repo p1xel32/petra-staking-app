@@ -5,7 +5,7 @@
 
 **Live Application:** [**https://aptcore.one/**](https://aptcore.one/)
 
-*(This application is associated with the aptcore.one initiative/validator, providing a dedicated interface for its delegators. Replace/remove this line if not applicable).*
+*This application is associated with the aptcore.one initiative/validator, providing a dedicated interface for its delegators.*
 
 Built with React, Vite, Tailwind CSS, `@aptos-labs/ts-sdk`, and `@aptos-labs/wallet-adapter-react`.
 
