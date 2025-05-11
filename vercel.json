@@ -8,5 +8,6 @@
       "source": "/blog/:path*",
       "destination": "https://aptcore-blog-r8uzz6ln0-p1xel32s-projects.vercel.app/blog/:path*"
     }
-  ]
+  ],
+  "outputDirectory": "dist"
 }
