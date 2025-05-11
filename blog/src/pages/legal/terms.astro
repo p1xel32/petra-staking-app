@@ -1,0 +1,50 @@
+---
+// blog/src/pages/blog/legal/terms.astro
+import Layout from '@layouts/Layout.astro';
+
+const pageTitle = "Terms of Use - aptcore.one Blog";
+const pageDescription = "Terms and conditions for using the aptcore.one blog and staking interface.";
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="py-8 md:py-12">
+    <header class="text-center mb-10 md:mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-white">
+        Terms of <span class="text-aptcore-purple">Use</span>
+      </h1>
+    </header>
+
+    <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
+      <p>These Terms of Use (“Terms”) govern your access to and use of the aptcore.one website, blog, and related services (the “Platform”). By using the Platform, you agree to be bound by these Terms. If you do not agree, you must stop using the Platform immediately.</p>
+
+      <h2>1. Platform Usage</h2>
+      <ul>
+        <li>Use the Platform only for lawful purposes and in accordance with applicable laws and these Terms.</li>
+        <li>You are solely responsible for ensuring that staking or other activities comply with your local regulations.</li>
+      </ul>
+
+      <h2>2. Staking Interface</h2>
+      <ul>
+        <li>aptcore.one provides a non-custodial interface to delegate Aptos (APT) tokens to our validator node.</li>
+        <li>We do not custody user assets. You maintain full control of your tokens at all times.</li>
+        <li>No guarantees are made regarding validator uptime, reward rates, or risk avoidance.</li>
+      </ul>
+
+      <h2>3. Intellectual Property</h2>
+      <p>All content on the Platform is the property of aptcore.one or its licensors. You may use the content for personal, non-commercial purposes only.</p>
+
+      <h2>4. No Warranties</h2>
+      <p>The Platform is provided “as is” and “as available.” We make no guarantees about accuracy, uptime, or uninterrupted service. See the <a href="/blog/legal/disclaimer">Disclaimer</a> for additional legal limitations.</p>
+
+      <h2>5. Liability Limitation</h2>
+      <p>To the extent permitted by law, we disclaim all liability for any losses, including indirect, incidental, or consequential damages.</p>
+
+      <h2>6. Terms Revisions</h2>
+      <p>These Terms may be updated at any time. Continued use after updates constitutes agreement to the revised terms.</p>
+
+      <h2>7. Governing Law</h2>
+      <p>These Terms are governed by the laws of the jurisdiction in which the operator of aptcore.one is established.</p>
+
+      <p><em>Last Updated: May 11, 2025</em></p>
+    </div>
+  </div>
+</Layout>

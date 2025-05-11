@@ -1,0 +1,28 @@
+---
+// blog/src/components/Footer.astro
+// Finalized footer for the blog.
+import { BLOG_BASE_URL, SITE_URL } from '../consts';
+const currentYear = new Date().getFullYear();
+---
+<footer class="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
+  <div class="container mx-auto px-4">
+    <nav class="mb-3 space-x-2 sm:space-x-4" aria-label="Footer navigation">
+      <a href={SITE_URL} class="hover:text-aptcore-purple transition-colors">Main App</a>
+      <span class="text-zinc-600" aria-hidden="true">|</span>
+      <a href={BLOG_BASE_URL} class="hover:text-aptcore-purple transition-colors">Blog</a>
+      <span class="text-zinc-600" aria-hidden="true">|</span>
+      <a href={`${BLOG_BASE_URL}/about`} class="hover:text-aptcore-purple transition-colors">About</a>
+      {/* Add other links like Contact, Disclaimer, Terms as they are created */}
+      {/*
+      <span class="text-zinc-600" aria-hidden="true">|</span>
+      <a href=`${BLOG_BASE_URL}/contact` class="hover:text-aptcore-purple transition-colors">Contact</a>
+      */}
+    </nav>
+    <div class="mb-3 text-xs space-x-2 sm:space-x-4">
+      <a href={`${BLOG_BASE_URL}/legal/disclaimer`} class="hover:text-aptcore-purple transition-colors">Disclaimer</a>
+      <span class="text-zinc-600" aria-hidden="true">|</span>
+      <a href={`${BLOG_BASE_URL}/legal/terms`} class="hover:text-aptcore-purple transition-colors">Terms of Use</a>
+    </div>
+    <p>&copy; {currentYear} aptcore.one — Secure Aptos (APT) Staking. Stake with confidence.</p>
+  </div>
+</footer>

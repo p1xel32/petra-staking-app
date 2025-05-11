@@ -1,0 +1,10 @@
+/* blog/src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base body styles are now applied directly to the <body> tag 
+  in your Layout.astro and BlogPost.astro files using Tailwind classes.
+  This file should primarily contain the @tailwind directives.
+  You can add other truly global, non-Tailwind utility styles here if absolutely necessary.
+*/

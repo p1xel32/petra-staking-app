@@ -1,0 +1,47 @@
+---
+// blog/src/pages/blog/legal/disclaimer.astro
+import Layout from '@layouts/Layout.astro';
+
+const pageTitle = "Disclaimer - aptcore.one Blog";
+const pageDescription = "Important disclaimers about staking and the aptcore.one platform.";
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="py-8 md:py-12">
+    <header class="text-center mb-10 md:mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-white">
+        Legal <span class="text-aptcore-purple">Disclaimer</span>
+      </h1>
+    </header>
+
+    <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
+      <p>The information on aptcore.one is provided for general informational purposes only. All content is offered in good faith, but without warranty of any kind — express or implied.</p>
+
+      <h2>Not Financial Advice</h2>
+      <p>Nothing on the Platform constitutes financial, investment, or legal advice. Users must do their own research (DYOR) and consult professionals before making financial decisions.</p>
+
+      <h2>Staking Risks</h2>
+      <p>By staking via aptcore.one, you acknowledge the inherent risks, including but not limited to:</p>
+      <ul>
+        <li><strong>Token volatility</strong></li>
+        <li><strong>Network slashing</strong></li>
+        <li><strong>Validator downtime</strong></li>
+        <li><strong>Smart contract vulnerabilities</strong></li>
+        <li><strong>Unbonding periods</strong></li>
+        <li><strong>Regulatory changes</strong></li>
+      </ul>
+
+      <h2>No Guarantees</h2>
+      <p>We cannot and do not guarantee uptime, APR, or reward consistency. Estimated rewards are based on fluctuating network conditions and historical data.</p>
+
+      <h2>External Links</h2>
+      <p>aptcore.one may contain third-party links. We do not endorse or assume responsibility for their content or security.</p>
+
+      <h2>Limitation of Liability</h2>
+      <p>We are not liable for any direct or indirect damages resulting from use of the Platform or participation in staking. This includes loss of funds, missed rewards, or service outages.</p>
+
+      <p>By using the Platform, you accept this disclaimer and assume full responsibility for your actions and assets.</p>
+
+      <p><em>Last Updated: May 11, 2025</em></p>
+    </div>
+  </div>
+</Layout>

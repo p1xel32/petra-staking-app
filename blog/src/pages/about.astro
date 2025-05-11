@@ -1,0 +1,59 @@
+---
+// blog/src/pages/about.astro
+import Layout from '@layouts/Layout.astro'; // Using path alias
+import { SITE_TITLE, SITE_URL } from '../consts'; // Assuming these are in your consts.ts
+
+const pageTitle = `About - ${SITE_TITLE || 'aptcore.one Blog'}`;
+const pageDescription = `Learn more about aptcore.one and our mission in the Aptos ecosystem.`;
+// Optional: specific social image for this page
+const socialImage = "/blog-assets/aptcore-about-social.jpg"; // Create this image in blog/public/blog-assets/
+---
+<Layout 
+  title={pageTitle} 
+  description={pageDescription}
+  image={socialImage}
+>
+  <div class="py-8 md:py-12">
+    <header class="text-center mb-10 md:mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-white">
+        About <span class="text-aptcore-purple">aptcore.one</span>
+      </h1>
+    </header>
+
+    {/* Apply prose styles for readable text content */}
+    <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
+      <p>
+        Welcome to aptcore.one! We are a dedicated team passionate about the Aptos blockchain 
+        and its potential to revolutionize decentralized applications. Our primary goal is to provide
+        a secure, reliable, and user-friendly staking service for Aptos (APT) token holders.
+      </p>
+      
+      <h2 class="text-3xl font-semibold text-white mt-10 mb-4">Our Mission</h2>
+      <p>
+        Our mission is to empower individuals to participate actively in the Aptos network's security 
+        and governance through staking. We strive to:
+      </p>
+      <ul>
+        <li><strong>Maximize Rewards:</strong> Offer competitive returns for our delegators through efficient validator operations.</li>
+        <li><strong>Ensure Security:</strong> Implement robust security measures to protect our infrastructure and, by extension, the network.</li>
+        <li><strong>Promote Transparency:</strong> Provide clear and honest information about staking, rewards, and our operations.</li>
+        <li><strong>Simplify Staking:</strong> Make the delegation process accessible and understandable for everyone, regardless of their technical expertise.</li>
+      </ul>
+
+      <h2 class="text-3xl font-semibold text-white mt-10 mb-4">Why Stake with Us?</h2>
+      <p>
+        Choosing aptcore.one means partnering with a team that values performance, security, and community. 
+        We are committed to the long-term success of the Aptos ecosystem and believe that staking is a vital 
+        part of that journey. Our main platform, <a href={SITE_URL} class="hover:underline">aptcore.one</a>, 
+        is designed to give you a seamless experience.
+      </p>
+      
+      <h2 class="text-3xl font-semibold text-white mt-10 mb-4">Get Involved</h2>
+      <p>
+        We encourage you to explore our blog for more guides and insights into Aptos staking. If you have
+        any questions or want to learn more, please don't hesitate to reach out. 
+        {/* You can add a link to a contact page or social media here */}
+      </p>
+    </div>
+  </div>
+</Layout>

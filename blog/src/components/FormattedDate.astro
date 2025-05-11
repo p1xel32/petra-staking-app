@@ -1,0 +1,40 @@
+---
+// src/components/FormattedDate.astro
+interface Props {
+	date: Date | string | undefined | null;
+}
+const { date } = Astro.props;
+
+let displayDate = '';
+let isoDate = '';
+
+if (date instanceof Date && !isNaN(date.getTime())) {
+	isoDate = date.toISOString();
+	displayDate = date.toLocaleDateString('en-us', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
+} else if (typeof date === 'string') {
+    const parsedDate = new Date(date);
+    if (!isNaN(parsedDate.getTime())) {
+        isoDate = parsedDate.toISOString();
+        displayDate = parsedDate.toLocaleDateString('en-us', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        });
+    } else {
+        console.warn(`FormattedDate: Invalid date string received: ${date}`);
+    }
+} else if (date) {
+    console.warn(`FormattedDate: Received unexpected date type: ${typeof date}`, date);
+}
+---
+{displayDate && isoDate ? (
+	<time datetime={isoDate}>
+		{displayDate}
+	</time>
+) : (
+    <span class="italic text-xs text-red-400">(Invalid Date)</span>
+)}
