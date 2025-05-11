@@ -1,13 +1,13 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/blog",
-      "destination": "https://aptcore-blog-r8uzz6ln0-p1xel32s-projects.vercel.app/blog"
+      "destination": "https://v0-aptos-staking.vercel.app/blog"
     },
     {
       "source": "/blog/:path*",
-      "destination": "https://aptcore-blog-r8uzz6ln0-p1xel32s-projects.vercel.app/blog/:path*"
+      "destination": "https://v0-aptos-staking.vercel.app/blog/:path*"
     }
-  ],
-  "outputDirectory": "dist"
+  ]
 }
