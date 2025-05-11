@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    {
+      "source": "/:path((?!blog/).*)",
+      "destination": "/blog/:path"
+    },
+    {
+      "source": "/",       
+      "destination": "/blog"
+    }
+  ]
+}
+
