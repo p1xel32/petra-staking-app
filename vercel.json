@@ -1,1 +1,12 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "https://v0-aptos-staking.vercel.app/blog"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://v0-aptos-staking.vercel.app/blog/:path*"
+    }
+  ]
+}
