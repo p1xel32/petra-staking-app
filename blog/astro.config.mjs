@@ -1,20 +1,23 @@
-// blog/astro.config.mjs
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap"; // Sitemap will generate root-relative URLs
-import react from "@astrojs/react";
+import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
+
+import remarkGfm from 'remark-gfm'; 
+import remarkSmartypants from 'remark-smartypants'; 
 
 export default defineConfig({
-  site: 'https://aptcore.one', // Still important for sitemap and OG tags (they should point to the final URL)
-  // base: '/blog', // REMOVED or COMMENTED OUT
-  trailingSlash: 'never', // Keep if it helps with Vercel
+  site: 'https://aptcore.one',
+  base: '/blog',
+  trailingSlash: 'never',
   integrations: [
-    mdx(),
-    tailwind({
-      applyBaseStyles: false, 
+    mdx({
+      remarkPlugins: [remarkGfm, remarkSmartypants],
+      rehypePlugins: [],
     }),
-    sitemap(), // This will now generate URLs like /my-post, /about, etc.
+    tailwind(),
+    sitemap(),
     react(),
   ],
 });

@@ -1,62 +1,24 @@
 ---
-// blog/src/components/BaseHead.astro
-// Contains common <head> elements like meta tags, title, favicons, etc.
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from '../consts'; // Assuming SITE_URL is your main domain root
-
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 export interface Props {
-	title?: string;
-	description?: string;
-	image?: string; // For OG image, path relative to /public or full URL
-	canonicalURL?: URL | string; // Canonical URL for the current page
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
 }
-
 const {
-	title = SITE_TITLE || "aptcore.one Blog",
-	description = SITE_DESCRIPTION || "News and insights from aptcore.one",
-	image = '/og-image.png', // Default social image, place in blog/public/
-    canonicalURL = new URL(Astro.url.pathname, Astro.site), // Astro.site includes the base
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = '/og-image.png',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site),
 } = Astro.props;
-
-// Construct full URL for social media images
-// Assumes 'image' prop is a path relative to the 'public' directory (e.g., /blog-assets/my-image.jpg)
-// or a full URL.
-const socialImageURL = image.startsWith('http') ? image : new URL(image, Astro.site).href;
-
-// Base path for favicons, considering Astro's `base` config
-const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g., /blog or empty string
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const socialImageURL = image.startsWith('http') ? image : new URL(base + image, 'https://aptcore.one').href;
 ---
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
-
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
-
-{/* Favicon Links - Assuming files are in blog/public/ */}
-{/* Astro will automatically prepend the 'base' path to these root-relative URLs */}
+<meta property="og:image" content={socialImageURL} />
 <link rel="icon" href={`${base}/favicon.ico`} sizes="any" />
 <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
-{/* You can also add a manifest.json if you have one */}
-{/* <link rel="manifest" href="/manifest.webmanifest" /> */}
-
-{/* Open Graph / Facebook Meta Tags */}
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonicalURL} />
-<meta property="og:image" content={socialImageURL} />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content={SITE_TITLE || "aptcore.one"} />
-
-{/* Twitter Card Meta Tags */}
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={canonicalURL} />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={socialImageURL} />
-
-{/* Google Font for Space Grotesk */}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">

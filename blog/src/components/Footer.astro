@@ -1,22 +1,22 @@
 ---
-// blog/src/components/Footer.astro
 import { SITE_URL } from '../consts';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const currentYear = new Date().getFullYear();
 ---
-<footer class="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
-  <div class="container mx-auto px-4">
-    <nav class="mb-3 space-x-2 sm:space-x-4" aria-label="Footer navigation">
-      <a href={SITE_URL} class="hover:text-aptcore-purple transition-colors">Main App</a>
-      <span class="text-zinc-600" aria-hidden="true">|</span>
-      <a href="/" class="hover:text-aptcore-purple transition-colors">Blog</a> {/* Root of the blog */}
-      <span class="text-zinc-600" aria-hidden="true">|</span>
-      <a href="/about" class="hover:text-aptcore-purple transition-colors">About</a>
-    </nav>
-    <div class="mb-3 text-xs space-x-2 sm:space-x-4">
-      <a href="/legal/disclaimer" class="hover:text-aptcore-purple transition-colors">Disclaimer</a>
-      <span class="text-zinc-600" aria-hidden="true">|</span>
-      <a href="/legal/terms" class="hover:text-aptcore-purple transition-colors">Terms of Use</a>
-    </div>
-    <p>&copy; {currentYear} aptcore.one — Secure Aptos (APT) Staking. Stake with confidence.</p>
-  </div>
+<footer class="bg-brand-bg-dark text-brand-text-secondary border-t border-white/10 py-8 text-center px-4 sm:px-6 lg:px-8">
+  <nav class="mb-4 space-x-4 text-sm sm:text-base">
+    <a href={SITE_URL} class="hover:text-aptcore-purple transition-colors">Main App</a>
+    <span class="text-zinc-500">|</span>
+    <a href="/blog" class="hover:text-aptcore-purple transition-colors">Blog</a>
+    <span class="text-zinc-500">|</span>
+    <a href="/blog/about" class="hover:text-aptcore-purple transition-colors">About</a>
+  </nav>
+  <nav class="mb-4 space-x-4 text-sm">
+    <a href="/blog/legal/disclaimer" class="hover:text-aptcore-purple transition-colors">Disclaimer</a>
+    <span class="text-zinc-500">|</span>
+    <a href="/blog/legal/terms" class="hover:text-aptcore-purple transition-colors">Terms of Use</a>
+  </nav>
+  <p class="text-xs text-zinc-500">
+    © {currentYear} aptcore.one — Secure Aptos (APT) Staking.
+  </p>
 </footer>
