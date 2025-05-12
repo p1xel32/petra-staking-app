@@ -1,14 +1,17 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
     {
-      "trailingSlash": false,
-      "rewrites": [
-        {
-          "source": "/blog",
-          "destination": "https://v0-aptos-staking.vercel.app"
-        },
-        {
-          "source": "/blog/:path*",
-          "destination": "https://v0-aptos-staking.vercel.app/:path*"
-        }
-      ]
+      "source": "/blog/_astro/:path*",
+      "destination": "https://v0-aptos-staking.vercel.app/_astro/:path*"
+    },
+    {
+      "source": "/blog",
+      "destination": "https://v0-aptos-staking.vercel.app"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://v0-aptos-staking.vercel.app/:path*"
     }
-    
+  ]
+}
