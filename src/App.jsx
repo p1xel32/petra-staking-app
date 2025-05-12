@@ -1,5 +1,5 @@
 // Main React Application File (e.g., src/App.jsx)
-// Version with the "STAKE APT NOW" button removed for a simpler wallet connection flow.
+// Final version with updated links in Header and Footer to the blog and its pages.
 
 import React, { useState, useCallback } from 'react';
 // Ensure paths to your components are correct
@@ -13,6 +13,9 @@ import aptcoreLogoUrl from './assets/aptcore-logo.svg'; // Path to your logo
 
 // --- Header Component ---
 const AppHeader = () => {
+  const BLOG_URL = "/blog"; // Relative path to the blog's homepage
+  const ABOUT_URL_BLOG = "/blog/about"; // Relative path to the blog's About page
+
   return (
     <header className="w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
       <a
@@ -32,7 +35,23 @@ const AppHeader = () => {
           <span>one</span>
         </h1>
       </a>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-3 sm:space-x-4"> {/* Adjusted spacing */}
+        <a
+          href={BLOG_URL}
+          className="text-sm sm:text-base font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Blog
+        </a>
+        <a
+          href={ABOUT_URL_BLOG}
+          className="text-sm sm:text-base font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          About
+        </a>
         <WalletSelector /> {/* Wallet connection button / selector */}
       </div>
     </header>
@@ -42,13 +61,23 @@ const AppHeader = () => {
 // --- Footer Component ---
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
+  const BLOG_BASE_URL = "/blog"; // Base path for blog pages
 
   return (
     <footer className="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
       <div className="container mx-auto px-4">
         <nav className="mb-3 space-x-2 sm:space-x-4" aria-label="Footer navigation">
           <a href="/" className="hover:text-purple-400 transition-colors">Main App</a>
+          <span className="text-zinc-600" aria-hidden="true">|</span>
+          <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Blog</a>
+          <span className="text-zinc-600" aria-hidden="true">|</span>
+          <a href={`${BLOG_BASE_URL}/about`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">About</a>
         </nav>
+        <div className="mb-3 text-xs space-x-2 sm:space-x-4">
+          <a href={`${BLOG_BASE_URL}/legal/disclaimer`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Disclaimer</a>
+          <span className="text-zinc-600" aria-hidden="true">|</span>
+          <a href={`${BLOG_BASE_URL}/legal/terms`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+        </div>
         <p>&copy; {currentYear} aptcore.one — Secure Aptos (APT) Staking. Stake with confidence.</p>
       </div>
     </footer>
@@ -58,22 +87,14 @@ const AppFooter = () => {
 // --- Main App Component ---
 function App() {
   const {
-    account,    // Information about the connected account
-    connected,  // Boolean status of connection
-    wallet,     // Information about the connected wallet adapter
+    account,    
+    connected,  
+    wallet,     
   } = useWallet();
-
-  // Diagnostic logs - can be removed or commented out for production
-  console.log('--- Wallet Adapter Status (App Component Body) ---');
-  console.log('Wallet object:', wallet);
-  console.log('Connected status:', connected);
-  console.log('Account:', account);
-  console.log('-------------------------------------------------');
-
+  
   const userAccountAddress = account?.address ? account.address.toString() : null;
-  const [refreshCounter, setRefreshCounter] = useState(0); // Used to trigger data refresh in child components
+  const [refreshCounter, setRefreshCounter] = useState(0); 
 
-  // Callback to trigger refresh, passed to StakeUnstakeControls
   const triggerRefresh = useCallback(() => {
     setRefreshCounter(prev => prev + 1);
   }, []);
@@ -83,7 +104,6 @@ function App() {
       <AppHeader />
 
       <main className="flex flex-col items-center px-4 py-10">
-        {/* Introductory text section */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,8 +118,7 @@ function App() {
           </p>
         </motion.div>
 
-        {/* Main content area for staking info and controls */}
-        <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section"> {/* ID for potential scrolling targets */}
+        <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,7 +128,6 @@ function App() {
             <ValidatorInfo account={userAccountAddress} refreshTrigger={refreshCounter} />
           </motion.div>
 
-          {/* Conditional rendering based on wallet connection status */}
           {connected && userAccountAddress ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -129,7 +147,6 @@ function App() {
               <h2 className="text-2xl font-semibold mb-3 text-gray-100">Ready to Earn Aptos Staking Rewards?</h2>
               <p className="text-base text-zinc-300 mb-4">
                 Connect your Aptos wallet to aptcore.one. It's the first step to stake your APT, manage your delegation with our validator pool, and start accumulating Aptos staking rewards. We support a variety of Aptos wallets.
-                {/* User will use the "Connect Wallet" button in the header to connect. */}
               </p>
             </motion.div>
           )}
