@@ -13,8 +13,6 @@ import aptcoreLogoUrl from './assets/aptcore-logo.svg'; // Path to your logo
 
 // --- Header Component ---
 const AppHeader = () => {
-  const BLOG_URL = "/blog"; // Example external link
-
   return (
     <header className="w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
       <a
@@ -35,14 +33,6 @@ const AppHeader = () => {
         </h1>
       </a>
       <div className="flex items-center space-x-4">
-        <a
-          href={BLOG_URL}
-          className="text-sm sm:text-base font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md"
-          target="_blank"
-          rel="noopener noreferrer" // Important for security when using target="_blank"
-        >
-          Blog
-        </a>
         <WalletSelector /> {/* Wallet connection button / selector */}
       </div>
     </header>
@@ -52,23 +42,13 @@ const AppHeader = () => {
 // --- Footer Component ---
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
-  const BLOG_BASE_URL = "/blog";
 
   return (
     <footer className="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
       <div className="container mx-auto px-4">
         <nav className="mb-3 space-x-2 sm:space-x-4" aria-label="Footer navigation">
           <a href="/" className="hover:text-purple-400 transition-colors">Main App</a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Blog</a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={`${BLOG_BASE_URL}/about`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">About</a>
         </nav>
-        <div className="mb-3 text-xs space-x-2 sm:space-x-4">
-          <a href={`${BLOG_BASE_URL}/legal/disclaimer`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Disclaimer</a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={`${BLOG_BASE_URL}/legal/terms`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Terms of Use</a>
-        </div>
         <p>&copy; {currentYear} aptcore.one — Secure Aptos (APT) Staking. Stake with confidence.</p>
       </div>
     </footer>
