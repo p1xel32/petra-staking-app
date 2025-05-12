@@ -1,18 +1,16 @@
 ---
 // blog/src/components/Header.astro
-import { BLOG_BASE_URL, SITE_URL } from '../consts';
+import { SITE_URL, BLOG_CANONICAL_ROOT } from '../consts';
 
-// The logo path assumes aptcore-logo.svg is in blog/public/
-// Since 'base' is '/blog', Astro expects the URL to include it.
-const logoUrl = "/blog/aptcore-logo.svg"; 
+const logoUrl = "/aptcore-logo.svg"; // Path from blog/public/
 
 const navLinks = [
-  { href: SITE_URL, text: "Main App" }, 
-  { href: BLOG_BASE_URL, text: "Blog" },
-  // { href: `${BLOG_BASE_URL}/about`, text: "About" }, 
+  { href: SITE_URL, text: "Main App" }, // Absolute URL to main app
+  { href: "/", text: "Blog Home" },      // Root of the blog (will be /blog on main site)
+  { href: "/about", text: "About" },   // Will be /blog/about on main site
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname; // This will be relative to the blog's root (e.g., / or /my-post)
 ---
 <header class="w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md sticky top-0 z-50">
   <nav class="container mx-auto max-w-5xl flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
@@ -23,33 +21,35 @@ const currentPath = Astro.url.pathname;
     >
       <h1 class="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline text-aptcore-purple">
         <span>aptcore</span>
-        <img
-          src={logoUrl} 
-          alt="aptcore.one logo separator"
-          class="h-4 w-4 sm:h-5 sm:w-5 mx-1 relative top-px"
-          aria-hidden="true"
-          width="20" height="20"
-        />
+        <img src={logoUrl} alt="aptcore.one logo separator" class="h-4 w-4 sm:h-5 sm:w-5 mx-1 relative top-px" aria-hidden="true" width="20" height="20"/>
         <span>one</span>
       </h1>
     </a>
     
-    <div class="flex items-center space-x-4 sm:space-x-6">
-      {navLinks.map(link => (
-        <a 
-          href={link.href} 
-          class:list={[
-            "text-sm sm:text-base font-medium hover:text-aptcore-purple transition-colors duration-150",
-            // User's preferred active link logic
-            (currentPath === link.href || (link.href === BLOG_BASE_URL && currentPath.startsWith(BLOG_BASE_URL))) 
-              ? "text-aptcore-purple" 
-              : "text-brand-text-secondary"
-          ]}
-          aria-current={currentPath === link.href ? "page" : undefined}
-        >
-          {link.text}
-        </a>
-      ))}
+    <div class="flex items-center space-x-3 sm:space-x-5">
+      {navLinks.map(link => {
+        // For links internal to the blog, ensure they are root-relative for Astro
+        // For "Main App", it's an absolute URL.
+        const isBlogLink = !link.href.startsWith('http');
+        const isActive = isBlogLink 
+          ? (currentPath === link.href || (currentPath === '/' && link.href === '/')) // Handle root specifically
+          : false; 
+
+        return (
+          <a 
+            href={isBlogLink ? link.href : link.href} // Astro handles root-relative links correctly
+            class:list={[
+              "text-sm sm:text-base font-medium hover:text-aptcore-purple transition-colors duration-150 px-1.5 py-1 rounded-md",
+              isActive ? "text-aptcore-purple font-semibold" : "text-brand-text-secondary"
+            ]}
+            aria-current={isActive ? "page" : undefined}
+            target={!isBlogLink ? "_blank" : undefined} // Open external links in new tab
+            rel={!isBlogLink ? "noopener noreferrer" : undefined}
+          >
+            {link.text}
+          </a>
+        )
+      })}
     </div>
   </nav>
 </header>

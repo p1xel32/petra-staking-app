@@ -1,13 +1,14 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
     {
-      "source": "/blog",
-      "destination": "https://v0-aptos-staking.vercel.app/blog"
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "https://v0-aptos-staking.vercel.app/blog/:path*"
+      "trailingSlash": false,
+      "rewrites": [
+        {
+          "source": "/blog",
+          "destination": "https://v0-aptos-staking.vercel.app"
+        },
+        {
+          "source": "/blog/:path*",
+          "destination": "https://v0-aptos-staking.vercel.app/:path*"
+        }
+      ]
     }
-  ]
-}
+    

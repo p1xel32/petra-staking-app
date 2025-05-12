@@ -8,7 +8,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/blog'
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); 
 ---
 <Layout 
     title={`Blog - ${SITE_TITLE || 'aptcore.one'}`} 
@@ -31,11 +31,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/blog'
 				{posts.map((post) => (
 					<li class="group bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] 
                                hover:border-aptcore-purple/70 transition-all duration-300 ease-in-out flex flex-col overflow-hidden">
-						<a href={`${base}/${post.slug}/`} class="block flex-grow flex flex-col"> 
+						{/* CORRECTED LINK: Removed trailing slash from href */}
+						<a href={`${base}/${post.slug}`} class="block flex-grow flex flex-col"> 
 							{post.data.heroImage && (
 								<div class="w-full h-48 sm:h-56 overflow-hidden">
 									<img 
-										src={`${base}${post.data.heroImage.startsWith('/') ? '' : '/'}${post.data.heroImage}`}
+										src={`${base}${post.data.heroImage.startsWith('/') ? '' : '/'}${post.data.heroImage}`} 
 										alt={`Cover image for ${post.data.title}`}
 										width={720}
 										height={360}

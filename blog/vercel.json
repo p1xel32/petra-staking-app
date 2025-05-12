@@ -1,0 +1,14 @@
+    {
+      "trailingSlash": false,
+      "rewrites": [
+        {
+          "source": "/",
+          "destination": "/blog" 
+        },
+        {
+          "source": "/:path((?!blog/|_astro/).*)", 
+          "destination": "/blog/:path"
+        }
+      ]
+    }
+    
