@@ -1,13 +1,21 @@
 ---
-// blog/src/pages/[...slug].astro
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BlogPostLayout from '../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
   const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.slug }, 
-    props: post, 
+  const visiblePosts = posts.filter(post => {
+    const pubDate = new Date(post.data.pubDate);
+    pubDate.setHours(0, 0, 0, 0);
+    return pubDate <= now;
+  });
+
+  return visiblePosts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
   }));
 }
 
