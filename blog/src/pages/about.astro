@@ -1,26 +1,31 @@
 ---
 // blog/src/pages/about.astro
 import Layout from '@layouts/Layout.astro'; // Using path alias
-import { SITE_TITLE, SITE_URL } from '../consts'; // Assuming these are in your consts.ts
+import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../consts'; // Your site constants
 
 const pageTitle = `About - ${SITE_TITLE || 'aptcore.one Blog'}`;
-const pageDescription = `Learn more about aptcore.one and our mission in the Aptos ecosystem.`;
-// Optional: specific social image for this page
-const socialImage = "/blog-assets/aptcore-about-social.jpg"; // Create this image in blog/public/blog-assets/
+const pageDescription = `Learn more about aptcore.one, our mission in the Aptos ecosystem, and the team behind this staking platform. ${SITE_DESCRIPTION || ''}`;
+// Optional: Define a specific social media image for this page
+// Create this image in blog/public/blog-assets/
+const socialImage = "/blog-assets/aptcore-about-og.jpg"; 
 ---
 <Layout 
   title={pageTitle} 
   description={pageDescription}
   image={socialImage}
 >
-  <div class="py-8 md:py-12">
+  <div class="py-10 md:py-16"> {/* Page padding */}
     <header class="text-center mb-10 md:mb-14">
-      <h1 class="text-4xl md:text-5xl font-bold text-white">
+      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
         About <span class="text-aptcore-purple">aptcore.one</span>
       </h1>
+      <p class="text-lg md:text-xl text-brand-text-secondary mt-4 max-w-2xl mx-auto">
+        Your trusted partner for secure and efficient Aptos (APT) staking.
+      </p>
     </header>
 
-    {/* Apply prose styles for readable text content */}
+    {/* Apply prose styles for readable text content. */}
+    {/* max-w-3xl and mx-auto will center the content column. */}
     <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
       <p>
         Welcome to aptcore.one! We are a dedicated team passionate about the Aptos blockchain 
@@ -28,29 +33,29 @@ const socialImage = "/blog-assets/aptcore-about-social.jpg"; // Create this imag
         a secure, reliable, and user-friendly staking service for Aptos (APT) token holders.
       </p>
       
-      <h2 class="text-3xl font-semibold text-white mt-10 mb-4">Our Mission</h2>
+      <h2>Our Mission</h2> {/* Tailwind Typography will style this h2 */}
       <p>
-        Our mission is to empower individuals to participate actively in the Aptos network's security 
+        Our core mission is to empower individuals to participate actively in the Aptos network's security 
         and governance through staking. We strive to:
       </p>
       <ul>
         <li><strong>Maximize Rewards:</strong> Offer competitive returns for our delegators through efficient validator operations.</li>
-        <li><strong>Ensure Security:</strong> Implement robust security measures to protect our infrastructure and, by extension, the network.</li>
-        <li><strong>Promote Transparency:</strong> Provide clear and honest information about staking, rewards, and our operations.</li>
+        <li><strong>Ensure Security:</strong> Implement robust security measures and best practices to safeguard our infrastructure and, by extension, the network.</li>
+        <li><strong>Promote Transparency:</strong> Provide clear, honest information about staking mechanics, reward structures (APR vs. APY), and our operational performance. We believe an informed delegator is an empowered delegator.</li>
         <li><strong>Simplify Staking:</strong> Make the delegation process accessible and understandable for everyone, regardless of their technical expertise.</li>
       </ul>
 
-      <h2 class="text-3xl font-semibold text-white mt-10 mb-4">Why Stake with Us?</h2>
+      <h2>Why Stake with Us?</h2>
       <p>
         Choosing aptcore.one means partnering with a team that values performance, security, and community. 
         We are committed to the long-term success of the Aptos ecosystem and believe that staking is a vital 
-        part of that journey. Our main platform, <a href={SITE_URL} class="hover:underline">aptcore.one</a>, 
+        part of that journey. Our main platform, <a href={SITE_URL} target="_blank" rel="noopener noreferrer">aptcore.one</a>, 
         is designed to give you a seamless experience.
       </p>
       
-      <h2 class="text-3xl font-semibold text-white mt-10 mb-4">Get Involved</h2>
+      <h2>Get Involved</h2>
       <p>
-        We encourage you to explore our blog for more guides and insights into Aptos staking. If you have
+        We encourage you to explore our blog for more guides, news, and insights into Aptos staking. If you have
         any questions or want to learn more, please don't hesitate to reach out. 
         {/* You can add a link to a contact page or social media here */}
       </p>
