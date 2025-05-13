@@ -1,99 +1,28 @@
-// Main React Application File (e.g., src/App.jsx)
-// Final version with updated links in Header and Footer to the blog and its pages.
+import React, { useState, useCallback, Suspense, lazy } from 'react';
+import { WalletSelector } from '@aptos-labs/wallet-adapter-ant-design';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { motion } from 'framer-motion';
 
-import React, { useState, useCallback } from 'react';
-// Ensure paths to your components are correct
-import ValidatorInfo from './components/ValidatorInfo';
-import StakeUnstakeControls from './components/StakeUnstakeControls';
-import './index.css'; // Your main app's global styles
-import { WalletSelector } from '@aptos-labs/wallet-adapter-ant-design'; // UI component for wallet selection
-import { useWallet } from '@aptos-labs/wallet-adapter-react'; // Core wallet adapter hook
-import { motion } from 'framer-motion'; // For animations
-import aptcoreLogoUrl from './assets/aptcore-logo.svg'; // Path to your logo
+import AppHeader from './components/Layout/AppHeader';
+import AppFooter from './components/Layout/AppFooter';
 
-// --- Header Component ---
-const AppHeader = () => {
-  const BLOG_URL = "/blog"; // Relative path to the blog's homepage
-  const ABOUT_URL_BLOG = "/blog/about"; // Relative path to the blog's About page
+const ValidatorInfo = lazy(() => import('./components/ValidatorInfo'));
+const StakeUnstakeControls = lazy(() => import('./components/StakeUnstakeControls'));
 
-  return (
-    <header className="w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
-      <a
-        href="/"
-        className="flex items-baseline focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1"
-        aria-label="aptcore.one homepage"
-      >
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline text-purple-400">
-          <span>aptcore</span>
-          <img
-            src={aptcoreLogoUrl}
-            alt="aptcore.one logo separator"
-            className="h-4 w-4 sm:h-5 sm:w-5 mx-1 relative top-px"
-            aria-hidden="true"
-            width="20" height="20"
-          />
-          <span>one</span>
-        </h1>
-      </a>
-      <div className="flex items-center space-x-3 sm:space-x-4"> {/* Adjusted spacing */}
-        <a
-          href={BLOG_URL}
-          className="text-sm sm:text-base font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Blog
-        </a>
-        <a
-          href={ABOUT_URL_BLOG}
-          className="text-sm sm:text-base font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          About
-        </a>
-        <WalletSelector /> {/* Wallet connection button / selector */}
-      </div>
-    </header>
-  );
-};
+import './index.css';
 
-// --- Footer Component ---
-const AppFooter = () => {
-  const currentYear = new Date().getFullYear();
-  const BLOG_BASE_URL = "/blog"; // Base path for blog pages
+const WidgetSkeleton = ({ height = 'h-48' }) => (
+  <div className={`w-full bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)] animate-pulse ${height}`}>
+    <div className="h-6 bg-gray-500/30 rounded w-3/4 mb-4"></div>
+    <div className="h-4 bg-gray-500/30 rounded w-1/2 mb-2"></div>
+    <div className="h-4 bg-gray-500/30 rounded w-5/6"></div>
+  </div>
+);
 
-  return (
-    <footer className="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
-      <div className="container mx-auto px-4">
-        <nav className="mb-3 space-x-2 sm:space-x-4" aria-label="Footer navigation">
-          <a href="/" className="hover:text-purple-400 transition-colors">Main App</a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Blog</a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={`${BLOG_BASE_URL}/about`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">About</a>
-        </nav>
-        <div className="mb-3 text-xs space-x-2 sm:space-x-4">
-          <a href={`${BLOG_BASE_URL}/legal/disclaimer`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Disclaimer</a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={`${BLOG_BASE_URL}/legal/terms`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Terms of Use</a>
-        </div>
-        <p>&copy; {currentYear} aptcore.one — Secure Aptos (APT) Staking. Stake with confidence.</p>
-      </div>
-    </footer>
-  );
-};
-
-// --- Main App Component ---
 function App() {
-  const {
-    account,    
-    connected,  
-    wallet,     
-  } = useWallet();
-  
+  const { account, connected } = useWallet();
   const userAccountAddress = account?.address ? account.address.toString() : null;
-  const [refreshCounter, setRefreshCounter] = useState(0); 
+  const [refreshCounter, setRefreshCounter] = useState(0);
 
   const triggerRefresh = useCallback(() => {
     setRefreshCounter(prev => prev + 1);
@@ -119,24 +48,28 @@ function App() {
         </motion.div>
 
         <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="w-full bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-          >
-            <ValidatorInfo account={userAccountAddress} refreshTrigger={refreshCounter} />
-          </motion.div>
-
-          {connected && userAccountAddress ? (
+          <Suspense fallback={<WidgetSkeleton height="h-48" />}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="w-full bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="w-full"
             >
-              <StakeUnstakeControls account={userAccountAddress} onTransactionSuccess={triggerRefresh} />
+              <ValidatorInfo account={userAccountAddress} refreshTrigger={refreshCounter} />
             </motion.div>
+          </Suspense>
+
+          {connected && userAccountAddress ? (
+            <Suspense fallback={<WidgetSkeleton height="h-64" />}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="w-full"
+              >
+                <StakeUnstakeControls account={userAccountAddress} onTransactionSuccess={triggerRefresh} />
+              </motion.div>
+            </Suspense>
           ) : (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
