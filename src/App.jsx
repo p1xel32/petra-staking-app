@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import AppHeader from './components/Layout/AppHeader';
 import AppFooter from './components/Layout/AppFooter';
 
+import StructuredData from './components/StructuredData';
+
 const ValidatorInfo = lazy(() => import('./components/ValidatorInfo'));
 const StakeUnstakeControls = lazy(() => import('./components/StakeUnstakeControls'));
 
@@ -30,6 +32,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans">
+      <StructuredData />
       <AppHeader />
 
       <main className="flex flex-col items-center px-4 py-10">
