@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { WalletSelector } from '@aptos-labs/wallet-adapter-ant-design';
-import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
+import aptcoreLogoUrl from '../../assets/aptcore-logo.svg'; // Make sure this path is correct
 
 const AppHeader = () => {
   const BLOG_URL = "/blog";
   const ABOUT_URL_BLOG = "/blog/about";
+  const CONTACT_URL_BLOG = "/blog/contact"; // Added contact URL
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
 
-  const breakpoint = 'md';
+  const breakpoint = 'md'; // Assuming 'md' is your desired breakpoint prefix
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -40,7 +41,7 @@ const AppHeader = () => {
     <header className={`relative w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50`}>
       <div className={`flex items-center gap-x-2 ${breakpoint}:gap-x-3`}>
         <a
-          href="/"
+          href="/" // Main app link
           className="flex-shrink-0 flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1"
           aria-label="aptcore.one homepage"
         >
@@ -51,14 +52,15 @@ const AppHeader = () => {
           </h1>
         </a>
 
+        {/* Mobile Menu Toggle Button */}
         <div className={`${breakpoint}:hidden`}>
           <button
             ref={toggleButtonRef}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"} // Close/Open menu
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
-            className="text-zinc-300 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 flex items-center justify-center transform -translate-y-[4px]" // ИЗМЕНЕНИЕ: Увеличен сдвиг вверх
+            className="text-zinc-300 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 flex items-center justify-center transform -translate-y-[2px]" // Adjusted translate-y if needed
           >
             {isMobileMenuOpen ? (
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -68,6 +70,7 @@ const AppHeader = () => {
           </button>
         </div>
 
+        {/* Desktop Navigation Links */}
         <div className={`hidden ${breakpoint}:flex items-center gap-x-2 ${breakpoint}:gap-x-3`}>
           <a
             href={BLOG_URL}
@@ -85,13 +88,23 @@ const AppHeader = () => {
           >
             About
           </a>
+          <a
+            href={CONTACT_URL_BLOG} // Added Contact link
+            className={`text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contact
+          </a>
         </div>
       </div>
 
+      {/* Wallet Selector */}
       <div className="flex-shrink-0">
            <WalletSelector />
       </div>
 
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div
           id="mobile-menu"
@@ -116,6 +129,15 @@ const AppHeader = () => {
               onClick={handleMobileLinkClick}
             >
               About
+            </a>
+            <a
+              href={CONTACT_URL_BLOG} // Added Contact link
+              className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-3 px-3 rounded-md transition-colors duration-150"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleMobileLinkClick}
+            >
+              Contact
             </a>
           </nav>
         </div>

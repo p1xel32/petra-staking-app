@@ -1,0 +1,108 @@
+---
+// blog/src/pages/contact.astro
+import Layout from '@layouts/Layout.astro'; // Using path alias
+import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../consts'; // Your site constants
+
+const pageTitle = `Contact Us - ${SITE_TITLE || 'aptcore.one Blog'}`;
+const pageDescription = `Get in touch with the aptcore.one team. We're here to answer your questions about Aptos (APT) staking, our services, or any other inquiries.`;
+const socialImage = "/blog-assets/aptcore-contact-og.jpg"; // Replace with your actual image or omit
+
+// Contact & Page Specific Variables
+const contactEmail = "hello@aptcore.one";
+const blogUrl = `${SITE_URL || 'https://aptcore.one'}/blog`;
+const youtubeChannelUrl = "https://www.youtube.com/@aptcoreone"; // As previously confirmed by you
+const youtubeChannelName = "aptcore.one YouTube"; // You can change this display name if needed
+
+// Variables for JSON-LD Schema Markup
+const orgName = "aptcore.one";
+const orgLogoUrl = "https://aptcore.one/blog/aptcore-logo.svg"; // Updated with specific URL
+const orgAreaServed = ["US"];
+const orgAvailableLanguages = ["English"];
+const contactPointType = "customer support"; // Or "technical support", "sales", "general inquiry"
+
+// Construct the JSON-LD data
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": orgName,
+  "url": SITE_URL || 'https://aptcore.one', // This should be your main site URL
+  "logo": orgLogoUrl,
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": contactPointType,
+      "email": contactEmail,
+      "areaServed": orgAreaServed,
+      "availableLanguage": orgAvailableLanguages
+      // You can add "telephone": "+1-XXX-XXX-XXXX" if you have one
+    }
+  ],
+  "sameAs": [
+    youtubeChannelUrl
+    // Add other official social media profile URLs here if available
+    // e.g., "https://x.com/yourprofile", "https://linkedin.com/company/yourcompany"
+  ].filter(url => url) // Filters out any undefined/empty URLs
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  image={socialImage}
+>
+  {/* JSON-LD Schema Markup Script */}
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} />
+
+  <div class="py-10 md:py-16"> {/* Page padding */}
+    <header class="text-center mb-10 md:mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
+        Contact <span class="text-aptcore-purple">Us</span>
+      </h1>
+      <p class="text-lg md:text-xl text-brand-text-secondary mt-4 max-w-2xl mx-auto">
+        We're here to help and answer any questions you might have.
+      </p>
+    </header>
+
+    <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
+      <p>
+        Whether you have a question about our Aptos (APT) staking services, need assistance with delegation,
+        have feedback, or just want to say hello, we'd love to hear from you.
+      </p>
+      
+      <h2>Email Us</h2>
+      <p>
+        The best way to reach us is via email. Please send your inquiries to:
+        <br />
+        <a href={`mailto:${contactEmail}`} class="text-aptcore-purple hover:underline font-semibold">
+          {contactEmail}
+        </a>
+      </p>
+      <p>
+        We aim to respond to all emails within 24-48 business hours. To help us assist you more efficiently,
+        please include as much detail as possible in your message.
+      </p>
+
+      <h2>Explore Our Guides</h2>
+      <p>
+        Many common questions and detailed explanations about Aptos staking can be found in our guides and articles.
+        We encourage you to explore our <a href={blogUrl} target="_blank" rel="noopener noreferrer" class="text-aptcore-purple hover:underline">blog at {blogUrl.replace(/^https?:\/\//, '')}</a> for more information.
+      </p>
+      
+      <h2>Connect With Us</h2>
+      <p>
+        Follow us on YouTube for updates, tutorials, and insights into the Aptos ecosystem.
+        <br />
+        <a href={youtubeChannelUrl} target="_blank" rel="noopener noreferrer" class="text-aptcore-purple hover:underline">
+          {youtubeChannelName} on YouTube
+        </a>.
+      </p>
+      <p>
+        Please note that for direct support or specific account inquiries, email is the preferred method of contact.
+      </p>
+
+      <p class="mt-8">
+        We value your interest in <a href={SITE_URL || '/'} target="_blank" rel="noopener noreferrer" class="text-aptcore-purple hover:underline">{orgName}</a> and the Aptos ecosystem.
+      </p>
+    </div>
+  </div>
+</Layout>

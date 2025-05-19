@@ -3,7 +3,8 @@ import React from 'react';
 // --- Footer Component ---
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
-  const BLOG_BASE_URL = "/blog"; // Base path for blog pages, consider config file
+  const BLOG_BASE_URL = "/blog"; // Base path for blog pages
+  const CONTACT_URL_BLOG = `${BLOG_BASE_URL}/contact`; // Contact page URL
 
   return (
     <footer className="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
@@ -15,6 +16,8 @@ const AppFooter = () => {
           <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Blog</a>
           <span className="text-zinc-600" aria-hidden="true">|</span>
           <a href={`${BLOG_BASE_URL}/about`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">About</a>
+          <span className="text-zinc-600" aria-hidden="true">|</span>
+          <a href={CONTACT_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Contact</a>
         </nav>
 
         {/* Legal Links */}

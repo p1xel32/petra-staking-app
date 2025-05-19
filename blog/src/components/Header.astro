@@ -1,23 +1,26 @@
 ---
 // blog/src/components/Header.astro
 import { SITE_URL } from '../consts';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // base is no longer strictly needed for these links if explicit paths are used
+
+// Updated navLinks to use explicit paths for blog sections for clarity
 const navLinks = [
-  { href: SITE_URL, text: 'Main App' },
-  { href: `${base}/`, text: 'Blog' },
-  { href: `${base}/about`, text: 'About' },
+  { href: SITE_URL, text: 'Main App' }, // Links to the main application
+  { href: "/blog", text: 'Blog' },         // Explicit path to blog home
+  { href: "/blog/about", text: 'About' },   // Explicit path to about page
+  { href: "/blog/contact", text: 'Contact' } // Explicit path to contact page
 ];
 ---
 <header class="w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
   <a
-    href="https://aptcore.one"
+    href={SITE_URL} {/* Changed from hardcoded "https://aptcore.one" to SITE_URL for consistency */}
     class="flex items-baseline focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1"
     aria-label="aptcore.one homepage"
   >
     <h1 class="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline text-aptcore-purple">
       <span>aptcore</span>
       <img
-        src="/blog/aptcore-logo.svg"
+        src="/blog/aptcore-logo.svg" {/* Assuming this path is correct relative to your public dir */}
         alt="aptcore.one logo separator"
         class="h-4 w-4 sm:h-5 sm:w-5 mx-1 relative top-px"
         aria-hidden="true"
