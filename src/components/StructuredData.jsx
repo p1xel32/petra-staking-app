@@ -4,7 +4,6 @@ import aptcoreLogoUrl from '../assets/aptcore-logo.svg';
 
 const StructuredData = () => {
   const SITE_URL = "https://aptcore.one";
-  const YOUR_PROJECT_REPO_URL = "https://github.com/p1xel32/petra-staking-app";
   const VALIDATOR_POOL_ADDRESS = "0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb";
   const ORGANIZATION_ID = `${SITE_URL}/#organization`;
   const WEBSITE_ID = `${SITE_URL}/#website`;
@@ -55,7 +54,7 @@ const StructuredData = () => {
         "@type": "Service",
         "serviceType": "Aptos Staking Validator",
         "name": "aptcore.one Validator Staking Service",
-        "description": "Stake your Aptos (APT) with the aptcore.one validator. Features transparent on-chain statistics, competitive commission rates, and user-friendly tools to manage your stake.",
+        "description": "Stake your Aptos (APT) with the aptcore.one validator, operating on the Aptos Mainnet. Our service features a non-custodial, open-source platform with transparent on-chain statistics, competitive commission rates, and user-friendly tools to manage your stake. Validator Address: " + VALIDATOR_POOL_ADDRESS,
         "provider": {
           "@id": ORGANIZATION_ID
         },
@@ -81,33 +80,8 @@ const StructuredData = () => {
           },
           "availability": "https://schema.org/InStock",
           "validFrom": "2024-01-01"
-        }
-      },
-      {
-        "@type": "BlockchainNode",
-        "name": "aptcore.one Aptos Validator Node",
-        "blockchainNetwork": "Aptos Mainnet",
-        "url": SITE_URL,
-        "description": "Non-custodial Aptos validator with open-source platform and transparent on-chain stats, operated by aptcore.one.",
-        "identifier": [
-          {
-            "@type": "PropertyValue",
-            "propertyID": "operatorName",
-            "value": "aptcore.one"
-          },
-          {
-            "@type": "PropertyValue",
-            "propertyID": "validatorAddress",
-            "value": VALIDATOR_POOL_ADDRESS
-          }
-        ],
-        "softwareVersion": "1.0.0",
-        "nodeType": "validator",
-        "operatingSystem": "Linux",
-        "availableChannel": [
-          YOUR_PROJECT_REPO_URL,
-          "mailto:hello@aptcore.one"
-        ]
+        },
+        "category": "Cryptocurrency Staking Service"
       }
     ]
   };
