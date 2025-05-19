@@ -7,6 +7,7 @@ import AppHeader from './components/Layout/AppHeader';
 import AppFooter from './components/Layout/AppFooter';
 
 import StructuredData from './components/StructuredData';
+import FaqSection from './components/FaqSection';
 
 const ValidatorInfo = lazy(() => import('./components/ValidatorInfo'));
 const StakeUnstakeControls = lazy(() => import('./components/StakeUnstakeControls'));
@@ -88,7 +89,7 @@ function App() {
           )}
         </div>
       </main>
-
+      <FaqSection />
       <AppFooter />
     </div>
   );
