@@ -1,6 +1,6 @@
 // src/components/FaqSection.jsx
 import React from 'react';
-import FaqItem from './FaqItem'; // Убедитесь, что путь правильный
+import FaqItem from './FaqItem';
 
 const faqData = [
   {

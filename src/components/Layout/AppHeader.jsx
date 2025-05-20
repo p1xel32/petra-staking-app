@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { WalletSelector } from '@aptos-labs/wallet-adapter-ant-design';
-import aptcoreLogoUrl from '../../assets/aptcore-logo.svg'; // Make sure this path is correct
+import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
 
 const AppHeader = () => {
   const BLOG_URL = "/blog";
@@ -11,7 +11,7 @@ const AppHeader = () => {
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
 
-  const breakpoint = 'md'; // Assuming 'md' is your desired breakpoint prefix
+  const breakpoint = 'md';
 
   useEffect(() => {
     const handleClickOutside = (event) => {
