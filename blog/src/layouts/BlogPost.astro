@@ -1,19 +1,108 @@
 ---
-// blog/src/layouts/BlogPost.astro
 import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, BLOG_CANONICAL_ROOT } from '../consts';
+import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, BLOG_CANONICAL_ROOT } from '../consts';
 
-const { title, description, pubDate, updatedDate, heroImage, heroImageAlt } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, faq } = Astro.props;
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const postUrl = new URL(`${base}/${Astro.params.slug}`, 'https://aptcore.one').href;
-const heroImageUrl = heroImage?.startsWith('http')
+// BUILD ABSOLUTE URLS
+const postUrl = new URL(`${import.meta.env.BASE_URL}/${Astro.params.slug}`, SITE_URL).href;
+
+const resolvedHeroImageUrl = heroImage?.startsWith('http')
   ? heroImage
-  : base + (heroImage?.startsWith('/') ? '' : '/') + heroImage;
+  : new URL(`${import.meta.env.BASE_URL}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href;
+
+const ORG_NAME = "aptcore.one";
+const ORG_LOGO_URL = `${SITE_URL}/aptcore-logo.svg`;
+const ORGANIZATION_SCHEMA_ID = `${SITE_URL}/#organization`;
+
+// SCHEMA
+const jsonLdGraph = [];
+
+const blogPostingSchemaData = {
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description || SITE_DESCRIPTION,
+  "image": resolvedHeroImageUrl ? [resolvedHeroImageUrl] : undefined,
+  "datePublished": pubDate ? new Date(pubDate).toISOString() : undefined,
+  "dateModified": updatedDate ? new Date(updatedDate).toISOString() : (pubDate ? new Date(pubDate).toISOString() : undefined),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": postUrl
+  },
+  "author": {
+    "@type": "Organization",
+    "name": ORG_NAME,
+    "@id": ORGANIZATION_SCHEMA_ID
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": ORG_NAME,
+    "@id": ORGANIZATION_SCHEMA_ID,
+    "logo": {
+      "@type": "ImageObject",
+      "url": ORG_LOGO_URL
+    }
+  }
+};
+
+Object.keys(blogPostingSchemaData).forEach(key => {
+  if (
+    blogPostingSchemaData[key] === undefined ||
+    (Array.isArray(blogPostingSchemaData[key]) && blogPostingSchemaData[key].length === 0)
+  ) {
+    delete blogPostingSchemaData[key];
+  }
+});
+jsonLdGraph.push(blogPostingSchemaData);
+
+// Breadcrumb
+jsonLdGraph.push({
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": SITE_TITLE || "Home",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": BLOG_CANONICAL_ROOT || `${SITE_URL}/blog`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": title,
+      "item": postUrl
+    }
+  ]
+});
+
+// FAQPage
+if (faq && Array.isArray(faq) && faq.length > 0) {
+  jsonLdGraph.push({
+    "@type": "FAQPage",
+    "mainEntity": faq.map(({ question, answer }) => ({
+      "@type": "Question",
+      "name": question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": answer
+      }
+    }))
+  });
+}
+
+const finalJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": jsonLdGraph
+};
 ---
 <html lang="en" class="dark">
   <head>
@@ -21,28 +110,29 @@ const heroImageUrl = heroImage?.startsWith('http')
     <BaseHead
       title={title}
       description={description || SITE_DESCRIPTION}
-      image={heroImageUrl}
+      image={resolvedHeroImageUrl}
       canonicalURL={postUrl}
     />
+    <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
   </head>
   <body class="bg-brand-bg-dark text-brand-text-light font-sans antialiased min-h-screen flex flex-col">
     <Header />
     <main class="py-8 flex-grow">
       <article class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <p class="text-sm text-brand-text-secondary mb-2">
-          <FormattedDate date={pubDate} />
-          {updatedDate && (
+          {pubDate && <FormattedDate date={pubDate} />}
+          {updatedDate && pubDate && (
             <span class="block italic text-xs mt-1">
               Last updated on <FormattedDate date={updatedDate} />
             </span>
           )}
         </p>
 
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-
-        {heroImageUrl && (
+        {title && <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>}
+       
+        {resolvedHeroImageUrl && (
           <img
-            src={heroImageUrl}
+            src={resolvedHeroImageUrl}
             alt={heroImageAlt ?? `Hero image for ${title}`}
             class="w-full h-auto rounded-lg shadow mb-8"
             loading="lazy"
