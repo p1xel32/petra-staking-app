@@ -4,6 +4,8 @@ import React from 'react';
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
   const BLOG_BASE_URL = "/blog"; // Base path for blog pages
+  const FAQ_URL_BLOG = `${BLOG_BASE_URL}/faq`; // FAQ page URL
+  const ABOUT_URL_BLOG = `${BLOG_BASE_URL}/about`; // About page URL
   const CONTACT_URL_BLOG = `${BLOG_BASE_URL}/contact`; // Contact page URL
 
   return (
@@ -15,7 +17,9 @@ const AppFooter = () => {
           <span className="text-zinc-600" aria-hidden="true">|</span>
           <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Blog</a>
           <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={`${BLOG_BASE_URL}/about`} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">About</a>
+          <a href={FAQ_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">FAQ</a>
+          <span className="text-zinc-600" aria-hidden="true">|</span>
+          <a href={ABOUT_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">About</a>
           <span className="text-zinc-600" aria-hidden="true">|</span>
           <a href={CONTACT_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">Contact</a>
         </nav>

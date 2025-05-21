@@ -1,34 +1,49 @@
 ---
-// blog/src/layouts/Layout.astro
-import '../styles/global.css'; 
-import Header from '../components/Header.astro'; 
-import Footer from '../components/Footer.astro'; 
+import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
-import { SITE_TITLE as APP_SITE_TITLE, SITE_DESCRIPTION as APP_SITE_DESCRIPTION } from '../consts'; // Renamed to avoid conflict
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE as APP_SITE_TITLE, SITE_DESCRIPTION as APP_SITE_DESCRIPTION } from '../consts';
 
 export interface Props {
-	title?: string;
-	description?: string;
-	image?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  keywords?: string | string[];
+  ogType?: string;
+  lang?: string;
 }
 
-const { 
-    title = `Blog - ${APP_SITE_TITLE || 'aptcore.one'}`, 
-    description = APP_SITE_DESCRIPTION || 'News and insights from aptcore.one',
-    image = '/og-image.png' // Default OG image in blog/public/
+const {
+  title = `Blog - ${APP_SITE_TITLE || 'aptcore.one'}`,
+  description = APP_SITE_DESCRIPTION || 'News and insights from aptcore.one',
+  image = '/og-image.png',
+  canonicalURL,
+  keywords,
+  ogType,
+  lang = 'en',
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="en" class="dark">
-<head>
+<html lang={lang} class="dark">
+  <head>
     <meta charset="utf-8" />
-    <BaseHead title={title} description={description} image={image} />
-</head>
-<body class="bg-brand-bg-dark text-brand-text-light font-sans antialiased min-h-screen flex flex-col">
+    <BaseHead 
+      title={title}
+      description={description}
+      image={image}
+      canonicalURL={canonicalURL}
+      keywords={keywords}
+      ogType={ogType}
+      lang={lang}
+    />
+  </head>
+  <body class="bg-brand-bg-dark text-brand-text-light font-sans antialiased min-h-screen flex flex-col">
     <Header />
     <main class="flex-grow container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-        <slot /> 
+      <slot />
     </main>
     <Footer />
-</body>
+  </body>
 </html>

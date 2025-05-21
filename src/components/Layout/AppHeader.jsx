@@ -4,14 +4,15 @@ import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
 
 const AppHeader = () => {
   const BLOG_URL = "/blog";
+  const FAQ_URL_BLOG = "/blog/faq"; // Added FAQ URL
   const ABOUT_URL_BLOG = "/blog/about";
-  const CONTACT_URL_BLOG = "/blog/contact"; // Added contact URL
+  const CONTACT_URL_BLOG = "/blog/contact";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
 
-  const breakpoint = 'md';
+  const breakpoint = 'md'; // Tailwind's default md breakpoint is 768px
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -57,10 +58,10 @@ const AppHeader = () => {
           <button
             ref={toggleButtonRef}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"} // Close/Open menu
+            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
-            className="text-zinc-300 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 flex items-center justify-center transform -translate-y-[2px]" // Adjusted translate-y if needed
+            className="text-zinc-300 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 flex items-center justify-center transform -translate-y-[2px]"
           >
             {isMobileMenuOpen ? (
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -81,6 +82,14 @@ const AppHeader = () => {
             Blog
           </a>
           <a
+            href={FAQ_URL_BLOG}
+            className={`text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            FAQ
+          </a>
+          <a
             href={ABOUT_URL_BLOG}
             className={`text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md`}
             target="_blank"
@@ -89,7 +98,7 @@ const AppHeader = () => {
             About
           </a>
           <a
-            href={CONTACT_URL_BLOG} // Added Contact link
+            href={CONTACT_URL_BLOG}
             className={`text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors duration-150 px-1.5 py-1 rounded-md`}
             target="_blank"
             rel="noopener noreferrer"
@@ -122,6 +131,15 @@ const AppHeader = () => {
               Blog
             </a>
             <a
+              href={FAQ_URL_BLOG}
+              className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-3 px-3 rounded-md transition-colors duration-150"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleMobileLinkClick}
+            >
+              FAQ
+            </a>
+            <a
               href={ABOUT_URL_BLOG}
               className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-3 px-3 rounded-md transition-colors duration-150"
               target="_blank"
@@ -131,7 +149,7 @@ const AppHeader = () => {
               About
             </a>
             <a
-              href={CONTACT_URL_BLOG} // Added Contact link
+              href={CONTACT_URL_BLOG}
               className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-3 px-3 rounded-md transition-colors duration-150"
               target="_blank"
               rel="noopener noreferrer"

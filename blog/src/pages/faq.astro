@@ -1,0 +1,738 @@
+---
+import Layout from '@layouts/Layout.astro';
+
+const pageTitle = 'Aptos (APT) Staking FAQ: Rewards, Wallets & Guide | aptcore.one';
+const pageDescription = 'Your complete Aptos (APT) staking FAQ. Learn how to stake, understand rewards & risks, choose wallets, and unstake APT with aptcore.one.';
+const canonicalURL = 'https://aptcore.one/blog/faq';
+const keywords = 'aptos staking, aptos faq, apt staking, aptos rewards, aptos validator, how to stake aptos, aptos wallet, aptos staking guide, aptos delegation, aptos unstake, aptcore.one, aptos crypto, aptos blockchain, aptos staking risks, minimum aptos stake, aptos staking tutorial';
+
+const faq = [
+  // Core Concepts & Fundamentals
+  {
+    id: 'what-is-aptos',
+    question: 'What is Aptos?',
+    answer: 'Aptos is an independent Layer 1 blockchain, evolved from Meta\'s Diem project, focusing on scalability, security, reliability, and upgradeability to drive mass Web3 adoption and aims to be the safest, most production-ready blockchain.'
+  },
+  {
+    id: 'what-is-aptos-doing-and-its-mission',
+    question: 'What is Aptos doing, and what is its mission?',
+    answer: 'Aptos aims to provide universal and equitable access to decentralized assets for billions of users by delivering a blockchain that supports mainstream Web3 adoption and empowers dApps solving real-world problems.'
+  },
+  {
+    id: 'who-is-the-team-behind-aptos',
+    question: 'Who is the team behind Aptos?',
+    answer: 'The Aptos team comprises the original creators, researchers, designers, and builders of the Diem blockchain, bringing extensive experience to the project.'
+  },
+  {
+    id: 'where-can-i-learn-more-about-aptos',
+    question: 'Where can I learn more about Aptos (e.g., whitepaper, vision, genesis articles)?',
+    answer: 'You can learn more through official resources like the Aptos whitepaper and articles detailing its vision and genesis, which provide in-depth information about the project.'
+  },
+  {
+    id: 'how-does-aptos-differentiate-itself',
+    question: 'How does Aptos differentiate itself from competitors?',
+    answer: 'Aptos differentiates itself through innovations in smart contract design using the Move language and its core principles of scalability, safety, reliability, and upgradeability.'
+  },
+  {
+    id: 'how-does-aptos-compare-to-other-blockchains',
+    question: 'How does Aptos compare to other blockchains like Ethereum and Solana?',
+    answer: 'Aptos aims to combine speed, security, and upgradeability. While its ecosystem is currently smaller than Ethereum or Solana, it highlights the safety of Move and parallel transaction execution as key advantages.'
+  },
+
+  // Technology & Architecture
+  {
+    id: 'how-does-aptos-work',
+    question: 'How does Aptos work?',
+    answer: 'Aptos processes transactions in parallel, utilizes the Move programming language for smart contracts, and employs the AptosBFT consensus mechanism for network security and efficiency.'
+  },
+  {
+    id: 'what-is-the-move-programming-language',
+    question: 'What is the Move programming language and why is it used?',
+    answer: 'Move is a flexible and modular programming language designed for safe and secure smart contract development, offering features like resource-oriented programming to prevent common vulnerabilities and manage digital assets securely.'
+  },
+  {
+    id: 'how-does-aptos-process-transactions',
+    question: 'How does Aptos process transactions?',
+    answer: 'Aptos uses the Block-STM engine for parallel execution, allowing multiple transactions to be processed simultaneously, significantly increasing network throughput (TPS) compared to sequential processing.'
+  },
+  {
+    id: 'what-is-parallel-transaction-processing-block-stm',
+    question: 'What is parallel transaction processing / Block-STM?',
+    answer: 'Block-STM (Software Transactional Memory) is Aptos\'s engine enabling simultaneous execution of multiple transactions. This boosts network speed and capacity by processing transactions in parallel rather than one by one.'
+  },
+  {
+    id: 'what-consensus-mechanism-does-aptos-use',
+    question: 'What consensus mechanism does Aptos use?',
+    answer: 'Aptos uses AptosBFT, a Byzantine Fault Tolerant (BFT) consensus mechanism based on Proof-of-Stake (PoS), designed for rapid finality and network security even if some validators are malicious.'
+  },
+  {
+    id: 'how-does-aptos-ensure-safety-and-security',
+    question: 'How does Aptos ensure safety and security?',
+    answer: 'Aptos ensures security through the Move language\'s safety features, robust BFT consensus, on-chain governance, built-in protections against smart contract vulnerabilities, and its decentralized validator system.'
+  },
+  {
+    id: 'what-are-resources-in-aptos',
+    question: 'What are \'resources\' in Aptos and how do they work?',
+    answer: 'In Aptos, \'resources\' are special struct instances in the Move language with the \'key\' ability, stored in global storage or accounts. They ensure safe management of digital assets, governed by Move modules (smart contracts).'
+  },
+  {
+    id: 'how-are-accounts-structured-on-aptos',
+    question: 'How are accounts structured on Aptos?',
+    answer: 'Aptos accounts are defined by authentication keys and account addresses, with Move modules controlling how transactions interact with these accounts and their stored resources.'
+  },
+  {
+    id: 'what-are-events-in-aptos',
+    question: 'What are events in Aptos and how are they used?',
+    answer: 'Events in Aptos are signals emitted by smart contracts to notify applications or users about specific occurrences or state changes on the blockchain.'
+  },
+  {
+    id: 'how-does-aptos-handle-data-storage',
+    question: 'How does Aptos handle data storage and management?',
+    answer: 'Aptos uses an optimized Merkle tree-like structure for its ledger to efficiently manage data, reduce storage demands on validators, and mitigate \'state bloat\' (the accumulation of transaction data).'
+  },
+  {
+    id: 'what-is-an-epoch-in-aptos',
+    question: 'What is an \'epoch\' in Aptos?',
+    answer: 'An \'epoch\' in Aptos is a defined time period, typically around two hours (7200 seconds), during which network operations like reward distribution and validator set changes occur.'
+  },
+  {
+    id: 'how-do-aggregators-help-with-parallelization',
+    question: 'How do Aggregators help with parallelization in Move, e.g., for NFT minting?',
+    answer: 'Aggregators in Move are wrappers around integers that allow deferred reads and writes. This enables transactions affecting the same variable, like during large NFT mints, to execute in parallel more efficiently.'
+  },
+
+  // APT Token & Tokenomics
+  {
+    id: 'what-is-the-native-token-of-aptos',
+    question: 'What is the native token of Aptos? / What is APT?',
+    answer: 'The native token of the Aptos blockchain is APT.'
+  },
+  {
+    id: 'what-are-the-use-cases-of-apt-token',
+    question: 'What are the use cases of the APT token?',
+    answer: 'APT is used for paying transaction fees, staking to secure the network and earn rewards, participating in on-chain governance by voting on proposals, and for developer incentives.'
+  },
+  {
+    id: 'where-can-i-find-info-on-aptos-tokenomics',
+    question: 'Where can I find information about the token economics (tokenomics) of Aptos?',
+    answer: 'Information about Aptos tokenomics can be found in the "Aptos Tokenomics Overview" provided by the Aptos Foundation and other summary documents.'
+  },
+  {
+    id: 'what-was-initial-total-supply-of-apt',
+    question: 'What was the initial total supply of APT tokens at mainnet launch?',
+    answer: 'The initial total supply of APT at the mainnet launch on October 12, 2022, was 1 billion tokens.'
+  },
+  {
+    id: 'what-is-the-smallest-unit-of-apt',
+    question: 'What is the smallest unit of APT?',
+    answer: 'The smallest unit of APT is called an Octa. APT has 8 digits of precision after the decimal point.'
+  },
+  {
+    id: 'how-are-apt-tokens-distributed',
+    question: 'How are APT tokens distributed (e.g., to community, core contributors, investors, foundation)?',
+    answer: 'APT tokens were initially allocated as follows: Community (51.02%), Core Contributors (19.00%), Foundation (13.48%), and Investors (16.50%), with specific amounts made available at launch for ecosystem and foundation initiatives.'
+  },
+  {
+    id: 'are-there-lock-up-schedules-for-apt-tokens',
+    question: 'Are there lock-up schedules for tokens allocated to core contributors and investors?',
+    answer: 'Yes, investors and core contributors have a four-year lock-up schedule from mainnet launch, with no tokens unlocking for the first 12 months, followed by phased monthly unlocks.'
+  },
+  {
+    id: 'what-percentage-of-apt-tokens-are-staked',
+    question: 'What percentage of APT tokens are currently staked?',
+    answer: 'The provided research stated "more than 82% of the tokens on the network are staked across all categories" at the time of its publishing. For current figures, refer to an Aptos block explorer.'
+  },
+  {
+    id: 'can-locked-apt-tokens-be-staked',
+    question: 'Can locked tokens be staked?',
+    answer: 'Yes, both unlocked (available for distribution) and locked tokens (subject to release schedules) can be staked on the Aptos network.'
+  },
+  {
+    id: 'how-does-apt-token-supply-change',
+    question: 'How does the APT token supply change over time (e.g., due to staking rewards)?',
+    answer: 'The total supply of APT increases due to staking rewards. The maximum reward rate starts at 7% annually and is designed to decrease over time.'
+  },
+  {
+    id: 'are-aptos-transaction-fees-burned',
+    question: 'Are transaction fees burned?',
+    answer: 'Currently, transaction fees on the Aptos network are burned. This mechanism can be changed in the future via on-chain governance.'
+  },
+  {
+    id: 'can-aptos-tokenomics-be-changed',
+    question: 'Can tokenomics (e.g., reward rates, fee mechanisms) be changed?',
+    answer: 'Yes, all reward rates, reward mechanisms, and other tokenomic parameters on Aptos can be modified through its on-chain governance process.'
+  },
+
+  // Ecosystem & Development (dApps, Use Cases, Developer Tools)
+  {
+    id: 'what-are-the-use-cases-of-aptos',
+    question: 'What are the use cases of Aptos?',
+    answer: 'Aptos is designed for diverse applications, including AI integrations, gaming, NFTs, social networks, Decentralized Finance (DeFi) like automated collateral systems, and decentralized identity solutions.'
+  },
+  {
+    id: 'why-do-projects-choose-aptos',
+    question: 'Why do projects choose Aptos over other blockchains?',
+    answer: 'Projects choose Aptos for its fast transaction finality, overall speed, high throughput, low gas fees, developer-centric design, and the safety features of the Move programming language.'
+  },
+  {
+    id: 'where-can-i-explore-projects-on-aptos',
+    question: 'Where can I explore projects building on the Aptos blockchain?',
+    answer: 'The Aptos Foundation maintains a GitHub page and an ecosystem directory on its website listing active projects, dApps, and services built on the network.'
+  },
+  {
+    id: 'what-developer-resources-for-aptos-move',
+    question: 'What developer resources are available for Aptos Move programming?',
+    answer: 'Aptos offers resources like a dedicated "Aptos Move Developer Resources doc," Aptos Labs documentation (e.g., on transaction management), and foundational materials like "Move - A Web3 Language and Runtime."'
+  },
+  {
+    id: 'how-to-manage-concurrent-transactions-aptos',
+    question: 'How to manage concurrent transactions in client design?',
+    answer: 'Developers can manage high transaction volumes by scaling submission from a single wallet address and using worker accounts to bypass limits on uncommitted transactions per account, as outlined in Aptos documentation.'
+  },
+  {
+    id: 'how-to-deploy-a-contract-on-aptos',
+    question: 'How to deploy a contract on Aptos?',
+    answer: 'Deploying a contract typically involves initializing a project using `aptos init` (which creates an account and configuration files) and following the deployment steps outlined in Aptos developer documentation.'
+  },
+  {
+    id: 'are-there-examples-of-deploying-calling-contracts-aptos',
+    question: 'Are there examples of deploying and calling contracts (e.g., using aptos-go-sdk)?',
+    answer: 'Yes, the Aptos developer ecosystem provides SDKs and examples for deploying and interacting with smart contracts, including for specific SDKs like the aptos-go-sdk.'
+  },
+  {
+    id: 'what-common-move-vulnerabilities-aptos',
+    question: 'What are common Move vulnerabilities developers should be aware of?',
+    answer: 'Developers using Move should be cautious of potential issues like overflow/underflow, Denial of Service (DoS) vectors, improper function permissions, reentrancy, unchecked external calls, and access control flaws.'
+  },
+  {
+    id: 'general-flow-writing-custom-processor-indexer-sdk-aptos',
+    question: 'What is the general flow for writing a custom processor with the Indexer SDK?',
+    answer: 'The Indexer SDK allows developers to create custom data processors. The general flow involves setting up the SDK, defining data models, writing processor logic to handle transactions and events, and configuring the indexer to store and serve the processed data.'
+  },
+  {
+    id: 'how-to-represent-erc1155-assets-on-aptos',
+    question: 'How can I represent ERC-1155-like assets on Aptos?',
+    answer: 'Developers can achieve ERC-1155-like functionality using Aptos\'s native asset standards, such as the Fungible Asset or Digital Asset standards, by leveraging the features of the Move language.'
+  },
+  {
+    id: 'mint-directly-user-wallet-admin-signs-tx-aptos',
+    question: 'Is there a way to mint directly to a user wallet while an admin wallet signs the tx?',
+    answer: 'Specific dApp logic, such as an admin-signed mint to a user wallet, can often be implemented using features of the Move language and Aptos account models, potentially through sponsored transactions or delegated authority patterns.'
+  },
+
+  // Wallets, Bridging & Transactions
+  {
+    id: 'which-wallet-for-aptos-chain',
+    question: 'Which wallet can I use for Aptos Chain?',
+    answer: 'Several wallets support Aptos, including Petra wallet (often cited as an official choice by Aptos Labs), Trust Wallet, and others listed in ecosystem guides.'
+  },
+  {
+    id: 'what-is-an-aptos-wallet',
+    question: 'What is an Aptos Wallet?',
+    answer: 'An Aptos wallet is a digital tool used to store and manage APT tokens, send and receive transactions, and interact with decentralized applications (dApps) on the Aptos blockchain.'
+  },
+  {
+    id: 'how-to-get-create-aptos-wallet',
+    question: 'How to get/create an Aptos wallet (e.g., Petra, Trust Wallet)?',
+    answer: 'To create an Aptos wallet, download the chosen wallet software (e.g., Petra browser extension or Trust Wallet mobile app), install it, create a secure password, and safely back up your recovery phrase.'
+  },
+  {
+    id: 'how-to-secure-aptos-wallet',
+    question: 'How to secure my Aptos wallet?',
+    answer: 'Secure your Aptos wallet by backing up your recovery phrase in a safe, offline location, never sharing it or your private keys, keeping software updated, and being vigilant against phishing scams.'
+  },
+  {
+    id: 'are-aptos-wallets-free',
+    question: 'Are Aptos wallets free?',
+    answer: 'Most software wallets commonly used for blockchains like Aptos (e.g., browser extensions, mobile apps) are typically free to download and use.'
+  },
+  {
+    id: 'what-is-safest-aptos-wallet',
+    question: 'What is the safest Aptos Wallet?',
+    answer: 'The "safest" wallet depends on user practices and the wallet\'s security features. Prioritize well-audited, non-custodial wallets where you control your private keys, and always follow security best practices.'
+  },
+  {
+    id: 'how-to-bridge-from-bsc-to-aptos',
+    question: 'How to bridge from BSC (Binance Smart Chain) to Aptos?',
+    answer: 'Bridging assets from BSC to Aptos involves using a cross-chain bridge service that supports both networks. Platforms like PancakeSwap have provided guides for general bridging solutions.'
+  },
+  {
+    id: 'why-price-impact-too-high-swapping',
+    question: 'Why am I seeing \'Price Impact Too High\' when swapping coins?',
+    answer: 'This warning usually appears due to poor network connectivity to blockchain nodes or, more commonly, insufficient liquidity in the trading pool for the size of your attempted swap, leading to a significant price change.'
+  },
+  {
+    id: 'couldnt-find-coin-to-swap-how-to-add',
+    question: 'I couldn\'t find the coin I wanted to swap. How can I add it?',
+    answer: 'Many decentralized exchanges allow you to import a token by pasting its contract address into the swap interface if it\'s not listed by default.'
+  },
+  {
+    id: 'where-is-txid-transaction-id-aptos',
+    question: 'Where is the TxID (Transaction ID)?',
+    answer: 'The Transaction ID (TxID or hash) is typically displayed by your wallet after submitting a transaction or can be found on an Aptos block explorer by searching for your wallet address.'
+  },
+  {
+    id: 'how-to-find-transactions-by-fee-payer-aptos',
+    question: 'How to find transactions where a specific address is the fee payer?',
+    answer: 'Aptos block explorers allow you to search for transactions by address. Some advanced explorers or indexing services might offer filters to specifically identify transactions where an address acted as the fee payer.'
+  },
+  {
+    id: 'what-are-gas-fees-on-aptos-how-computed',
+    question: 'What are gas fees on Aptos? / How is transaction gas computed?',
+    answer: 'Gas fees on Aptos are designed to be low. They are calculated based on the computational resources, storage, and network bandwidth consumed by a transaction, as defined by the Aptos gas model.'
+  },
+  {
+    id: 'what-if-stop-using-iam-federated-keyless-aptos',
+    question: 'What if I stop using my IAM for my application (Federated Keyless)? What if I switch IAM providers?',
+    answer: 'Switching IAM providers or changing their configuration (e.g., client ID) for Aptos Keyless will result in a different Aptos account address. This necessitates migrating assets via a key rotation from the old IAM-derived account to the new one.'
+  },
+  {
+    id: 'does-using-iam-federated-keyless-cost-money-aptos',
+    question: 'Does using an IAM (for Federated Keyless) cost money?',
+    answer: 'While Aptos Keyless itself may not add direct charges, the Identity and Access Management (IAM) services (like Google, etc.) often have their own associated costs, though they also provide valuable user management and security features.'
+  },
+  {
+    id: 'dapp-iam-provider-offline-federated-keyless-access-aptos',
+    question: 'In case the dApp or IAM provider (for Federated Keyless) goes offline, how do I ensure users can access their accounts?',
+    answer: 'Applications using Federated Keyless should allow users to add a secondary authentication method, like a traditional backup private key (e.g., through key rotation to a multikey account), ensuring access if the IAM provider is unavailable.'
+  },
+  {
+    id: 'can-i-use-opensource-iam-keycloak-federated-keyless-aptos',
+    question: 'Can I use an open source IAM like Keycloak with Federated Keyless?',
+    answer: 'Initially, Aptos Keyless supported a specific set of vetted IAM providers for security and uptime reasons. Using open-source IAMs like Keycloak was not supported at that time, but proposing an AIP or contacting the Keyless team was suggested for consideration.'
+  },
+
+  // Governance & Community
+  {
+    id: 'how-is-governance-handled-on-aptos',
+    question: 'How is governance handled on the Aptos blockchain?',
+    answer: 'Aptos has an on-chain governance system where APT token holders can vote on proposals to change or update the protocol, including parameters like staking lockups, reward rates, and tokenomics.'
+  },
+  {
+    id: 'what-is-the-aptos-collective',
+    question: 'What is the Aptos Collective?',
+    answer: 'The Aptos Collective is an ambassador program designed to support and champion the Aptos ecosystem and network through community involvement and contributions.'
+  },
+  {
+    id: 'what-are-requirements-to-join-aptos-collective',
+    question: 'What are the requirements to join the Aptos Collective (ambassador program)?',
+    answer: 'Joining generally requires active community involvement, passion for Aptos and Web3, willingness to contribute skills and time (e.g., hosting events, creating content), a collaborative mindset, and consistent engagement.'
+  },
+  {
+    id: 'are-aptos-collective-members-paid',
+    question: 'Are Aptos Collective members paid?',
+    answer: 'There isn\'t a standard monthly stipend for all members. However, top contributors in the "Vanguard tier" may receive monthly awards, and members can access grants for events and other support.'
+  },
+  {
+    id: 'can-i-join-aptos-collective-if-new-or-non-english-speaker',
+    question: 'Can I join the Aptos Collective if I\'m new to Aptos or don\'t speak English fluently?',
+    answer: 'Yes, the program is open to newcomers passionate about learning. Multilingual members are encouraged to help localize content and expand Aptos\'s reach.'
+  },
+  {
+    id: 'how-often-new-members-added-aptos-collective',
+    question: 'How often are new members added to the Aptos Collective?',
+    answer: 'New members are typically accepted in cohorts, with large onboarding waves occurring quarterly. Applications are opened periodically for these cohorts.'
+  },
+  {
+    id: 'what-is-a-collective-grant-aptos',
+    question: 'What is a Collective Grant?',
+    answer: 'Collective Grants are available exclusively to Aptos Collective members to fund community-building initiatives like meetups, educational content creation, or project testing support.'
+  },
+  {
+    id: 'what-is-vanguard-tier-aptos-collective',
+    question: 'What is the Vanguard tier in the Aptos Collective?',
+    answer: 'The Vanguard tier consists of the top ambassadors (around 20 individuals) who demonstrate outstanding contributions, receiving benefits like monthly stipends and exclusive mentorship.'
+  },
+  {
+    id: 'where-find-aptos-developer-discussions-community-forums',
+    question: 'Where can I find Aptos developer discussions or general community forums?',
+    answer: 'Aptos has official discussion platforms like GitHub Discussions (with categories for Announcements, General, Questions, Feedback) and the Aptos Foundation Forum for community engagement.'
+  },
+
+  // Investing & Acquiring APT
+  {
+    id: 'how-to-buy-aptos-apt',
+    question: 'How to buy Aptos (APT)?',
+    answer: 'You can buy APT on various cryptocurrency exchanges and platforms. For example, some financial apps like Revolut allow users to sign up, add funds, and purchase APT.'
+  },
+  {
+    id: 'where-can-i-buy-aptos-apt',
+    question: 'Where can I buy Aptos (APT)?',
+    answer: 'APT can be purchased on numerous centralized exchanges (e.g., Binance, Coinbase, Kraken, Bybit, OKX, KuCoin), decentralized exchanges (DEXs) on Aptos, and through some financial service providers like Revolut.'
+  },
+  {
+    id: 'what-are-fees-to-invest-in-aptos',
+    question: 'What are the fees to invest in Aptos (e.g., on Revolut)?',
+    answer: 'Fees vary by platform. For instance, Revolut charges the prevailing exchange rate plus a transaction fee, displayed before purchase confirmation, which can depend on the user\'s plan.'
+  },
+  {
+    id: 'is-it-safe-to-buy-aptos',
+    question: 'Is it safe to buy Aptos (e.g., on Revolut)?',
+    answer: 'Platforms like Revolut use secure methods like cold storage for most funds. However, all cryptocurrency investments carry inherent risks due to market volatility. Always do your own research.'
+  },
+  {
+    id: 'can-i-buy-aptos-with-debit-card',
+    question: 'Can I buy Aptos with a debit card?',
+    answer: 'Yes, many platforms, including Revolut, allow you to add funds to your account using a debit card, which can then be used to purchase APT or other cryptocurrencies.'
+  },
+  {
+    id: 'how-can-i-learn-more-about-investing-in-aptos',
+    question: 'How can I learn more about investing in Aptos?',
+    answer: 'Some platforms offer educational courses on cryptocurrency basics. Independent research into Aptos\'s fundamentals, technology, tokenomics, and market position is crucial before investing.'
+  },
+  {
+    id: 'is-aptos-apt-a-good-investment',
+    question: 'Is Aptos (APT) a good investment?',
+    answer: 'Whether Aptos is a good investment is subjective and depends on individual research, risk tolerance, and financial situation. It\'s advised to conduct thorough due diligence.'
+  },
+  {
+    id: 'will-aptos-apt-go-up-or-down',
+    question: 'Will Aptos (APT) go up or down?',
+    answer: 'Cryptocurrency price movements are highly unpredictable. No one can definitively say whether APT\'s price will rise or fall.'
+  },
+  {
+    id: 'should-i-invest-in-aptos',
+    question: 'Should I invest in Aptos?',
+    answer: 'The decision to invest in Aptos should be based on your own research into the project, its competitors, and your personal financial goals and risk assessment.'
+  },
+  {
+    id: 'what-are-aptos-apt-price-predictions',
+    question: 'What are Aptos (APT) price predictions?',
+    answer: 'While various analytical services offer price predictions, they are speculative and unreliable due to market volatility. Always be cautious and never invest more than you can afford to lose.'
+  },
+
+  // Network Performance & Known Issues
+  {
+    id: 'how-aptos-achieves-high-throughput-low-latency',
+    question: 'How does Aptos achieve high throughput and low latency?',
+    answer: 'Aptos achieves high performance through parallel transaction execution (Block-STM), an efficient BFT consensus (AptosBFT), the Move language\'s efficiencies, and optimized hardware utilization by pipelining transaction processing stages.'
+  },
+  {
+    id: 'what-is-aptos-target-tps',
+    question: 'What is Aptos\'s target TPS (Transactions Per Second)?',
+    answer: 'Aptos has ambitious TPS goals, with some sources mentioning an ultimate target of 100,000 TPS or capabilities up to 10,000 TPS, enabled by its architecture. Real-world performance varies.'
+  },
+  {
+    id: 'how-aptos-addresses-scalability',
+    question: 'How does Aptos address scalability?',
+    answer: 'Aptos addresses scalability via parallel execution, efficient resource use, and plans for future sharding implementation to horizontally scale transaction capacity as the network grows.'
+  },
+  {
+    id: 'what-are-hardware-requirements-for-aptos-nodes',
+    question: 'What are the hardware requirements for running Aptos nodes (and how does it impact performance/cost)?',
+    answer: 'Aptos aims for hardware efficiency. While specific requirements exist for validators, the design intends to maximize resource usage. Bare metal infrastructure is cited as beneficial for optimal performance.'
+  },
+  {
+    id: 'has-aptos-experienced-technical-issues-downtime',
+    question: 'Has Aptos experienced any technical issues, downtime, or network halts?',
+    answer: 'The research document notes that while Aptos aims for superior reliability, one report mentioned "various technical issues" pointed out by community members, though specifics were limited.'
+  },
+  {
+    id: 'are-there-concerns-about-developer-exodus-aptos',
+    question: 'Are there concerns about developer exodus from the Aptos project?',
+    answer: 'One critical report mentioned in the research alleged a "sharp exodus in active developers" and declining GitHub commit rates since late 2022. The accuracy and impact of such claims would require ongoing observation.'
+  },
+  {
+    id: 'any-license-problems-controversies-aptos-codebase',
+    question: 'Are there any license problems or controversies related to Aptos\'s codebase (e.g., use of Meta\'s code)?',
+    answer: 'The research mentions unproven allegations from one source regarding improper use of Meta\'s original source code and potential GPL license compliance errors. These were presented as allegations.'
+  },
+  {
+    id: 'what-is-state-bloat-how-aptos-handles-it',
+    question: 'What is \'state bloat\' and how does Aptos handle it?',
+    answer: 'State bloat is the accumulation of data on the ledger, increasing validator hardware needs. Aptos mitigates this with an optimized Merkle tree structure for state storage, aiming to reduce storage demands.'
+  },
+
+  // Staking Fundamentals
+  {
+    id: 'what-is-aptos-apt-staking',
+    question: 'What is Aptos (APT) staking?',
+    answer: 'Aptos (APT) staking is the process where token holders participate in the network\'s Proof-of-Stake (PoS) consensus by delegating their APT to a validator node, contributing to network security and earning rewards.'
+  },
+  {
+    id: 'how-does-aptos-staking-work',
+    question: 'How does Aptos staking work?',
+    answer: 'APT holders delegate their tokens to a validator or delegation pool. Validators use this stake to validate transactions and propose blocks, earning rewards that are then shared with their delegators. Aptos uses an "owner-operator-voter" model for staking roles.'
+  },
+  {
+    id: 'what-are-benefits-of-staking-aptos-apt',
+    question: 'What are the benefits of staking Aptos (APT)?',
+    answer: 'Staking APT allows you to earn rewards, contribute to the Aptos network\'s security and integrity, and potentially prevent dilution of your asset share as new tokens are minted.'
+  },
+  {
+    id: 'what-happens-when-i-stake-my-apt',
+    question: 'What happens when I stake my APT?',
+    answer: 'When you stake APT, you pledge your tokens to a validator, increasing their total stake and potential to validate transactions and earn rewards, which are then shared with you as a delegator.'
+  },
+  {
+    id: 'is-staked-apt-locked',
+    question: 'Is staked APT locked?',
+    answer: 'Yes, staked APT is locked and cannot be used for transactions. To make it liquid, you must first unstake it, which involves an unbonding period before the tokens become available.'
+  },
+  {
+    id: 'what-is-owner-operator-voter-model-staking-aptos',
+    question: 'What is the "owner-operator-voter model for staking" in Aptos?',
+    answer: 'This model separates account roles for enhanced security: the \'Owner\' holds the funds, the \'Operator\' runs the validator node, and the \'Voter\' participates in on-chain governance. This allows secure delegation of operational or voting duties.'
+  },
+
+  // Staking Process & Requirements
+  {
+    id: 'how-do-i-stake-apt',
+    question: 'How do I stake APT?',
+    answer: 'You can stake APT through various Aptos-compatible wallets (like Petra) or staking platforms. This typically involves choosing a validator, entering the amount to stake, and confirming the transaction via your wallet.'
+  },
+  {
+    id: 'what-is-minimum-amount-to-start-staking-apt',
+    question: 'What is the minimum amount I need to start staking?',
+    answer: 'The minimum amount varies. Some platforms like Exodus or Stakely allow staking with as little as 11 APT. However, for a validator to join the active set, they need 1 million APT.'
+  },
+  {
+    id: 'minimum-additional-apt-to-stake',
+    question: 'If I am already staking APT and want to stake additional APT, what is the minimum?',
+    answer: 'For adding to an existing stake, some platforms like Exodus have a lower minimum, such as 0.1 APT.'
+  },
+  {
+    id: 'apt-minimum-reserve-in-wallet',
+    question: 'What is the APT minimum reserve I need to keep in my wallet?',
+    answer: 'Some wallets (e.g., Exodus) may reserve a small amount of APT (e.g., 0.05 APT) to cover future transaction fees for actions like unstaking or claiming rewards.'
+  },
+  {
+    id: 'are-there-transaction-fees-for-staking-apt',
+    question: 'Are there transaction fees for staking APT?',
+    answer: 'Yes, network transaction fees, paid in APT, apply for staking, unstaking, and claiming rewards to cover the computational resources used by the Aptos network.'
+  },
+  {
+    id: 'which-validator-delegating-funds-to',
+    question: 'Which validator will I be delegating my funds to (e.g., when using Exodus)?',
+    answer: 'If you don\'t choose directly, the platform may select one. For example, Exodus uses Everstake as its staking provider, so funds are delegated to Everstake\'s validators. Other services like P2P.org are direct validators.'
+  },
+  {
+    id: 'how-long-for-apt-to-finish-staking',
+    question: 'How long does it take for APT to finish staking after the request?',
+    answer: 'Typically, it takes about 2 hours (one epoch) for APT to be fully staked and begin participating in network consensus after the staking transaction is confirmed.'
+  },
+  {
+    id: 'do-funds-move-out-wallet-when-staking',
+    question: 'Do funds move out to another wallet when I stake (e.g., with Kiln)?',
+    answer: 'With non-custodial staking solutions like Kiln, tokens may move to a staking contract, but your account retains sole authority to unstake, ensuring you maintain custody of your funds.'
+  },
+  {
+    id: 'can-i-select-how-much-wallet-balance-to-stake-apt',
+    question: 'Can I select how much of my wallet balance I want to stake?',
+    answer: 'Generally, yes. Users can typically select the specific amount of APT from their available balance they wish to stake, subject to any platform or protocol minimums.'
+  },
+  {
+    id: 'why-is-my-apt-validator-inactive',
+    question: 'Why is my APT validator inactive (e.g., P2P.org)?',
+    answer: 'A validator might be inactive if its pool has not yet reached the minimum total stake required by the protocol (1 million APT) or by the specific pool\'s rules to become active and earn rewards.'
+  },
+
+  // Staking Rewards
+  {
+    id: 'how-often-aptos-staking-rewards-distributed',
+    question: 'How often are Aptos staking rewards distributed?',
+    answer: 'Aptos staking rewards are distributed at the end of every epoch, which is approximately every 2 hours (7200 seconds).'
+  },
+  {
+    id: 'are-aptos-staking-rewards-auto-compounded',
+    question: 'Are staking rewards automatically added to the active stake (compounded)?',
+    answer: 'Yes, staking rewards on Aptos are automatically compounded. Earned rewards are added to your staked principal, and future rewards are calculated on this new, larger balance.'
+  },
+  {
+    id: 'when-will-i-start-earning-rewards-after-staking-apt',
+    question: 'When will I start earning rewards after staking?',
+    answer: 'You will start earning rewards once your APT is fully staked (typically after about 2 hours or at the start of the next epoch), with rewards distributed at the end of each subsequent epoch.'
+  },
+  {
+    id: 'do-i-need-to-claim-my-apt-rewards',
+    question: 'Do I need to claim my APT rewards?',
+    answer: 'No, because Aptos staking rewards are auto-compounded, you generally do not need to manually claim them; they are automatically added to your staked balance.'
+  },
+  {
+    id: 'how-are-aptos-staking-rewards-calculated',
+    question: 'How are staking rewards calculated?',
+    answer: 'Rewards depend on the network\'s `rewards_rate` (APY), your total staked APT amount, and for validators, their proposer performance. Staking services may also deduct a commission.'
+  },
+  {
+    id: 'what-is-rewards-rate-apy-for-staking-apt',
+    question: 'What is the `rewards_rate` or APY for staking APT?',
+    answer: 'The maximum reward rate starts at 7% annually and is designed to decrease by 1.5% per year to a lower bound of 3.25% annually over 50+ years. The current APY can be seen in some wallets or on staking platforms.'
+  },
+  {
+    id: 'what-is-nrr-network-reward-rate-aptos',
+    question: 'What is NRR (Network Reward Rate) in Aptos network?',
+    answer: 'NRR refers to the overall potential rewards distributed by the Aptos network to participants (stakers and validators) for their contribution to network security and operations.'
+  },
+  {
+    id: 'are-validator-rewards-subject-to-lockup-aptos',
+    question: 'Are validator rewards also subject to a lockup period?',
+    answer: 'Yes, rewards earned by validators are added to their staked principal and are subject to the same lockup conditions as the original stake.'
+  },
+  {
+    id: 'how-is-balance-computed-epoch-n-rewards-distribution-aptos',
+    question: 'How is my balance computed at epoch N for rewards distribution (e.g., with Kiln)?',
+    answer: 'For reward calculation for epoch N, the balance used is typically the staked balance at the beginning of the preceding epoch (N-1), as stated by providers like Kiln.'
+  },
+  {
+    id: 'how-is-commission-paid-to-validators-operators-aptos',
+    question: 'How is commission paid to validators/operators?',
+    answer: 'Validators or staking services charge a commission on the rewards earned by their delegators. This is often paid when delegators unstake or can be requested by the operator after the lockup for associated rewards ends.'
+  },
+
+  // Unstaking Process & Lockup
+  {
+    id: 'how-do-i-unstake-apt',
+    question: 'How do I unstake APT?',
+    answer: 'To unstake APT, you typically use your wallet or staking platform\'s interface to initiate an "unstake" or "unlock" request for your staked balance.'
+  },
+  {
+    id: 'is-there-unstaking-period-aptos',
+    question: 'Is there an unstaking period (unbonding/lockup period) for Aptos?',
+    answer: 'Yes, Aptos has an unstaking or unbonding period during which tokens are no longer actively staking but are not yet available for transfer.'
+  },
+  {
+    id: 'how-long-is-unstaking-period-aptos',
+    question: 'How long is the unstaking period? / How long until my APT finishes unstaking?',
+    answer: 'The unstaking period can vary, often ranging from a few hours up to 30 days. It depends on the staking provider\'s cycle and when the unstake request is made relative to the 30-day lockup period determined by governance.'
+  },
+  {
+    id: 'how-does-unstaking-work-aptos',
+    question: 'How does unstaking work (e.g., on Exodus)?',
+    answer: 'When you initiate unstaking (e.g., on Exodus), your entire staked balance plus rewards are marked for unbonding. You must wait until the end of the current 30-day lockup period for them to become available for claiming.'
+  },
+  {
+    id: 'can-i-unstake-part-of-staked-balance-aptos',
+    question: 'Can I unstake part of the staked balance?',
+    answer: 'This depends on the provider. Some platforms like Kiln allow partial unstaking (e.g., minimum 10 APT). Others, like Exodus as described, might require unstaking the entire balance.'
+  },
+  {
+    id: 'do-i-need-to-claim-unstaked-apt-after-period-ends',
+    question: 'Do I need to claim my unstaked APT after the unstaking period ends?',
+    answer: 'Yes, on some platforms like Exodus, after the unstaking period completes and APT is unlocked, you must perform a separate "claim" transaction to return the funds to your main wallet balance.'
+  },
+  {
+    id: 'how-can-i-withdraw-my-apt-unstaked-unlocked',
+    question: 'How can I withdraw my APT (unstaked and unlocked funds)?',
+    answer: 'Once APT has completed the unbonding period and any necessary claim steps, it becomes available in your wallet. You can then withdraw or transfer it like any other liquid balance.'
+  },
+  {
+    id: 'does-unlocked-stake-continue-earning-rewards-aptos',
+    question: 'Does unlocked stake continue earning rewards until it becomes withdrawable?',
+    answer: 'Yes, APT that is in the process of unbonding (unlocked stake) generally continues to earn staking rewards until it becomes fully withdrawable.'
+  },
+  {
+    id: 'when-can-validator-request-unlock-stake-aptos',
+    question: 'When can a validator request to unlock their stake?',
+    answer: 'A validator can request to unlock their stake at any time. However, the funds become withdrawable only when their current lockup period (set by governance) expires.'
+  },
+
+  // Staking Risks & Security
+  {
+    id: 'is-staking-apt-safe',
+    question: 'Is staking APT safe?',
+    answer: 'Staking APT, especially through non-custodial solutions where you control your keys, is generally considered safe from theft of principal by the platform. However, like all crypto activities, it carries market risks and potential smart contract risks.'
+  },
+  {
+    id: 'is-there-slashing-risk-on-aptos',
+    question: 'Is there a slashing risk on Aptos?',
+    answer: 'Currently, slashing (penalty for validator misbehavior or downtime leading to loss of staked tokens) is not activated or implemented on the Aptos blockchain. This reduces a common staking risk.'
+  },
+
+  // Advanced Staking & Validator Operations
+  {
+    id: 'what-are-different-states-validator-can-be-in-aptos',
+    question: 'What are the different states a validator can be in?',
+    answer: 'A validator on Aptos can be: `inactive` (not in validator set), `pending_active` (waiting to join), `active` (participating in consensus), or `pending_inactive` (transitioning out). Transitions usually occur at epoch boundaries.'
+  },
+  {
+    id: 'how-does-validator-move-between-states-aptos',
+    question: 'How does a validator move between these states?',
+    answer: 'Validators transition between states (e.g., `pending_active` to `active`) at epoch boundaries based on meeting staking requirements, operator actions, or governance decisions.'
+  },
+  {
+    id: 'what-happens-if-validator-stake-falls-below-minimum-aptos',
+    question: 'What happens if a validator\'s stake falls below the minimum required?',
+    answer: 'If an active validator\'s stake drops below the 1 million APT minimum, they will be moved from the `active` state directly to `inactive` during an epoch change, ceasing participation in consensus.'
+  },
+  {
+    id: 'what-is-minimum-maximum-stake-for-validator-aptos',
+    question: 'What is the minimum/maximum stake amount for a validator?',
+    answer: 'The minimum stake for a validator to join the active set is 1 million APT. The maximum stake amount per validator is currently 50 million APT.'
+  },
+  {
+    id: 'what-happens-if-validator-stake-exceeds-maximum-aptos',
+    question: 'What happens if a validator\'s staked amount exceeds the maximum allowed?',
+    answer: 'If a validator\'s stake exceeds the maximum (e.g., 50 million APT), their voting power and reward calculations will be based only on the maximum allowed amount, not their total current stake.'
+  },
+  {
+    id: 'how-does-operator-join-validator-set-aptos',
+    question: 'How does an operator join the validator set?',
+    answer: 'An operator must run a validator node, configure its on-chain addresses and consensus key. The owner deposits the minimum 1 million APT stake. The node syncs and participates once the stake pool becomes active, then earns rewards.'
+  },
+  {
+    id: 'can-validator-consensus-key-network-addresses-change-aptos',
+    question: 'Can a validator\'s consensus key or network addresses change?',
+    answer: 'Yes, a validator\'s consensus key and network addresses can be changed, but these changes only take effect at an epoch boundary.'
+  },
+  {
+    id: 'connect-validator-to-vfn-not-other-way-around-aptos',
+    question: 'Is there a way to connect a Validator to a VFN (Validator FullNode) and not the other way around?',
+    answer: 'Aptos documentation details validator and fullnode configurations. Typically, VFNs connect to validators, but specific advanced setups may require consulting technical guides or community forums.'
+  },
+  {
+    id: 'minimum-faucet-for-stake-create-staking-contract-aptos',
+    question: 'Minimum faucet for stake `create-staking-contract` and how to get it?',
+    answer: 'This refers to needing testnet tokens to interact with staking contracts in a development/testing environment. Testnet APT can usually be obtained from a designated Aptos testnet faucet.'
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map(({ question, answer }) => ({
+    "@type": "Question",
+    "name": question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": answer
+    }
+  }))
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL}
+  keywords={keywords}
+  ogType="article"
+  lang="en"
+  // image="/blog-assets/aptos-faq-og.jpg"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <div class="py-10 md:py-16">
+    <header class="text-center mb-10 md:mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
+        Aptos Staking <span class="text-aptcore-purple">FAQ</span>
+      </h1>
+      <p class="text-lg md:text-xl text-brand-text-secondary mt-4 max-w-2xl mx-auto">
+        Everything you need to know about staking APT on aptcore.one
+      </p>
+    </header>
+
+    <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
+      {faq.map(({ id, question, answer }) => (
+        <details class="group border-b border-slate-700 last:border-b-0" id={id ? `faq-${id}` : undefined}>
+          <summary class="flex w-full items-center justify-between cursor-pointer py-4 text-left list-none text-lg font-medium text-white hover:text-aptcore-purple group-open:text-aptcore-purple transition-colors">
+            <span>{question}</span>
+            <svg class="w-5 h-5 text-slate-400 group-open:rotate-90 transition-transform duration-300 ease-in-out shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </summary>
+          <div class="pt-1 pb-4 text-brand-text-secondary">
+            <p>{answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</Layout>
