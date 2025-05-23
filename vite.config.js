@@ -31,7 +31,8 @@ export default defineConfig({
       'antd/es/alert',        
       'antd/es/typography',   
       'antd/es/divider',      
-      'antd/es/avatar',       // Crucial for the "./avatar" error
+      'antd/es/avatar',
+      'antd/es/avatar/group',       // Crucial for the "./avatar" error
       // If you had a "./flex" error before, these might have helped:
       // 'antd/es/flex', 
     ],
