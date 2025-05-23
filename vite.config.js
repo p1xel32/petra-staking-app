@@ -7,17 +7,27 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     preserveSymlinks: true,
-    mainFields: ['main', 'module'],
+    mainFields: ['module', 'main'],
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
     alias: [
-      // Redirect antd/es imports to antd/lib
       {
         find: /^antd\/es(.*)$/,
         replacement: path.resolve(__dirname, 'node_modules/antd/lib$1'),
       },
-      // Use the browser bundle for axios
       {
         find: 'axios',
-        replacement: path.resolve(__dirname, 'node_modules/axios/dist/axios.min.js'),
+        replacement: path.resolve(
+          __dirname,
+          'node_modules/axios/dist/axios.min.js'
+        ),
+      },
+      // фикс для framer-motion: мэпим .mjs на .js, если нужно
+      {
+        find: /framer-motion\/dist\/es\/render\/dom\/motion\.mjs$/,
+        replacement: path.resolve(
+          __dirname,
+          'node_modules/framer-motion/dist/es/render/dom/motion.js'
+        ),
       },
     ],
   },
@@ -39,6 +49,7 @@ export default defineConfig({
       'antd/es/avatar',
       'antd/es/avatar/group',
       'antd/es/flex',
+      'framer-motion',
     ],
   },
   build: {
@@ -46,6 +57,10 @@ export default defineConfig({
     minify: 'esbuild',
     cssCodeSplit: true,
     chunkSizeWarningLimit: 1000,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+      include: [/node_modules/],
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -61,6 +76,6 @@ export default defineConfig({
     },
   },
   ssr: {
-    noExternal: ['antd'],
+    noExternal: ['antd', 'framer-motion'],
   },
 });
