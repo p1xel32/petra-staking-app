@@ -6,7 +6,6 @@ import { WalletProvider } from "./walletProvider";
 import { HelmetProvider } from 'react-helmet-async';
 
 import 'antd/dist/reset.css';
-import '@aptos-labs/wallet-adapter-ant-design/dist/index.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
