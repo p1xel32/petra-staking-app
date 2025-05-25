@@ -10,9 +10,8 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   resolve: {
-    preserveSymlinks: false,
+    preserveSymlinks: true,
     alias: {
-      // Только если реально нужен прямой импорт
       'antd/es/flex': path.resolve(__dirname, 'node_modules/antd/es/flex'),
     },
   },
@@ -29,8 +28,8 @@ export default defineConfig({
       'antd/es/space',
       'antd/es/alert',
       'antd/es/config-provider',
-      'antd/es/flex',      // фиксил ошибку ./flex на Vercel
-      'antd/es/avatar',    // тоже встречалась как проблема
+      'antd/es/flex',
+      'antd/es/avatar',
     ],
   },
 });
