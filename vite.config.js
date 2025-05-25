@@ -26,25 +26,8 @@ export default defineConfig({
     ],
   },
   optimizeDeps: {
-    include: [
-      'antd',
-      'antd/es/grid',
-      'antd/es/layout',
-      'antd/es/space',
-      'antd/es/button',
-      'antd/es/form',
-      'antd/es/input',
-      'antd/es/input-number',
-      'antd/es/checkbox',
-      'antd/es/tooltip',
-      'antd/es/spin',
-      'antd/es/alert',
-      'antd/es/typography',
-      'antd/es/divider',
-      'antd/es/avatar',
-      'antd/es/avatar/group',
-      'framer-motion',
-    ],
+    // Убираем все конкретные пути внутри antd
+    include: ['antd', 'framer-motion'],
   },
   build: {
     target: 'es2020',
