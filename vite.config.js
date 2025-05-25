@@ -1,46 +1,36 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path'; // теперь нужен
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  build: { 
+  build: {
     target: 'es2020',
     minify: 'esbuild',
     cssCodeSplit: true,
   },
-  resolve: { 
-    preserveSymlinks: true,
+  resolve: {
+    preserveSymlinks: false,
     alias: {
+      // Только если реально нужен прямой импорт
       'antd/es/flex': path.resolve(__dirname, 'node_modules/antd/es/flex'),
     },
   },
-  optimizeDeps: { 
+  optimizeDeps: {
     include: [
-      'antd/es/grid',          
-      'antd/es/layout',       
-      'antd/es/space',        
-      'antd/es/button',       
-      'antd/es/form',         
-      'antd/es/input',        
-      'antd/es/input-number', 
-      'antd/es/checkbox',     
-      'antd/es/tooltip',      
-      'antd/es/spin',         
-      'antd/es/alert',        
-      'antd/es/typography',   
-      'antd/es/divider',      
-      'antd/es/avatar',
-      'antd/es/flex',
-      'antd/es/date-picker',
-      'antd/es/modal',
-      'antd/es/dropdown',
-      'antd/es/menu',
-      'antd/es/select',
-      'antd/es/table',
+      'antd',
+      'antd/es/typography',
+      'antd/es/spin',
+      'antd/es/divider',
+      'antd/es/form',
+      'antd/es/input-number',
+      'antd/es/checkbox',
+      'antd/es/tooltip',
+      'antd/es/space',
+      'antd/es/alert',
       'antd/es/config-provider',
-      'antd/es/locale-provider',
+      'antd/es/flex',      // фиксил ошибку ./flex на Vercel
+      'antd/es/avatar',    // тоже встречалась как проблема
     ],
   },
 });
