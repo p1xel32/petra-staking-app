@@ -9,7 +9,7 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   resolve: {
-    preserveSymlinks: true,
+    preserveSymlinks: false,
   },
   optimizeDeps: {
     include: [
