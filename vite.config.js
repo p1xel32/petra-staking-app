@@ -33,7 +33,7 @@ export default defineConfig({
       'antd/es/avatar',
       // We're trying alias first, so keeping 'antd/es/flex' out of here for now,
       // unless the alias alone doesn't work. If the alias works,
-      // 'antd/es/flex' might still be needed here for pre-bundling.
+      'antd/es/flex'
     ],
   },
 });
