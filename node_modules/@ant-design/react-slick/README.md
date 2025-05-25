@@ -1,4 +1,4 @@
-### react-slick
+### @ant-design/react-slick
 
 [![Backers on Open Collective](https://opencollective.com/react-slick/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/react-slick/sponsors/badge.svg)](#sponsors)
 
@@ -11,13 +11,13 @@
 **npm**
 
 ```bash
-npm install react-slick --save
+npm install @ant-design/react-slick --save
 ```
 
 **yarn**
 
 ```bash
-yarn add react-slick
+yarn add @ant-design/react-slick
 ```
 
 **Also install slick-carousel for css and font**
@@ -37,22 +37,22 @@ or add cdn link in your html
   rel="stylesheet"
   type="text/css"
   charset="UTF-8"
-  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
 />
 <link
   rel="stylesheet"
   type="text/css"
-  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
 />
 ```
 
-### [PlayGround](https://codesandbox.io/s/ppwkk5l6xx)
+### [PlayGround](https://stackblitz.com/edit/vitejs-vite-ownrun?file=src%2FImageSlider.jsx)
 
 ### Example
 
 ```js
 import React from "react";
-import Slider from "react-slick";
+import Slider from "@ant-design/react-slick";
 
 export default function SimpleSlider() {
   var settings = {
@@ -100,7 +100,7 @@ For all available methods, go [here](https://react-slick.neostack.com/docs/api#m
 Want to run demos locally
 
 ```bash
-git clone https://github.com/akiran/react-slick
+git clone https://github.com/ant-design/react-slick
 cd react-slick
 npm install
 npm start
@@ -110,7 +110,6 @@ open http://localhost:8080
 ## Community
 
 Join our [discord channel](https://discord.gg/z7stRE4Cyb) to discuss react-slick bugs and ask for help
-
 
 ## Contributing
 

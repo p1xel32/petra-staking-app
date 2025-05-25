@@ -1,4 +1,3 @@
-// vite.config.js
 import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -44,8 +43,7 @@ export default defineConfig({
       'antd/es/divider',
       'antd/es/avatar',
       'antd/es/avatar/group',
-      'antd/es/flex',
-      'framer-motion',
+      'framer-motion'
     ],
   },
   build: {
