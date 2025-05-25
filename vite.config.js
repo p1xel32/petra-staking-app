@@ -12,12 +12,12 @@ export default defineConfig({
   resolve: {
     preserveSymlinks: true,
     alias: {
-      'antd/es/flex': path.resolve(__dirname, 'node_modules/antd/es/flex'),
+      'antd': path.resolve(__dirname, 'node_modules/antd'),
+      'antd/es': path.resolve(__dirname, 'node_modules/antd/es'),
     },
   },
   optimizeDeps: {
     include: [
-      'antd',
       'antd/es/typography',
       'antd/es/spin',
       'antd/es/divider',
