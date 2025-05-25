@@ -11,18 +11,6 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
     alias: [
       {
-        find: /^antd\/es(.*)$/,
-        replacement: (_, subpath) =>
-          path.resolve(__dirname, `node_modules/antd/lib${subpath}`),
-      },
-      {
-        find: /^antd\/es\/avatar\/group$/,
-        replacement: path.resolve(
-          __dirname,
-          'node_modules/antd/lib/avatar/group.js'
-        ),
-      },
-      {
         find: 'axios',
         replacement: path.resolve(
           __dirname,
@@ -40,6 +28,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
+      'antd',
       'antd/es/grid',
       'antd/es/layout',
       'antd/es/space',
