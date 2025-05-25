@@ -43,7 +43,7 @@ export default defineConfig({
       'antd/es/divider',
       'antd/es/avatar',
       'antd/es/avatar/group',
-      'framer-motion'
+      'framer-motion',
     ],
   },
   build: {
