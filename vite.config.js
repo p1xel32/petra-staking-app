@@ -1,5 +1,7 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path'; // Make sure to import 'path'
 
 export default defineConfig({
   plugins: [react()],
@@ -9,7 +11,12 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   resolve: {
-    preserveSymlinks: false,
+    preserveSymlinks: true, // You have this
+    alias: {
+      // This tells Vite: whenever you encounter an import for 'antd/es/flex',
+      // resolve it to the absolute path of 'node_modules/antd/es/flex/index.js'.
+      'antd/es/flex': path.resolve(__dirname, 'node_modules/antd/es/flex/index.js'),
+    },
   },
   optimizeDeps: {
     include: [
@@ -24,6 +31,9 @@ export default defineConfig({
       'antd/es/alert',
       'antd/es/config-provider',
       'antd/es/avatar',
+      // We're trying alias first, so keeping 'antd/es/flex' out of here for now,
+      // unless the alias alone doesn't work. If the alias works,
+      // 'antd/es/flex' might still be needed here for pre-bundling.
     ],
   },
 });
