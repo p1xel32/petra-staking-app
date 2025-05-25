@@ -1,7 +1,7 @@
 // vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-// import path from 'path'; // path is usually not needed for antd/es if optimizeDeps works
+import path from 'path'; // теперь нужен
 
 export default defineConfig({
   plugins: [react()],
@@ -12,14 +12,12 @@ export default defineConfig({
   },
   resolve: { 
     preserveSymlinks: true,
-    // alias: { // The 'aptos' alias might be needed if you encounter "BCS not exported" errors later
-    //   'aptos': '@aptos-labs/ts-sdk', 
-    // },
+    alias: {
+      'antd/es/flex': path.resolve(__dirname, 'node_modules/antd/es/flex'),
+    },
   },
   optimizeDeps: { 
     include: [
-      // Common Ant Design ES modules for Vite pre-bundling
-      // Add or remove based on specific errors you encounter during 'vite build' or on Vercel
       'antd/es/grid',          
       'antd/es/layout',       
       'antd/es/space',        
@@ -33,8 +31,8 @@ export default defineConfig({
       'antd/es/alert',        
       'antd/es/typography',   
       'antd/es/divider',      
-      'antd/es/avatar',       // Was for "./avatar" error
-      'antd/es/flex',         // Add this if you get "./flex" error
+      'antd/es/avatar',
+      'antd/es/flex',
       'antd/es/date-picker',
       'antd/es/modal',
       'antd/es/dropdown',
@@ -43,10 +41,6 @@ export default defineConfig({
       'antd/es/table',
       'antd/es/config-provider',
       'antd/es/locale-provider',
-      // 'antd/es/locale/en_US', // Example locale
     ],
   },
-  // define: { // Optional: If 'global' is needed for some dependency
-  //   'global': 'globalThis',
-  // },
 });
