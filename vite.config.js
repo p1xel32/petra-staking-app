@@ -12,7 +12,15 @@ export default defineConfig({
     alias: [
       {
         find: /^antd\/es(.*)$/,
-        replacement: path.resolve(__dirname, 'node_modules/antd/lib$1'),
+        replacement: (_, subpath) =>
+          path.resolve(__dirname, `node_modules/antd/lib${subpath}`),
+      },
+      {
+        find: /^antd\/es\/avatar\/group$/,
+        replacement: path.resolve(
+          __dirname,
+          'node_modules/antd/lib/avatar/group.js'
+        ),
       },
       {
         find: 'axios',
@@ -21,7 +29,6 @@ export default defineConfig({
           'node_modules/axios/dist/axios.min.js'
         ),
       },
-      // фикс для framer-motion: мэпим .mjs на .js, если нужно
       {
         find: /framer-motion\/dist\/es\/render\/dom\/motion\.mjs$/,
         replacement: path.resolve(
