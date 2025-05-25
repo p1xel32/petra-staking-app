@@ -1,58 +1,52 @@
-import path from 'path';
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+// import path from 'path'; // path is usually not needed for antd/es if optimizeDeps works
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    preserveSymlinks: true,
-    mainFields: ['module', 'main'],
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
-    alias: [
-      {
-        find: 'axios',
-        replacement: path.resolve(
-          __dirname,
-          'node_modules/axios/dist/axios.min.js'
-        ),
-      },
-      {
-        find: /framer-motion\/dist\/es\/render\/dom\/motion\.mjs$/,
-        replacement: path.resolve(
-          __dirname,
-          'node_modules/framer-motion/dist/es/render/dom/motion.js'
-        ),
-      },
-    ],
-  },
-  optimizeDeps: {
-    // Убираем все конкретные пути внутри antd
-    include: ['antd', 'framer-motion'],
-  },
-  build: {
+  build: { 
     target: 'es2020',
     minify: 'esbuild',
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-      include: [/node_modules/],
-    },
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (!id.includes('node_modules')) return;
-          let pkg = id.split('node_modules/')[1].split('/')[0];
-          if (pkg.startsWith('@')) {
-            const parts = id.split('node_modules/')[1].split('/');
-            pkg = `${parts[0]}/${parts[1]}`;
-          }
-          return `vendor.${pkg.replace('@', '').replace('/', '.')}`;
-        },
-      },
-    },
   },
-  ssr: {
-    noExternal: ['antd', 'framer-motion'],
+  resolve: { 
+    preserveSymlinks: true,
+    // alias: { // The 'aptos' alias might be needed if you encounter "BCS not exported" errors later
+    //   'aptos': '@aptos-labs/ts-sdk', 
+    // },
   },
+  optimizeDeps: { 
+    include: [
+      // Common Ant Design ES modules for Vite pre-bundling
+      // Add or remove based on specific errors you encounter during 'vite build' or on Vercel
+      'antd/es/grid',          
+      'antd/es/layout',       
+      'antd/es/space',        
+      'antd/es/button',       
+      'antd/es/form',         
+      'antd/es/input',        
+      'antd/es/input-number', 
+      'antd/es/checkbox',     
+      'antd/es/tooltip',      
+      'antd/es/spin',         
+      'antd/es/alert',        
+      'antd/es/typography',   
+      'antd/es/divider',      
+      'antd/es/avatar',       // Was for "./avatar" error
+      'antd/es/flex',         // Add this if you get "./flex" error
+      'antd/es/date-picker',
+      'antd/es/modal',
+      'antd/es/dropdown',
+      'antd/es/menu',
+      'antd/es/select',
+      'antd/es/table',
+      'antd/es/config-provider',
+      'antd/es/locale-provider',
+      // 'antd/es/locale/en_US', // Example locale
+    ],
+  },
+  // define: { // Optional: If 'global' is needed for some dependency
+  //   'global': 'globalThis',
+  // },
 });
