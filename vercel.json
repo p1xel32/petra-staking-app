@@ -12,6 +12,10 @@
     {
       "source": "/blog/:path*",
       "destination": "https://v0-aptos-staking.vercel.app/:path*"
+    },
+    {
+      "source": "/((?!api/|_next/|static/|assets/|docs/|img/|images/|media/|files/|js/|css/|favicon.ico|manifest.json|sw.js|robots.txt|sitemap.xml|blog/).*)",
+      "destination": "/index.html"
     }
   ]
 }
