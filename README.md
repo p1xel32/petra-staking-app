@@ -15,26 +15,40 @@ Built with cutting-edge web technologies: React, Vite, Tailwind CSS, `@aptos-lab
 
 ## 📸 Preview
 ![Preview of the aptcore.one Aptos Staking Interface showing wallet connection and validator details.](src/assets/aptcore_interface.png)
+
 ---
 
 ## ✨ Key Features of the aptcore.one Staking Platform
 
 * **Seamless Aptos Wallet Connection:** Easily connect a wide array of popular Aptos wallets, including Petra, Martian, Pontem, Rise, Fewcha, MSafe, Nightly, and others, powered by `@aptos-labs/wallet-adapter-react` for automatic detection.
-* **Detailed Validator Pool Insights:** Access crucial information about the `aptcore.one` validator pool (or your self-configured Aptos validator):
-    * Total $APT delegated (TVL in pool)
-    * Operator commission percentage
-    * Estimated Gross Staking APR and Net Staking APR (calculated directly from Aptos on-chain data)
-    * Current pool lockup period end date and time remaining.
-* **Comprehensive Personal Stake Management:** Get a clear overview of your staking activities:
+* **Detailed Validator Pool Insights:** Access crucial information about the `aptcore.one` validator pool (or your self-configured Aptos validator). The interface typically displays:
+    * Total $APT delegated to the pool (often referred to as TVL - Total Value Locked).
+    * The validator's operator commission percentage.
+    * Estimated Gross Staking APR (Annual Percentage Rate) and Net Staking APR (after commission). These are generally calculated from on-chain Aptos data.
+    * The current pool lockup period end date and the time remaining until unlock.
+* **Comprehensive Personal Stake Management:** Get a clear overview of your staking activities directly within the interface:
     * **Active Stake:** Your $APT principal currently staked and actively earning rewards.
-    * **Pending Inactive Stake:** $APT undergoing the unstaking (unlocking) process.
-    * **Inactive Stake:** $APT tokens that have completed the unstaking period and are available for withdrawal.
-* **Essential Staking Operations:** Perform all necessary actions for Aptos staking:
-    * **Stake $APT:** Delegate your Aptos tokens to the validator's pool (network minimum: 11 $APT).
-    * **Unstake $APT:** Initiate the process to unlock your staked $APT and stop earning rewards.
-    * **Withdraw $APT:** Retrieve your unlocked (inactive) $APT back to your connected wallet.
-* **Real-time Data Synchronization:** Enjoy automatic data updates after any successful transaction, ensuring you view the most current staking status.
+    * **Pending Inactive Stake:** $APT that is in the process of being unstaked (unlocking period).
+    * **Inactive Stake:** $APT tokens that have completed the unstaking period and are available for withdrawal to your wallet.
+* **Essential Staking Operations:** Perform all necessary actions for managing your Aptos stake:
+    * **Stake $APT:** Delegate your Aptos tokens to the validator's pool. (The Aptos network has a minimum staking requirement, currently 11 $APT).
+    * **Unstake $APT:** Initiate the process to unlock your staked $APT. Rewards typically continue to accrue during the unstaking lockup period.
+    * **Withdraw $APT:** Retrieve your unlocked (inactive) $APT back to your connected wallet once the lockup period is complete.
+* **Real-time Data Synchronization:** The application is designed to automatically refresh data after successful transactions, ensuring you are viewing the most current status of your stake and pool information.
 * **Modern & Responsive User Interface:** Experience a clean, intuitive, dark-themed interface, optimized for ease of use across desktop and mobile devices.
+
+---
+
+## 🛠️ Additional Staking Utilities on aptcore.one
+
+Beyond the core staking interface, `aptcore.one` also provides helpful tools to assist you with your Aptos staking strategy:
+
+* **[Aptos Staking APY Calculator](https://aptcore.one/tools/aptos-staking-apy-calculator)**:
+    * Estimate your potential staking rewards and Annual Percentage Yield (APY) based on various inputs. A great tool for planning your staking participation.
+* **[Aptos Staking Lockup Visualizer](https://aptcore.one/tools/aptos-staking-lockup-visualizer)**:
+    * Understand the dynamics of Aptos staking lockup periods. Visualize when your staked $APT (including rewards) is scheduled to unlock and become withdrawable.
+
+These utilities are designed to provide further clarity and empower you to make more informed decisions regarding your $APT staking.
 
 ---
 
@@ -105,4 +119,4 @@ This project and its source code are made available under the [MIT License](LICE
 
 ---
 
-**Keywords:** *Aptos, Aptos Network, Aptos Blockchain, Staking, APT Staking, Delegate APT, Aptos Staking UI, Aptos Staking Tool, aptcore.one, aptcore.one Validator, Petra Wallet Staking, Martian Wallet Staking, Pontem Wallet Staking, Rise Wallet Staking, Fewcha Wallet Staking, MSafe Wallet Staking, Nightly Wallet Staking, Aptos Wallet Adapter, Aptos Delegation Pool, Aptos Validator Staking, Crypto Staking, Web3 Interface, React Staking App, Vite, Tailwind CSS, $APT, Aptos Staking Interface, Manage Aptos Stake, Aptos Staking Rewards, Secure Staking.*
+**Keywords:** *Aptos, Aptos Network, Aptos Blockchain, Staking, APT Staking, Delegate APT, Aptos Staking UI, Aptos Staking Tool, aptcore.one, aptcore.one Validator, Petra Wallet Staking, Martian Wallet Staking, Pontem Wallet Staking, Rise Wallet Staking, Fewcha Wallet Staking, MSafe Wallet Staking, Nightly Wallet Staking, Aptos Wallet Adapter, Aptos Delegation Pool, Aptos Validator Staking, Crypto Staking, Web3 Interface, React Staking App, Vite, Tailwind CSS, $APT, Aptos Staking Interface, Manage Aptos Stake, Aptos Staking Rewards, Secure Staking, APY Calculator, Lockup Visualizer.*
