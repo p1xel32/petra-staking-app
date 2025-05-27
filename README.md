@@ -14,7 +14,7 @@ Built with cutting-edge web technologies: React, Vite, Tailwind CSS, `@aptos-lab
 ---
 
 ## 📸 Preview
-![Preview of the aptcore.one Aptos Staking Interface showing wallet connection and validator details.](URL_TO_YOUR_SCREENSHOT.png)
+![Preview of the aptcore.one Aptos Staking Interface showing wallet connection and validator details.](src/assets/aptcore_interface.png)
 ---
 
 ## ✨ Key Features of the aptcore.one Staking Platform
