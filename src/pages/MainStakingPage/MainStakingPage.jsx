@@ -33,7 +33,7 @@ const MainStakingPage = () => {
       <Helmet>
         <title>aptcore.one | Smart & Simple Aptos Staking</title>
         <meta name="description" content="Stake your Aptos (APT) with aptcore.one. Maximize rewards, minimize complexity. Secure, transparent, and user-centric." />
-        {/* Add other relevant meta tags for your main staking page */}
+        <link rel="canonical" href="https://aptcore.one/" />
       </Helmet>
       <StructuredData /> {/* If this is specific to the main page */}
       
@@ -45,9 +45,9 @@ const MainStakingPage = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="w-full max-w-3xl text-center mb-8"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight text-purple-400">
+          <h1 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight text-purple-400">
             aptcore.one: <span className="text-gray-100">Smart & Simple Aptos Staking</span>
-          </h2>
+          </h1>
           <p className="text-lg md:text-xl text-zinc-300 leading-relaxed">
             Stake your Aptos (APT) with any compatible wallet. Maximize rewards, minimize complexity. Secure, transparent, and user-centric.
           </p>
