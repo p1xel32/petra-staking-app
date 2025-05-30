@@ -9,6 +9,14 @@ export interface Props {
   keywords?: string | string[];
   ogType?: string;
   lang?: string;
+  video?: {
+    url: string;
+    name: string;
+    description?: string;
+    uploadDate?: string;
+    duration?: string;
+    thumbnailUrl?: string;
+  };
 }
 
 const {
@@ -17,8 +25,9 @@ const {
   image = '/og-image.png',
   canonicalURL = new URL(Astro.url.pathname, SITE_URL),
   keywords = `${title}, Aptos, aptcore.one`,
-  ogType = 'website',
+  ogType = Astro.props.video ? 'video.other' : 'website',
   lang = 'en',
+  video
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -35,7 +44,7 @@ const socialImageURL = image.startsWith('http')
 <meta property="og:image" content={socialImageURL} />
 <meta property="og:url" content={canonicalURL.toString()} />
 <meta property="og:type" content={ogType} />
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={video ? 'player' : 'summary_large_image'} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImageURL} />
