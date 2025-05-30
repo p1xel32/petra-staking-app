@@ -1,5 +1,22 @@
 {
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/search",
+      "statusCode": 410,
+      "destination": "/"
+    },
+    {
+      "source": "/staking",
+      "statusCode": 410,
+      "destination": "/"
+    },
+    {
+      "source": "/faucet",
+      "statusCode": 410,
+      "destination": "/"
+    }
+  ],
   "rewrites": [
     {
       "source": "/blog/_astro/:path*",
