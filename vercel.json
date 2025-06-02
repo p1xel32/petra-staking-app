@@ -3,11 +3,10 @@
   "trailingSlash": false,
   "functions": {
     "api/index.js": {
-      "runtime": "nodejs20"
+      "runtime": "nodejs20.x"
     }
   },
   "rewrites": [
- 
     {
       "source": "/blog/_astro/:path*",
       "destination": "https://v0-aptos-staking.vercel.app/_astro/:path*"
@@ -16,11 +15,9 @@
       "source": "/blog/:path*",
       "destination": "https://v0-aptos-staking.vercel.app/:path*"
     },
-  
     {
       "source": "/((?!assets/|favicon.ico|icon.svg|apple-touch-icon.png|manifest.json|sw.js|workbox-.*.js|_vike/|api/).*)",
       "destination": "/api/index"
     }
-  
   ]
 }
