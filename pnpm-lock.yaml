@@ -71,6 +71,9 @@ importers:
       vike:
         specifier: ^0.4.231
         version: 0.4.231(vite@6.3.5(@types/node@22.15.29)(jiti@1.21.7)(yaml@2.8.0))
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5(@types/node@22.15.29)(jiti@1.21.7)(yaml@2.8.0)
     devDependencies:
       '@types/express':
         specifier: ^4.17.21
@@ -93,9 +96,6 @@ importers:
       tailwindcss:
         specifier: ^3.3.2
         version: 3.4.17
-      vite:
-        specifier: ^6.3.5
-        version: 6.3.5(@types/node@22.15.29)(jiti@1.21.7)(yaml@2.8.0)
 
 packages:
 
