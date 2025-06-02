@@ -18,7 +18,7 @@
     },
   
     {
-      "source": "/((?!assets/|favicon.ico|icon.svg|apple-touch-icon.png|manifest.json|sw.js|workbox-.*.js|_vike/|api/).*)", // Exclude common static asset paths and /api/ from this rewrite
+      "source": "/((?!assets/|favicon.ico|icon.svg|apple-touch-icon.png|manifest.json|sw.js|workbox-.*.js|_vike/|api/).*)",
       "destination": "/api/index"
     }
   
