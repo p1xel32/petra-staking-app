@@ -1,16 +1,21 @@
 {
-  "name": "petra-staking-app",
+  "name": "petra-staking-app-vike",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=20.17.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev:vike": "vike dev",
+    "dev:express": "cross-env NODE_ENV=development node ./server/index.js",
+    "dev": "concurrently \"pnpm run dev:vike\" \"pnpm run dev:express\"",
+    "build": "vite build && vite build --ssr",
+    "preview": "cross-env NODE_ENV=production node ./server/index.js",
+    "prod": "cross-env NODE_ENV=production node ./server/index.js"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@aptos-labs/derived-wallet-ethereum": "^0.3.0",
     "@aptos-labs/derived-wallet-solana": "^0.3.0",
     "@aptos-labs/ts-sdk": "^2.0.1",
@@ -21,20 +26,26 @@
     "antd": "5.25.2",
     "axios": "^1.9.0",
     "ethers": "^5.7.2",
+    "express": "^4.18.2",
     "framer-motion": "10.12.5",
+    "http-proxy-middleware": "^3.0.5",
     "lucide-react": "^0.508.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^7.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "react-router-dom": "^7.6.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vike": "^0.4.231"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.14",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.2",
-    "vite": "^6.3.4"
+    "vite": "^5.3.4"
   },
   "overrides": {
     "axios": "^1.9.0"

@@ -1,13 +1,13 @@
 // src/pages/tools/AptosAPYCalculator/AptosAPYCalculatorPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-import { Typography, Spin, Divider } from 'antd'; 
-import { Helmet } from 'react-helmet-async';
+import { Typography, Spin, Divider } from 'antd';
+import { Helmet } from '@/lib/helmet'; // Assuming HelmetProvider is wrapped at a higher level
 import CalculatorForm from './components/CalculatorForm';
 import ResultsDisplay from './components/ResultsDisplay';
 import DisclaimerText from './components/DisclaimerText';
-import CalculatorFAQ from './components/CalculatorFAQ'; 
-import { getDefaultApy, getAptPrice } from '../../../services/aptosService';
-import { AlertTriangle } from 'lucide-react'; 
+import CalculatorFAQ from './components/CalculatorFAQ';
+import { getDefaultApy, getAptPrice } from '../../../services/aptosService'; // Adjust path if needed
+import { AlertTriangle } from 'lucide-react';
 
 const { Title, Paragraph } = Typography;
 
@@ -39,7 +39,7 @@ const AptosAPYCalculatorPage = () => {
         setDefaultApy(apy);
       } catch (err) {
         console.error("Failed to fetch default APY:", err);
-        setDefaultApy(null);
+        setDefaultApy(null); // Set to null on error
         errors.push('Failed to load network APY.');
       } finally {
         setIsApyLoading(false);
@@ -50,7 +50,7 @@ const AptosAPYCalculatorPage = () => {
         setAptPriceUSD(price);
       } catch (err) {
         console.error("Failed to fetch APT price:", err);
-        setAptPriceUSD(null);
+        setAptPriceUSD(null); // Set to null on error
         errors.push('Failed to load APT price.');
       } finally {
         setIsPriceLoading(false);
@@ -120,12 +120,12 @@ const AptosAPYCalculatorPage = () => {
 
   const isLoadingOverall = isApyLoading || isPriceLoading;
   const isPriceAvailableForDisplay = aptPriceUSD !== null && aptPriceUSD !== undefined;
-  
-  const pageUrl = "https://aptcore.one/tools/aptos-staking-apy-calculator"; 
-  const pageTitle = "Aptos (APT) Staking Yield Calculator | Estimate Earnings | Aptcore.one";
-  const pageDescription = "Use the free Aptos (APT) staking APY calculator by Aptcore.one to estimate your potential daily, weekly, monthly, and yearly staking rewards in APT and USD.";
 
-  // FAQ data for schema (should match content in CalculatorFAQ.jsx)
+  const pageUrl = "https://aptcore.one/tools/aptos-staking-apy-calculator";
+  const pageTitle = "Interactive Aptos (APT) Staking APY Calculator – Estimate Your Rewards | aptcore.one";
+  const pageDescription = "Easily calculate your potential Aptos (APT) staking rewards with aptcore.one's free APY calculator. Input stake amount & see estimated daily, monthly, and yearly earnings.";
+  const shortTwitterDescription = "Calculate your potential Aptos (APT) staking rewards. Input stake amount & see estimated daily, weekly, monthly, and yearly earnings with aptcore.one's APY tool.";
+
   const faqSchemaData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -173,64 +173,66 @@ const AptosAPYCalculatorPage = () => {
     ]
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Interactive Aptos (APT) Staking APY Calculator", // Согласовано с title
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web", // Указывает на веб-приложение
+    "browserRequirements": "Requires a modern web browser with JavaScript enabled.",
+    "description": "A free online tool by Aptcore.one to calculate and estimate potential earnings from staking Aptos (APT) tokens based on stake amount and APY. Understand your potential daily, weekly, monthly, and yearly rewards.",
+    "keywords": "Aptos staking APY calculator, APT APY calculator, Aptos rewards calculator, calculate Aptos staking profit, APT staking earnings estimator, how much can i earn staking aptos calculator, aptos staking potential return calculator, free aptos apy tool aptcore.one, daily aptos staking rewards calculator", // Добавлены ключевые слова
+    "author": { "@type": "Organization", "name": "Aptcore.one", "url": "https://aptcore.one" },
+    "url": pageUrl,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Use the Interactive Aptos APY Staking Calculator on Aptcore.one",
+    "description": "Calculate your potential Aptos (APT) staking rewards with the Aptcore.one APY calculator by entering your stake amount and optionally a custom APY.",
+    "step": [
+      {"@type": "HowToStep", "name": "Enter Staking Amount", "text": "Input the total amount of APT you plan to stake into the 'Amount of APT to stake' field."},
+      {"@type": "HowToStep", "name": "Specify APY (Optional)", "text": "The calculator uses the current estimated network APY by default. If you want to use a different APY, check 'Specify your own APY' and enter your desired percentage." },
+      {"@type": "HowToStep", "name": "View Estimated Returns", "text": "The calculator will automatically display your estimated earnings for daily, weekly, monthly, and yearly periods in both APT and its approximate USD value if the APT price is available."}
+    ],
+    "tool": [{"@type": "HowToTool", "name": "Interactive Aptos (APT) Staking APY Calculator on Aptcore.one"}]
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": pageTitle,
+    "description": pageDescription,
+    "url": pageUrl,
+    "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "Aptcore.one" }
+  };
+
   return (
     <>
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={pageUrl} />
-        <meta property="og:title" content="Aptos (APT) Staking APY Calculator | Aptcore.one" />
-        <meta property="og:description" content={pageDescription} />
-        <meta property="og:url" content={pageUrl} />
+        
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content="https://aptcore.one/og-image-apy-calculator.jpg" />
         <meta property="og:site_name" content="Aptcore.one" />
-        {/* <meta property="og:image" content="https://aptcore.one/og-image-calculator.png" /> */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Aptos (APT) Staking APY Calculator | Aptcore.one" />
-        <meta name="twitter:description" content="Calculate your potential Aptos staking rewards with the Aptcore.one APY tool." />
-        {/* <meta name="twitter:image" content="https://aptcore.one/twitter-image-calculator.png" /> */}
 
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": pageTitle,
-            "description": pageDescription,
-            "url": pageUrl,
-            "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "Aptcore.one" }
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            "name": "How to Use the Aptos APY Staking Calculator on Aptcore.one",
-            "description": "Calculate your potential Aptos (APT) staking rewards with the Aptcore.one APY calculator by entering your stake amount and optionally a custom APY.",
-            "step": [
-              {"@type": "HowToStep", "name": "Enter Staking Amount", "text": "Input the total amount of APT you plan to stake into the 'Amount of APT to stake' field."},
-              {"@type": "HowToStep", "name": "Specify APY (Optional)", "text": "The calculator uses the current estimated network APY by default. If you want to use a different APY, check 'Specify your own APY' and enter your desired percentage." },
-              {"@type": "HowToStep", "name": "View Estimated Returns", "text": "The calculator will automatically display your estimated earnings for daily, weekly, monthly, and yearly periods in both APT and its approximate USD value."}
-            ],
-            "tool": [{"@type": "HowToTool", "name": "Aptos (APT) Staking Yield Calculator on Aptcore.one"}]
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Aptos APY Staking Calculator",
-            "applicationCategory": "FinanceApplication",
-            "operatingSystem": "Web",
-            "browserRequirements": "Requires a modern web browser with JavaScript enabled.",
-            "description": "A free online tool by Aptcore.one to calculate and estimate potential earnings from staking Aptos (APT) tokens based on stake amount and APY.",
-            "author": { "@type": "Organization", "name": "Aptcore.one", "url": "https://aptcore.one" },
-            "url": pageUrl,
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchemaData)}
-        </script>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={shortTwitterDescription} /> 
+        <meta name="twitter:image" content="https://aptcore.one/og-image-apy-calculator.jpg" />
+
+        <script type="application/ld+json">{JSON.stringify(webPageSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(softwareAppSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchemaData)}</script>
       </Helmet>
 
       <div className="w-full max-w-3xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
@@ -253,12 +255,12 @@ const AptosAPYCalculatorPage = () => {
         {!isLoadingOverall && (
           <>
             <div className="text-center mb-10 sm:mb-12">
+              {/* Вы можете обновить H1 здесь для полной согласованности с pageTitle, если хотите */}
               <Title level={1} className="!text-3xl sm:!text-4xl font-bold !mb-3 tracking-tight !text-white">
-                Aptos Staking Yield Calculator
+                Interactive Aptos (APT) Staking APY Calculator
               </Title>
               <Paragraph className="text-gray-300 text-base sm:text-lg max-w-xl mx-auto">
-                Estimate your potential profit from staking APT tokens.
-                Enter the amount you plan to stake and use the current network APY or specify your own.
+                Easily calculate your potential Aptos (APT) staking rewards with aptcore.one's free APY calculator. Input stake amount & see estimated daily, monthly, and yearly earnings.
               </Paragraph>
             </div>
 

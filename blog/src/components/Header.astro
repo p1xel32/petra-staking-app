@@ -1,38 +1,58 @@
 ---
 // blog/src/components/Header.astro
-import { SITE_URL } from '../consts';
-// const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // base is no longer strictly needed for these links if explicit paths are used
+import { SITE_URL } from '../consts'; 
 
-// Updated navLinks to use explicit paths for blog sections for clarity
+const BLOG_LOGO_URL = "/blog/aptcore-logo.svg"; 
+const BLOG_BASE = "/blog";
+
+// URLs for tools on the main site
+const APY_CALCULATOR_URL = "/tools/aptos-staking-apy-calculator";
+const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer";
+
 const navLinks = [
-  { href: SITE_URL, text: 'Main App' }, // Links to the main application
-  { href: "/blog", text: 'Blog' },         // Explicit path to blog home
-  { href: "/blog/about", text: 'About' },   // Explicit path to about page
-  { href: "/blog/faq", text: 'FAQ' }, // Explicit path to contact page
-  { href: "/blog/contact", text: 'Contact' } // Explicit path to contact page
+  { href: SITE_URL, text: 'Main App' },
+  { href: APY_CALCULATOR_URL, text: 'APY Calculator' },      // New link
+  { href: LOCKUP_VISUALIZER_URL, text: 'Lockup Visualizer' }, // New link
+  { href: BLOG_BASE, text: 'Blog Home' },
+  { href: `${BLOG_BASE}/about`, text: 'About Us' },
+  { href: `${BLOG_BASE}/faq`, text: 'Blog FAQ' },
+  { href: `${BLOG_BASE}/contact`, text: 'Contact' }
 ];
 ---
 <header class="w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
   <a
-    href={SITE_URL} {/* Changed from hardcoded "https://aptcore.one" to SITE_URL for consistency */}
+    href={SITE_URL}
     class="flex items-baseline focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1"
-    aria-label="aptcore.one homepage"
+    aria-label="aptcore.one main application"
   >
-    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline text-aptcore-purple">
+    <div class="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline text-aptcore-purple" role="img" aria-label="aptcore.one logo">
       <span>aptcore</span>
       <img
-        src="/blog/aptcore-logo.svg" {/* Assuming this path is correct relative to your public dir */}
-        alt="aptcore.one logo separator"
+        src={BLOG_LOGO_URL}
+        alt=""
         class="h-4 w-4 sm:h-5 sm:w-5 mx-1 relative top-px"
         aria-hidden="true"
         width="20" height="20"
       />
       <span>one</span>
-    </h1>
+    </div>
   </a>
-  <div class="space-x-4 text-sm sm:text-base">
-    {navLinks.map(link => (
-      <a href={link.href} class="text-white hover:text-aptcore-purple transition-colors">{link.text}</a>
-    ))}
-  </div>
+  <nav aria-label="Blog navigation">
+    <div class="space-x-1 sm:space-x-2 text-xs sm:text-sm"> {/* Adjusted spacing for more links if needed */}
+      {navLinks.map(link => {
+        const isTrulyExternal = link.href.startsWith('http') && !link.href.startsWith(SITE_URL);
+
+        return (
+          <a
+            href={link.href}
+            class="text-zinc-200 hover:text-aptcore-purple transition-colors px-1.5 py-1 sm:px-2 rounded-md"
+            target={isTrulyExternal ? '_blank' : undefined}
+            rel={isTrulyExternal ? 'noopener noreferrer' : undefined}
+          >
+            {link.text}
+          </a>
+        );
+      })}
+    </div>
+  </nav>
 </header>

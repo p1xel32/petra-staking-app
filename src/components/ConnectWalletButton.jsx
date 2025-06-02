@@ -5,6 +5,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { XIcon, ShieldCheckIcon, AlertTriangleIcon, ChevronRightIcon } from 'lucide-react';
 
 export default function ConnectWalletButton() {
+  const walletContext = useWallet();
   const { account, connected, disconnect, wallets, connect, wallet } = useWallet();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalAnimating, setIsModalAnimating] = useState(false); 

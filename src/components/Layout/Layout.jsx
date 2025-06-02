@@ -1,14 +1,13 @@
 // src/components/Layout/Layout.jsx
 import React from 'react';
-import AppHeader from './AppHeader'; // Assuming AppHeader.jsx is in the same folder
-import AppFooter from './AppFooter'; // Assuming AppFooter.jsx is in the same folder
+import AppHeader from './AppHeader'; 
+import AppFooter from './AppFooter'; 
 
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col">
       <AppHeader />
-      <main className="flex-grow w-full"> 
-        {/* Content will be rendered here. Pages can define their own containers if needed. */}
+      <main className="flex-grow w-full">
         {children}
       </main>
       <AppFooter />

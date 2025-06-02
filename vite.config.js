@@ -1,23 +1,31 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-// import path from 'path'; // Временно не нужен, если алиас комментируем
+import ssr from 'vike/plugin';
+import path from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  server: {
+    hmr: {
+      port: 3000
+    }
+  },
+  plugins: [
+    react(),
+    ssr()
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   build: {
     target: 'es2020',
     minify: 'esbuild',
     cssCodeSplit: true,
   },
-  resolve: {
-    // preserveSymlinks: true, // << КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: Установите false или закомментируйте
-    // alias: { // << Также закомментируйте для чистоты теста preserveSymlinks
-    //   'antd/es/flex': path.resolve(__dirname, 'node_modules/antd/es/flex/index.js'),
-    // },
-  },
   optimizeDeps: {
     include: [
+      'react-helmet-async',
       'antd/es/typography',
       'antd/es/spin',
       'antd/es/divider',
@@ -29,7 +37,6 @@ export default defineConfig({
       'antd/es/alert',
       'antd/es/config-provider',
       'antd/es/avatar',
-      // 'antd/es/flex' // Можно также временно закомментировать
     ],
   },
 });
