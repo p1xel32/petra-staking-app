@@ -1,18 +1,13 @@
 // vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import ssr from 'vike/plugin'; 
+import vike from 'vike/plugin';
 import path from 'path';
 
 export default defineConfig({
-  server: {
-    hmr: {
-      port: 3000
-    }
-  },
   plugins: [
     react(),
-    ssr({
+    vike({
     })
   ],
   resolve: {
@@ -21,12 +16,16 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'dist', 
     target: 'es2022', 
     minify: 'esbuild',
     cssCodeSplit: true,
   },
   esbuild: {
-    target: 'es2022' 
+    target: 'es2022'
+  },
+  ssr: {
+    external: ['@aptos-labs/ts-sdk']
   },
   optimizeDeps: {
     include: [

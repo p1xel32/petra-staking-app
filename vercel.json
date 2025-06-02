@@ -1,12 +1,6 @@
 {
   "version": 2,
   "trailingSlash": false,
-  "builds": [
-    {
-      "src": "server/index.js",
-      "use": "@vercel/node"
-    }
-  ],
   "rewrites": [
     {
       "source": "/blog/_astro/:path*",
@@ -18,7 +12,8 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/server/index.js"
+      "destination": "/api/index" 
     }
   ]
+ 
 }
