@@ -22,3 +22,30 @@ Thumbs.db
 .vscode/
 .idea/
 .vercel
+
+# Node.js dependencies
+node_modules/
+
+# Build output (don't commit build artifacts)
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env*.local
+
+# Editor configs
+.vscode/
+.idea/
+.vercel/
+

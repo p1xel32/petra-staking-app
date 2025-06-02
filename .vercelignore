@@ -1,0 +1,16 @@
+# Ignore everything by default
+*
+
+# Except for what we need to build
+!src/
+!public/
+!api/
+!dist/
+!dist/client/
+!vite.config.*
+!package.json
+!pnpm-lock.yaml
+!tsconfig.json
+!postcss.config.js
+!tailwind.config.js
+
