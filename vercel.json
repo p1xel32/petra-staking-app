@@ -1,6 +1,7 @@
 {
   "version": 2,
   "trailingSlash": false,
+  "public": "dist/client",
   "rewrites": [
     {
       "source": "/blog/_astro/:path*",
