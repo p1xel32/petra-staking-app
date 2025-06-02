@@ -1,10 +1,6 @@
 {
   "version": 2,
   "trailingSlash": false,
-  "functions": {
-    "api/index.js": {
-    }
-  },
   "rewrites": [
     {
       "source": "/blog/_astro/:path*",
