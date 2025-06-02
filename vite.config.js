@@ -1,31 +1,29 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vike from 'vike/plugin';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ command, ssrBuild }) => ({
   plugins: [
     react(),
-    vike({
-    })
+    vike()
   ],
+  build: {
+    outDir: ssrBuild ? 'dist/server' : 'dist/client',
+    target: 'es2022',
+    minify: 'esbuild',
+    cssCodeSplit: true,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  build: {
-    outDir: 'dist', 
-    target: 'es2022', 
-    minify: 'esbuild',
-    cssCodeSplit: true,
-  },
   esbuild: {
-    target: 'es2022'
+    target: 'es2022',
   },
   ssr: {
-    external: ['@aptos-labs/ts-sdk']
+    external: ['@aptos-labs/ts-sdk'],
   },
   optimizeDeps: {
     include: [
@@ -43,4 +41,4 @@ export default defineConfig({
       'antd/es/avatar',
     ],
   },
-});
+}));

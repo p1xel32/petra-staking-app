@@ -1,9 +1,8 @@
 // api/index.js
 import { renderPage } from 'vike/server';
 
-
 export default async function handler(req, res) {
-  const { url } = req; 
+  const { url } = req;
 
   if (!url) {
     console.error('[API HANDLER] Request URL is undefined.');
@@ -13,14 +12,10 @@ export default async function handler(req, res) {
     return;
   }
 
-  const pageContextInit = {
-    urlOriginal: url,
-  };
-
   console.log(`[API HANDLER] Processing request for URL: ${url}`);
 
   try {
-    const pageContext = await renderPage(pageContextInit);
+    const pageContext = await renderPage({ urlOriginal: url });
     const { httpResponse } = pageContext;
 
     if (!httpResponse) {
@@ -31,13 +26,14 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { body, statusCode, headers /*, earlyHints */ } = httpResponse;
-   
+    const { body, statusCode, headers } = httpResponse;
 
     if (headers) {
-      headers.forEach(([name, value]) => res.setHeader(name, value));
+      headers.forEach(([key, value]) => res.setHeader(key, value));
     }
-    res.status(statusCode).send(body);
+
+    res.statusCode = statusCode;
+    res.end(body);
 
   } catch (error) {
     console.error(`[API HANDLER] Critical error rendering page for: ${url}`, error);
