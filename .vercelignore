@@ -2,6 +2,7 @@
 *
 !api/**
 !src/**
+# !src/pages/** # You could try this to be super explicit if needed
 !public/**
 !vite.config.*
 !package.json
