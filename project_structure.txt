@@ -120,6 +120,7 @@
 │   └── twitter-image.png
 ├── README.md
 ├── renderer
+│   ├── +config.js
 │   ├── +onRenderClient.jsx
 │   ├── +onRenderHtml.jsx
 │   ├── PageShell.jsx
@@ -172,4 +173,4 @@
 ├── vercel.json
 └── vite.config.js
 
-36 directories, 137 files
+36 directories, 138 files
