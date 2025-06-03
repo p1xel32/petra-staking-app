@@ -1,51 +1,30 @@
 # Dependencies
 node_modules/
+.pnpm-store/ 
 
 # Build output
-dist/
+.vercel/output/ 
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log* 
 
 # OS generated files
 .DS_Store
 Thumbs.db
 
-# Optional: Environment variables
+# Environment variables
 .env
 .env*.local
 
-# Optional: IDE/Editor folders
+# IDE/Editor folders
 .vscode/
 .idea/
-.vercel
 
-# Node.js dependencies
-node_modules/
-
-# Build output (don't commit build artifacts)
-dist/
-
-# Logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# OS junk
-.DS_Store
-Thumbs.db
-
-# Env
-.env
-.env*.local
-
-# Editor configs
-.vscode/
-.idea/
-.vercel/
+# Editor specific ignores
+*.sublime-project
+*.sublime-workspace
 
