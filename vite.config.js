@@ -6,9 +6,7 @@ import path from 'path';
 export default defineConfig(({ command, ssrBuild }) => ({
   plugins: [
     react(),
-    vike({
-      pagesDir: './pages'
-    })
+    vike()
   ],
   build: {
     outDir: ssrBuild ? 'dist/server' : 'dist/client',
