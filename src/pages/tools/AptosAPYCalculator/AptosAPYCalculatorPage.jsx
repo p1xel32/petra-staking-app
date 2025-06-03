@@ -1,7 +1,7 @@
 // src/pages/tools/AptosAPYCalculator/AptosAPYCalculatorPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { Typography, Spin, Divider } from 'antd';
-import { Helmet } from '@/lib/helmet'; // Assuming HelmetProvider is wrapped at a higher level
+import { Helmet, HelmetProvider } from 'react-helmet-async';  // Assuming HelmetProvider is wrapped at a higher level
 import CalculatorForm from './components/CalculatorForm';
 import ResultsDisplay from './components/ResultsDisplay';
 import DisclaimerText from './components/DisclaimerText';

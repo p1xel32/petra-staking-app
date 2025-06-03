@@ -1,7 +1,7 @@
 // src/pages/tools/AptosLockupVisualizer/AptosLockupVisualizerPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { Typography, Spin, Divider } from 'antd';
-import { Helmet } from '@/lib/helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async'; 
 import { getStakingConfig, getEpochTiming, getValidatorPoolInfo } from '../../../services/aptosService';
 import LockupInputControls from './components/LockupInputControls';
 import LockupTimelineDisplay from './components/LockupTimelineDisplay';

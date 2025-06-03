@@ -1,29 +1,34 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vike from 'vike/plugin';
+import { cjsInterop } from 'vite-plugin-cjs-interop';
 import path from 'path';
 
-export default defineConfig(({ command, ssrBuild }) => ({
+export default defineConfig({
   plugins: [
     react(),
-    vike()
+    vike(),
+    cjsInterop({
+      dependencies: ['react-helmet-async'],
+    }),
   ],
-  build: {
-    outDir: ssrBuild ? 'dist/server' : 'dist/client',
-    target: 'es2022',
-    minify: 'esbuild',
-    cssCodeSplit: true,
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  esbuild: {
-    target: 'es2022',
-  },
   ssr: {
     external: ['@aptos-labs/ts-sdk'],
+  },
+  build: {
+    outDir: process.env.SSR_BUILD ? 'dist/server' : 'dist/client',
+    target: 'es2022',
+    minify: 'esbuild',
+    cssCodeSplit: true,
+  },
+  esbuild: {
+    target: 'es2022',
   },
   optimizeDeps: {
     include: [
@@ -41,4 +46,4 @@ export default defineConfig(({ command, ssrBuild }) => ({
       'antd/es/avatar',
     ],
   },
-}));
+});

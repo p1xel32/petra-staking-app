@@ -1,8 +1,7 @@
 // src/components/StructuredData.jsx
 import React from 'react';
 
-// Используем импорт всего пространства имен для react-helmet-async
-import { Helmet, HelmetProvider } from '@/lib/helmet';
+import { Helmet } from 'react-helmet-async';
 
 const StructuredData = ({ data }) => {
   if (!data) {

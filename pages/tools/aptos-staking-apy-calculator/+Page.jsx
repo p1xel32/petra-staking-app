@@ -1,7 +1,7 @@
 //+Page.jsx
 import React from 'react';
 import AptosAPYCalculatorPage from '../../../src/pages/tools/AptosAPYCalculator/AptosAPYCalculatorPage'; // Adjust path
-import { Helmet, HelmetProvider } from '@/lib/helmet';
+import { Helmet } from 'react-helmet-async';
 
 export default function Page() {
   return (

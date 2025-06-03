@@ -1,3 +1,4 @@
+// renderer/usePageContext.jsx
 import React, { useContext } from 'react';
 
 const Context = React.createContext(undefined);
@@ -13,4 +14,3 @@ export function usePageContext() {
   }
   return pageContext;
 }
-

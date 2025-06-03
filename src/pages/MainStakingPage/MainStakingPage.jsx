@@ -2,7 +2,7 @@
 import React, { useState, useCallback, Suspense, lazy } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { motion } from 'framer-motion';
-import { Helmet } from '@/lib/helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async'; 
 
 import StructuredData from '../../components/StructuredData';
 import FaqSection from '../../components/FaqSection'; 

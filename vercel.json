@@ -1,15 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "pnpm run build",
-  "outputDirectory": "dist/client",
-  "routes": [
-    { "src": "/blog/_astro/(.*)", "dest": "https://v0-aptos-staking.vercel.app/_astro/$1" },
-    { "src": "/blog/(.*)", "dest": "https://v0-aptos-staking.vercel.app/$1" },
-
-  
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/_vike/(.*)", "dest": "/_vike/$1" },
-    { "src": "/(favicon.ico|icon.svg|apple-touch-icon.png|manifest.json)", "dest": "/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [ 
+    { "source": "/blog/_astro/(.*)", "destination": "https://v0-aptos-staking.vercel.app/_astro/$1" },
+    { "source": "/blog/(.*)", "destination": "https://v0-aptos-staking.vercel.app/$1" }
   ]
 }
