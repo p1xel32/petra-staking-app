@@ -2,17 +2,14 @@
   "version": 2,
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist/client",
-  "builds": [
-    { "src": "api/index.js", "use": "@vercel/node" }
-  ],
   "routes": [
-    { "src": "/assets/(.*)", "dest": "/dist/client/assets/$1" },
-    { "src": "/_vike/(.*)", "dest": "/dist/client/_vike/$1" },
-    { "src": "/(favicon.ico|icon.svg|apple-touch-icon.png|manifest.json)", "dest": "/dist/client/$1" },
-
     { "src": "/blog/_astro/(.*)", "dest": "https://v0-aptos-staking.vercel.app/_astro/$1" },
     { "src": "/blog/(.*)", "dest": "https://v0-aptos-staking.vercel.app/$1" },
 
-    { "src": "/(.*)", "dest": "/dist/client/index.html" }
+  
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/_vike/(.*)", "dest": "/_vike/$1" },
+    { "src": "/(favicon.ico|icon.svg|apple-touch-icon.png|manifest.json)", "dest": "/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
