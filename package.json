@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vike dev",
-    "build": "pnpm vite build && pnpm vite build --ssr",
+    "build": "vike build",
     "preview": "vike preview"
   },
   "dependencies": {
