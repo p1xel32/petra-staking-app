@@ -1,10 +1,8 @@
 // renderer/+config.js
-// УБИРАЕМ импорт vikeReactConfigStringPointer
-// УБИРАЕМ импорт PageShell (onRenderHtml сам его импортирует)
+import vercelVikePluginConfig from '@vite-plugin-vercel/vike/config';
 
 export default {
-  // НЕТ extends: vikeReactConfigStringPointer
-  // НЕТ PageShell: PageShell
+  extends: vercelVikePluginConfig,
 
   passToClient: [
     'pageProps',

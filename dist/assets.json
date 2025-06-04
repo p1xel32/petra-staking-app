@@ -1,20 +1,49 @@
 {
-  "_antd-7c2eca42.CqAJlDPB.css": {
+  "_chunk-!~{006}~.js": {
     "file": "assets/static/antd-7c2eca42.CqAJlDPB.css",
-    "src": "_antd-7c2eca42.CqAJlDPB.css"
+    "src": "_chunk-!~{006}~.js"
   },
-  "_chunk-0Z3hEUAO.js": {
-    "file": "assets/chunks/chunk-0Z3hEUAO.js",
+  "_chunk-!~{007}~.js": {
+    "file": "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
+    "src": "_chunk-!~{007}~.js"
+  },
+  "_chunk-BKpwMCKg.js": {
+    "file": "assets/chunks/chunk-BKpwMCKg.js",
     "name": "trending-up",
     "imports": [
-      "_chunk-Bc51vl8U.js"
+      "_chunk-T0NU6vIe.js"
     ]
   },
-  "_chunk-Bc51vl8U.js": {
-    "file": "assets/chunks/chunk-Bc51vl8U.js",
+  "_chunk-CLcXU_4U.js": {
+    "file": "assets/chunks/chunk-CLcXU_4U.js",
+    "name": "preload-helper"
+  },
+  "_chunk-CWAOdxWz.js": {
+    "file": "assets/chunks/chunk-CWAOdxWz.js",
+    "name": "aptosService",
+    "imports": [
+      "_chunk-T0NU6vIe.js"
+    ]
+  },
+  "_chunk-D7Cd80ZH.js": {
+    "file": "assets/chunks/chunk-D7Cd80ZH.js",
+    "name": "info",
+    "imports": [
+      "_chunk-T0NU6vIe.js"
+    ]
+  },
+  "_chunk-Dx8vxm61.js": {
+    "file": "assets/chunks/chunk-Dx8vxm61.js",
+    "name": "hourglass",
+    "imports": [
+      "_chunk-T0NU6vIe.js"
+    ]
+  },
+  "_chunk-T0NU6vIe.js": {
+    "file": "assets/chunks/chunk-T0NU6vIe.js",
     "name": "_onRenderClient",
     "imports": [
-      "_chunk-BlTxHScW.js"
+      "_chunk-CLcXU_4U.js"
     ],
     "dynamicImports": [
       "node_modules/.pnpm/@atomrigslab+aptos-wallet-adapter@0.1.21_@aptos-labs+ts-sdk@2.0.1_got@11.8.6__axios@1.9.0_got@11.8.6/node_modules/@atomrigslab/aptos-wallet-adapter/dist/index-DRmafxZ_.mjs"
@@ -27,69 +56,19 @@
       "assets/static/aptcore-logo.qvP0GLMF.svg"
     ]
   },
-  "_chunk-BlTxHScW.js": {
-    "file": "assets/chunks/chunk-BlTxHScW.js",
-    "name": "preload-helper"
-  },
-  "_chunk-CIvmCYSi.js": {
-    "file": "assets/chunks/chunk-CIvmCYSi.js",
-    "name": "refresh-cw",
-    "imports": [
-      "_chunk-Bc51vl8U.js"
-    ]
-  },
-  "_chunk-DPeVGXQF.js": {
-    "file": "assets/chunks/chunk-DPeVGXQF.js",
-    "name": "info",
-    "imports": [
-      "_chunk-Bc51vl8U.js"
-    ]
-  },
-  "_chunk-DaWf9Mmj.js": {
-    "file": "assets/chunks/chunk-DaWf9Mmj.js",
-    "name": "aptosService",
-    "imports": [
-      "_chunk-Bc51vl8U.js"
-    ]
-  },
-  "_chunk-gHrqaQ5h.js": {
-    "file": "assets/chunks/chunk-gHrqaQ5h.js",
-    "name": "chevron-down",
-    "imports": [
-      "_chunk-Bc51vl8U.js"
-    ]
-  },
-  "_chunk-iQCmBw3d.js": {
-    "file": "assets/chunks/chunk-iQCmBw3d.js",
-    "name": "hourglass",
-    "imports": [
-      "_chunk-Bc51vl8U.js"
-    ]
-  },
-  "_chunk-zgN2TcEh.js": {
-    "file": "assets/chunks/chunk-zgN2TcEh.js",
-    "name": "percent",
-    "imports": [
-      "_chunk-Bc51vl8U.js"
-    ]
-  },
-  "_src_index-b3c78705.xfGJ0Nh7.css": {
-    "file": "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
-    "src": "_src_index-b3c78705.xfGJ0Nh7.css"
-  },
   "node_modules/.pnpm/@atomrigslab+aptos-wallet-adapter@0.1.21_@aptos-labs+ts-sdk@2.0.1_got@11.8.6__axios@1.9.0_got@11.8.6/node_modules/@atomrigslab/aptos-wallet-adapter/dist/index-DRmafxZ_.mjs": {
     "file": "assets/chunks/chunk-edYZJ40H.js",
     "name": "index-DRmafxZ_",
     "src": "node_modules/.pnpm/@atomrigslab+aptos-wallet-adapter@0.1.21_@aptos-labs+ts-sdk@2.0.1_got@11.8.6__axios@1.9.0_got@11.8.6/node_modules/@atomrigslab/aptos-wallet-adapter/dist/index-DRmafxZ_.mjs",
     "isDynamicEntry": true
   },
-  "node_modules/.pnpm/vike@0.4.231_react-streaming@0.4.2_react-dom@18.3.1_react@18.3.1__react@18.3.1__vite@6._2120b5ae6e378a0e781e0fd1b48046ba/node_modules/vike/dist/esm/client/server-routing-runtime/entry.js": {
-    "file": "assets/entries/entry-server-routing.CjL8h4nx.js",
+  "node_modules/.pnpm/vike@0.4.231_react-streaming@0.4.2_react-dom@18.3.1_react@18.3.1__react@18.3.1__vite@5.4.19_@types+node@22.15.29_/node_modules/vike/dist/esm/client/server-routing-runtime/entry.js": {
+    "file": "assets/entries/entry-server-routing.BRusbaIc.js",
     "name": "entries/entry-server-routing",
-    "src": "node_modules/.pnpm/vike@0.4.231_react-streaming@0.4.2_react-dom@18.3.1_react@18.3.1__react@18.3.1__vite@6._2120b5ae6e378a0e781e0fd1b48046ba/node_modules/vike/dist/esm/client/server-routing-runtime/entry.js",
+    "src": "node_modules/.pnpm/vike@0.4.231_react-streaming@0.4.2_react-dom@18.3.1_react@18.3.1__react@18.3.1__vite@5.4.19_@types+node@22.15.29_/node_modules/vike/dist/esm/client/server-routing-runtime/entry.js",
     "isEntry": true,
     "imports": [
-      "_chunk-BlTxHScW.js"
+      "_chunk-CLcXU_4U.js"
     ],
     "dynamicImports": [
       "virtual:vike:pageConfigValuesAll:client:/pages/_error",
@@ -102,50 +81,15 @@
     "file": "assets/static/aptcore-logo.qvP0GLMF.svg",
     "src": "src/assets/aptcore-logo.svg"
   },
-  "src/components/StakeUnstakeControls.jsx": {
-    "file": "assets/chunks/chunk-2fiCg-Aw.js",
-    "name": "StakeUnstakeControls",
-    "src": "src/components/StakeUnstakeControls.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "_chunk-Bc51vl8U.js",
-      "_chunk-CIvmCYSi.js",
-      "_chunk-0Z3hEUAO.js",
-      "_chunk-BlTxHScW.js"
-    ],
-    "css": [
-      "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
-      "assets/static/antd-7c2eca42.CqAJlDPB.css"
-    ]
-  },
-  "src/components/ValidatorInfo.jsx": {
-    "file": "assets/chunks/chunk-D-IPvf7N.js",
-    "name": "ValidatorInfo",
-    "src": "src/components/ValidatorInfo.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "_chunk-Bc51vl8U.js",
-      "_chunk-DPeVGXQF.js",
-      "_chunk-CIvmCYSi.js",
-      "_chunk-zgN2TcEh.js",
-      "_chunk-0Z3hEUAO.js",
-      "_chunk-iQCmBw3d.js",
-      "_chunk-BlTxHScW.js"
-    ],
-    "css": [
-      "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
-      "assets/static/antd-7c2eca42.CqAJlDPB.css"
-    ]
-  },
   "virtual:vike:pageConfigValuesAll:client:/pages/_error": {
-    "file": "assets/entries/pages_error.CrPVVSvB.js",
+    "file": "assets/entries/pages_error.DyjkNMEo.js",
     "name": "entries/pages/_error",
     "src": "virtual:vike:pageConfigValuesAll:client:/pages/_error",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_chunk-Bc51vl8U.js",
-      "_chunk-BlTxHScW.js"
+      "_chunk-T0NU6vIe.js",
+      "_chunk-CLcXU_4U.js"
     ],
     "css": [
       "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
@@ -153,19 +97,17 @@
     ]
   },
   "virtual:vike:pageConfigValuesAll:client:/pages/index": {
-    "file": "assets/entries/pages_index.CpIcNhej.js",
+    "file": "assets/entries/pages_index.B4844CGM.js",
     "name": "entries/pages/index",
     "src": "virtual:vike:pageConfigValuesAll:client:/pages/index",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_chunk-Bc51vl8U.js",
-      "_chunk-BlTxHScW.js",
-      "_chunk-gHrqaQ5h.js"
-    ],
-    "dynamicImports": [
-      "src/components/ValidatorInfo.jsx",
-      "src/components/StakeUnstakeControls.jsx"
+      "_chunk-T0NU6vIe.js",
+      "_chunk-D7Cd80ZH.js",
+      "_chunk-BKpwMCKg.js",
+      "_chunk-Dx8vxm61.js",
+      "_chunk-CLcXU_4U.js"
     ],
     "css": [
       "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
@@ -173,19 +115,17 @@
     ]
   },
   "virtual:vike:pageConfigValuesAll:client:/pages/tools/aptos-staking-apy-calculator": {
-    "file": "assets/entries/pages_tools_aptos-staking-apy-calculator.BQ5nt0EQ.js",
+    "file": "assets/entries/pages_tools_aptos-staking-apy-calculator.CiCXPXkb.js",
     "name": "entries/pages/tools/aptos-staking-apy-calculator",
     "src": "virtual:vike:pageConfigValuesAll:client:/pages/tools/aptos-staking-apy-calculator",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_chunk-Bc51vl8U.js",
-      "_chunk-DaWf9Mmj.js",
-      "_chunk-zgN2TcEh.js",
-      "_chunk-DPeVGXQF.js",
-      "_chunk-0Z3hEUAO.js",
-      "_chunk-gHrqaQ5h.js",
-      "_chunk-BlTxHScW.js"
+      "_chunk-T0NU6vIe.js",
+      "_chunk-CWAOdxWz.js",
+      "_chunk-BKpwMCKg.js",
+      "_chunk-D7Cd80ZH.js",
+      "_chunk-CLcXU_4U.js"
     ],
     "css": [
       "assets/static/src_index-b3c78705.xfGJ0Nh7.css",
@@ -193,18 +133,17 @@
     ]
   },
   "virtual:vike:pageConfigValuesAll:client:/pages/tools/aptos-staking-lockup-visualizer": {
-    "file": "assets/entries/pages_tools_aptos-staking-lockup-visualizer.DhqCR1O1.js",
+    "file": "assets/entries/pages_tools_aptos-staking-lockup-visualizer.4lT9L5k7.js",
     "name": "entries/pages/tools/aptos-staking-lockup-visualizer",
     "src": "virtual:vike:pageConfigValuesAll:client:/pages/tools/aptos-staking-lockup-visualizer",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_chunk-Bc51vl8U.js",
-      "_chunk-DaWf9Mmj.js",
-      "_chunk-DPeVGXQF.js",
-      "_chunk-iQCmBw3d.js",
-      "_chunk-gHrqaQ5h.js",
-      "_chunk-BlTxHScW.js"
+      "_chunk-T0NU6vIe.js",
+      "_chunk-CWAOdxWz.js",
+      "_chunk-D7Cd80ZH.js",
+      "_chunk-Dx8vxm61.js",
+      "_chunk-CLcXU_4U.js"
     ],
     "css": [
       "assets/static/src_index-b3c78705.xfGJ0Nh7.css",

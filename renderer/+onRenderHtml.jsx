@@ -1,44 +1,35 @@
-// renderer/+onRenderHtml.jsx
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { escapeInject, dangerouslySkipEscape } from 'vike/server';
-import { HelmetProvider } from 'react-helmet-async'; // ПРЯМОЙ ИМПОРТ
+import { HelmetProvider } from 'react-helmet-async';
 import { PageShell } from './PageShell';
 
 export async function onRenderHtml(pageContext) {
   const { Page, pageProps } = pageContext;
-
   if (!Page) {
-    // Возвращаем простой HTML для ошибки, чтобы Vike не искал _error.page.jsx в этом случае
     return { documentHtml: '<!DOCTYPE html><html><head><title>Error</title></head><body>Page component not found.</body></html>' };
   }
-
-  const localHelmetContext = {}; // Локальный контекст только для этого рендера
-
-  let pageHtml;
+  const localHelmetContext = {};
+  let pageHtml = "";
   try {
     pageHtml = renderToString(
       <HelmetProvider context={localHelmetContext}>
-        <PageShell pageContext={pageContext}> {/* PageShell НЕ СОДЕРЖИТ HelmetProvider */}
+        <PageShell pageContext={pageContext}>
           <Page {...pageProps} />
         </PageShell>
       </HelmetProvider>
     );
   } catch (error) {
     console.error("[SSR onRenderHtml] Error during renderToString:", error);
-    // Для отладки можно вывести ошибку прямо в HTML
-    // return { documentHtml: `<h1>Server Render Error</h1><pre>${error.stack}</pre>`};
-    throw error; // Позволяем Vike использовать _error.page.jsx, если он есть
+    throw error;
   }
-
-  const { helmet } = localHelmetContext; // Извлекаем из локального контекста
-
+  const { helmet } = localHelmetContext;
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en" ${dangerouslySkipEscape(helmet?.htmlAttributes?.toString() || '')}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        ${dangerouslySkipEscape(helmet?.title?.toString() || '<title>Petra Staking (Manual Control)</title>')}
+        ${dangerouslySkipEscape(helmet?.title?.toString() || '<title>Petra Staking</title>')}
         ${dangerouslySkipEscape(helmet?.meta?.toString() || '')}
         ${dangerouslySkipEscape(helmet?.link?.toString() || '')}
         ${dangerouslySkipEscape(helmet?.script?.toString() || '')}
@@ -56,9 +47,5 @@ export async function onRenderHtml(pageContext) {
         <div id="modal-root"></div>
       </body>
     </html>`;
-
-  return {
-    documentHtml,
-    pageContext: {} 
-  };
+  return { documentHtml, pageContext: {} };
 }

@@ -1,15 +1,16 @@
 // src/pages/MainStakingPage/MainStakingPage.jsx
-import React, { useState, useCallback, Suspense, lazy } from 'react';
+import React, { useState, useCallback, Suspense } from 'react'; // Убрал lazy
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { motion } from 'framer-motion';
-import { Helmet, HelmetProvider } from 'react-helmet-async'; 
+import { Helmet } from 'react-helmet-async'; // Прямой импорт, HelmetProvider здесь НЕ нужен
 
-import StructuredData from '../../components/StructuredData';
-import FaqSection from '../../components/FaqSection'; 
+// Предполагаем, что эти компоненты теперь импортируются синхронно
+import StructuredData from '../../components/StructuredData'; // Путь от src/pages/MainStakingPage/ до src/components/
+import FaqSection from '../../components/FaqSection';
+import ValidatorInfo from '../../components/ValidatorInfo';
+import StakeUnstakeControls from '../../components/StakeUnstakeControls';
 
-const ValidatorInfo = lazy(() => import('../../components/ValidatorInfo'));
-const StakeUnstakeControls = lazy(() => import('../../components/StakeUnstakeControls'));
-
+// Skeleton для Suspense, если он все еще нужен для чего-то другого
 const WidgetSkeleton = ({ height = 'h-48' }) => (
   <div className={`w-full bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)] animate-pulse ${height}`}>
     <div className="h-6 bg-gray-500/30 rounded w-3/4 mb-4"></div>
@@ -28,12 +29,12 @@ const MainStakingPage = () => {
   }, []);
 
   // --- SEO Meta Data & Schema Variables ---
-  const pageUrl = "https://aptcore.one/";
+  const pageUrl = "https://aptcore.one/"; // Замените на ваш реальный URL, если он другой
   const pageTitle = "aptcore.one: Secure & Transparent Aptos (APT) Staking Platform";
   const pageDescription = "Stake your Aptos (APT) with aptcore.one. We offer transparent, secure Aptos staking with clear explanations of rewards, lock-ups (currently ~14 days), and the current 'no slashing' environment. Empower your Aptos journey.";
-  const ogImageUrl = "https://aptcore.one/og-image.jpg";
-  const twitterImageUrl = "https://aptcore.one/twitter-image.jpg";
-  const organizationLogoUrl = "https://aptcore.one/aptcore-logo.svg";
+  const ogImageUrl = "https://aptcore.one/og-image.png"; // Убедитесь, что файл /public/og-image.png существует
+  const twitterImageUrl = "https://aptcore.one/twitter-image.png"; // Убедитесь, что файл /public/twitter-image.png существует
+  const organizationLogoUrl = "https://aptcore.one/aptcore-logo.svg"; // Убедитесь, что файл /public/aptcore-logo.svg существует
 
   const mainPageSchema = {
     "@context": "https://schema.org",
@@ -76,7 +77,6 @@ const MainStakingPage = () => {
         <meta name="description" content={String(pageDescription)} />
         <link rel="canonical" href={String(pageUrl)} />
 
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={String(pageUrl)} />
         <meta property="og:title" content={String(pageTitle)} />
@@ -84,7 +84,6 @@ const MainStakingPage = () => {
         <meta property="og:image" content={String(ogImageUrl)} /> 
         <meta property="og:site_name" content="aptcore.one" />
 
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={String(pageUrl)} />
         <meta name="twitter:title" content={String(pageTitle)} />
@@ -109,6 +108,7 @@ const MainStakingPage = () => {
         </motion.div>
 
         <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section">
+          {/* Используем Suspense, если ValidatorInfo или StakeUnstakeControls сами по себе асинхронные (например, загружают данные) */}
           <Suspense fallback={<WidgetSkeleton height="h-48" />}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ const MainStakingPage = () => {
           )}
         </div>
       </div>
-      <FaqSection /> {/* Этот компонент рендерит свою FAQPage схему и FAQ контент */}
+      <FaqSection />
     </>
   );
 };

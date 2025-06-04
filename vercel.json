@@ -1,19 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-      }
-    }
-  ],
-  "rewrites": [
+  "rewrites": [ 
     { "source": "/blog/_astro/(.*)", "destination": "https://v0-aptos-staking.vercel.app/_astro/$1" },
-    { "source": "/blog/(.*)", "destination": "https://v0-aptos-staking.vercel.app/$1" },
-    {
-      "source": "/((?!api/|assets/|_vike/|favicon.ico|icon.svg|apple-touch-icon.png|manifest.json|robots.txt|sitemap.xml|og-image.*\\.png|og-image.*\\.jpg|twitter-image.*\\.png|blog/).*)",
-      "destination": "/api/index"
-    }
+    { "source": "/blog/(.*)", "destination": "https://v0-aptos-staking.vercel.app/$1" }
   ]
 }
