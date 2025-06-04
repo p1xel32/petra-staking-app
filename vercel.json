@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "public": "dist/client",
   "builds": [
     {
       "src": "package.json",
