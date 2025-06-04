@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     vike(),
-    vercel,
+    vercel(),
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
