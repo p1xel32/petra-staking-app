@@ -5,7 +5,6 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "zeroConfig": true
       }
     }
   ],
@@ -13,7 +12,7 @@
     { "source": "/blog/_astro/(.*)", "destination": "https://v0-aptos-staking.vercel.app/_astro/$1" },
     { "source": "/blog/(.*)", "destination": "https://v0-aptos-staking.vercel.app/$1" },
     {
-      "source": "/((?!assets/|_vike/|favicon.ico|icon.svg|apple-touch-icon.png|manifest.json|robots.txt|sitemap.xml|og-image.*\\.png|og-image.*\\.jpg|twitter-image.*\\.png|blog/).*)",
+      "source": "/((?!api/|assets/|_vike/|favicon.ico|icon.svg|apple-touch-icon.png|manifest.json|robots.txt|sitemap.xml|og-image.*\\.png|og-image.*\\.jpg|twitter-image.*\\.png|blog/).*)",
       "destination": "/api/index"
     }
   ]
