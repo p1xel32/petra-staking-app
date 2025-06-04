@@ -1,7 +1,11 @@
 // renderer/+config.js
-// import { PageShell } from './PageShell'; // Не обязательно здесь указывать, если onRenderHtml импортирует
+// УБИРАЕМ импорт vikeReactConfigStringPointer
+// УБИРАЕМ импорт PageShell (onRenderHtml сам его импортирует)
 
 export default {
+  // НЕТ extends: vikeReactConfigStringPointer
+  // НЕТ PageShell: PageShell
+
   passToClient: [
     'pageProps',
     'title',

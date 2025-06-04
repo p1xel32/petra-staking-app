@@ -1,33 +1,28 @@
-// renderer/+onRenderClient.jsx
+// renderer/+onRenderClient.js
 import React from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { PageShell } from './PageShell';
-import { HelmetProvider } from 'react-helmet-async'; // ПРЯМОЙ ИМПОРТ
 
-export async function onRenderClient(pageContext) {
+export default async function onRenderClient(pageContext) {
   const { Page, pageProps } = pageContext;
+  if (!Page) { /* ... */ }
 
-  if (!Page) {
-    console.error("Client Error: pageContext.Page is undefined.");
-    return;
+  // PageShell уже содержит HelmetProvider, которому нужен helmetContext
+  // Убедимся, что он есть на клиенте (vike-react/config мог его не передать,
+  // так как клиентский HelmetProvider обычно создает свой).
+  if (typeof pageContext.helmetContext === 'undefined') {
+    pageContext.helmetContext = {};
   }
-
-  const clientHelmetContext = {}; // Новый, чистый контекст для клиента
 
   const container = document.getElementById('root');
-  if (!container) {
-    console.error("Client Error: DOM element #root not found.");
-    return;
-  }
+  if (!container) { /* ... */ }
 
   hydrateRoot(
     container,
     <React.StrictMode>
-      <HelmetProvider context={clientHelmetContext}>
-        <PageShell pageContext={pageContext}> {/* PageShell НЕ содержит HelmetProvider */}
-          <Page {...pageProps} />
-        </PageShell>
-      </HelmetProvider>
+      <PageShell pageContext={pageContext}> {/* PageShell содержит HelmetProvider */}
+        <Page {...pageProps} />
+      </PageShell>
     </React.StrictMode>
   );
 }
