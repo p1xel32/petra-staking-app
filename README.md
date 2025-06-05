@@ -1,80 +1,122 @@
-# Aptos Staking App (aptcore.one)
+# aptcore.one Staking Interface: Securely Stake $APT on the Aptos Blockchain
 
-[![Vercel Deployment](https://img.shields.io/github/deployments/p1xel32/petra-staking-app/production?label=Vercel&logo=vercel&style=flat-square)](https://petra-staking-app.vercel.app/)
-[![GitHub License](https://img.shields.io/github/license/p1xel32/petra-staking-app?style=flat-square)](LICENSE) A simple, clean, and modern web interface for staking APT tokens on the Aptos blockchain. This application provides a user-friendly way to delegate your APT to a specific validator's delegation pool and manage your stake.
+[![Vercel Deployment Status](https://img.shields.io/github/deployments/p1xel32/petra-staking-app/production?label=Vercel&logo=vercel&style=flat-square)](https://aptcore.one/)
+[![GitHub License](https://img.shields.io/github/license/p1xel32/petra-staking-app?style=flat-square)](LICENSE)
 
-**Live Application:** [**https://aptcore.one/**](https://aptcore.one/)
+Welcome to the **aptcore.one Staking Interface**, a user-friendly web application for staking $APT tokens on the Aptos blockchain. This platform offers a simple, clean, and modern way to delegate your $APT to the official **aptcore.one validator delegation pool** and effectively manage your crypto staking rewards.
 
-*This application is associated with the aptcore.one initiative/validator, providing a dedicated interface for its delegators.*
+**💻 Live Application: [Stake your $APT with aptcore.one](https://aptcore.one/)**
 
-Built with React, Vite, Tailwind CSS, `@aptos-labs/ts-sdk`, and `@aptos-labs/wallet-adapter-react`.
+*This application serves as the official staking interface for the [aptcore.one validator](https://aptcore.one/), providing a dedicated and optimized Aptos staking experience for its delegators. The underlying source code (from the `petra-staking-app` repository) is publicly available for transparency and for community members who may wish to adapt it for other Aptos validators.*
 
-## ✨ Features
+Built with cutting-edge web technologies: React, Vite, Tailwind CSS, `@aptos-labs/ts-sdk`, and `@aptos-labs/wallet-adapter-react`.
 
-* **Connect Wallet:** Easily connect popular Aptos wallets like Petra, Martian, Pontem, etc. (using `@aptos-labs/wallet-adapter-react` auto-detection).
-* **Validator Info:** View key details about the target validator pool:
-    * Total delegated APT
-    * Operator commission percentage
-    * Estimated Gross and Net Staking APR (calculated from on-chain data)
-    * Pool lockup end date and remaining time
-* **User Stake Details:** See your personal stake breakdown within the pool:
-    * Active stake (earning rewards)
-    * Pending inactive stake (currently unstaking)
-    * Inactive stake (withdrawable)
-* **Staking Actions:**
-    * **Stake:** Delegate your APT tokens to the pool (minimum 11 APT).
-    * **Unstake:** Initiate the process to unlock your staked APT.
-    * **Withdraw:** Withdraw your unlocked (inactive) APT back to your wallet.
-* **Auto-Refresh:** Data automatically updates after successful transactions.
-* **Modern UI:** Clean, responsive interface with a dark theme.
+---
 
-## 🚀 Getting Started Locally
+## 📸 Preview
+![Preview of the aptcore.one Aptos Staking Interface showing wallet connection and validator details.](src/assets/aptcore_interface.png)
 
-To run this application on your local machine:
+---
 
-1.  **Clone the repository:**
+## ✨ Key Features of the aptcore.one Staking Platform
+
+* **Seamless Aptos Wallet Connection:** Easily connect a wide array of popular Aptos wallets, including Petra, Martian, Pontem, Rise, Fewcha, MSafe, Nightly, and others, powered by `@aptos-labs/wallet-adapter-react` for automatic detection.
+* **Detailed Validator Pool Insights:** Access crucial information about the `aptcore.one` validator pool (or your self-configured Aptos validator). The interface typically displays:
+    * Total $APT delegated to the pool (often referred to as TVL - Total Value Locked).
+    * The validator's operator commission percentage.
+    * Estimated Gross Staking APR (Annual Percentage Rate) and Net Staking APR (after commission). These are generally calculated from on-chain Aptos data.
+    * The current pool lockup period end date and the time remaining until unlock.
+* **Comprehensive Personal Stake Management:** Get a clear overview of your staking activities directly within the interface:
+    * **Active Stake:** Your $APT principal currently staked and actively earning rewards.
+    * **Pending Inactive Stake:** $APT that is in the process of being unstaked (unlocking period).
+    * **Inactive Stake:** $APT tokens that have completed the unstaking period and are available for withdrawal to your wallet.
+* **Essential Staking Operations:** Perform all necessary actions for managing your Aptos stake:
+    * **Stake $APT:** Delegate your Aptos tokens to the validator's pool. (The Aptos network has a minimum staking requirement, currently 11 $APT).
+    * **Unstake $APT:** Initiate the process to unlock your staked $APT. Rewards typically continue to accrue during the unstaking lockup period.
+    * **Withdraw $APT:** Retrieve your unlocked (inactive) $APT back to your connected wallet once the lockup period is complete.
+* **Real-time Data Synchronization:** The application is designed to automatically refresh data after successful transactions, ensuring you are viewing the most current status of your stake and pool information.
+* **Modern & Responsive User Interface:** Experience a clean, intuitive, dark-themed interface, optimized for ease of use across desktop and mobile devices.
+
+---
+
+## 🛠️ Additional Staking Utilities on aptcore.one
+
+Beyond the core staking interface, `aptcore.one` also provides helpful tools to assist you with your Aptos staking strategy:
+
+* **[Aptos Staking APY Calculator](https://aptcore.one/tools/aptos-staking-apy-calculator)**:
+    * Estimate your potential staking rewards and Annual Percentage Yield (APY) based on various inputs. A great tool for planning your staking participation.
+* **[Aptos Staking Lockup Visualizer](https://aptcore.one/tools/aptos-staking-lockup-visualizer)**:
+    * Understand the dynamics of Aptos staking lockup periods. Visualize when your staked $APT (including rewards) is scheduled to unlock and become withdrawable.
+
+These utilities are designed to provide further clarity and empower you to make more informed decisions regarding your $APT staking.
+
+---
+
+## 🚀 Getting Started Locally (For Developers or Custom Use)
+
+To run this Aptos staking application on your local machine (e.g., for contributing to development or to configure it for a different Aptos validator):
+
+### Prerequisites
+
+* [Node.js](https://nodejs.org/) (LTS version is recommended for compatibility)
+* [npm](https://www.npmjs.com/) (comes with Node.js) or [yarn](https://yarnpkg.com/) package manager
+
+### Installation & Local Setup
+
+1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/p1xel32/petra-staking-app.git
+    git clone [https://github.com/p1xel32/petra-staking-app.git](https://github.com/p1xel32/petra-staking-app.git)
     cd petra-staking-app
     ```
 
-2.  **Install dependencies:**
+2.  **Install Project Dependencies:**
     ```bash
     npm install
-    # or
-    yarn install
+    # Alternatively, if you use yarn:
+    # yarn install
     ```
 
-3.  **Run the development server:**
+3.  **Run the Development Server:**
     ```bash
     npm run dev
-    # or
-    yarn dev
+    # Alternatively, if you use yarn:
+    # yarn dev
     ```
-    The application should now be running on `http://localhost:5173` (or another port specified by Vite).
+    The application should now be accessible locally, typically at `http://localhost:5173` (Vite will indicate the port).
 
-## 🔧 Configuration: Using with a Different Validator
+---
 
-This application is currently configured to interact with a specific validator pool. To use it with a different validator's delegation pool:
+## 🔧 Configuration: Using with a Different Aptos Validator
 
-1.  **Find the Validator's Pool Address:** Locate the `owner` address (often referred to as the pool address or staking pool address) of the desired validator on an Aptos explorer like AptoScan.
-2.  **Update Constants:** Open the following files and replace the existing `VALIDATOR_POOL_ADDRESS` constant with the new address:
+The live deployment at [aptcore.one](https://aptcore.one/) is specifically pre-configured for the `aptcore.one` validator pool. If you have cloned this repository and intend to use this interface with a *different* Aptos validator's delegation pool, please follow these modification steps:
+
+1.  **Identify the Target Validator's Pool Address:** You will need the unique `owner` address (often referred to as the pool address or staking pool address) of your chosen Aptos validator. This address can usually be found on Aptos blockchain explorers (e.g., AptoScan, Aptos Explorer) or through the validator's official communication channels.
+2.  **Update Configuration Constants:** Modify the `VALIDATOR_POOL_ADDRESS` constant within the specified source files. Replace the existing address with the new validator pool address:
     * `src/components/ValidatorInfo.jsx`
     * `src/components/StakeUnstakeControls.jsx`
 
     ```javascript
-    // Example: Change this line in both files
-    const VALIDATOR_POOL_ADDRESS = '0xNEW_VALIDATOR_POOL_ADDRESS_HERE';
+    // Example: Modify this line in both indicated files
+    const VALIDATOR_POOL_ADDRESS = '0xNEW_VALIDATOR_POOL_ADDRESS_HERE'; // Replace with the actual address
     ```
-3.  **Restart** your development server or **rebuild/redeploy** the application.
+3.  **Restart Development Server or Rebuild Application:**
+    * If your local development server is active, stop it (Ctrl+C) and restart it (`npm run dev` or `yarn dev`).
+    * For production deployments (if you are self-hosting), you must rebuild the application (`npm run build` or `yarn build`) and then redeploy the updated build.
 
-## ⚠️ Disclaimer
+---
 
-Staking involves risks, including potential smart contract vulnerabilities (although the core Aptos contracts are audited) and the lock-up period during which your funds are not immediately accessible after unstaking. This application provides an interface to interact with the Aptos blockchain; you are responsible for your own actions and funds. Always do your own research (DYOR).
+## ⚠️ Important Disclaimer: Risks of Staking Crypto
+
+Engaging in staking of digital assets, including $APT tokens on the Aptos network, carries inherent risks. These risks include, but are not limited to: potential vulnerabilities within smart contracts (though core Aptos staking contracts are audited by the Aptos Foundation), impermanent loss (if applicable to the asset, though less so for direct staking), and the mandatory lock-up period associated with staking, during which your funds are not immediately liquid or accessible after initiating an unstake request.
+
+This application provides an interface to interact directly with the Aptos blockchain. **You are solely responsible for your actions, decisions, and the security of your private keys and funds.** Always conduct thorough due diligence and your own research (DYOR) before participating in any staking activities or blockchain interactions. The creators and maintainers of this application are not fiduciaries and shall not be liable for any losses, damages, or adverse outcomes you may experience.
+
+---
 
 ## 📜 License
 
-MIT License
+This project and its source code are made available under the [MIT License](LICENSE).
+
 ---
 
-*Keywords: Aptos, Aptos Network, Staking, APT Staking, Delegate APT, Petra Wallet, Martian Wallet, Pontem Wallet, Aptos Wallet Adapter, Delegation Pool, Validator, Blockchain, Crypto, Web3, React, Vite, Tailwind CSS, aptcore.one*
+**Keywords:** *Aptos, Aptos Network, Aptos Blockchain, Staking, APT Staking, Delegate APT, Aptos Staking UI, Aptos Staking Tool, aptcore.one, aptcore.one Validator, Petra Wallet Staking, Martian Wallet Staking, Pontem Wallet Staking, Rise Wallet Staking, Fewcha Wallet Staking, MSafe Wallet Staking, Nightly Wallet Staking, Aptos Wallet Adapter, Aptos Delegation Pool, Aptos Validator Staking, Crypto Staking, Web3 Interface, React Staking App, Vite, Tailwind CSS, $APT, Aptos Staking Interface, Manage Aptos Stake, Aptos Staking Rewards, Secure Staking, APY Calculator, Lockup Visualizer.*

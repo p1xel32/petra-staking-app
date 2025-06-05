@@ -6,7 +6,19 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, BLOG_CANONICAL_ROOT } from '../consts';
 
-const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, faq, keywords, ogType = "article", lang = "en" } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  heroImageAlt,
+  faq,
+  keywords,
+  ogType = 'article',
+  lang = 'en',
+  video,
+} = Astro.props;
 
 const postUrl = new URL(`${import.meta.env.BASE_URL}/${Astro.params.slug}`, SITE_URL).href;
 
@@ -14,7 +26,13 @@ const resolvedHeroImageUrl = heroImage?.startsWith('http')
   ? heroImage
   : new URL(`${import.meta.env.BASE_URL}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href;
 
-const ORG_NAME = "aptcore.one";
+const resolvedThumbnailUrl = video?.thumbnailUrl?.startsWith('http')
+  ? video.thumbnailUrl
+  : video?.thumbnailUrl
+    ? new URL(`${import.meta.env.BASE_URL}${video.thumbnailUrl.startsWith('/') ? '' : '/'}${video.thumbnailUrl}`, SITE_URL).href
+    : undefined;
+
+const ORG_NAME = 'aptcore.one';
 const ORG_LOGO_URL = `${SITE_URL}/aptcore-logo.svg`;
 const ORGANIZATION_SCHEMA_ID = `${SITE_URL}/#organization`;
 
@@ -29,12 +47,12 @@ const blogPostingSchemaData = {
   "dateModified": updatedDate ? new Date(updatedDate).toISOString() : (pubDate ? new Date(pubDate).toISOString() : undefined),
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": postUrl
+    "@id": postUrl,
   },
   "author": {
     "@type": "Organization",
     "name": ORG_NAME,
-    "@id": ORGANIZATION_SCHEMA_ID
+    "@id": ORGANIZATION_SCHEMA_ID,
   },
   "publisher": {
     "@type": "Organization",
@@ -42,12 +60,12 @@ const blogPostingSchemaData = {
     "@id": ORGANIZATION_SCHEMA_ID,
     "logo": {
       "@type": "ImageObject",
-      "url": ORG_LOGO_URL
-    }
-  }
+      "url": ORG_LOGO_URL,
+    },
+  },
 };
 
-Object.keys(blogPostingSchemaData).forEach(key => {
+Object.keys(blogPostingSchemaData).forEach((key) => {
   if (
     blogPostingSchemaData[key] === undefined ||
     (Array.isArray(blogPostingSchemaData[key]) && blogPostingSchemaData[key].length === 0)
@@ -55,7 +73,20 @@ Object.keys(blogPostingSchemaData).forEach(key => {
     delete blogPostingSchemaData[key];
   }
 });
+
 jsonLdGraph.push(blogPostingSchemaData);
+
+if (video) {
+  jsonLdGraph.push({
+    "@type": "VideoObject",
+    "name": video.name,
+    "description": video.description || description,
+    "thumbnailUrl": resolvedThumbnailUrl || resolvedHeroImageUrl,
+    "uploadDate": video.uploadDate,
+    "contentUrl": video.url,
+    "embedUrl": video.url,
+  });
+}
 
 jsonLdGraph.push({
   "@type": "BreadcrumbList",
@@ -63,22 +94,22 @@ jsonLdGraph.push({
     {
       "@type": "ListItem",
       "position": 1,
-      "name": SITE_TITLE || "Home",
-      "item": SITE_URL
+      "name": SITE_TITLE || 'Home',
+      "item": SITE_URL,
     },
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Blog",
-      "item": BLOG_CANONICAL_ROOT || `${SITE_URL}/blog`
+      "name": 'Blog',
+      "item": BLOG_CANONICAL_ROOT || `${SITE_URL}/blog`,
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": title,
-      "item": postUrl
-    }
-  ]
+      "item": postUrl,
+    },
+  ],
 });
 
 if (faq && Array.isArray(faq) && faq.length > 0) {
@@ -89,15 +120,15 @@ if (faq && Array.isArray(faq) && faq.length > 0) {
       "name": question,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": answer
-      }
-    }))
+        "text": answer,
+      },
+    })),
   });
 }
 
 const finalJsonLd = {
   "@context": "https://schema.org",
-  "@graph": jsonLdGraph
+  "@graph": jsonLdGraph,
 };
 ---
 <html lang={lang} class="dark">
@@ -111,6 +142,7 @@ const finalJsonLd = {
       keywords={keywords}
       ogType={ogType}
       lang={lang}
+      video={video}
     />
     <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
   </head>
@@ -127,13 +159,26 @@ const finalJsonLd = {
           )}
         </p>
         {title && <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>}
-        {resolvedHeroImageUrl && (
-          <img
-            src={resolvedHeroImageUrl}
-            alt={heroImageAlt ?? `Hero image for ${title}`}
-            class="w-full h-auto rounded-lg shadow mb-8"
-            loading="lazy"
-          />
+        {video ? (
+          <div class="aspect-w-16 aspect-h-9 mb-6">
+            <iframe
+              src={video.url}
+              title={video.name}
+              frameborder="0"
+              allowfullscreen
+              class="rounded-lg w-full h-full"
+              loading="lazy"
+            ></iframe>
+          </div>
+        ) : (
+          resolvedHeroImageUrl && (
+            <img
+              src={resolvedHeroImageUrl}
+              alt={heroImageAlt ?? `Hero image for ${title}`}
+              class="w-full h-auto rounded-lg shadow mb-8"
+              loading="lazy"
+            />
+          )
         )}
         <div class="prose prose-invert lg:prose-xl max-w-none">
           <slot />

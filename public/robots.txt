@@ -1,7 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /blog
 
-Sitemap: https://aptcore.one/sitemap-index.xml
+Disallow: /search
+Disallow: /staking
+Disallow: /faucet
+
+Sitemap: https://aptcore.one/sitemap.xml
 Sitemap: https://aptcore.one/blog/sitemap-index.xml
 
 Disallow: /_api/

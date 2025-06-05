@@ -1,63 +1,71 @@
 ---
 // blog/src/pages/about.astro
-import Layout from '@layouts/Layout.astro'; // Using path alias
-import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../consts'; // Your site constants
+import Layout from '@layouts/Layout.astro';
+import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../consts';
 
 const pageTitle = `About - ${SITE_TITLE || 'aptcore.one Blog'}`;
-const pageDescription = `Learn more about aptcore.one, our mission in the Aptos ecosystem, and the team behind this staking platform. ${SITE_DESCRIPTION || ''}`;
-// Optional: Define a specific social media image for this page
-// Create this image in blog/public/blog-assets/
-const socialImage = "/blog-assets/aptcore-about-og.jpg"; 
+const pageDescription = `Learn more about aptcore.one, its mission in the Aptos ecosystem, and the team behind it. ${SITE_DESCRIPTION || ''}`;
+const socialImage = "/blog-assets/aptcore-about-og.jpg";
 ---
-<Layout 
-  title={pageTitle} 
+<Layout
+  title={pageTitle}
   description={pageDescription}
   image={socialImage}
 >
-  <div class="py-10 md:py-16"> {/* Page padding */}
+  <div class="py-10 md:py-16">
     <header class="text-center mb-10 md:mb-14">
       <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
         About <span class="text-aptcore-purple">aptcore.one</span>
       </h1>
       <p class="text-lg md:text-xl text-brand-text-secondary mt-4 max-w-2xl mx-auto">
-        Your trusted partner for secure and efficient Aptos (APT) staking.
+        Your dedicated guide to secure and efficient Aptos (APT) staking, built by a team of experienced Aptos contributors.
       </p>
     </header>
 
-    {/* Apply prose styles for readable text content. */}
-    {/* max-w-3xl and mx-auto will center the content column. */}
     <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
       <p>
-        Welcome to aptcore.one! We are a dedicated team passionate about the Aptos blockchain 
-        and its potential to revolutionize decentralized applications. Our primary goal is to provide
-        a secure, reliable, and user-friendly staking service for Aptos (APT) token holders.
+        Welcome to aptcore.one! This platform is developed and maintained by a team of passionate contributors within the Aptos ecosystem. Our goal is to provide a secure, reliable, and user-friendly staking service for Aptos (APT) token holders, leveraging deep technical expertise and hands-on experience with the Aptos blockchain.
       </p>
       
-      <h2>Our Mission</h2> {/* Tailwind Typography will style this h2 */}
+      <h2>Our Mission</h2>
       <p>
-        Our core mission is to empower individuals to participate actively in the Aptos network's security 
-        and governance through staking. We strive to:
+        Our core mission is to empower individuals to participate actively in the Aptos network's security and success through staking. We aim to:
       </p>
       <ul>
-        <li><strong>Maximize Rewards:</strong> Offer competitive returns for our delegators through efficient validator operations.</li>
-        <li><strong>Ensure Security:</strong> Implement robust security measures and best practices to safeguard our infrastructure and, by extension, the network.</li>
-        <li><strong>Promote Transparency:</strong> Provide clear, honest information about staking mechanics, reward structures (APR vs. APY), and our operational performance. We believe an informed delegator is an empowered delegator.</li>
-        <li><strong>Simplify Staking:</strong> Make the delegation process accessible and understandable for everyone, regardless of their technical expertise.</li>
+        <li><strong>Optimize Rewards:</strong> Offer competitive returns for delegators through carefully managed and efficient validator operations.</li>
+        <li><strong>Ensure Security:</strong> Implement robust security practices and infrastructure-level protections that contribute to overall network integrity.</li>
+        <li><strong>Promote Transparency:</strong> Provide clear, honest information about staking mechanics, including lock-ups, reward structures, and operational performance.</li>
+        <li><strong>Simplify Staking:</strong> Make delegation accessible and understandable for everyone, regardless of technical expertise.</li>
       </ul>
 
-      <h2>Why Stake with Us?</h2>
+      <h2>Why Stake with aptcore.one?</h2>
       <p>
-        Choosing aptcore.one means partnering with a team that values performance, security, and community. 
-        We are committed to the long-term success of the Aptos ecosystem and believe that staking is a vital 
-        part of that journey. Our main platform, <a href={SITE_URL} target="_blank" rel="noopener noreferrer">aptcore.one</a>, 
-        is designed to give you a seamless experience.
+        Choosing aptcore.one means staking with a platform built on a foundation of real-world Aptos experience and technical excellence. Our contributors are deeply engaged in the Aptos ecosystem and committed to delivering value to delegators.
+      </p>
+      <ul>
+        <li><strong>Technical Focus:</strong> The infrastructure is managed by individuals with deep knowledge of the Aptos protocol and validator operations.</li>
+        <li><strong>Transparent Approach:</strong> We provide insights and guidance to help users make informed decisions about staking.</li>
+        <li><strong>Community-Driven:</strong> We actively participate in the growth and decentralization of the Aptos ecosystem through tools, documentation, and validator services.</li>
+      </ul>
+      <p>
+        Our platform, <a href={SITE_URL} target="_blank" rel="noopener noreferrer">aptcore.one</a>, is designed to give you a seamless and trustworthy staking experience.
+      </p>
+
+      <h2>Our Background</h2>
+      <p>
+        The aptcore.one team consists of infrastructure operators, open-source contributors, and community members who have supported Aptos since its early days. Our work includes building tools, providing technical documentation, and engaging with the broader validator community.
+      </p>
+      <ul>
+        <li><strong>Educational Resources:</strong> We’ve contributed guides such as “Tools to monitor your validator” and “How to transfer a validator node to another server (no fullnode required).”</li>
+        <li><strong>Technical Support:</strong> Our contributors are active on the <code>aptos-labs/aptos-core</code> GitHub and related forums, helping maintain high operational standards and solve complex validator issues.</li>
+      </ul>
+      <p>
+        This collective knowledge and experience are at the core of what aptcore.one offers.
       </p>
       
       <h2>Get Involved</h2>
       <p>
-        We encourage you to explore our blog for more guides, news, and insights into Aptos staking. If you have
-        any questions or want to learn more, please don't hesitate to reach out. 
-        {/* You can add a link to a contact page or social media here */}
+        We invite you to explore our blog for more guides, tools, and insights into Aptos staking. Whether you're new to staking or a seasoned delegator, we’re here to support your journey.
       </p>
     </div>
   </div>
