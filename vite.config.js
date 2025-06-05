@@ -4,6 +4,7 @@ import vike from 'vike/plugin';
 import { cjsInterop } from 'vite-plugin-cjs-interop';
 import vercel from 'vite-plugin-vercel';
 import path from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [
@@ -13,6 +14,7 @@ export default defineConfig({
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
+    visualizer({ open: true }),
   ],
   resolve: {
     alias: {
@@ -32,12 +34,24 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('antd')) return 'vendor-antd';
-            if (id.includes('framer-motion')) return 'vendor-framer-motion';
-            if (id.includes('lucide-react')) return 'vendor-lucide-react';
-            if (id.includes('@aptos-labs/ts-sdk')) return 'vendor-aptos-ts-sdk';
-            if (id.includes('@aptos-labs/wallet-adapter')) return 'vendor-aptos-wallet-adapter';
-            if (id.includes('ethers')) return 'vendor-ethers';
+            if (id.includes('antd')) {
+              return 'vendor-antd';
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor-framer-motion';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-lucide-react';
+            }
+            if (id.includes('@aptos-labs/ts-sdk')) {
+              return 'vendor-aptos-ts-sdk';
+            }
+            if (id.includes('@aptos-labs/wallet-adapter')) {
+              return 'vendor-aptos-wallet-adapter';
+            }
+            if (id.includes('ethers')) {
+              return 'vendor-ethers';
+            }
             if (
               id.includes('react') ||
               id.includes('react-dom') ||
