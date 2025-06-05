@@ -2,14 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vike from 'vike/plugin';
 import { cjsInterop } from 'vite-plugin-cjs-interop';
-import vercel from 'vite-plugin-vercel';
 import path from 'path';
 
 export default defineConfig({
   plugins: [
     react(),
     vike(),
-    vercel(),
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
@@ -31,21 +29,16 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('antd')) return 'vendor_antd';
-            if (id.includes('@aptos-labs/ts-sdk')) return 'vendor_aptos_sdk';
-            if (id.includes('@aptos-labs/wallet-adapter')) return 'vendor_wallet_adapter';
-            if (id.includes('lucide-react')) return 'vendor_icons';
-            if (id.includes('react-helmet-async')) return 'vendor_helmet';
-            if (id.includes('zustand')) return 'vendor_zustand';
-            if (id.includes('viem')) return 'vendor_viem';
-            return 'vendor_misc';
+            if (id.includes('node_modules/antd/')) return 'vendor-antd';
+            if (id.includes('node_modules/@aptos-labs/ts-sdk')) return 'vendor-aptos';
+            return 'vendor';
           }
-          if (id.includes('/src/components/')) return 'chunk_components';
-          if (id.includes('/src/pages/')) return 'chunk_pages';
-          if (id.includes('/src/utils/')) return 'chunk_utils';
         },
       },
     },
+  },
+  esbuild: {
+    target: 'es2022',
   },
   optimizeDeps: {
     include: [
