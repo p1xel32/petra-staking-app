@@ -1,0 +1,38 @@
+{
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/search",
+      "statusCode": 410,
+      "destination": "/"
+    },
+    {
+      "source": "/staking",
+      "statusCode": 410,
+      "destination": "/"
+    },
+    {
+      "source": "/faucet",
+      "statusCode": 410,
+      "destination": "/"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/blog/_astro/:path*",
+      "destination": "https://v0-aptos-staking.vercel.app/_astro/:path*"
+    },
+    {
+      "source": "/blog",
+      "destination": "https://v0-aptos-staking.vercel.app"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://v0-aptos-staking.vercel.app/:path*"
+    },
+    {
+      "source": "/((?!api/|_next/|static/|assets/|docs/|img/|images/|media/|files/|js/|css/|favicon.ico|manifest.json|sw.js|robots.txt|sitemap.xml|blog/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
