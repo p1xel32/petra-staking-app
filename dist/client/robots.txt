@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://aptcore.one/sitemap-index.xml
-Sitemap: https://aptcore.one/blog/sitemap-index.xml
-
-Disallow: /_api/
