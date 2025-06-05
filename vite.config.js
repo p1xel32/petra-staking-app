@@ -2,12 +2,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vike from 'vike/plugin';
 import { cjsInterop } from 'vite-plugin-cjs-interop';
+import vercel from 'vite-plugin-vercel';
 import path from 'path';
 
 export default defineConfig({
   plugins: [
     react(),
     vike(),
+    vercel(),
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
@@ -29,8 +31,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('node_modules/antd/')) return 'vendor-antd';
-            if (id.includes('node_modules/@aptos-labs/ts-sdk')) return 'vendor-aptos';
+            if (id.includes('antd')) return 'vendor-antd';
             return 'vendor';
           }
         },
