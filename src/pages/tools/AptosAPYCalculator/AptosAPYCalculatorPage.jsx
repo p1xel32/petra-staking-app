@@ -176,13 +176,13 @@ const AptosAPYCalculatorPage = () => {
   const softwareAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Interactive Aptos (APT) Staking APY Calculator", // Согласовано с title
+    "name": "Interactive Aptos (APT) Staking APY Calculator", 
     "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Web", // Указывает на веб-приложение
+    "operatingSystem": "Web", 
     "browserRequirements": "Requires a modern web browser with JavaScript enabled.",
-    "description": "A free online tool by Aptcore.one to calculate and estimate potential earnings from staking Aptos (APT) tokens based on stake amount and APY. Understand your potential daily, weekly, monthly, and yearly rewards.",
+    "description": "A free online tool by aptcore.one to calculate and estimate potential earnings from staking Aptos (APT) tokens based on stake amount and APY. Understand your potential daily, weekly, monthly, and yearly rewards.",
     "keywords": "Aptos staking APY calculator, APT APY calculator, Aptos rewards calculator, calculate Aptos staking profit, APT staking earnings estimator, how much can i earn staking aptos calculator, aptos staking potential return calculator, free aptos apy tool aptcore.one, daily aptos staking rewards calculator", // Добавлены ключевые слова
-    "author": { "@type": "Organization", "name": "Aptcore.one", "url": "https://aptcore.one" },
+    "author": { "@type": "Organization", "name": "aptcore.one", "url": "https://aptcore.one" },
     "url": pageUrl,
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   };
@@ -190,14 +190,14 @@ const AptosAPYCalculatorPage = () => {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Use the Interactive Aptos APY Staking Calculator on Aptcore.one",
-    "description": "Calculate your potential Aptos (APT) staking rewards with the Aptcore.one APY calculator by entering your stake amount and optionally a custom APY.",
+    "name": "How to Use the Interactive Aptos APY Staking Calculator on aptcore.one",
+    "description": "Calculate your potential Aptos (APT) staking rewards with the aptcore.one APY calculator by entering your stake amount and optionally a custom APY.",
     "step": [
       {"@type": "HowToStep", "name": "Enter Staking Amount", "text": "Input the total amount of APT you plan to stake into the 'Amount of APT to stake' field."},
       {"@type": "HowToStep", "name": "Specify APY (Optional)", "text": "The calculator uses the current estimated network APY by default. If you want to use a different APY, check 'Specify your own APY' and enter your desired percentage." },
       {"@type": "HowToStep", "name": "View Estimated Returns", "text": "The calculator will automatically display your estimated earnings for daily, weekly, monthly, and yearly periods in both APT and its approximate USD value if the APT price is available."}
     ],
-    "tool": [{"@type": "HowToTool", "name": "Interactive Aptos (APT) Staking APY Calculator on Aptcore.one"}]
+    "tool": [{"@type": "HowToTool", "name": "Interactive Aptos (APT) Staking APY Calculator on aptcore.one"}]
   };
 
   const webPageSchema = {
@@ -206,7 +206,7 @@ const AptosAPYCalculatorPage = () => {
     "name": pageTitle,
     "description": pageDescription,
     "url": pageUrl,
-    "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "Aptcore.one" }
+    "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "aptcore.one" }
   };
 
   return (
@@ -221,7 +221,7 @@ const AptosAPYCalculatorPage = () => {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:image" content="https://aptcore.one/og-image-apy-calculator.jpg" />
-        <meta property="og:site_name" content="Aptcore.one" />
+        <meta property="og:site_name" content="aptcore.one" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={pageUrl} />

@@ -174,15 +174,15 @@ const AptosLockupVisualizerPage = () => {
   };
   
   const pageUrl = "https://aptcore.one/tools/aptos-staking-lockup-visualizer";
-  const pageTitle = "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline | Aptcore.one";
+  const pageTitle = "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline | aptcore.one";
   const pageDescription = "Understand Aptos's staking lock-up (currently ~14 days). Use aptcore.one's visualizer to estimate when your staked APT will be available after unstaking.";
-  const shortTwitterDescription = "Visualize Aptos (APT) staking lock-up periods and unstake timelines with Aptcore.one's tool. See when your APT becomes available.";
+  const shortTwitterDescription = "Visualize Aptos (APT) staking lock-up periods and unstake timelines with aptcore.one's tool. See when your APT becomes available.";
   const ogImage = "https://aptcore.one/og-image-lockup-visualizer.jpg"; // ОБЯЗАТЕЛЬНО ЗАМЕНИТЕ ЭТОТ URL!
   const twitterImage = "https://aptcore.one/og-image-lockup-visualizer.jpg"; // ОБЯЗАТЕЛЬНО ЗАМЕНИТЕ ЭТОТ URL!
 
-  const webPageSchema = {"@context": "https://schema.org", "@type": "WebPage", "name": pageTitle, "description": pageDescription, "url": pageUrl, "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "Aptcore.one" }};
-  const softwareAppSchema = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline", "applicationCategory": "DataVisualizationApplication", "operatingSystem": "Web", "browserRequirements": "Requires a modern web browser with JavaScript enabled.", "description": "An interactive tool by Aptcore.one to visualize Aptos (APT) staking lock-up periods and estimate when your funds will be available after unstaking. Understand the Aptos lock-up cycle (currently around 14 days) and plan your staking strategy.", "keywords": "Aptos staking lock up visualizer, APT unstaking period tool, Aptos 14 day lockup explained tool, visualize aptos unstake time, aptos staking release date calculator, when can I withdraw my staked aptos tool, aptos lockup calendar, aptcore.one", "author": { "@type": "Organization", "name": "Aptcore.one", "url": "https://aptcore.one" }, "url": pageUrl, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }};
-  const howToSchema = {"@context": "https://schema.org", "@type": "HowTo", "name": "How to Use the Aptos Staking Lock-Up Visualizer to See Your APT Unstake Timeline", "description": "Visualize your Aptos (APT) unstaking timeline with Aptcore.one. Enter your unstake initiation time to see the estimated unlock schedule based on validator and network data.", "step": [{"@type": "HowToStep", "name": "Select Unstake Initiation Time", "text": "Choose the date and time you plan to initiate (or did initiate) your unstake request. You can use the date/time picker or click 'Visualize Unstaking From Now' for the current time."}, {"@type": "HowToStep", "name": "Review Network & Validator Information", "text": "The tool displays current Aptos network staking configurations (like the ~14 day lockup cycle), epoch timing, and lock-up details specific to the validator pool at " + TARGET_VALIDATOR_POOL_ADDRESS.substring(0,6) + "..." + TARGET_VALIDATOR_POOL_ADDRESS.substring(TARGET_VALIDATOR_POOL_ADDRESS.length - 4) + "."}, {"@type": "HowToStep", "name": "Analyze Your Unstaking Timeline", "text": "The visualizer will generate and display a timeline. This shows when the validator's current pool lockup cycle is estimated to end and the final estimated time your Aptos (APT) funds will become available for withdrawal, aligned with Aptos network epochs."}], "tool": [{"@type": "HowToTool", "name": "Aptos Staking Lock-Up Visualizer on Aptcore.one"}]};
+  const webPageSchema = {"@context": "https://schema.org", "@type": "WebPage", "name": pageTitle, "description": pageDescription, "url": pageUrl, "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "aptcore.one" }};
+  const softwareAppSchema = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline", "applicationCategory": "DataVisualizationApplication", "operatingSystem": "Web", "browserRequirements": "Requires a modern web browser with JavaScript enabled.", "description": "An interactive tool by aptcore.one to visualize Aptos (APT) staking lock-up periods and estimate when your funds will be available after unstaking. Understand the Aptos lock-up cycle (currently around 14 days) and plan your staking strategy.", "keywords": "Aptos staking lock up visualizer, APT unstaking period tool, Aptos 14 day lockup explained tool, visualize aptos unstake time, aptos staking release date calculator, when can I withdraw my staked aptos tool, aptos lockup calendar, aptcore.one", "author": { "@type": "Organization", "name": "aptcore.one", "url": "https://aptcore.one" }, "url": pageUrl, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }};
+  const howToSchema = {"@context": "https://schema.org", "@type": "HowTo", "name": "How to Use the Aptos Staking Lock-Up Visualizer to See Your APT Unstake Timeline", "description": "Visualize your Aptos (APT) unstaking timeline with aptcore.one. Enter your unstake initiation time to see the estimated unlock schedule based on validator and network data.", "step": [{"@type": "HowToStep", "name": "Select Unstake Initiation Time", "text": "Choose the date and time you plan to initiate (or did initiate) your unstake request. You can use the date/time picker or click 'Visualize Unstaking From Now' for the current time."}, {"@type": "HowToStep", "name": "Review Network & Validator Information", "text": "The tool displays current Aptos network staking configurations (like the ~14 day lockup cycle), epoch timing, and lock-up details specific to the validator pool at " + TARGET_VALIDATOR_POOL_ADDRESS.substring(0,6) + "..." + TARGET_VALIDATOR_POOL_ADDRESS.substring(TARGET_VALIDATOR_POOL_ADDRESS.length - 4) + "."}, {"@type": "HowToStep", "name": "Analyze Your Unstaking Timeline", "text": "The visualizer will generate and display a timeline. This shows when the validator's current pool lockup cycle is estimated to end and the final estimated time your Aptos (APT) funds will become available for withdrawal, aligned with Aptos network epochs."}], "tool": [{"@type": "HowToTool", "name": "Aptos Staking Lock-Up Visualizer on aptcore.one"}]};
   
   const faqPageSchemaObject = {
     "@context":"https://schema.org",
@@ -211,7 +211,7 @@ const AptosLockupVisualizerPage = () => {
   return (
     <>
       <Helmet>
-        <title>{String(pageTitle || 'Aptos Lockup Visualizer | Aptcore.one')}</title>
+        <title>{String(pageTitle || 'Aptos Lockup Visualizer | aptcore.one')}</title>
         <meta name="description" content={String(pageDescription || 'Visualize Aptos staking lockups.')} />
         <link rel="canonical" href={String(pageUrl || 'https://aptcore.one/tools/aptos-staking-lockup-visualizer')} />
         
@@ -220,7 +220,7 @@ const AptosLockupVisualizerPage = () => {
         <meta property="og:title" content={String(pageTitle || '')} />
         <meta property="og:description" content={String(pageDescription || '')} />
         <meta property="og:image" content={String(ogImage || '')} />
-        <meta property="og:site_name" content="Aptcore.one" />
+        <meta property="og:site_name" content="aptcore.one" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={String(pageUrl || '')} />
