@@ -1,24 +1,22 @@
 // src/components/Layout/AppHeader.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import aptcoreLogoUrl from '../../assets/aptcore-logo.svg'; // Ensure this path is correct relative to AppHeader.jsx
-import ConnectWalletButton from '../ConnectWalletButton'; // Ensure this path is correct
+// react-router-dom import removed assuming Link/NavLink are replaced by <a> tags
+
+import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
+import ConnectWalletButton from '../ConnectWalletButton';
 
 const AppHeader = () => {
-  // External Astro site URLs, all under /blog subfolder
-  const BLOG_URL_ASTRO = "/blog"; // The main blog page
-  const FAQ_URL_ASTRO = "/blog/faq"; 
+  const BLOG_URL_ASTRO = "/blog";
+  const FAQ_URL_ASTRO = "/blog/faq";
   const ABOUT_URL_ASTRO = "/blog/about";
   const CONTACT_URL_ASTRO = "/blog/contact";
 
-  // Internal React App Tool URLs
   const CALC_URL = "/tools/aptos-staking-apy-calculator";
   const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer";
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
-  const breakpoint = 'md';
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -39,19 +37,19 @@ const AppHeader = () => {
   const handleMobileLinkClick = () => setIsMobileMenuOpen(false);
 
   const navLinks = [
-    { label: "APY Calculator", to: CALC_URL, external: false }, 
-    { label: "Lockup Visualizer", to: LOCKUP_VISUALIZER_URL, external: false },
-    { label: "Blog", href: BLOG_URL_ASTRO, external: true }, 
-    { label: "FAQ", href: FAQ_URL_ASTRO, external: true }, 
-    { label: "About", href: ABOUT_URL_ASTRO, external: true }, 
-    { label: "Contact", href: CONTACT_URL_ASTRO, external: true } 
+    { label: "APY Calculator", href: CALC_URL, external: false },
+    { label: "Lockup Visualizer", href: LOCKUP_VISUALIZER_URL, external: false },
+    { label: "Blog", href: BLOG_URL_ASTRO, external: true },
+    { label: "FAQ", href: FAQ_URL_ASTRO, external: true },
+    { label: "About", href: ABOUT_URL_ASTRO, external: true },
+    { label: "Contact", href: CONTACT_URL_ASTRO, external: true }
   ];
 
   return (
     <header className="relative w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
       <div className="flex items-center">
-        <Link
-          to="/"
+        <a // Using <a> tag for Vike compatibility
+          href="/"
           className="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1 shrink-0"
           aria-label="aptcore.one homepage"
         >
@@ -60,7 +58,7 @@ const AppHeader = () => {
             <img src={aptcoreLogoUrl} alt="" className="h-5 w-5 mx-1 relative top-px" aria-hidden="true" />
             <span>one</span>
           </h1>
-        </Link>
+        </a>
 
         <div className="md:hidden ml-2 sm:ml-3">
           <button
@@ -80,27 +78,17 @@ const AppHeader = () => {
         </div>
 
         <nav className="hidden md:flex items-center gap-x-1 sm:gap-x-2 ml-6 lg:ml-10">
-          {navLinks.map(({ label, to, href, external }) =>
-            external ? ( 
-              <a
-                key={label}
-                href={href} 
-                className="text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors px-2.5 py-1.5 rounded-md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {label}
-              </a>
-            ) : (
-              <Link
-                key={label}
-                to={to} 
-                className="text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors px-2.5 py-1.5 rounded-md"
-              >
-                {label}
-              </Link>
-            )
-          )}
+          {navLinks.map(({ label, href, external }) => (
+            <a // Using <a> tags for Vike compatibility
+              key={label}
+              href={href}
+              className="text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors px-2.5 py-1.5 rounded-md"
+              target={external ? "_blank" : "_self"}
+              rel={external ? "noopener noreferrer" : ""}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
       </div>
 
@@ -117,28 +105,18 @@ const AppHeader = () => {
           className="absolute top-full inset-x-0 md:hidden bg-slate-900/90 backdrop-blur-lg shadow-xl border-t border-white/10 z-40 rounded-b-lg"
         >
           <nav className="flex flex-col px-4 py-4 space-y-1.5">
-            {navLinks.map(({ label, to, href, external }) =>
-              external ? (
-                <a
-                  key={label}
-                  href={href}
-                  onClick={handleMobileLinkClick}
-                  className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-2.5 px-3 rounded-md transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {label}
-                </a>
-              ) : (
-                <Link
-                  key={label}
-                  to={to}
-                  onClick={handleMobileLinkClick}
-                  className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-2.5 px-3 rounded-md transition-colors"
-                >
-                  {label}
-                </Link>
-              ))}
+            {navLinks.map(({ label, href, external }) => (
+              <a // Using <a> tags for Vike compatibility
+                key={label}
+                href={href}
+                onClick={handleMobileLinkClick}
+                className="block text-left text-base font-medium text-zinc-200 hover:bg-purple-500/20 hover:text-purple-300 py-2.5 px-3 rounded-md transition-colors"
+                target={external ? "_blank" : "_self"}
+                rel={external ? "noopener noreferrer" : ""}
+              >
+                {label}
+              </a>
+            ))}
           </nav>
         </div>
       )}

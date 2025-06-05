@@ -1,24 +1,16 @@
-# Dependencies
 node_modules/
-
-# Build output
+.pnpm-store/
+.vercel/output/
 dist/
-
-# Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# OS generated files
+pnpm-debug.log*
 .DS_Store
 Thumbs.db
-
-# Optional: Environment variables
 .env
 .env*.local
-
-# Optional: IDE/Editor folders
 .vscode/
 .idea/
-.vercel
+*.sublime-project

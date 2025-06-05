@@ -1,0 +1,25 @@
+# .vercelignore
+
+.DS_Store
+*.log
+.env
+.env.local
+.env.*.local
+!.env.production
+!.env.development.local
+
+node_modules/.cache
+# dist # 
+
+!api/**
+!pages/**
+!public/**
+!renderer/**
+!src/**
+!vite.config.js
+!vite.config.ts
+!package.json
+!pnpm-lock.yaml
+!tsconfig.json
+!postcss.config.js
+!tailwind.config.js

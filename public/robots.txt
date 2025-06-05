@@ -8,3 +8,5 @@ Disallow: /faucet
 
 Sitemap: https://aptcore.one/sitemap.xml
 Sitemap: https://aptcore.one/blog/sitemap-index.xml
+
+Disallow: /_api/

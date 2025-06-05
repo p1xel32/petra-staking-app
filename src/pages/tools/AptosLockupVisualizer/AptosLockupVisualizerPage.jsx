@@ -1,7 +1,8 @@
+// src/pages/tools/AptosLockupVisualizer/AptosLockupVisualizerPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { Typography, Spin, Divider } from 'antd';
-import { Helmet } from 'react-helmet-async';
-import { getStakingConfig, getEpochTiming, getValidatorPoolInfo } from '../../../services/aptosService'; // Added getValidatorPoolInfo
+import { Helmet, HelmetProvider } from 'react-helmet-async'; 
+import { getStakingConfig, getEpochTiming, getValidatorPoolInfo } from '../../../services/aptosService';
 import LockupInputControls from './components/LockupInputControls';
 import LockupTimelineDisplay from './components/LockupTimelineDisplay';
 import NetworkInfoDisplay from './components/NetworkInfoDisplay';
@@ -11,14 +12,28 @@ import { AlertTriangle, Info } from 'lucide-react';
 
 const { Title, Paragraph } = Typography;
 
-// Hardcode your specific validator pool address here
 const TARGET_VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
+
+const hardcodedFaqData = [
+  {
+    question: "How does the Aptos staking lock-up period work?",
+    answer: "When you stake Aptos, your tokens are typically locked for a recurring period (currently around 14 days). If you decide to unstake, your APT becomes available after the current lock-up cycle of your chosen validator pool ends, and then fully withdrawable after the network processes it at an epoch boundary."
+  },
+  {
+    question: "What does this visualizer show?",
+    answer: `This tool helps you estimate the unstaking timeline for Aptos (APT) tokens. It considers the specific lock-up cycle of the validator at ${TARGET_VALIDATOR_POOL_ADDRESS.substring(0,6)}...${TARGET_VALIDATOR_POOL_ADDRESS.substring(TARGET_VALIDATOR_POOL_ADDRESS.length - 4)} and Aptos network epoch timings.`
+  },
+  {
+    question: "Why are 'Pool Cycle Ends' and 'Funds Available' different times?",
+    answer: "Your funds are tied to the validator's lockup cycle. They become inactive (ready for withdrawal processing) when this cycle ends. The final 'Funds Available' time is when this withdrawal is processed by the Aptos network, which is aligned to the end of a network epoch."
+  }
+];
 
 const AptosLockupVisualizerPage = () => {
   const [initiationTime, setInitiationTime] = useState(null);
-  const [stakingConfig, setStakingConfig] = useState(null); 
+  const [stakingConfig, setStakingConfig] = useState(null);
   const [epochTiming, setEpochTiming] = useState(null);
-  const [validatorPoolInfo, setValidatorPoolInfo] = useState(null); // New state for specific validator info
+  const [validatorPoolInfo, setValidatorPoolInfo] = useState(null);
   const [timelineData, setTimelineData] = useState(null);
   const [fetchError, setFetchError] = useState(null);
   const [calculationError, setCalculationError] = useState(null);
@@ -33,7 +48,7 @@ const AptosLockupVisualizerPage = () => {
         const [config, timingInfo, poolInfo] = await Promise.all([
           getStakingConfig(),
           getEpochTiming(),
-          getValidatorPoolInfo(TARGET_VALIDATOR_POOL_ADDRESS) // Fetch specific validator info
+          getValidatorPoolInfo(TARGET_VALIDATOR_POOL_ADDRESS)
         ]);
 
         if (!config || config.recurring_lockup_duration_secs === undefined) {
@@ -48,10 +63,9 @@ const AptosLockupVisualizerPage = () => {
         
         setStakingConfig(config);
         setEpochTiming(timingInfo);
-        setValidatorPoolInfo(poolInfo); // Store validator pool info
-
+        setValidatorPoolInfo(poolInfo);
       } catch (error) {
-        console.error("LockupVisualizer: Failed to fetch initial data:", error);
+        // console.error("LockupVisualizer: Failed to fetch initial data:", error); // Оставляем console.error для ошибок
         setFetchError(`Could not load essential data: ${error.message}. Please try again later.`);
       } finally {
         setIsLoading(false);
@@ -61,51 +75,25 @@ const AptosLockupVisualizerPage = () => {
   }, []);
 
   const calculateLockupTimeline = useCallback((userInitiationTimeMs) => {
-    setCalculationError(null); 
-
+    setCalculationError(null);
     if (!stakingConfig || !epochTiming || !validatorPoolInfo || !userInitiationTimeMs) {
-      setCalculationError("Required data (network config, epoch timing, validator info, or initiation time) is missing for calculation.");
+      setCalculationError("Required data is missing for calculation.");
       setTimelineData(null);
       return;
     }
-    
     try {
       const T_init_secs = Math.floor(userInitiationTimeMs / 1000);
       const general_network_lockup_duration_secs = Number(stakingConfig.recurring_lockup_duration_secs);
-      
-      // The primary unlock time is the validator pool's locked_until_secs
-      let T_pool_cycle_end_secs = validatorPoolInfo.locked_until_secs;
-
-      // If user initiates unstake *after* the current pool cycle has already ended (not typical for fetched live data, but for safety)
-      // then they are aiming for the *next* cycle.
-      // The locked_until_secs from chain should ideally always be the *current or next* unlock point.
-      // For simplicity, we assume the fetched locked_until_secs is the relevant one.
-      // If T_init_secs is greater than T_pool_cycle_end_secs, it implies the user is unstaking
-      // aiming for a cycle *after* the currently fetched one. This would mean locked_until_secs
-      // on chain hasn't updated yet, or the user is planning for a future cycle.
-      // A robust solution might involve projecting the next cycle if T_init_secs > T_pool_cycle_end_secs,
-      // using recurring_lockup_duration_secs.
-      // For now, we assume T_pool_cycle_end_secs is the target if T_init_secs is before it.
-      // If T_init_secs is after T_pool_cycle_end_secs, this calculation will show funds available almost immediately
-      // at that past T_pool_cycle_end_secs, which means they *are* available.
-
-      // The funds become inactive when the pool's lockup cycle ends.
+      let T_pool_cycle_end_secs = Number(validatorPoolInfo.locked_until_secs);
       const T_funds_become_inactive_secs = T_pool_cycle_end_secs;
-
-
-      // Now, find the epoch boundary on or after T_funds_become_inactive_secs for actual withdrawal
       const epoch_interval_micros = BigInt(epochTiming.epochIntervalMicroseconds);
       const current_epoch_start_time_micros = BigInt(new Date(epochTiming.epochStartTime).getTime() * 1000);
       const epoch_interval_secs = Number(epoch_interval_micros / 1_000_000n);
 
-      if (epoch_interval_secs === 0) {
-        throw new Error("Epoch interval is zero.");
-      }
+      if (epoch_interval_secs === 0) throw new Error("Epoch interval is zero.");
       
       const current_epoch_start_secs_ref = Number(current_epoch_start_time_micros / 1_000_000n);
       let T_actual_unlock_secs;
-
-      // Find the epoch containing or just before T_funds_become_inactive_secs
       let relevant_epoch_start_for_unlock_calc = current_epoch_start_secs_ref;
       if (T_funds_become_inactive_secs < current_epoch_start_secs_ref) {
           while (relevant_epoch_start_for_unlock_calc > T_funds_become_inactive_secs) {
@@ -115,19 +103,13 @@ const AptosLockupVisualizerPage = () => {
           const epochs_passed = Math.floor((T_funds_become_inactive_secs - current_epoch_start_secs_ref) / epoch_interval_secs);
           relevant_epoch_start_for_unlock_calc = current_epoch_start_secs_ref + (epochs_passed * epoch_interval_secs);
       }
-
-      // T_actual_unlock_secs is the end of the epoch that contains T_funds_become_inactive_secs,
-      // or the next one if T_funds_become_inactive_secs is exactly on an epoch boundary.
       T_actual_unlock_secs = relevant_epoch_start_for_unlock_calc + epoch_interval_secs;
-      if (T_actual_unlock_secs < T_funds_become_inactive_secs) { // Ensure it's on or after
+      if (T_actual_unlock_secs < T_funds_become_inactive_secs) {
           T_actual_unlock_secs += epoch_interval_secs;
       }
 
-
       const nowSecs = Math.floor(Date.now() / 1000);
-      const remainingSecondsToPoolCycleEnd = T_funds_become_inactive_secs > T_init_secs ? T_funds_become_inactive_secs - nowSecs : 0;
       const remainingSecondsToFinalUnlock = T_actual_unlock_secs > nowSecs ? T_actual_unlock_secs - nowSecs : 0;
-      
       let remainingTimeStr = "Available now";
       if (remainingSecondsToFinalUnlock > 0) {
         const d = Math.floor(remainingSecondsToFinalUnlock / (3600 * 24));
@@ -141,35 +123,29 @@ const AptosLockupVisualizerPage = () => {
         if (!remainingTimeStr || remainingTimeStr === "0m") remainingTimeStr = "<1m";
       }
       
-      const calculationEpochParamsUsed = {
-        epochStartTimeISO: epochTiming.epochStartTime.toISOString(),
-        epochIntervalSeconds: epoch_interval_secs.toString(),
-        dataAsOfTimestampISO: epochTiming.dataAsOfTimestamp.toISOString(),
-        currentEpochAtCalc: epochTiming.currentEpoch.toString(),
-        validatorPoolAddress: TARGET_VALIDATOR_POOL_ADDRESS, // Include target validator
-        poolLockedUntilSecs: T_pool_cycle_end_secs.toString(),
-      };
-
       setTimelineData({
         initiationTime: userInitiationTimeMs,
-        // "Minimum Lockup Met" is now the pool's cycle end time
         poolCycleEndTime: T_funds_become_inactive_secs * 1000, 
         actualUnlockTime: T_actual_unlock_secs * 1000,
         remainingTime: remainingSecondsToFinalUnlock > 0 ? `in ~${remainingTimeStr}` : "Available now",
-        // minLockupDurationInSeconds is less relevant now, but we can keep general network cycle length
         networkRecurringLockupDurationSecs: general_network_lockup_duration_secs,
-        calculationEpochParams: calculationEpochParamsUsed,
+        calculationEpochParams: {
+            epochStartTimeISO: new Date(epochTiming.epochStartTime).toISOString(),
+            epochIntervalSeconds: epoch_interval_secs.toString(),
+            dataAsOfTimestampISO: new Date(epochTiming.dataAsOfTimestamp).toISOString(),
+            currentEpochAtCalc: epochTiming.currentEpoch.toString(),
+            validatorPoolAddress: TARGET_VALIDATOR_POOL_ADDRESS,
+            poolLockedUntilSecs: T_pool_cycle_end_secs.toString(),
+        },
       });
-
     } catch (error) {
-      console.error("LockupVisualizer: Error during timeline calculation logic:", error);
+      // console.error("LockupVisualizer: Error during timeline calculation logic:", error); // Оставляем console.error для ошибок
       setCalculationError(`Calculation error: ${error.message}`);
       setTimelineData(null);
     }
-  }, [stakingConfig, epochTiming, validatorPoolInfo]); // Added validatorPoolInfo dependency
+  }, [stakingConfig, epochTiming, validatorPoolInfo]);
 
   useEffect(() => {
-    // Trigger calculation if all necessary data is available
     if (initiationTime && stakingConfig && epochTiming && validatorPoolInfo) {
       calculateLockupTimeline(initiationTime);
     }
@@ -181,10 +157,7 @@ const AptosLockupVisualizerPage = () => {
     setCalculationError(null);
     setTimelineData(null); 
     setInitiationTime(timeMs); 
-
     try {
-      // Re-fetch epoch timing for utmost freshness for epoch alignment
-      // ValidatorPoolInfo and StakingConfig are less likely to change rapidly for this tool's purpose
       const freshEpochTiming = await getEpochTiming(); 
       if (!freshEpochTiming || !freshEpochTiming.epochIntervalMicroseconds || 
           !freshEpochTiming.epochStartTime || freshEpochTiming.currentEpoch === undefined ||
@@ -192,65 +165,88 @@ const AptosLockupVisualizerPage = () => {
         throw new Error("Failed to load complete up-to-date network epoch timing. Please try again.");
       }
       setEpochTiming(freshEpochTiming); 
-      
-      // Optionally, re-fetch validatorPoolInfo if it could change and impact a current visualization
-      // For now, assuming it's stable enough from initial load for a single visualization session
-      // const freshPoolInfo = await getValidatorPoolInfo(TARGET_VALIDATOR_POOL_ADDRESS);
-      // setValidatorPoolInfo(freshPoolInfo);
-
     } catch (error) {
-      console.error("LockupVisualizer: Failed to fetch fresh data for visualization:", error);
+      // console.error("LockupVisualizer: Failed to fetch fresh data for visualization:", error); // Оставляем console.error для ошибок
       setFetchError(`Could not get latest data: ${error.message}. Calculation may use older data or fail.`);
     } finally {
       setIsLoading(false); 
     }
   };
   
-  const getFaqData = useCallback(() => { 
-    let recurringLockupDisplay = 'N/A';
-    if (stakingConfig && stakingConfig.recurring_lockup_duration_secs) {
-      const lockupSecs = Number(stakingConfig.recurring_lockup_duration_secs);
-      recurringLockupDisplay = (lockupSecs / (60 * 60 * 24)).toFixed(1);
-    }
-    // FAQ might need to be updated to explain validator-specific lockup cycles
-    return [
-      { question: "How does validator pool lockup affect unstaking?", answer: `When you unstake from a specific validator, your funds become available after that validator's current lockup cycle ends. This tool visualizes this for ${TARGET_VALIDATOR_POOL_ADDRESS}. The network also defines a general recurring lockup duration (around ${recurringLockupDisplay} days) which sets the length of these cycles.` },
-      { question: "What is an epoch on Aptos?", answer: `An epoch on Aptos is a set duration during which a consistent set of validators participate. Final withdrawal of unstaked funds typically aligns with an epoch boundary after the lockup cycle ends.` },
-      { question: "Why are 'Pool Cycle Ends' and 'Funds Available' different?", answer: "Your funds are tied to the validator's lockup cycle. They become inactive (ready for withdrawal processing) when this cycle ends. The final 'Funds Available' time is when this withdrawal is processed, aligned to the end of a network epoch." }
-    ];
-  }, [stakingConfig]); 
-
   const pageUrl = "https://aptcore.one/tools/aptos-staking-lockup-visualizer";
-  const pageTitle = `Lockup Visualizer for ${TARGET_VALIDATOR_POOL_ADDRESS.substring(0,6)}... | Aptcore.one`;
-  const pageDescription = `Estimate when your staked Aptos (APT) will be available from validator ${TARGET_VALIDATOR_POOL_ADDRESS} with the Aptcore.one Lockup Visualizer.`;
-  const faqDataForSchema = getFaqData();
+  const pageTitle = "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline | aptcore.one";
+  const pageDescription = "Understand Aptos's staking lock-up (currently ~14 days). Use aptcore.one's visualizer to estimate when your staked APT will be available after unstaking.";
+  const shortTwitterDescription = "Visualize Aptos (APT) staking lock-up periods and unstake timelines with aptcore.one's tool. See when your APT becomes available.";
+  const ogImage = "https://aptcore.one/og-image-lockup-visualizer.jpg"; // ОБЯЗАТЕЛЬНО ЗАМЕНИТЕ ЭТОТ URL!
+  const twitterImage = "https://aptcore.one/og-image-lockup-visualizer.jpg"; // ОБЯЗАТЕЛЬНО ЗАМЕНИТЕ ЭТОТ URL!
+
+  const webPageSchema = {"@context": "https://schema.org", "@type": "WebPage", "name": pageTitle, "description": pageDescription, "url": pageUrl, "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "aptcore.one" }};
+  const softwareAppSchema = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline", "applicationCategory": "DataVisualizationApplication", "operatingSystem": "Web", "browserRequirements": "Requires a modern web browser with JavaScript enabled.", "description": "An interactive tool by aptcore.one to visualize Aptos (APT) staking lock-up periods and estimate when your funds will be available after unstaking. Understand the Aptos lock-up cycle (currently around 14 days) and plan your staking strategy.", "keywords": "Aptos staking lock up visualizer, APT unstaking period tool, Aptos 14 day lockup explained tool, visualize aptos unstake time, aptos staking release date calculator, when can I withdraw my staked aptos tool, aptos lockup calendar, aptcore.one", "author": { "@type": "Organization", "name": "aptcore.one", "url": "https://aptcore.one" }, "url": pageUrl, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }};
+  const howToSchema = {"@context": "https://schema.org", "@type": "HowTo", "name": "How to Use the Aptos Staking Lock-Up Visualizer to See Your APT Unstake Timeline", "description": "Visualize your Aptos (APT) unstaking timeline with aptcore.one. Enter your unstake initiation time to see the estimated unlock schedule based on validator and network data.", "step": [{"@type": "HowToStep", "name": "Select Unstake Initiation Time", "text": "Choose the date and time you plan to initiate (or did initiate) your unstake request. You can use the date/time picker or click 'Visualize Unstaking From Now' for the current time."}, {"@type": "HowToStep", "name": "Review Network & Validator Information", "text": "The tool displays current Aptos network staking configurations (like the ~14 day lockup cycle), epoch timing, and lock-up details specific to the validator pool at " + TARGET_VALIDATOR_POOL_ADDRESS.substring(0,6) + "..." + TARGET_VALIDATOR_POOL_ADDRESS.substring(TARGET_VALIDATOR_POOL_ADDRESS.length - 4) + "."}, {"@type": "HowToStep", "name": "Analyze Your Unstaking Timeline", "text": "The visualizer will generate and display a timeline. This shows when the validator's current pool lockup cycle is estimated to end and the final estimated time your Aptos (APT) funds will become available for withdrawal, aligned with Aptos network epochs."}], "tool": [{"@type": "HowToTool", "name": "Aptos Staking Lock-Up Visualizer on aptcore.one"}]};
+  
+  const faqPageSchemaObject = {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity": (Array.isArray(hardcodedFaqData) && hardcodedFaqData.length > 0) ? hardcodedFaqData.map(faq => ({
+        "@type": "Question",
+        "name": String(faq.question || ""),
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": String(faq.answer || "")
+        }
+    })) : []
+  };
+
+  const shouldRenderFaqSchema = !!(
+    !isLoading &&
+    !fetchError &&
+    hardcodedFaqData && 
+    Array.isArray(hardcodedFaqData) && 
+    hardcodedFaqData.length > 0 &&
+    faqPageSchemaObject.mainEntity &&
+    Array.isArray(faqPageSchemaObject.mainEntity) &&
+    faqPageSchemaObject.mainEntity.length > 0
+  );
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <link rel="canonical" href={pageUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-        <meta property="og:url" content={pageUrl} />
+        <title>{String(pageTitle || 'Aptos Lockup Visualizer | aptcore.one')}</title>
+        <meta name="description" content={String(pageDescription || 'Visualize Aptos staking lockups.')} />
+        <link rel="canonical" href={String(pageUrl || 'https://aptcore.one/tools/aptos-staking-lockup-visualizer')} />
+        
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Aptcore.one" />
+        <meta property="og:url" content={String(pageUrl || '')} />
+        <meta property="og:title" content={String(pageTitle || '')} />
+        <meta property="og:description" content={String(pageDescription || '')} />
+        <meta property="og:image" content={String(ogImage || '')} />
+        <meta property="og:site_name" content="aptcore.one" />
+
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
-        <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", "name": pageTitle, "description": pageDescription, "url": pageUrl, "isPartOf": { "@type": "WebSite", "url": "https://aptcore.one", "name": "Aptcore.one" } })}</script>
-        {(stakingConfig && epochTiming && validatorPoolInfo && faqDataForSchema.length > 0) && (<script type="application/ld+json">{JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqDataForSchema.map(faq => ({"@type": "Question", "name": faq.question, "acceptedAnswer": {"@type": "Answer", "text": faq.answer }}))})}</script>)}
+        <meta name="twitter:url" content={String(pageUrl || '')} />
+        <meta name="twitter:title" content={String(pageTitle || '')} />
+        <meta name="twitter:description" content={String(shortTwitterDescription || '')} />
+        <meta name="twitter:image" content={String(twitterImage || '')} />
+
+        <script type="application/ld+json">{JSON.stringify(webPageSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(softwareAppSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
+        
+        {shouldRenderFaqSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(faqPageSchemaObject)}
+          </script>
+        )}
       </Helmet>
 
       <div className="w-full max-w-3xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
         <div className="bg-slate-800/70 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl shadow-purple-500/20 p-6 sm:p-10">
           <div className="text-center mb-8 sm:mb-10">
             <Title level={1} className="!text-3xl sm:!text-4xl !font-bold !mb-4 tracking-tight !text-white">
-              Aptos Unstaking Visualizer
+              {pageTitle ? pageTitle.split(' | ')[0] : 'Aptos Staking Lock-Up Visualizer'}
             </Title>
             <Paragraph className="text-slate-300 text-base sm:text-lg max-w-xl mx-auto">
-              Visualize your unstaking timeline for validator: <strong className="text-purple-300 block break-all">{TARGET_VALIDATOR_POOL_ADDRESS}</strong>
+              {pageDescription || 'Visualize your Aptos staking lock-up.'} This tool currently visualizes unstaking timelines for the validator pool at: <strong className="text-purple-300 block break-all mt-1">{TARGET_VALIDATOR_POOL_ADDRESS}</strong>
             </Paragraph>
           </div>
 
@@ -274,7 +270,7 @@ const AptosLockupVisualizerPage = () => {
                 <NetworkInfoDisplay 
                     stakingConfig={stakingConfig} 
                     epochTiming={epochTiming} 
-                    validatorPoolInfo={validatorPoolInfo} // Pass to display specific validator info if needed
+                    validatorPoolInfo={validatorPoolInfo}
                 />
               }
 
@@ -288,12 +284,12 @@ const AptosLockupVisualizerPage = () => {
               {!timelineData && !calculationError && !initiationTime && stakingConfig && epochTiming && validatorPoolInfo && ( 
                  <div className="mt-6 text-center text-slate-400 text-sm p-6 bg-slate-800/40 rounded-xl border border-slate-700/60">
                     <Info size={24} className="mx-auto mb-2 text-blue-400"/>
-                    <p>Click "Visualize Unstaking From Now" to see the estimated timeline for the specified validator.</p>
+                    <p>Select an unstake initiation time or click "Visualize Unstaking From Now" to see the estimated timeline for the specified validator.</p>
                  </div>
               )}
 
               <Divider className="!my-10 sm:!my-12 !bg-slate-700/60" />
-              <LockupFAQ faqData={getFaqData()} />
+              {hardcodedFaqData && hardcodedFaqData.length > 0 && <LockupFAQ faqData={hardcodedFaqData} />}
 
               <div className="mt-10 sm:mt-12 pt-6 border-t border-slate-700/50">
                 <LockupDisclaimer />

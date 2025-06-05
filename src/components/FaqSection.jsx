@@ -1,6 +1,7 @@
 // src/components/FaqSection.jsx
 import React from 'react';
 import FaqItem from './FaqItem';
+import StructuredData from './StructuredData';
 
 const faqData = [
   {
@@ -31,17 +32,35 @@ const faqData = [
 ];
 
 const FaqSection = () => {
+  // Формируем объект JSON-LD для FAQPage на основе faqData
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqData.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+
   return (
-    <section className="w-full max-w-3xl mx-auto my-12 lg:my-16 py-8 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-100 mb-8 md:mb-10">
-        Frequently Asked Questions
-      </h2>
-      <div className="divide-y divide-white/10 rounded-xl bg-white/5 backdrop-blur-md border border-white/20 shadow-xl p-4 sm:p-6">
-        {faqData.map((faq) => (
-          <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
-        ))}
-      </div>
-    </section>
+    <>
+      <StructuredData data={faqSchema} />
+      
+      <section className="w-full max-w-3xl mx-auto my-12 lg:my-16 py-8 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-100 mb-8 md:mb-10">
+          Frequently Asked Questions
+        </h2>
+        <div className="divide-y divide-white/10 rounded-xl bg-white/5 backdrop-blur-md border border-white/20 shadow-xl p-4 sm:p-6">
+          {faqData.map((faq) => (
+            <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 

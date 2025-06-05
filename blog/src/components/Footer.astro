@@ -1,29 +1,41 @@
 ---
-// src/components/Footer.astro
+// blog/src/components/Footer.astro
 import { SITE_URL } from '../consts';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const currentYear = new Date().getFullYear();
-const contactPageUrl = "/blog/contact";
-const faqPageUrl = "/blog/faq";
+
+const BLOG_HOME_URL = "/blog";
+const FAQ_URL_BLOG = "/blog/faq";
+const ABOUT_URL_BLOG = "/blog/about";
+const CONTACT_URL_BLOG = "/blog/contact";
+const DISCLAIMER_URL_BLOG = "/blog/legal/disclaimer";
+const TERMS_URL_BLOG = "/blog/legal/terms";
+
+const APY_CALCULATOR_URL = "/tools/aptos-staking-apy-calculator"; 
+const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer"; 
 ---
 <footer class="bg-brand-bg-dark text-brand-text-secondary border-t border-white/10 py-8 text-center px-4 sm:px-6 lg:px-8">
-  <nav class="mb-4 space-x-4 text-sm sm:text-base">
+  <nav class="mb-4 space-x-2 sm:space-x-4 text-sm sm:text-base" aria-label="Footer navigation">
     <a href={SITE_URL} class="hover:text-aptcore-purple transition-colors">Main App</a>
     <span class="text-zinc-500">|</span>
-    <a href="/blog" class="hover:text-aptcore-purple transition-colors">Blog</a>
+    <a href={APY_CALCULATOR_URL} class="hover:text-aptcore-purple transition-colors">APY Calculator</a>
     <span class="text-zinc-500">|</span>
-    <a href={faqPageUrl} class="hover:text-aptcore-purple transition-colors">FAQ</a>
+    <a href={LOCKUP_VISUALIZER_URL} class="hover:text-aptcore-purple transition-colors">Lockup Visualizer</a>
     <span class="text-zinc-500">|</span>
-    <a href="/blog/about" class="hover:text-aptcore-purple transition-colors">About</a>
+    <a href={BLOG_HOME_URL} class="hover:text-aptcore-purple transition-colors">Blog</a>
     <span class="text-zinc-500">|</span>
-    <a href={contactPageUrl} class="hover:text-aptcore-purple transition-colors">Contact</a>
+    <a href={FAQ_URL_BLOG} class="hover:text-aptcore-purple transition-colors">FAQ</a>
+    <span class="text-zinc-500">|</span>
+    <a href={ABOUT_URL_BLOG} class="hover:text-aptcore-purple transition-colors">About</a>
+    <span class="text-zinc-500">|</span>
+    <a href={CONTACT_URL_BLOG} class="hover:text-aptcore-purple transition-colors">Contact</a>
   </nav>
-  <nav class="mb-4 space-x-4 text-sm">
-    <a href="/blog/legal/disclaimer" class="hover:text-aptcore-purple transition-colors">Disclaimer</a>
+  <nav class="mb-4 space-x-2 sm:space-x-4 text-xs sm:text-sm" aria-label="Legal navigation">
+    <a href={DISCLAIMER_URL_BLOG} class="hover:text-aptcore-purple transition-colors">Disclaimer</a>
     <span class="text-zinc-500">|</span>
-    <a href="/blog/legal/terms" class="hover:text-aptcore-purple transition-colors">Terms of Use</a>
+    <a href={TERMS_URL_BLOG} class="hover:text-aptcore-purple transition-colors">Terms of Use</a>
   </nav>
   <p class="text-xs text-zinc-500">
-    © {currentYear} aptcore.one — Secure Aptos (APT) Staking.
+    © {currentYear} aptcore.one — Secure & Transparent Aptos (APT) Staking. Your trusted platform.
   </p>
 </footer>
