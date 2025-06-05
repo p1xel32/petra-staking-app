@@ -20,8 +20,8 @@ export default defineConfig({
     },
   },
   ssr: {
-    external: ['@aptos-labs/ts-sdk'],
-    noExternal: ['ethers'], // <-- Бандлим ethers, чтобы избежать ошибок инициализации
+    external: ['@aptos-labs/ts-sdk', 'ethers'],
+    noExternal: ['ethers'],
   },
   build: {
     outDir: process.env.SSR_BUILD === 'true' ? 'dist/server' : 'dist/client',
@@ -29,20 +29,23 @@ export default defineConfig({
     minify: 'esbuild',
     cssCodeSplit: true,
     rollupOptions: {
-      preserveEntrySignatures: 'strict',
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('antd')) return 'vendor-antd';
             if (id.includes('framer-motion')) return 'vendor-framer-motion';
             if (id.includes('lucide-react')) return 'vendor-lucide-react';
+            if (id.includes('@aptos-labs/ts-sdk')) return 'vendor-aptos-ts-sdk';
+            if (id.includes('@aptos-labs/wallet-adapter')) return 'vendor-aptos-wallet-adapter';
+            if (id.includes('ethers')) return 'vendor-ethers';
             if (
               id.includes('react') ||
               id.includes('react-dom') ||
               id.includes('react-router-dom')
-            ) return 'vendor-react';
-            if (id.includes('@aptos-labs/wallet-adapter')) return 'vendor-wallet-adapter';
-            return 'vendor'; // Остальные node_modules
+            ) {
+              return 'vendor-react';
+            }
+            return 'vendor';
           }
         },
       },
