@@ -8,6 +8,7 @@ To ensure your safety and protect your assets, please only use our official link
 
 * **Official Website:** [https://aptcore.one](https://aptcore.one)
 * **Official Blog:** [https://aptcore.one/blog](https://aptcore.one/blog)
+* **Official GitHub:** [https://github.com/p1xel32/petra-staking-app](https://github.com/p1xel32/petra-staking-app)
 * **Official X (Twitter):** [https://x.com/aptcoreone](https://x.com/aptcoreone)
 * **Official YouTube:** [https://www.youtube.com/@aptcoreone](https://www.youtube.com/@aptcoreone)
 
