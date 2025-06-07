@@ -1,4 +1,19 @@
-# aptcore.one Staking Interface: Securely Stake $APT on the Aptos Blockchain
+![Security Alert](https://img.shields.io/badge/SECURITY-IMPORTANT-red.svg)
+
+## ⚠️ OFFICIAL LINKS & SECURITY WARNING ⚠️
+
+**This is the ONLY official repository for the aptcore.one project.**
+
+To ensure your safety and protect your assets, please only use our official links:
+
+* **Official Website:** [https://aptcore.one](https://aptcore.one)
+* **Official Blog:** [https://aptcore.one/blog](https://aptcore.one/blog)
+* **Official X (Twitter):** [https://x.com/aptcoreone](https://x.com/aptcoreone)
+* **Official YouTube:** [https://www.youtube.com/@aptcoreone](https://www.youtube.com/@aptcoreone)
+
+Be aware of forks of this repository. Malicious actors may create copies of our site to trick users and steal funds. We are not responsible for any losses incurred from using unofficial, fraudulent versions of our application. **Always double-check the URL.**
+
+---
 
 [![Vercel Deployment Status](https://img.shields.io/github/deployments/p1xel32/petra-staking-app/production?label=Vercel&logo=vercel&style=flat-square)](https://aptcore.one/)
 [![GitHub License](https://img.shields.io/github/license/p1xel32/petra-staking-app?style=flat-square)](LICENSE)
