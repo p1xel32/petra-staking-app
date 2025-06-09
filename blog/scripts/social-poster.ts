@@ -7,7 +7,7 @@ import { google } from 'googleapis';
 import showdown from 'showdown';
 import { TwitterApi } from 'twitter-api-v2';
 
-const LIVE_POSTS_URL = 'https://aptcore.one/blog/posts.json';
+const LIVE_POSTS_URL = process.env.POSTS_JSON_URL!;
 const DB_FILE_PATH = path.join(process.cwd(), 'scripts', 'processed_social_posts.json');
 const POSTING_DELAY_DAYS = 2;
 

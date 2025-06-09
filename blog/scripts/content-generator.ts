@@ -15,7 +15,7 @@ const REPO_OWNER = 'p1xel32';
 const REPO_NAME = 'petra-staking-app';
 const REPO_BRANCH = 'main';
 const GIST_FILENAME = 'topic_queue.json';
-const LIVE_POSTS_URL = 'https://aptcore.one/blog/posts.json';
+const LIVE_POSTS_URL = process.env.POSTS_JSON_URL!;
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 const octokit = new Octokit({ auth: GH_TOKEN });
