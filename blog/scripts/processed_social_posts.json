@@ -1,14 +1,50 @@
-[
-    "https://aptcore.one/blog/aptos-staking-guide-beginners",
-    "https://aptcore.one/blog/aptos-rewards-apr-apy-explained",
-    "https://aptcore.one/blog/choosing-aptos-staking-partner",
-    "https://aptcore.one/blog/aptos-liquid-staking-deep-dive",
-    "https://aptcore.one/blog/how-to-stake-aptos-with-ledger-security-guide",
-    "https://aptcore.one/blog/aptos-staking-security-no-slashing-guide",
-    "https://aptcore.one/blog/aptos-staking-lock-up-periods-explained",
-    "https://aptcore.one/blog/aptos-staking-rewards-explained-apy-epochs-auto-compounding",
-    "https://aptcore.one/tools/aptos-staking-apy-calculator",
-    "https://aptcore.one/tools/aptos-staking-lockup-visualizer",
-    "https://aptcore.one/blog/maximizing-aptos-staking-rewards-tips-strategies",
-    "https://aptcore.one/blog/understanding-aptos-validator-commission"
-]
+{
+  "https://aptcore.one/blog/aptos-staking-guide-beginners": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/aptos-rewards-apr-apy-explained": [
+    "twitter",
+    "dev.to",
+    "hashnode",
+    "blogger"
+  ],
+  "https://aptcore.one/blog/choosing-aptos-staking-partner": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/aptos-liquid-staking-deep-dive": [
+    "twitter",
+    "dev.to",
+    "hashnode",
+    "blogger"
+  ],
+  "https://aptcore.one/blog/how-to-stake-aptos-with-ledger-security-guide": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/aptos-staking-security-no-slashing-guide": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/aptos-staking-lock-up-periods-explained": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/aptos-staking-rewards-explained-apy-epochs-auto-compounding": [
+    "twitter"
+  ],
+  "https://aptcore.one/tools/aptos-staking-apy-calculator": [
+    "twitter"
+  ],
+  "https://aptcore.one/tools/aptos-staking-lockup-visualizer": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/maximizing-aptos-staking-rewards-tips-strategies": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/understanding-aptos-validator-commission": [
+    "twitter"
+  ],
+  "https://aptcore.one/blog/connect-petra-wallet-aptos-staking-aptcore": [
+    "twitter",
+    "dev.to",
+    "hashnode",
+    "blogger"
+  ]
+}

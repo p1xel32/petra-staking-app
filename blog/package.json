@@ -23,6 +23,7 @@
     "openai": "^5.1.1",
     "remark-gfm": "^4.0.1",
     "remark-smartypants": "^3.0.2",
+    "sharp": "^0.34.2",
     "showdown": "^2.1.0",
     "twitter-api-v2": "^1.23.2"
   },
