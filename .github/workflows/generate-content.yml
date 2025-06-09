@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 8 * * 1'
+    - cron: '0 8 * * 4'
 
 jobs:
   build_and_create_pr:
