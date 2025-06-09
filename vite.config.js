@@ -12,42 +12,15 @@ export default defineConfig({
     vercel(),
     cjsInterop({
       dependencies: ['react-helmet-async'],
-    })
+    }),
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      buffer: 'buffer',
-      process: 'process/browser',
-    },
-  },
-  define: {
-    'process.env': {},
-    global: 'globalThis',
-  },
-  optimizeDeps: {
-    include: [
-      'react-helmet-async',
-      'ethers',
-      '@aptos-labs/ts-sdk',
-      '@aptos-labs/wallet-adapter-core',
-      '@aptos-labs/wallet-adapter-react',
-      '@aptos-labs/wallet-standard',
-    ],
-    esbuildOptions: {
-      define: {
-        global: 'globalThis',
-      },
     },
   },
   ssr: {
-    noExternal: [
-      'ethers',
-      '@aptos-labs/ts-sdk',
-      '@aptos-labs/wallet-adapter-core',
-      '@aptos-labs/wallet-adapter-react',
-      '@aptos-labs/wallet-standard',
-    ],
+    external: ['@aptos-labs/ts-sdk'],
   },
   build: {
     outDir: process.env.SSR_BUILD === 'true' ? 'dist/server' : 'dist/client',
@@ -59,13 +32,6 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('antd')) return 'vendor-antd';
-            if (id.includes('framer-motion')) return 'vendor-framer-motion';
-            if (id.includes('lucide-react')) return 'vendor-lucide-react';
-            if (id.includes('@aptos-labs/ts-sdk')) return 'vendor-aptos-ts-sdk';
-            if (id.includes('@aptos-labs/wallet-adapter')) return 'vendor-aptos-wallet-adapter';
-            if (id.includes('ethers')) return 'vendor-ethers';
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom'))
-              return 'vendor-react';
             return 'vendor';
           }
         },
@@ -74,5 +40,21 @@ export default defineConfig({
   },
   esbuild: {
     target: 'es2022',
+  },
+  optimizeDeps: {
+    include: [
+      'react-helmet-async',
+      'antd/es/typography',
+      'antd/es/spin',
+      'antd/es/divider',
+      'antd/es/form',
+      'antd/es/input-number',
+      'antd/es/checkbox',
+      'antd/es/tooltip',
+      'antd/es/space',
+      'antd/es/alert',
+      'antd/es/config-provider',
+      'antd/es/avatar',
+    ],
   },
 });
