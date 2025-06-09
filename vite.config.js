@@ -4,7 +4,6 @@ import vike from 'vike/plugin';
 import { cjsInterop } from 'vite-plugin-cjs-interop';
 import vercel from 'vite-plugin-vercel';
 import path from 'path';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [

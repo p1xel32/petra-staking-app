@@ -1,7 +1,0 @@
-{
-  "version": 2,
-  "rewrites": [ 
-    { "source": "/blog/_astro/(.*)", "destination": "https://v0-aptos-staking.vercel.app/_astro/$1" },
-    { "source": "/blog/(.*)", "destination": "https://v0-aptos-staking.vercel.app/$1" }
-  ]
-}
