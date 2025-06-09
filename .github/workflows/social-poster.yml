@@ -28,6 +28,8 @@ jobs:
         env:
           POSTS_JSON_URL: "https://aptcore.one/blog/posts.json"
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          
+          # Google Blogger API
           G_SEARCH_KEY: ${{ secrets.G_SEARCH_KEY }}
           
           # --- Twitter Keys ---
@@ -42,6 +44,9 @@ jobs:
 
           # --- Blogger Keys ---
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           
           # --- Medium Keys ---
           MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
