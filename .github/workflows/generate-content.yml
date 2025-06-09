@@ -1,0 +1,40 @@
+name: Content Factory - Article Generator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'
+
+jobs:
+  build_and_create_pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'blog/package-lock.json'
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./blog
+
+      - name: Run Content Generator Script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+          GH_PAT_REPO: ${{ secrets.GH_PAT_REPO }}
+          G_SEARCH_KEY: ${{ secrets.G_SEARCH_KEY }}
+          SEARCH_ENGINE_ID: ${{ secrets.SEARCH_ENGINE_ID }}
+          POSTS_JSON_URL: "https://aptcore.one/blog/posts.json"
+        
+        run: npx tsx scripts/content-generator.ts
+        working-directory: ./blog
