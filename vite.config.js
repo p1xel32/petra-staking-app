@@ -12,8 +12,7 @@ export default defineConfig({
     vercel(),
     cjsInterop({
       dependencies: ['react-helmet-async'],
-    }),
-    visualizer({ open: true }),
+    })
   ],
   resolve: {
     alias: {
