@@ -1,4 +1,9 @@
 import 'dotenv/config';
+console.log('--- DEBUGGING process.env ---');
+console.log(`[Inside Node] Is TWITTER_API_KEY a non-empty string?`, !!process.env.TWITTER_API_KEY);
+console.log(`[Inside Node] Type of TWITTER_API_KEY:`, typeof process.env.TWITTER_API_KEY);
+console.log(`[Inside Node] Value of TWITTER_API_KEY:`, process.env.TWITTER_API_KEY ? 'Exists and has value' : 'DOES NOT EXIST or is empty');
+console.log('--- END DEBUGGING ---');
 import axios from 'axios';
 import { promises as fs } from 'fs';
 import path from 'path';
