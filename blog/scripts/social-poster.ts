@@ -152,22 +152,48 @@ async function postToDevTo(post: Post, rewrittenPost: { title: string; content: 
 async function postToHashnode(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
     if (!hashnode.enabled) return false;
     console.log(`  🔗 Posting to Hashnode...`);
+    
+   
     const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
     
+    const tagsForApi = post.tags?.slice(0, 5).map(tag => ({
+        name: tag,
+        slug: tag.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
+    })) || [];
+
+    const postSlug = rewrittenPost.title
+        .toLowerCase()
+        .replace(/^from-the-aptcore-one-blog:/, '')
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .slice(0, 100);
+
+    
     const mutation = `mutation publishPost($input: PublishPostInput!) { publishPost(input: $input) { post { url } } }`;
+    
     const variables = { 
         input: { 
             title: rewrittenPost.title, 
-            contentMarkdown: `${rewrittenPost.content}\n\n---\n*Originally published at [aptcore.one](${post.link}).*`, 
+            slug: postSlug,
+            contentMarkdown: rewrittenPost.content,
             publicationId: hashnode.publicationId!, 
-            tags: post.tags?.slice(0, 5).map(tag => ({ slug: tag.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, ''), name: tag })), 
-            coverImageURL: absoluteImageUrl,
-            canonicalUrl: post.link
+            tags: tagsForApi,
+            coverImageOptions: absoluteImageUrl 
+                ? { coverImageURL: absoluteImageUrl } 
+                : undefined,
+            originalArticleURL: post.link,
+            publishedAt: new Date(post.pubDate).toISOString(),
+            metaTags: {
+                title: post.title,
+                description: post.description.slice(0, 160),
+                image: absoluteImageUrl
+            }
         } 
     };
 
     try {
-        const response = await axios.post('https://gql.hashnode.com/', { query: mutation, variables }, { headers: { 'Authorization': `${hashnode.apiKey!}` } });
+        const response = await axios.post('https://gql.hashnode.com/', { query: mutation, variables }, { headers: { 'Authorization': hashnode.apiKey! } });
         if (response.data.errors) { throw new Error(JSON.stringify(response.data.errors)); }
         console.log(`  ✅ Success!`);
         return true;
