@@ -8,7 +8,6 @@ on:
 jobs:
   post_to_socials:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,46 +24,38 @@ jobs:
         working-directory: ./blog
 
       - name: Run SMM Poster Script
+        working-directory: ./blog
         env:
           POSTS_JSON_URL: "https://aptcore.one/blog/posts.json"
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          
-          # Google Blogger API
-          G_SEARCH_KEY: ${{ secrets.G_SEARCH_KEY }}
-          
-          # --- Twitter Keys ---
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-          
-          # --- LinkedIn Keys ---
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
-
-          # --- Blogger Keys ---
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
-          
-          # --- Medium Keys ---
           MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
-
-          # --- Dev.to Keys ---
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-
-          # --- Hashnode Keys ---
           HASHNODE_API_KEY: ${{ secrets.HASHNODE_API_KEY }}
           HASHNODE_PUBLICATION_ID: ${{ secrets.HASHNODE_PUBLICATION_ID }}
-
-          # --- Facebook Keys ---
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
-
-          # --- Pinterest Keys ---
           PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
           PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
-        
         run: npx tsx scripts/social-poster.ts
-        working-directory: ./blog
+
+      - name: Commit and push if database changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add blog/scripts/processed_social_posts.json
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "🤖 Chore: Update processed posts SMM database"
+            git push
+          else
+            echo "SMM database has no changes to commit."
+          fi
