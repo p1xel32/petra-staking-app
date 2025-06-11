@@ -154,23 +154,20 @@ async function postToHashnode(post: Post, rewrittenPost: { title: string; conten
     console.log(`  🔗 Posting to Hashnode...`);
     const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
     
-    // ИСПРАВЛЕНИЕ: Поле 'isRepublished' перемещено из 'settings' на верхний уровень 'input'
     const mutation = `mutation publishPost($input: PublishPostInput!) { publishPost(input: $input) { post { url } } }`;
     const variables = { 
         input: { 
             title: rewrittenPost.title, 
             contentMarkdown: `${rewrittenPost.content}\n\n---\n*Originally published at [aptcore.one](${post.link}).*`, 
             publicationId: hashnode.publicationId!, 
-            tags: post.tags?.slice(0, 5).map(tag => ({ id: tag.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, ''), name: tag })), 
-            coverImageURL: absoluteImageUrl, 
-            isRepublished: { 
-                originalArticleURL: post.link 
-            } 
+            tags: post.tags?.slice(0, 5).map(tag => ({ slug: tag.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, ''), name: tag })), 
+            coverImageURL: absoluteImageUrl,
+            canonicalUrl: post.link
         } 
     };
 
     try {
-        const response = await axios.post('https://gql.hashnode.com/', { query: mutation, variables }, { headers: { 'Authorization': hashnode.apiKey! } });
+        const response = await axios.post('https://gql.hashnode.com/', { query: mutation, variables }, { headers: { 'Authorization': `${hashnode.apiKey!}` } });
         if (response.data.errors) { throw new Error(JSON.stringify(response.data.errors)); }
         console.log(`  ✅ Success!`);
         return true;
