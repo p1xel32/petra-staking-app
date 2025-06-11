@@ -1,7 +1,8 @@
 {
   "https://aptcore.one/blog/aptos-staking-guide-beginners": [
     "twitter",
-    "blogger"
+    "blogger",
+    "hashnode"
   ],
   "https://aptcore.one/blog/aptos-rewards-apr-apy-explained": [
     "twitter",
@@ -26,7 +27,8 @@
   ],
   "https://aptcore.one/blog/aptos-staking-lock-up-periods-explained": [
     "twitter",
-    "blogger"
+    "blogger",
+    "hashnode"
   ],
   "https://aptcore.one/blog/aptos-staking-rewards-explained-apy-epochs-auto-compounding": [
     "twitter"
@@ -51,6 +53,7 @@
   ],
   "https://aptcore.one/blog/aptos-staking-minimum-how-much-apt-to-start": [
     "twitter",
-    "blogger"
+    "blogger",
+    "hashnode"
   ]
 }
