@@ -68,7 +68,7 @@ async function rewriteForTwitter(post: Post): Promise<string> {
         if (rewrittenText.length > maxCharsForAI) { rewrittenText = rewrittenText.substring(0, maxCharsForAI - 3) + '...'; }
         return rewrittenText.trim();
     } catch (error) {
-        console.error(`   ❌ Error rewriting for Twitter:`, error);
+        console.error(`  ❌ Error rewriting for Twitter:`, error);
         return `${post.title} - read more on our blog! #Aptos`;
     }
 }
@@ -79,7 +79,7 @@ async function rewriteForLinkedIn(post: Post): Promise<string> {
         const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }], temperature: 0.7 });
         return response.choices[0]?.message?.content || post.title;
     } catch (error) {
-        console.error(`   ❌ Error rewriting for LinkedIn:`, error);
+        console.error(`  ❌ Error rewriting for LinkedIn:`, error);
         return `${post.title}\n\nRead more about this on our blog.`;
     }
 }
@@ -90,7 +90,7 @@ async function rewriteForFacebook(post: Post): Promise<string> {
         const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }], temperature: 0.8 });
         return response.choices[0]?.message?.content || post.title;
     } catch (error) {
-        console.error(`   ❌ Error rewriting for Facebook:`, error);
+        console.error(`  ❌ Error rewriting for Facebook:`, error);
         return `${post.title}\n\nFind out more on our blog!`;
     }
 }
@@ -103,7 +103,7 @@ async function rewriteForLongform(post: Post): Promise<{ title: string; content:
         const content = response.choices[0]?.message?.content || post.description;
         return { title: `From the aptcore.one Blog: ${post.title}`, content };
     } catch (error) {
-        console.error(`   ❌ Error rewriting for Longform:`, error);
+        console.error(`  ❌ Error rewriting for Longform:`, error);
         return { title: post.title, content: post.description };
     }
 }
@@ -116,48 +116,48 @@ async function rewriteForPinterest(post: Post): Promise<{ title: string; descrip
         const description = response.choices[0]?.message?.content || post.description;
         return { title: post.title, description };
     } catch (error) {
-        console.error(`   ❌ Error rewriting for Pinterest:`, error);
+        console.error(`  ❌ Error rewriting for Pinterest:`, error);
         return { title: post.title, description: post.description };
     }
 }
 
 async function postToTwitter(textToPost: string): Promise<boolean> {
     if (!twitter.enabled) return false;
-    console.log(`   🐦 Posting to Twitter...`);
+    console.log(`  🐦 Posting to Twitter...`);
     try {
         await twitter.client.v2.tweet(textToPost);
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error); return false; }
 }
 
 async function postToLinkedIn(post: Post, rewrittenText: string): Promise<boolean> {
     if (!linkedin.enabled) return false;
-    console.log(`   🔗 Posting to LinkedIn...`);
+    console.log(`  🔗 Posting to LinkedIn...`);
     const url = 'https://api.linkedin.com/v2/ugcPosts';
     const body = { author: linkedin.authorUrn, lifecycleState: 'PUBLISHED', specificContent: { 'com.linkedin.ugc.ShareContent': { shareCommentary: { text: rewrittenText }, shareMediaCategory: 'ARTICLE', media: [{ status: 'READY', originalUrl: post.link, title: { text: post.title }, description: { text: post.description } }] } }, visibility: { 'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' } };
     try {
         await axios.post(url, body, { headers: { 'Authorization': `Bearer ${linkedin.accessToken}`, 'Content-Type': 'application/json' } });
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.response?.data); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data); return false; }
 }
 
 async function postToFacebook(post: Post, rewrittenText: string): Promise<boolean> {
     if (!facebook.enabled) return false;
-    console.log(`   🔗 Posting to Facebook Page...`);
+    console.log(`  🔗 Posting to Facebook Page...`);
     const url = `https://graph.facebook.com/${facebook.pageId}/feed?access_token=${facebook.accessToken}`;
     const body = { message: rewrittenText, link: post.link };
     try {
         await axios.post(url, body);
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.response?.data); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data); return false; }
 }
 
 async function postToBlogger(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
     if (!blogger.enabled) return false;
-    console.log(`   🔗 Posting to Blogger...`);
+    console.log(`  🔗 Posting to Blogger...`);
     try {
         const bloggerApi = google.blogger({ version: 'v3', auth: blogger.auth });
         const htmlContent = sd.makeHtml(`${rewrittenPost.content}\n\n<hr><p><i><a href="${post.link}">Read the full, original article on aptcore.one</a>.</i></p>`);
@@ -165,14 +165,14 @@ async function postToBlogger(post: Post, rewrittenPost: { title: string; content
             blogId: blogger.blogId!,
             requestBody: { title: rewrittenPost.title, content: htmlContent, labels: post.tags },
         });
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.message); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.message); return false; }
 }
 
 async function postToMedium(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
     if (!medium.enabled) return false;
-    console.log(`   🔗 Posting to Medium...`);
+    console.log(`  🔗 Posting to Medium...`);
     try {
         if (!medium.authorId) {
             const meResponse = await axios.get('https://api.medium.com/v1/me', { headers: { 'Authorization': `Bearer ${medium.token}` } });
@@ -181,49 +181,48 @@ async function postToMedium(post: Post, rewrittenPost: { title: string; content:
         const url = `https://api.medium.com/v1/users/${medium.authorId}/posts`;
         const body = { title: rewrittenPost.title, contentFormat: 'markdown', content: `${rewrittenPost.content}\n\n---\n*Originally published at [${post.title}](${post.link}).*`, canonicalUrl: post.link, tags: post.tags?.slice(0, 5), publishStatus: 'public' };
         await axios.post(url, body, { headers: { 'Authorization': `Bearer ${medium.token}` } });
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.response?.data); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data); return false; }
 }
 
 async function postToDevTo(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
     if (!devto.enabled) return false;
-    console.log(`   🔗 Posting to Dev.to...`);
+    console.log(`  🔗 Posting to Dev.to...`);
     const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
     const body = { article: { title: rewrittenPost.title, body_markdown: `${rewrittenPost.content}\n\n---\n*Originally published at [aptcore.one](${post.link}).*`, published: true, main_image: absoluteImageUrl, tags: post.tags?.slice(0, 4).map(t => t.toLowerCase().replace(/\s+/g, '')), canonical_url: post.link } };
     try {
         await axios.post('https://dev.to/api/articles', body, { headers: { 'api-key': devto.apiKey!, 'Content-Type': 'application/json' } });
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.response?.data?.error); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data?.error); return false; }
 }
 
 async function postToHashnode(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
     if (!hashnode.enabled) return false;
-    console.log(`   🔗 Posting to Hashnode...`);
+    console.log(`  🔗 Posting to Hashnode...`);
     const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
     const mutation = `mutation publishPost($input: PublishPostInput!) { publishPost(input: $input) { post { url } } }`;
     const variables = { input: { title: rewrittenPost.title, contentMarkdown: `${rewrittenPost.content}\n\n---\n*Originally published at [aptcore.one](${post.link}).*`, publicationId: hashnode.publicationId!, tags: post.tags?.slice(0, 5).map(tag => ({ id: tag.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, ''), name: tag })), coverImageURL: absoluteImageUrl, settings: { isRepublished: { originalArticleURL: post.link } } } };
     try {
         const response = await axios.post('https://gql.hashnode.com/', { query: mutation, variables }, { headers: { 'Authorization': hashnode.apiKey! } });
         if (response.data.errors) { throw new Error(JSON.stringify(response.data.errors)); }
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.response?.data?.errors || error.message); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data?.errors || error.message); return false; }
 }
 
 async function postToPinterest(post: Post, rewrittenPin: { title: string; description: string }): Promise<boolean> {
-    if (!pinterest.enabled || !post.heroImage || post.heroImage.includes('placeholder')) { console.log(`   📌 Skipping Pinterest: No valid image or keys.`); return false; }
-    console.log(`   📌 Posting to Pinterest...`);
+    if (!pinterest.enabled || !post.heroImage || post.heroImage.includes('placeholder')) { console.log(`  📌 Skipping Pinterest: No valid image or keys.`); return false; }
+    console.log(`  📌 Posting to Pinterest...`);
     const imageUrl = `https://aptcore.one${post.heroImage}`;
     const body = { board_id: pinterest.boardId!, link: post.link, title: rewrittenPin.title, alt_text: post.description, note: rewrittenPin.description, media_source: { source_type: 'image_url', url: imageUrl } };
     try {
         await axios.post('https://api.pinterest.com/v5/pins', body, { headers: { 'Authorization': `Bearer ${pinterest.accessToken!}` } });
-        console.log(`   ✅ Success!`);
+        console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`   ❌ Failed:`, error.response?.data); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data); return false; }
 }
-
 
 async function main() {
     console.log('🤖 Starting Ultimate SMM Poster Bot...');
@@ -251,8 +250,9 @@ async function main() {
 
     console.log(`\n🔥 Processing a batch of ${batch.length} article(s)...`);
     for (const post of batch) {
-        console.log(`\n- - - - - \n  - Processing: "${post.title}"`);
+        console.log(`\n- - - - - \n- Processing: "${post.title}"`);
         const alreadyPostedTo = processedDb[post.link] || [];
+        const originalPostCount = alreadyPostedTo.length;
         
         const [twitterText, linkedinText, facebookText, longformPost, pinterestPin] = await Promise.all([
             rewriteForTwitter(post),
@@ -281,16 +281,19 @@ async function main() {
             }
         }
         
-        if (alreadyPostedTo.length > (processedDb[post.link]?.length || 0)) {
+        if (alreadyPostedTo.length > originalPostCount) {
             processedDb[post.link] = alreadyPostedTo;
-            console.log(`\n  - Marking "${post.title}" as partially/fully processed.`);
+            console.log(`\n- Marking "${post.title}" as partially/fully processed.`);
+            await saveProcessedDb(processedDb);
+            console.log(`- SMM database updated for this post.`);
+        } else {
+            console.log(`\n- No new platforms were posted for "${post.title}".`);
         }
     }
 
-    await saveProcessedDb(processedDb);
-    console.log('\n💾 SMM database has been updated.');
+    console.log('\n🤖 SMM Bot finished processing the batch.');
 }
 
 main().catch(error => {
-    console.error('❌ A critical error occurred in SMM Bot:', error.message);
+    console.error('❌ A critical error occurred in SMM Bot:', error);
 });
