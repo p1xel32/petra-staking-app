@@ -7,6 +7,8 @@ on:
 
 jobs:
   post_to_socials:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
