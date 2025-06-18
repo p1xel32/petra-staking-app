@@ -23,7 +23,8 @@
     "twitter"
   ],
   "https://aptcore.one/blog/aptos-staking-security-no-slashing-guide": [
-    "twitter"
+    "twitter",
+    "hashnode"
   ],
   "https://aptcore.one/blog/aptos-staking-lock-up-periods-explained": [
     "twitter",
@@ -31,7 +32,8 @@
     "hashnode"
   ],
   "https://aptcore.one/blog/aptos-staking-rewards-explained-apy-epochs-auto-compounding": [
-    "twitter"
+    "twitter",
+    "hashnode"
   ],
   "https://aptcore.one/tools/aptos-staking-apy-calculator": [
     "twitter"
@@ -54,6 +56,10 @@
   "https://aptcore.one/blog/aptos-staking-minimum-how-much-apt-to-start": [
     "twitter",
     "blogger",
+    "hashnode"
+  ],
+  "https://aptcore.one/blog/aptos-staking-vs-other-pos-chains-comparative-look": [
+    "twitter",
     "hashnode"
   ]
 }
