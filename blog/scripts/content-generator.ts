@@ -32,6 +32,8 @@ interface ExistingPost {
 }
 
 interface ContentPlan {
+  title: string;
+  keywords: string[];
   detailedTitle: string;
   targetAudience: string;
   keyTakeaways: string[];
@@ -48,14 +50,14 @@ async function researchAndCreateOutline(title: string, keywords: string[]): Prom
   const prompt = `You are a world-class blockchain research analyst and content strategist specializing in Aptos.
 Your task is to conduct in-depth research on the topic "${title}" and create a comprehensive content plan for a definitive blog post.
 The keywords for this topic are: "${keywords.join(', ')}". These keywords represent SEO terms users search for. Make sure they are woven naturally into the outline.
-The output MUST be a JSON object that adheres to the ContentPlan interface.
+The output MUST be a JSON object that includes the following keys: detailedTitle, targetAudience, keyTakeaways, articleOutline, concludingThought.
 
 **Instructions for the plan:**
-1.  **Analyze the Topic:** Break down the core components of the topic. What is the search intent behind it? What questions do users have?
-2.  **Define Audience:** Specify the target audience (e.g., "Beginner crypto users", "Experienced Move developers").
-3.  **Create Outline:** Design a logical flow for the article. For each section (H2, H3), list the specific points, arguments, and data that must be included.
-4.  **Suggest Depth:** For complex parts, suggest a simple analogy or a practical example.
-5.  **Key Takeaways:** List 3-4 main points the reader must remember after reading.
+1.  **detailedTitle:** Create a compelling, SEO-friendly title based on the base title.
+2.  **targetAudience:** Specify the target audience (e.g., "Beginner crypto users", "Experienced Move developers").
+3.  **keyTakeaways:** List 3-4 main points the reader must remember after reading.
+4.  **articleOutline:** Design a logical flow for the article. For each section (H2, H3), list the specific points, arguments, and data that must be included.
+5.  **concludingThought:** Write a powerful concluding thought or call to action.
 
 Generate the JSON content plan now.`;
 
@@ -66,15 +68,19 @@ Generate the JSON content plan now.`;
   });
 
   const responseContent = response.choices[0]?.message?.content;
-
   if (!responseContent) {
-    throw new Error('OpenAI returned an empty response content.');
+    throw new Error('OpenAI returned an empty response for the content plan.');
   }
 
   try {
-    const plan = JSON.parse(responseContent) as ContentPlan;
+    const partialPlan = JSON.parse(responseContent);
+    const fullPlan: ContentPlan = {
+        title,
+        keywords,
+        ...partialPlan
+    };
     console.log(`  ✅ Research complete. Content plan created.`);
-    return plan;
+    return fullPlan;
   } catch (error) {
     console.error('   ❌ Invalid JSON from OpenAI. Could not parse content plan.');
     console.error('   Received content:', responseContent);
@@ -82,42 +88,44 @@ Generate the JSON content plan now.`;
   }
 }
 
-async function generateArticleText(topic: Topic, plan: ContentPlan): Promise<string> {
-    console.log(`  ✍️  Writing expert article for "${topic.title}" based on research...`);
+function validatePlan(plan: ContentPlan): boolean {
+    if (!plan.detailedTitle || typeof plan.detailedTitle !== 'string' || plan.detailedTitle.trim() === '') {
+        console.error('   ❌ Validation Failed: Plan is missing or has empty "detailedTitle".');
+        return false;
+    }
+    if (!plan.articleOutline || !Array.isArray(plan.articleOutline) || plan.articleOutline.length === 0) {
+        console.error('   ❌ Validation Failed: Plan is missing or has an empty "articleOutline".');
+        return false;
+    }
+    console.log('   ✅ Content plan passed validation.');
+    return true;
+}
+
+async function generateArticleText(plan: ContentPlan): Promise<string> {
+    console.log(`  ✍️  Writing expert article for "${plan.title}" based on a validated plan...`);
     
-    const keyTakeawaysText = (plan.keyTakeaways ?? [])
-        .map(p => `- ${p}`)
-        .join('\n');
-
-    const articleOutlineText = (plan.articleOutline ?? [])
-        .map(s => {
-            const pointsToCoverText = (s.pointsToCover ?? [])
-                .map(p => `- ${p}`)
-                .join('\n');
-
-            return `
+    const keyTakeawaysText = (plan.keyTakeaways ?? []).map(p => `- ${p}`).join('\n');
+    const articleOutlineText = (plan.articleOutline ?? []).map(s => {
+        const pointsToCoverText = (s.pointsToCover ?? []).map(p => `- ${p}`).join('\n');
+        return `
         ### Section: ${s.section}
         **Points to cover:**
         ${pointsToCoverText}
         ${s.analogyOrExample ? `**Analogy/Example to use:** ${s.analogyOrExample}` : ''}
       `;
-        })
-        .join('\n');
+    }).join('\n');
 
     const planText = `
       **Title:** ${plan.detailedTitle}
       **Target Audience:** ${plan.targetAudience}
       **Key Takeaways to weave in:**
       ${keyTakeawaysText}
-  
       **Article Structure and Content to Follow Strictly:**
       ${articleOutlineText}
-  
       **Conclusion:** ${plan.concludingThought}
     `;
   
-    const prompt = `You are a senior technical writer and an expert on the Aptos blockchain, known for your clear, engaging, and authoritative writing style.
-  Your task is to write a high-quality, comprehensive blog post of about 800-1200 words. You have been provided with a detailed content plan from a research analyst. You MUST follow this plan strictly.
+    const prompt = `You are a senior technical writer and an expert on the Aptos blockchain, known for your clear, engaging, and authoritative writing style. Your task is to write a high-quality, comprehensive blog post of about 800-1200 words. You have been provided with a detailed, pre-made content plan. You MUST follow this plan strictly.
   
   **Content Plan to Execute:**
   ${planText}
@@ -140,7 +148,7 @@ async function generateArticleText(topic: Topic, plan: ContentPlan): Promise<str
       return response.choices[0]?.message?.content || 'Error: Could not generate article text.';
     } catch (error) {
       console.error(`  ❌ Error generating article text:`, error);
-      return `Error occurred during article generation for title: ${topic.title}.`;
+      return `Error occurred during article generation for title: ${plan.title}.`;
     }
 }
 
@@ -283,23 +291,23 @@ async function generateImageAltText(visualConcept: string): Promise<string> {
     }
 }
 
-function assembleMdxFile(topic: Topic, articleBody: string, generated: { imagePath: string | null; description: string; altText: string }): { filename: string, content: string } {
-    const slug = topic.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
+function assembleMdxFile(plan: ContentPlan, articleBody: string, generated: { imagePath: string | null; description: string; altText: string }): { filename: string, content: string } {
+    const slug = plan.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
     const date = new Date();
     const pubDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const imageFilename = generated.imagePath ? `${slug}.jpg` : `placeholder.png`;
     const finalImagePath = generated.imagePath ? `/blog-assets/${imageFilename}` : `/blog-assets/placeholder.png`;
 
     const frontmatter = `---
-title: "${topic.title.replace(/"/g, '\\"')}"
+title: "${plan.title.replace(/"/g, '\\"')}"
 slug: "${slug}"
 pubDate: "${pubDate}"
 description: "${generated.description}"
 author: "The aptcore.one Team"
-keywords: [${topic.keywords.map(k => `"${k}"`).join(', ')}]
+keywords: [${plan.keywords.map(k => `"${k}"`).join(', ')}]
 heroImage: "${finalImagePath}"
 heroImageAlt: "${generated.altText}"
-tags: [${topic.keywords.map(k => `"${k}"`).join(', ')}]
+tags: [${plan.keywords.map(k => `"${k}"`).join(', ')}]
 ---\n\n`;
 
     const filename = `${slug}.mdx`;
@@ -308,9 +316,9 @@ tags: [${topic.keywords.map(k => `"${k}"`).join(', ')}]
     return { filename, content };
 }
 
-async function createPullRequest(filesToCommit: { path: string, content: string, encoding?: 'base64' | 'utf-8' }[], topic: Topic): Promise<boolean> {
-    console.log(`\n🤖 Creating Pull Request for "${topic.title}"...`);
-    const slug = topic.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
+async function createPullRequest(filesToCommit: { path: string, content: string, encoding?: 'base64' | 'utf-8' }[], plan: ContentPlan): Promise<boolean> {
+    console.log(`\n🤖 Creating Pull Request for "${plan.title}"...`);
+    const slug = plan.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
     const newBranchName = `article/${slug}`;
     const ref = `refs/heads/${newBranchName}`;
 
@@ -332,7 +340,7 @@ async function createPullRequest(filesToCommit: { path: string, content: string,
                 owner: REPO_OWNER,
                 repo: REPO_NAME,
                 path: file.path,
-                message: `feat: Add ${path.basename(file.path)} for article '${topic.title}'`,
+                message: `feat: Add ${path.basename(file.path)} for article '${plan.title}'`,
                 content: file.content,
                 branch: newBranchName,
             });
@@ -342,10 +350,10 @@ async function createPullRequest(filesToCommit: { path: string, content: string,
         const { data: prData } = await octokit.rest.pulls.create({
             owner: REPO_OWNER,
             repo: REPO_NAME,
-            title: `New Article: ${topic.title}`,
+            title: `New Article: ${plan.title}`,
             head: newBranchName,
             base: REPO_BRANCH,
-            body: `This PR was automatically generated by the Content Factory.\n\nPlease review the article content and the generated image before merging.\n\n**Keywords:** ${topic.keywords.join(', ')}`,
+            body: `This PR was automatically generated by the Content Factory.\n\nPlease review the article content and the generated image before merging.\n\n**Keywords:** ${plan.keywords.join(', ')}`,
         });
         console.log(`   ✅ Successfully created Pull Request! View it here: ${prData.html_url}`);
         return true;
@@ -368,29 +376,36 @@ async function main() {
     let topicQueue: Topic[] = JSON.parse(queueFile.content);
     if (topicQueue.length === 0) { console.log('✅ Topic queue is empty.'); return; }
 
-    const topicToProcess = topicQueue.shift()!;
-    console.log(`\n🚀 Processing topic: "${topicToProcess.title}"`);
+    const topic = topicQueue.shift()!;
+    console.log(`\n🚀 Processing topic: "${topic.title}"`);
 
-    const contentPlan = await researchAndCreateOutline(topicToProcess.title, topicToProcess.keywords);
-    let articleBody = await generateArticleText(topicToProcess, contentPlan);
+    const fullPlan = await researchAndCreateOutline(topic.title, topic.keywords);
+
+    if (!validatePlan(fullPlan)) {
+      throw new Error(`Invalid or incomplete ContentPlan received from OpenAI for topic: "${topic.title}". Halting process.`);
+    }
     
-    if (articleBody.startsWith('Error')) { console.log("🛑 Article generation failed."); return; }
+    let articleBody = await generateArticleText(fullPlan);
+    if (articleBody.startsWith('Error')) {
+        console.log("🛑 Article generation failed.");
+        return; 
+    }
     
-    const faqSection = await generateFaqSection(topicToProcess.title, articleBody);
+    const faqSection = await generateFaqSection(fullPlan.title, articleBody);
     articleBody += faqSection;
     
-    articleBody = await addInternalLinks(articleBody, topicToProcess.title);
+    articleBody = await addInternalLinks(articleBody, fullPlan.title);
     articleBody = await addExternalLinks(articleBody);
     
-    const visualConcept = await generateImageConcept(topicToProcess.title, topicToProcess.keywords);
+    const visualConcept = await generateImageConcept(fullPlan.title, fullPlan.keywords);
     const altText = await generateImageAltText(visualConcept);
     const description = await generateMetaDescription(articleBody);
     
-    const tempImageUrl = await createImageWithDalle(topicToProcess.title, visualConcept);
+    const tempImageUrl = await createImageWithDalle(fullPlan.title, visualConcept);
 
     const filesToCommit: { path: string, content: string }[] = [];
     let finalImagePathInMdx: string | null = null;
-    const slug = topicToProcess.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
+    const slug = fullPlan.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
 
     if (tempImageUrl) {
         const imageBuffer = await downloadAndOptimizeImage(tempImageUrl);
@@ -399,10 +414,10 @@ async function main() {
         filesToCommit.push({ path: `blog/public/blog-assets/${imageFilename}`, content: imageBuffer.toString('base64') });
     }
 
-    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(topicToProcess, articleBody, { imagePath: finalImagePathInMdx, description, altText });
+    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(fullPlan, articleBody, { imagePath: finalImagePathInMdx, description, altText });
     filesToCommit.push({ path: `blog/src/content/blog/${mdxFilename}`, content: Buffer.from(mdxContent).toString('base64') });
 
-    const prCreated = await createPullRequest(filesToCommit, topicToProcess);
+    const prCreated = await createPullRequest(filesToCommit, fullPlan);
     
     if (prCreated) {
         console.log('\n💾 Updating topic queue in Gist...');
