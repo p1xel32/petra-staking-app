@@ -46,7 +46,8 @@ interface ContentPlan {
 async function researchAndCreateOutline(title: string, keywords: string[]): Promise<ContentPlan> {
   console.log(`  🔬 Conducting deep research for "${title}"...`);
   const prompt = `You are a world-class blockchain research analyst and content strategist specializing in Aptos.
-Your task is to conduct in-depth research on the topic "${title}" with keywords "${keywords.join(', ')}" and create a comprehensive content plan for a definitive blog post.
+Your task is to conduct in-depth research on the topic "${title}" and create a comprehensive content plan for a definitive blog post.
+The keywords for this topic are: "${keywords.join(', ')}". These keywords represent SEO terms users search for. Make sure they are woven naturally into the outline.
 The output MUST be a JSON object that adheres to the ContentPlan interface.
 
 **Instructions for the plan:**
@@ -58,18 +59,26 @@ The output MUST be a JSON object that adheres to the ContentPlan interface.
 
 Generate the JSON content plan now.`;
 
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'user', content: prompt }],
+    response_format: { type: "json_object" },
+  });
+
+  const responseContent = response.choices[0]?.message?.content;
+
+  if (!responseContent) {
+    throw new Error('OpenAI returned an empty response content.');
+  }
+
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [{ role: 'user', content: prompt }],
-      response_format: { type: "json_object" },
-    });
-    const plan = JSON.parse(response.choices[0]?.message?.content || '{}') as ContentPlan;
+    const plan = JSON.parse(responseContent) as ContentPlan;
     console.log(`  ✅ Research complete. Content plan created.`);
     return plan;
   } catch (error) {
-    console.error(`   ❌ Error during research phase:`, error);
-    throw new Error('Failed to create content plan.');
+    console.error('   ❌ Invalid JSON from OpenAI. Could not parse content plan.');
+    console.error('   Received content:', responseContent);
+    throw new Error('Failed to parse content plan from OpenAI response.');
   }
 }
 
@@ -192,7 +201,7 @@ async function addInternalLinks(articleBody: string, newArticleTitle: string): P
             if (post.title.toLowerCase() === newArticleTitle.toLowerCase()) continue;
             const regex = new RegExp(`\\b(${post.title.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})\\b`, 'gi');
             if (linkedBody.search(regex) > -1 && !linkedBody.includes(`](${post.link})`)) {
-                const markdownLink = `[${post.title}](${post.link})`;
+                const markdownLink = `[${post.title}](${post.link})`
                 linkedBody = linkedBody.replace(regex, markdownLink);
                 console.log(`     ✅ Internally linked to: "${post.title}"`);
                 linkCount++;
