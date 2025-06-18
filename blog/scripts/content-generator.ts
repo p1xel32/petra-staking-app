@@ -31,65 +31,155 @@ interface ExistingPost {
   link: string;
 }
 
-async function generateArticleText(title: string, keywords: string[]): Promise<string> {
-  console.log(`   ✍️  Generating article text for "${title}"...`);
-  const prompt = `You are an expert tech writer and SEO specialist for a blog about the Aptos blockchain. Your task is to write a high-quality, comprehensive blog post of about 800-1000 words. The article must be well-structured with Markdown headings (H2, H3), lists, and bold text for emphasis. The tone should be professional, clear, and trustworthy. Topic and Title: "${title}". Core SEO Keywords to include naturally: "${keywords.join(', ')}". Please begin writing the article now.`;
+interface ContentPlan {
+  detailedTitle: string;
+  targetAudience: string;
+  keyTakeaways: string[];
+  articleOutline: {
+    section: string;
+    pointsToCover: string[];
+    analogyOrExample?: string;
+  }[];
+  concludingThought: string;
+}
+
+async function researchAndCreateOutline(title: string, keywords: string[]): Promise<ContentPlan> {
+  console.log(`  🔬 Conducting deep research for "${title}"...`);
+  const prompt = `You are a world-class blockchain research analyst and content strategist specializing in Aptos.
+Your task is to conduct in-depth research on the topic "${title}" with keywords "${keywords.join(', ')}" and create a comprehensive content plan for a definitive blog post.
+The output MUST be a JSON object that adheres to the ContentPlan interface.
+
+**Instructions for the plan:**
+1.  **Analyze the Topic:** Break down the core components of the topic. What is the search intent behind it? What questions do users have?
+2.  **Define Audience:** Specify the target audience (e.g., "Beginner crypto users", "Experienced Move developers").
+3.  **Create Outline:** Design a logical flow for the article. For each section (H2, H3), list the specific points, arguments, and data that must be included.
+4.  **Suggest Depth:** For complex parts, suggest a simple analogy or a practical example.
+5.  **Key Takeaways:** List 3-4 main points the reader must remember after reading.
+
+Generate the JSON content plan now.`;
+
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [{ role: 'user', content: prompt }],
-      temperature: 0.7,
+      response_format: { type: "json_object" },
     });
-    return response.choices[0]?.message?.content || 'Error: Could not generate article text.';
+    const plan = JSON.parse(response.choices[0]?.message?.content || '{}') as ContentPlan;
+    console.log(`  ✅ Research complete. Content plan created.`);
+    return plan;
   } catch (error) {
-    console.error(`   ❌ Error generating article text:`, error);
-    return `Error occurred during article generation for title: ${title}.`;
+    console.error(`   ❌ Error during research phase:`, error);
+    throw new Error('Failed to create content plan.');
   }
+}
+
+async function generateArticleText(topic: Topic, plan: ContentPlan): Promise<string> {
+    console.log(`  ✍️  Writing expert article for "${topic.title}" based on research...`);
+    
+    const planText = `
+      **Title:** ${plan.detailedTitle}
+      **Target Audience:** ${plan.targetAudience}
+      **Key Takeaways to weave in:**
+      ${plan.keyTakeaways.map(p => `- ${p}`).join('\n')}
+  
+      **Article Structure and Content to Follow Strictly:**
+      ${plan.articleOutline.map(s => `
+        ### Section: ${s.section}
+        **Points to cover:**
+        ${s.pointsToCover.map(p => `- ${p}`).join('\n')}
+        ${s.analogyOrExample ? `**Analogy/Example to use:** ${s.analogyOrExample}` : ''}
+      `).join('\n')}
+  
+      **Conclusion:** ${plan.concludingThought}
+    `;
+  
+    const prompt = `You are a senior technical writer and an expert on the Aptos blockchain, known for your clear, engaging, and authoritative writing style.
+  Your task is to write a high-quality, comprehensive blog post of about 800-1200 words. You have been provided with a detailed content plan from a research analyst. You MUST follow this plan strictly.
+  
+  **Content Plan to Execute:**
+  ${planText}
+  
+  **Instructions:**
+  - Write in a professional, clear, and trustworthy tone.
+  - Flesh out each point from the plan into well-written paragraphs.
+  - Use Markdown for structure (H2, H3, lists, bold text).
+  - Seamlessly integrate the provided analogies and key takeaways into the narrative.
+  - The final article should be a definitive resource on the topic.
+  
+  Begin writing the article now.`;
+  
+    try {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.6,
+      });
+      return response.choices[0]?.message?.content || 'Error: Could not generate article text.';
+    } catch (error) {
+      console.error(`  ❌ Error generating article text:`, error);
+      return `Error occurred during article generation for title: ${topic.title}.`;
+    }
+}
+
+async function generateFaqSection(articleTitle: string, articleBody: string): Promise<string> {
+    console.log(`   ❓ Generating FAQ for "${articleTitle}"...`);
+    const prompt = `Based on the following article about "${articleTitle}", generate a short FAQ section with 2-3 relevant questions and concise answers. The questions should be things a user might ask after reading the article. Format the output in Markdown with H3 headings for each question. Article text for context: "${articleBody.substring(0, 3000)}"`;
+    try {
+        const response = await openai.chat.completions.create({
+            model: 'gpt-4o-mini',
+            messages: [{ role: 'user', content: prompt }],
+        });
+        const faqContent = response.choices[0]?.message?.content || "";
+        return `\n\n---\n## Frequently Asked Questions (FAQ)\n${faqContent}`;
+    } catch (error) {
+        console.error(`   ❌ Error generating FAQ section:`, error);
+        return "";
+    }
 }
 
 async function generateImageConcept(title: string, keywords: string[]): Promise<string> {
-  console.log(`   🧠 Generating a visual concept for "${title}"...`);
-  const prompt = `You are a creative art director. For a blog post titled "${title}" with keywords "${keywords.join(', ')}", describe a simple, minimalist, abstract visual metaphor in 5-10 words. Do not describe the style, only the core concept. Example: for 'Staking Security', suggest 'a glowing digital shield deflecting abstract arrows'.`;
-  try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.8,
-    });
-    return response.choices[0]?.message?.content || "abstract blockchain data visualization";
-  } catch (error) {
-    console.error(`   ❌ Error generating image concept:`, error);
-    return "abstract blockchain data visualization";
-  }
+    console.log(`   🧠 Generating a visual concept for "${title}"...`);
+    const prompt = `You are a creative art director. For a blog post titled "${title}" with keywords "${keywords.join(', ')}", describe a simple, minimalist, abstract visual metaphor in 5-10 words. Do not describe the style, only the core concept. Example: for 'Staking Security', suggest 'a glowing digital shield deflecting abstract arrows'.`;
+    try {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.8,
+      });
+      return response.choices[0]?.message?.content || "abstract blockchain data visualization";
+    } catch (error) {
+      console.error(`   ❌ Error generating image concept:`, error);
+      return "abstract blockchain data visualization";
+    }
 }
 
 async function createImageWithDalle(articleTitle: string, visualConcept: string): Promise<string | null> {
-  console.log(`   🎨 Generating image for concept: "${visualConcept}"...`);
-  const brandPalette = { background: "#09090B", purple: "#A78BFA", cyan: "#22D3EE", textLight: "#E5E7EB" };
-  const stylePrompt = `The image must be a clean, modern infographic diagram. Use simple, bold, 2D vector icons to represent concepts. The background must be a solid dark charcoal color (${brandPalette.background}). All elements must use the brand's official color palette: vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}) for the main icons and connecting lines, with light gray (${brandPalette.textLight}) for secondary details. The composition should be clear, minimalist, and easy to understand. It must contain absolutely no realistic photos, complex textures, or text. The final image should look like a professional UI/UX diagram or a slide from a tech presentation. Aspect Ratio: 16:9. The image must completely fill the frame without any borders or empty areas.`;
-  const finalPrompt = `A blog post cover image. The central theme is "${articleTitle}". The image should visually represent the concept: "${visualConcept}". The required style is: ${stylePrompt}`;
-  try {
-    const response = await openai.images.generate({ model: "dall-e-3", prompt: finalPrompt, n: 1, size: "1792x1024", quality: "standard", style: 'vivid' });
-    const image = response.data?.[0];
-    if (image && image.url) {
-      console.log(`   ✅ Image generated successfully!`);
-      return image.url;
-    } else {
-      throw new Error("DALL-E 3 API response did not contain an image URL.");
+    console.log(`   🎨 Generating image for concept: "${visualConcept}"...`);
+    const brandPalette = { background: "#09090B", purple: "#A78BFA", cyan: "#22D3EE", textLight: "#E5E7EB" };
+    const stylePrompt = `The image must be a clean, modern infographic diagram. Use simple, bold, 2D vector icons to represent concepts. The background must be a solid dark charcoal color (${brandPalette.background}). All elements must use the brand's official color palette: vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}) for the main icons and connecting lines, with light gray (${brandPalette.textLight}) for secondary details. The composition should be clear, minimalist, and easy to understand. It must contain absolutely no realistic photos, complex textures, or text. The final image should look like a professional UI/UX diagram or a slide from a tech presentation. Aspect Ratio: 16:9. The image must completely fill the frame without any borders or empty areas.`;
+    const finalPrompt = `A blog post cover image. The central theme is "${articleTitle}". The image should visually represent the concept: "${visualConcept}". The required style is: ${stylePrompt}`;
+    try {
+      const response = await openai.images.generate({ model: "dall-e-3", prompt: finalPrompt, n: 1, size: "1792x1024", quality: "standard", style: 'vivid' });
+      const image = response.data?.[0];
+      if (image && image.url) {
+        console.log(`   ✅ Image generated successfully!`);
+        return image.url;
+      } else {
+        throw new Error("DALL-E 3 API response did not contain an image URL.");
+      }
+    } catch (error) {
+      console.error(`   ❌ Error generating image:`, error);
+      return null;
     }
-  } catch (error) {
-    console.error(`   ❌ Error generating image:`, error);
-    return null;
-  }
 }
 
 async function downloadAndOptimizeImage(url: string): Promise<Buffer> {
-  console.log(`   🗜️ Downloading and optimizing image...`);
-  const response = await axios.get(url, { responseType: 'arraybuffer' });
-  return sharp(response.data)
-    .resize(1600)
-    .jpeg({ quality: 80 })
-    .toBuffer();
+    console.log(`   🗜️ Downloading and optimizing image...`);
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    return sharp(response.data)
+      .resize(1600)
+      .jpeg({ quality: 80 })
+      .toBuffer();
 }
 
 async function addInternalLinks(articleBody: string, newArticleTitle: string): Promise<string> {
@@ -104,13 +194,13 @@ async function addInternalLinks(articleBody: string, newArticleTitle: string): P
             if (linkedBody.search(regex) > -1 && !linkedBody.includes(`](${post.link})`)) {
                 const markdownLink = `[${post.title}](${post.link})`;
                 linkedBody = linkedBody.replace(regex, markdownLink);
-                console.log(`      ✅ Internally linked to: "${post.title}"`);
+                console.log(`     ✅ Internally linked to: "${post.title}"`);
                 linkCount++;
             }
         }
         console.log(`   🔗 Total internal links added: ${linkCount}`);
         return linkedBody;
-    } catch (error) {
+    } catch (error: any) {
         console.error(`   ❌ Could not fetch existing posts for internal linking:`, error.message);
         return articleBody;
     }
@@ -125,7 +215,7 @@ async function addExternalLinks(articleBody: string): Promise<string> {
         let linkedBody = articleBody;
         let linkCount = 0;
         for (const concept of concepts) {
-            console.log(`      🔎 Searching for: "${concept}" on official sites...`);
+            console.log(`     🔎 Searching for: "${concept}" on official sites...`);
             const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${G_SEARCH_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(concept)}`;
             const searchResponse = await axios.get(searchUrl);
             const bestUrl = searchResponse.data.items?.[0]?.link;
@@ -133,51 +223,51 @@ async function addExternalLinks(articleBody: string): Promise<string> {
                 const regex = new RegExp(`\\b(${concept.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})\\b`, 'gi');
                 if (regex.test(linkedBody) && !linkedBody.includes(`](${bestUrl})`)) {
                     linkedBody = linkedBody.replace(regex, `[${concept}](${bestUrl})`);
-                    console.log(`      ✅ Externally linked to: ${bestUrl}`);
+                    console.log(`     ✅ Externally linked to: ${bestUrl}`);
                     linkCount++;
                 }
             }
         }
         console.log(`   🌍 Total external links added: ${linkCount}`);
         return linkedBody;
-    } catch(error) {
+    } catch(error: any) {
         console.error(`   ❌ Error during external linking:`, error.message);
         return articleBody;
     }
 }
 
 async function generateMetaDescription(articleBody: string): Promise<string> {
-  console.log('   ✍️  Generating meta description...');
-  const prompt = `Based on the following article text, write a concise and compelling meta description of about 150-160 characters. It should be engaging for users on a search engine results page. Article text: "${articleBody.substring(0, 4000)}"`;
-  try {
-    const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }]});
-    return response.choices[0]?.message?.content?.replace(/"/g, '\\"') || "A deep dive into Aptos blockchain topics.";
-  } catch (error) {
-    console.error(`   ❌ Error generating meta description:`, error);
-    return "A deep dive into Aptos blockchain topics.";
-  }
+    console.log('   ✍️  Generating meta description...');
+    const prompt = `Based on the following article text, write a concise and compelling meta description of about 150-160 characters. It should be engaging for users on a search engine results page. Article text: "${articleBody.substring(0, 4000)}"`;
+    try {
+      const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }]});
+      return response.choices[0]?.message?.content?.replace(/"/g, '\\"') || "A deep dive into Aptos blockchain topics.";
+    } catch (error: any) {
+      console.error(`   ❌ Error generating meta description:`, error);
+      return "A deep dive into Aptos blockchain topics.";
+    }
 }
 
 async function generateImageAltText(visualConcept: string): Promise<string> {
-  console.log('   🖼️  Generating image alt text...');
-  const prompt = `You are an accessibility expert. Write a concise, descriptive alt text for an image representing the concept: "${visualConcept}". The alt text should describe the image for visually impaired users.`;
-  try {
-    const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }]});
-    return response.choices[0]?.message?.content?.replace(/"/g, '\\"') || "Abstract conceptual image for the article.";
-  } catch (error) {
-    console.error(`   ❌ Error generating alt text:`, error);
-    return "Abstract conceptual image for the article.";
-  }
+    console.log('   🖼️  Generating image alt text...');
+    const prompt = `You are an accessibility expert. Write a concise, descriptive alt text for an image representing the concept: "${visualConcept}". The alt text should describe the image for visually impaired users.`;
+    try {
+      const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }]});
+      return response.choices[0]?.message?.content?.replace(/"/g, '\\"') || "Abstract conceptual image for the article.";
+    } catch (error: any) {
+      console.error(`   ❌ Error generating alt text:`, error);
+      return "Abstract conceptual image for the article.";
+    }
 }
 
 function assembleMdxFile(topic: Topic, articleBody: string, generated: { imagePath: string | null; description: string; altText: string }): { filename: string, content: string } {
-  const slug = topic.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
-  const date = new Date();
-  const pubDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-  const imageFilename = generated.imagePath ? `${slug}.jpg` : `placeholder.png`;
-  const finalImagePath = generated.imagePath ? `/blog-assets/${imageFilename}` : `/blog-assets/placeholder.png`;
+    const slug = topic.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
+    const date = new Date();
+    const pubDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const imageFilename = generated.imagePath ? `${slug}.jpg` : `placeholder.png`;
+    const finalImagePath = generated.imagePath ? `/blog-assets/${imageFilename}` : `/blog-assets/placeholder.png`;
 
-  let frontmatter = `---
+    const frontmatter = `---
 title: "${topic.title.replace(/"/g, '\\"')}"
 slug: "${slug}"
 pubDate: "${pubDate}"
@@ -188,137 +278,122 @@ heroImage: "${finalImagePath}"
 heroImageAlt: "${generated.altText}"
 tags: [${topic.keywords.map(k => `"${k}"`).join(', ')}]
 ---\n\n`;
-  const filename = `${slug}.mdx`;
-  const content = frontmatter + articleBody;
-  return { filename, content };
+
+    const filename = `${slug}.mdx`;
+    const content = frontmatter + articleBody; 
+    
+    return { filename, content };
 }
 
-async function createPullRequest(filesToCommit: { path: string, content: string }[], topic: Topic): Promise<boolean> {
-  console.log(`\n🤖 Creating Pull Request for "${topic.title}"...`);
-  const slug = topic.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
-  const newBranchName = `article/${slug}`;
-  const ref = `refs/heads/${newBranchName}`;
-
-  try {
-    const { data: refData } = await octokit.rest.git.getRef({
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      ref: `heads/${REPO_BRANCH}`,
-    });
-    const mainBranchSha = refData.object.sha;
+async function createPullRequest(filesToCommit: { path: string, content: string, encoding?: 'base64' | 'utf-8' }[], topic: Topic): Promise<boolean> {
+    console.log(`\n🤖 Creating Pull Request for "${topic.title}"...`);
+    const slug = topic.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
+    const newBranchName = `article/${slug}`;
+    const ref = `refs/heads/${newBranchName}`;
 
     try {
-      await octokit.rest.git.createRef({
-        owner: REPO_OWNER,
-        repo: REPO_NAME,
-        ref,
-        sha: mainBranchSha,
-      });
-      console.log(`   ✅ Created new branch: ${newBranchName}`);
-    } catch (error) {
-      if (error.response?.data?.message === 'Reference already exists') {
-        console.log(`   ⚠️ Branch ${newBranchName} already exists. Deleting and recreating...`);
-        await octokit.rest.git.deleteRef({
-          owner: REPO_OWNER,
-          repo: REPO_NAME,
-          ref: `heads/${newBranchName}`,
-        });
-        await octokit.rest.git.createRef({
-          owner: REPO_OWNER,
-          repo: REPO_NAME,
-          ref,
-          sha: mainBranchSha,
-        });
-        console.log(`   ✅ Recreated branch: ${newBranchName}`);
-      } else {
-        throw error;
-      }
-    }
+        const { data: refData } = await octokit.rest.git.getRef({ owner: REPO_OWNER, repo: REPO_NAME, ref: `heads/${REPO_BRANCH}` });
+        const mainBranchSha = refData.object.sha;
 
-    for (const file of filesToCommit) {
-      await octokit.rest.repos.createOrUpdateFileContents({
-        owner: REPO_OWNER,
-        repo: REPO_NAME,
-        path: file.path,
-        message: `feat: Add ${path.basename(file.path)} for article '${topic.title}'`,
-        content: file.content,
-        branch: newBranchName,
-      });
-      console.log(`   ✅ Committed file: ${file.path}`);
-    }
+        try {
+            await octokit.rest.git.createRef({ owner: REPO_OWNER, repo: REPO_NAME, ref, sha: mainBranchSha });
+            console.log(`   ✅ Created new branch: ${newBranchName}`);
+        } catch (error: any) {
+            if (error.response?.data?.message === 'Reference already exists') {
+                console.log(`   ⚠️ Branch ${newBranchName} already exists. Reusing it.`);
+            } else { throw error; }
+        }
 
-    const { data: prData } = await octokit.rest.pulls.create({
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      title: `New Article: ${topic.title}`,
-      head: newBranchName,
-      base: REPO_BRANCH,
-      body: `This PR was automatically generated by the Content Factory.\n\nPlease review the article content and the generated image before merging.\n\n**Keywords:** ${topic.keywords.join(', ')}`,
-    });
-    console.log(`   ✅ Successfully created Pull Request! View it here: ${prData.html_url}`);
-    return true;
-  } catch (error) {
-    console.error('   ❌ Error creating Pull Request:', error);
-    return false;
-  }
+        for (const file of filesToCommit) {
+            await octokit.rest.repos.createOrUpdateFileContents({
+                owner: REPO_OWNER,
+                repo: REPO_NAME,
+                path: file.path,
+                message: `feat: Add ${path.basename(file.path)} for article '${topic.title}'`,
+                content: file.content,
+                branch: newBranchName,
+            });
+            console.log(`   ✅ Committed file: ${file.path}`);
+        }
+
+        const { data: prData } = await octokit.rest.pulls.create({
+            owner: REPO_OWNER,
+            repo: REPO_NAME,
+            title: `New Article: ${topic.title}`,
+            head: newBranchName,
+            base: REPO_BRANCH,
+            body: `This PR was automatically generated by the Content Factory.\n\nPlease review the article content and the generated image before merging.\n\n**Keywords:** ${topic.keywords.join(', ')}`,
+        });
+        console.log(`   ✅ Successfully created Pull Request! View it here: ${prData.html_url}`);
+        return true;
+    } catch (error: any) {
+        console.error('   ❌ Error creating Pull Request:', error);
+        return false;
+    }
 }
 
 async function main() {
-  console.log('🤖 Starting Ultimate Content Generator...');
-  if (!GIST_ID || !GH_TOKEN || !OPENAI_API_KEY || !G_SEARCH_KEY || !SEARCH_ENGINE_ID) {
-    throw new Error('One or more required secrets are missing from .env file.');
-  }
+    console.log('🤖 Starting Ultimate Content Generator...');
+    if (!GIST_ID || !GH_TOKEN || !OPENAI_API_KEY || !G_SEARCH_KEY || !SEARCH_ENGINE_ID) {
+        throw new Error('One or more required secrets are missing from .env file.');
+    }
 
-  const { data: gist } = await octokit.request('GET /gists/{gist_id}', { gist_id: GIST_ID });
-  const queueFile = gist.files?.[GIST_FILENAME];
-  if (!queueFile || !queueFile.content) { throw new Error(`File ${GIST_FILENAME} not found in Gist.`); }
+    const { data: gist } = await octokit.request('GET /gists/{gist_id}', { gist_id: GIST_ID });
+    const queueFile = gist.files?.[GIST_FILENAME];
+    if (!queueFile || !queueFile.content) { throw new Error(`File ${GIST_FILENAME} not found in Gist.`); }
 
-  let topicQueue: Topic[] = JSON.parse(queueFile.content);
-  if (topicQueue.length === 0) { console.log('✅ Topic queue is empty.'); return; }
+    let topicQueue: Topic[] = JSON.parse(queueFile.content);
+    if (topicQueue.length === 0) { console.log('✅ Topic queue is empty.'); return; }
 
-  const topicToProcess = topicQueue.shift()!;
-  console.log(`\n🚀 Processing topic: "${topicToProcess.title}"`);
+    const topicToProcess = topicQueue.shift()!;
+    console.log(`\n🚀 Processing topic: "${topicToProcess.title}"`);
 
-  let articleBody = await generateArticleText(topicToProcess.title, topicToProcess.keywords);
-  if (articleBody.startsWith('Error')) { console.log("🛑 Article generation failed."); return; }
-  
-  articleBody = await addInternalLinks(articleBody, topicToProcess.title);
-  articleBody = await addExternalLinks(articleBody);
-  
-  const visualConcept = await generateImageConcept(topicToProcess.title, topicToProcess.keywords);
-  const altText = await generateImageAltText(visualConcept);
-  const description = await generateMetaDescription(articleBody);
-  
-  const tempImageUrl = await createImageWithDalle(topicToProcess.title, visualConcept);
+    const contentPlan = await researchAndCreateOutline(topicToProcess.title, topicToProcess.keywords);
+    let articleBody = await generateArticleText(topicToProcess, contentPlan);
+    
+    if (articleBody.startsWith('Error')) { console.log("🛑 Article generation failed."); return; }
+    
+    const faqSection = await generateFaqSection(topicToProcess.title, articleBody);
+    articleBody += faqSection;
+    
+    articleBody = await addInternalLinks(articleBody, topicToProcess.title);
+    articleBody = await addExternalLinks(articleBody);
+    
+    const visualConcept = await generateImageConcept(topicToProcess.title, topicToProcess.keywords);
+    const altText = await generateImageAltText(visualConcept);
+    const description = await generateMetaDescription(articleBody);
+    
+    const tempImageUrl = await createImageWithDalle(topicToProcess.title, visualConcept);
 
-  const filesToCommit: { path: string, content: string }[] = [];
-  let finalImagePathInMdx: string | null = null;
-  const slug = topicToProcess.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
+    const filesToCommit: { path: string, content: string }[] = [];
+    let finalImagePathInMdx: string | null = null;
+    const slug = topicToProcess.title.toLowerCase().replace(/\s+/g, '-').replace(/[?:]/g, '');
 
-  if (tempImageUrl) {
-    const imageBuffer = await downloadAndOptimizeImage(tempImageUrl);
-    const imageFilename = `${slug}.jpg`;
-    finalImagePathInMdx = `/blog-assets/${imageFilename}`;
-    filesToCommit.push({ path: `blog/public/blog-assets/${imageFilename}`, content: imageBuffer.toString('base64'), });
-  }
+    if (tempImageUrl) {
+        const imageBuffer = await downloadAndOptimizeImage(tempImageUrl);
+        const imageFilename = `${slug}.jpg`;
+        finalImagePathInMdx = `/blog-assets/${imageFilename}`;
+        filesToCommit.push({ path: `blog/public/blog-assets/${imageFilename}`, content: imageBuffer.toString('base64') });
+    }
 
-  const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(topicToProcess, articleBody, { imagePath: finalImagePathInMdx, description, altText });
-  filesToCommit.push({ path: `blog/src/content/blog/${mdxFilename}`, content: Buffer.from(mdxContent).toString('base64'), });
+    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(topicToProcess, articleBody, { imagePath: finalImagePathInMdx, description, altText });
+    filesToCommit.push({ path: `blog/src/content/blog/${mdxFilename}`, content: Buffer.from(mdxContent).toString('base64') });
 
-  const prCreated = await createPullRequest(filesToCommit, topicToProcess);
-  
-  if (prCreated) {
-    console.log('\n💾 Updating topic queue in Gist...');
-    await octokit.request('PATCH /gists/{gist_id}', {
-        gist_id: GIST_ID,
-        files: { [GIST_FILENAME]: { content: JSON.stringify(topicQueue, null, 2) } },
-    });
-    console.log('✅ Gist queue updated successfully!');
-  } else {
-    console.log('\n⚠️ Pull Request creation failed. Gist queue was not updated.');
-  }
+    const prCreated = await createPullRequest(filesToCommit, topicToProcess);
+    
+    if (prCreated) {
+        console.log('\n💾 Updating topic queue in Gist...');
+        await octokit.request('PATCH /gists/{gist_id}', {
+            gist_id: GIST_ID,
+            files: { [GIST_FILENAME]: { content: JSON.stringify(topicQueue, null, 2) } },
+        });
+        console.log('✅ Gist queue updated successfully!');
+    } else {
+        console.log('\n⚠️ Pull Request creation failed. Gist queue was not updated.');
+    }
 }
 
 main().catch(error => {
-  console.error('❌ A critical error occurred:', error.message);
+    console.error('❌ A critical error occurred:', error);
+    process.exit(1);
 });
