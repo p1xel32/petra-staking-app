@@ -47,24 +47,53 @@ interface ContentPlan {
 
 async function researchAndCreateOutline(title: string, keywords: string[]): Promise<ContentPlan> {
   console.log(`  🔬 Conducting deep research for "${title}"...`);
+  
   const prompt = `You are a world-class blockchain research analyst and content strategist specializing in Aptos.
-Your task is to conduct in-depth research on the topic "${title}" and create a comprehensive content plan for a definitive blog post.
-The keywords for this topic are: "${keywords.join(', ')}". These keywords represent SEO terms users search for. Make sure they are woven naturally into the outline.
-The output MUST be a JSON object that includes the following keys: detailedTitle, targetAudience, keyTakeaways, articleOutline, concludingThought.
+Your task is to conduct in-depth research on the topic "${title}" and create a comprehensive, high-quality content plan.
+The keywords for this topic are: "${keywords.join(', ')}". These keywords represent SEO terms users search for.
 
-**Instructions for the plan:**
-1.  **detailedTitle:** Create a compelling, SEO-friendly title based on the base title.
-2.  **targetAudience:** Specify the target audience (e.g., "Beginner crypto users", "Experienced Move developers").
-3.  **keyTakeaways:** List 3-4 main points the reader must remember after reading.
-4.  **articleOutline:** Design a logical flow for the article. For each section (H2, H3), list the specific points, arguments, and data that must be included.
-5.  **concludingThought:** Write a powerful concluding thought or call to action.
+The output MUST be a single, valid JSON object. Do not include any text before or after the JSON object.
 
-Generate the JSON content plan now.`;
+---
+EXAMPLE OF A GOOD JSON OUTPUT:
+{
+  "detailedTitle": "A Deep Dive into Aptos Staking Rewards vs. Ethereum",
+  "targetAudience": "Crypto investors familiar with PoS, looking to compare yields.",
+  "keyTakeaways": [
+    "Aptos offers competitive, real-time rewards.",
+    "Ethereum's reward mechanism is more complex due to its validator queue.",
+    "Validator choice heavily impacts net yield on both networks."
+  ],
+  "articleOutline": [
+    {
+      "section": "H2: Introduction to Staking Rewards",
+      "pointsToCover": ["Define staking yield (APY/APR).", "Briefly introduce Aptos and Ethereum staking models."]
+    },
+    {
+      "section": "H2: Aptos Staking Rewards: A Closer Look",
+      "pointsToCover": ["How rewards are calculated on Aptos.", "The role of validators and commissions.", "Typical APY range for APT."],
+      "analogyOrExample": "Compare Aptos rewards to a high-yield savings account with daily payouts."
+    },
+    {
+      "section": "H2: Ethereum Staking Rewards: The Full Picture",
+      "pointsToCover": ["The merge to Proof-of-Stake.", "Consensus Layer vs. Execution Layer rewards.", "The impact of MEV on yields."]
+    },
+    {
+      "section": "H2: Head-to-Head Comparison",
+      "pointsToCover": ["Table comparing APY, risk factors, and liquidity.", "Discussion on decentralization's impact on long-term reward stability."]
+    }
+  ],
+  "concludingThought": "While Ethereum is the market leader, Aptos presents a compelling, high-performance alternative for yield-focused stakers."
+}
+---
+
+Now, generate a new, unique JSON object for the topic: "${title}". Ensure the "articleOutline" is detailed and contains multiple sections.`;
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     messages: [{ role: 'user', content: prompt }],
     response_format: { type: "json_object" },
+    temperature: 0.4,
   });
 
   const responseContent = response.choices[0]?.message?.content;
