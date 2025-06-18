@@ -12,7 +12,7 @@ const DB_FILE_PATH = path.join(process.cwd(), 'scripts', 'processed_social_posts
 const POSTING_DELAY_DAYS = 2;
 const BATCH_SIZE = 3;
 // УДАЛЕНЫ ПЛАТФОРМЫ, КОТОРЫЕ ВЫ НЕ ИСПОЛЬЗУЕТЕ
-const ALL_PLATFORMS = ['twitter', 'blogger', 'dev.to', 'hashnode'];
+const ALL_PLATFORMS = ['twitter', 'blogger', 'hashnode'];
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
