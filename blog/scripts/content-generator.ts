@@ -85,19 +85,33 @@ Generate the JSON content plan now.`;
 async function generateArticleText(topic: Topic, plan: ContentPlan): Promise<string> {
     console.log(`  ✍️  Writing expert article for "${topic.title}" based on research...`);
     
+    const keyTakeawaysText = (plan.keyTakeaways ?? [])
+        .map(p => `- ${p}`)
+        .join('\n');
+
+    const articleOutlineText = (plan.articleOutline ?? [])
+        .map(s => {
+            const pointsToCoverText = (s.pointsToCover ?? [])
+                .map(p => `- ${p}`)
+                .join('\n');
+
+            return `
+        ### Section: ${s.section}
+        **Points to cover:**
+        ${pointsToCoverText}
+        ${s.analogyOrExample ? `**Analogy/Example to use:** ${s.analogyOrExample}` : ''}
+      `;
+        })
+        .join('\n');
+
     const planText = `
       **Title:** ${plan.detailedTitle}
       **Target Audience:** ${plan.targetAudience}
       **Key Takeaways to weave in:**
-      ${plan.keyTakeaways.map(p => `- ${p}`).join('\n')}
+      ${keyTakeawaysText}
   
       **Article Structure and Content to Follow Strictly:**
-      ${plan.articleOutline.map(s => `
-        ### Section: ${s.section}
-        **Points to cover:**
-        ${s.pointsToCover.map(p => `- ${p}`).join('\n')}
-        ${s.analogyOrExample ? `**Analogy/Example to use:** ${s.analogyOrExample}` : ''}
-      `).join('\n')}
+      ${articleOutlineText}
   
       **Conclusion:** ${plan.concludingThought}
     `;
