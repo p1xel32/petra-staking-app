@@ -238,7 +238,6 @@ async function main() {
         const postJobs = [
             { platform: 'twitter', task: () => postToTwitter(`${twitterText}\n\nRead more: ${post.link}`)},
             { platform: 'blogger', task: () => postToBlogger(post, longformPost)},
-            { platform: 'dev.to', task: () => postToDevTo(post, longformPost)},
             { platform: 'hashnode', task: () => postToHashnode(post, longformPost)},
         ];
 
