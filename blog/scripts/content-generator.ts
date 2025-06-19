@@ -237,10 +237,31 @@ async function generateImageConcept(title: string, keywords: string[]): Promise<
 async function createImageWithDalle(articleTitle: string, visualConcept: string): Promise<string | null> {
     console.log(`   🎨 Generating image for concept: "${visualConcept}"...`);
     const brandPalette = { background: "#09090B", purple: "#A78BFA", cyan: "#22D3EE", textLight: "#E5E7EB" };
-    const stylePrompt = `The image must be a clean, modern infographic diagram. Use simple, bold, 2D vector icons to represent concepts. The background must be a solid dark charcoal color (${brandPalette.background}). All elements must use the brand's official color palette: vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}) for the main icons and connecting lines, with light gray (${brandPalette.textLight}) for secondary details. The composition should be clear, minimalist, and easy to understand. It must contain absolutely no realistic photos, complex textures, or text. The final image should look like a professional UI/UX diagram or a slide from a tech presentation. Aspect Ratio: 16:9. The image must completely fill the frame without any borders or empty areas.`;
-    const finalPrompt = `A blog post cover image. The central theme is "${articleTitle}". The image should visually represent the concept: "${visualConcept}". The required style is: ${stylePrompt}`;
+    
+    const stylePrompt = `
+A minimalist graphic for a technology keynote slide, rendered in a flat 2D vector, UI/UX style.
+The design must use simple, symbolic icons and abstract geometric shapes to represent the core concept.
+The visual aesthetic is clean, using only solid colors without any gradients, shadows, or photographic textures.
+
+The color palette is strict:
+- Background: A solid dark charcoal color (${brandPalette.background}).
+- Primary Elements: Vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}).
+- Secondary Details: A light gray for minor accents (${brandPalette.textLight}).
+
+The overall composition must be balanced, professional, and fill the entire 16:9 frame.
+`;
+
+    const finalPrompt = `Blog post cover image about "${articleTitle}". The image must visually represent the concept: "${visualConcept}". The required artistic style is as follows: ${stylePrompt}`;
+    
     try {
-      const response = await openai.images.generate({ model: "dall-e-3", prompt: finalPrompt, n: 1, size: "1792x1024", quality: "standard", style: 'vivid' });
+      const response = await openai.images.generate({ 
+        model: "dall-e-3", 
+        prompt: finalPrompt, 
+        n: 1, 
+        size: "1792x1024", 
+        quality: "standard", 
+        style: 'vivid' 
+      });
       const image = response.data?.[0];
       if (image && image.url) {
         console.log(`   ✅ Image generated successfully!`);
