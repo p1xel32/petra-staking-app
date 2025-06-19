@@ -1,0 +1,53 @@
+---
+// File: src/components/Accordion.astro
+interface Props {
+    summary: string;
+}
+const { summary } = Astro.props;
+---
+<details class="faq-item">
+    <summary>
+        {summary}
+    </summary>
+    <div class="faq-content">
+        <slot />
+    </div>
+</details>
+
+<style>
+    .faq-item {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        background-color: rgba(255, 255, 255, 0.03);
+        transition: background-color 0.2s ease;
+    }
+    .faq-item[open] {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    .faq-item summary {
+        padding: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .faq-item summary::after {
+        content: '+';
+        font-size: 1.5rem;
+        transition: transform 0.2s ease-in-out;
+    }
+    .faq-item[open] summary::after {
+        transform: rotate(45deg);
+    }
+    .faq-content {
+        padding: 0 1rem 1rem 1rem;
+        color: #d1d5db;
+        line-height: 1.6;
+    }
+    .faq-content :global(p) {
+        margin-top: 0;
+    }
+</style>
