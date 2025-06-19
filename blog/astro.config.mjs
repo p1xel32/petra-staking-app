@@ -3,9 +3,10 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import { fileURLToPath } from 'url'; // <-- Добавлен этот импорт
 
-import remarkGfm from 'remark-gfm'; 
-import remarkSmartypants from 'remark-smartypants'; 
+import remarkGfm from 'remark-gfm';
+import remarkSmartypants from 'remark-smartypants';
 
 export default defineConfig({
   site: 'https://aptcore.one',
@@ -20,4 +21,11 @@ export default defineConfig({
     sitemap(),
     react(),
   ],
+  vite: {
+    resolve: {
+      alias: {
+        '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+      }
+    }
+  }
 });
