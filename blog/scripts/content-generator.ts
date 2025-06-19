@@ -73,14 +73,6 @@ EXAMPLE OF A GOOD JSON OUTPUT:
       "section": "H2: Aptos Staking Rewards: A Closer Look",
       "pointsToCover": ["How rewards are calculated on Aptos.", "The role of validators and commissions.", "Typical APY range for APT."],
       "analogyOrExample": "Compare Aptos rewards to a high-yield savings account with daily payouts."
-    },
-    {
-      "section": "H2: Ethereum Staking Rewards: The Full Picture",
-      "pointsToCover": ["The merge to Proof-of-Stake.", "Consensus Layer vs. Execution Layer rewards.", "The impact of MEV on yields."]
-    },
-    {
-      "section": "H2: Head-to-Head Comparison",
-      "pointsToCover": ["Table comparing APY, risk factors, and liquidity.", "Discussion on decentralization's impact on long-term reward stability."]
     }
   ],
   "concludingThought": "While Ethereum is the market leader, Aptos presents a compelling, high-performance alternative for yield-focused stakers."
@@ -183,14 +175,43 @@ async function generateArticleText(plan: ContentPlan): Promise<string> {
 
 async function generateFaqSection(articleTitle: string, articleBody: string): Promise<string> {
     console.log(`   ❓ Generating FAQ for "${articleTitle}"...`);
-    const prompt = `Based on the following article about "${articleTitle}", generate a short FAQ section with 2-3 relevant questions and concise answers. The questions should be things a user might ask after reading the article. Format the output in Markdown with H3 headings for each question. Article text for context: "${articleBody.substring(0, 3000)}"`;
+    
+    const prompt = `Based on the article text about "${articleTitle}", generate a JSON array of 2-3 frequently asked questions and their answers.
+The output MUST be a single, valid JSON array of objects. Each object must have a "q" key for the question (string) and an "a" key for the answer (string, can contain Markdown).
+Do not include any text before or after the JSON array.
+Example: [{"q": "Is Aptos fast?", "a": "Yes, Aptos is known for its high transaction speed and low fees."}]
+
+Article text for context: "${articleBody.substring(0, 3000)}"`;
+
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-4o-mini',
+            model: 'gpt-4o',
             messages: [{ role: 'user', content: prompt }],
+            response_format: { type: "json_object" },
         });
-        const faqContent = response.choices[0]?.message?.content || "";
-        return `\n\n---\n## Frequently Asked Questions (FAQ)\n${faqContent}`;
+        
+        const responseContent = response.choices[0]?.message?.content;
+        if (!responseContent) return "";
+
+        const responseObject = JSON.parse(responseContent);
+        const faqArray = Array.isArray(responseObject) 
+            ? responseObject 
+            : responseObject[Object.keys(responseObject)[0]] || [];
+
+        if (!Array.isArray(faqArray) || faqArray.length === 0) {
+            return "";
+        }
+        
+        const mdxHeader = `\n\n---\n## Frequently Asked Questions (FAQ)\n`;
+        const mdxImport = `import Accordion from '@components/Accordion.astro';\n\n`;
+
+        const mdxComponents = faqArray.map((item: { q: string, a: string }) => {
+            const answerContent = item.a.replace(/"/g, "'").replace(/\n/g, ' ');
+            return `<Accordion summary="${item.q}">\n${answerContent}\n</Accordion>`;
+        }).join('\n');
+
+        return mdxHeader + mdxImport + mdxComponents;
+
     } catch (error) {
         console.error(`   ❌ Error generating FAQ section:`, error);
         return "";
@@ -423,12 +444,12 @@ async function main() {
     const faqSection = await generateFaqSection(fullPlan.title, articleBody);
     articleBody += faqSection;
     
-    articleBody = await addInternalLinks(articleBody, fullPlan.title);
-    articleBody = await addExternalLinks(articleBody);
+    const articleBodyWithInternalLinks = await addInternalLinks(articleBody, fullPlan.title);
+    const finalArticleBody = await addExternalLinks(articleBodyWithInternalLinks);
     
     const visualConcept = await generateImageConcept(fullPlan.title, fullPlan.keywords);
     const altText = await generateImageAltText(visualConcept);
-    const description = await generateMetaDescription(articleBody);
+    const description = await generateMetaDescription(finalArticleBody);
     
     const tempImageUrl = await createImageWithDalle(fullPlan.title, visualConcept);
 
@@ -443,7 +464,7 @@ async function main() {
         filesToCommit.push({ path: `blog/public/blog-assets/${imageFilename}`, content: imageBuffer.toString('base64') });
     }
 
-    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(fullPlan, articleBody, { imagePath: finalImagePathInMdx, description, altText });
+    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(fullPlan, finalArticleBody, { imagePath: finalImagePathInMdx, description, altText });
     filesToCommit.push({ path: `blog/src/content/blog/${mdxFilename}`, content: Buffer.from(mdxContent).toString('base64') });
 
     const prCreated = await createPullRequest(filesToCommit, fullPlan);
