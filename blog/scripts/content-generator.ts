@@ -47,7 +47,6 @@ interface ContentPlan {
 
 async function researchAndCreateOutline(title: string, keywords: string[]): Promise<ContentPlan> {
   console.log(`  🔬 Conducting deep research for "${title}"...`);
-  
   const prompt = `You are a world-class blockchain research analyst and content strategist specializing in Aptos.
 Your task is to conduct in-depth research on the topic "${title}" and create a comprehensive, high-quality content plan.
 The keywords for this topic are: "${keywords.join(', ')}". These keywords represent SEO terms users search for.
@@ -122,8 +121,33 @@ function validatePlan(plan: ContentPlan): boolean {
     return true;
 }
 
+async function generateHookingIntroduction(plan: ContentPlan): Promise<string> {
+    console.log('   🎣 Generating a hooking introduction...');
+
+    const prompt = `You are a master storyteller and copywriter. Your task is to write a powerful opening paragraph (a "hook") for a blog post titled "${plan.detailedTitle}".
+
+The introduction should be 1-2 paragraphs long and achieve the following:
+1.  **Grab Attention:** Start with a surprising fact, a relatable problem, or a question that resonates with the target audience: "${plan.targetAudience}".
+2.  **Build Interest:** Briefly explain why this topic is critically important *right now*. Hint at the common mistakes or missed opportunities.
+3.  **Create Desire:** Promise the reader a clear, valuable outcome. Tell them what they will be able to do or understand after reading.
+4.  **Transition:** End with a sentence that smoothly transitions into the main body of the article.
+
+Write the introduction now.`;
+
+    try {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: prompt }]
+      });
+      return response.choices[0]?.message?.content || "";
+    } catch (error: any) {
+      console.error(`   ❌ Error generating hooking introduction:`, error);
+      return "";
+    }
+}
+
 async function generateArticleText(plan: ContentPlan): Promise<string> {
-    console.log(`  ✍️  Writing expert article for "${plan.title}" based on a validated plan...`);
+    console.log(`  ✍️  Writing article body for "${plan.title}"...`);
     
     const keyTakeawaysText = (plan.keyTakeaways ?? []).map(p => `- ${p}`).join('\n');
     const articleOutlineText = (plan.articleOutline ?? []).map(s => {
@@ -137,8 +161,6 @@ async function generateArticleText(plan: ContentPlan): Promise<string> {
     }).join('\n');
 
     const planText = `
-      **Title:** ${plan.detailedTitle}
-      **Target Audience:** ${plan.targetAudience}
       **Key Takeaways to weave in:**
       ${keyTakeawaysText}
       **Article Structure and Content to Follow Strictly:**
@@ -146,7 +168,7 @@ async function generateArticleText(plan: ContentPlan): Promise<string> {
       **Conclusion:** ${plan.concludingThought}
     `;
   
-    const prompt = `You are a senior technical writer and an expert on the Aptos blockchain, known for your clear, engaging, and authoritative writing style. Your task is to write a high-quality, comprehensive blog post of about 800-1200 words. You have been provided with a detailed, pre-made content plan. You MUST follow this plan strictly.
+    const prompt = `You are a senior technical writer and an expert on the Aptos blockchain. Your task is to write the main body of a blog post based on the provided plan. Do NOT write an introduction; start directly with the first section from the outline.
   
   **Content Plan to Execute:**
   ${planText}
@@ -155,10 +177,8 @@ async function generateArticleText(plan: ContentPlan): Promise<string> {
   - Write in a professional, clear, and trustworthy tone.
   - Flesh out each point from the plan into well-written paragraphs.
   - Use Markdown for structure (H2, H3, lists, bold text).
-  - Seamlessly integrate the provided analogies and key takeaways into the narrative.
-  - The final article should be a definitive resource on the topic.
   
-  Begin writing the article now.`;
+  Begin writing the main content now, starting with the first H2 or H3 heading.`;
   
     try {
       const response = await openai.chat.completions.create({
@@ -174,8 +194,7 @@ async function generateArticleText(plan: ContentPlan): Promise<string> {
 }
 
 async function generateFaqSection(articleTitle: string, articleBody: string): Promise<string> {
-    console.log(`   ❓ Generating FAQ for "${articleTitle}"...`);
-    
+    console.log(`   ❓ Generating FAQ section for "${articleTitle}"...`);
     const prompt = `Based on the article text about "${articleTitle}", generate a JSON array of 2-3 frequently asked questions and their answers.
 The output MUST be a single, valid JSON array of objects. Each object must have a "q" key for the question (string) and an "a" key for the answer (string, can contain Markdown).
 Do not include any text before or after the JSON array.
@@ -211,57 +230,62 @@ Article text for context: "${articleBody.substring(0, 3000)}"`;
         }).join('\n');
 
         return mdxHeader + mdxImport + mdxComponents;
-
     } catch (error) {
         console.error(`   ❌ Error generating FAQ section:`, error);
         return "";
     }
 }
 
-async function generateImageConcept(title: string, keywords: string[]): Promise<string> {
-    console.log(`   🧠 Generating a visual concept for "${title}"...`);
-    const prompt = `You are a creative art director. For a blog post titled "${title}" with keywords "${keywords.join(', ')}", describe a simple, minimalist, abstract visual metaphor in 5-10 words. Do not describe the style, only the core concept. Example: for 'Staking Security', suggest 'a glowing digital shield deflecting abstract arrows'.`;
+async function generateImageConcept(plan: ContentPlan, firstParagraph: string): Promise<string> {
+    console.log(`   🧠 Generating a visual concept to enhance the introduction...`);
+    const prompt = `You are a visual storyteller and marketing expert. Your task is to describe a compelling and relevant image concept for a blog post titled "${plan.title}". The image should work in tandem with the following introductory paragraph to immediately grab the reader's attention and illustrate the core theme:
+
+"${firstParagraph.substring(0, 300)}"
+
+The image concept should be:
+1. **Intriguing:** Spark curiosity and make the reader want to learn more.
+2. **Thematically Relevant:** Clearly connect to the topic of "${plan.title}".
+3. **Visually Simple:** Easy to understand at a glance.
+4. **Suitable for a minimalist, flat 2D vector UI/UX style.**
+
+Describe the core visual concept in 5-10 words. Focus on the central elements and their interaction. Do not describe the color palette or detailed style, as those are handled separately.`;
+
     try {
       const response = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [{ role: 'user', content: prompt }],
-        temperature: 0.8,
+        temperature: 0.7,
       });
-      return response.choices[0]?.message?.content || "abstract blockchain data visualization";
+      return response.choices[0]?.message?.content || "Abstract representation of the article's core idea.";
     } catch (error) {
-      console.error(`   ❌ Error generating image concept:`, error);
-      return "abstract blockchain data visualization";
+      console.error(`   ❌ Error generating image concept for the hook:`, error);
+      return "Abstract representation of the article's core idea.";
     }
 }
 
 async function createImageWithDalle(articleTitle: string, visualConcept: string): Promise<string | null> {
     console.log(`   🎨 Generating image for concept: "${visualConcept}"...`);
     const brandPalette = { background: "#09090B", purple: "#A78BFA", cyan: "#22D3EE", textLight: "#E5E7EB" };
-    
     const stylePrompt = `
 A minimalist graphic for a technology keynote slide, rendered in a flat 2D vector, UI/UX style.
 The design must use simple, symbolic icons and abstract geometric shapes to represent the core concept.
 The visual aesthetic is clean, using only solid colors without any gradients, shadows, or photographic textures.
-
 The color palette is strict:
 - Background: A solid dark charcoal color (${brandPalette.background}).
 - Primary Elements: Vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}).
 - Secondary Details: A light gray for minor accents (${brandPalette.textLight}).
-
-The overall composition must be balanced, professional, and fill the entire 16:9 frame.
-`;
-
-    const finalPrompt = `Blog post cover image about "${articleTitle}". The image must visually represent the concept: "${visualConcept}". The required artistic style is as follows: ${stylePrompt}`;
+The overall composition must be balanced, professional, and fill the entire 16:9 frame.`;
+    const brandingPrompt = `
+CRITICAL BRANDING INSTRUCTION:
+The central, most prominent icon in the image must be a stylized representation of the Aptos logo. The Aptos logo is a simple circle made of several separate, distinct segments with a small gap in the circular shape.
+DO NOT include logos or symbols of any other cryptocurrency, especially Bitcoin (BTC) or Ethereum (ETH). The focus is exclusively on Aptos.`;
+    const finalPrompt = `Blog post cover image about "${articleTitle}". 
+The image must visually represent the concept: "${visualConcept}".
+${brandingPrompt}
+The required artistic style is as follows: ${stylePrompt}`;
     
     try {
-      const response = await openai.images.generate({ 
-        model: "dall-e-3", 
-        prompt: finalPrompt, 
-        n: 1, 
-        size: "1792x1024", 
-        quality: "standard", 
-        style: 'vivid' 
-      });
+      const response = await openai.images.generate({ model: "dall-e-3", prompt: finalPrompt, n: 1, size: "1792x1024", quality: "standard", style: 'vivid' });
       const image = response.data?.[0];
       if (image && image.url) {
         console.log(`   ✅ Image generated successfully!`);
@@ -278,10 +302,7 @@ The overall composition must be balanced, professional, and fill the entire 16:9
 async function downloadAndOptimizeImage(url: string): Promise<Buffer> {
     console.log(`   🗜️ Downloading and optimizing image...`);
     const response = await axios.get(url, { responseType: 'arraybuffer' });
-    return sharp(response.data)
-      .resize(1600)
-      .jpeg({ quality: 80 })
-      .toBuffer();
+    return sharp(response.data).resize(1600).jpeg({ quality: 80 }).toBuffer();
 }
 
 async function addInternalLinks(articleBody: string, newArticleTitle: string): Promise<string> {
@@ -311,7 +332,7 @@ async function addInternalLinks(articleBody: string, newArticleTitle: string): P
 async function addExternalLinks(articleBody: string): Promise<string> {
     console.log(`   🌍 Searching for external authoritative links...`);
     try {
-        const conceptPrompt = `Analyze this article text. Identify 2-3 key technical Aptos-specific concepts, protocol names, or features (e.g., 'Block-STM', 'AptosBFT consensus', 'Move language'). Return ONLY a JSON object with a single key "phrases" which is an array of strings. Example: {"phrases": ["Aptos Block-STM", "Move programming language"]} Article text: "${articleBody.substring(0, 4000)}"`;
+        const conceptPrompt = `Analyze this article text. Identify 2-3 key technical Aptos-specific concepts, protocol names, or features. Return ONLY a JSON object with a single key "phrases" which is an array of strings. Example: {"phrases": ["Aptos Block-STM", "Move programming language"]} Article text: "${articleBody.substring(0, 4000)}"`;
         const conceptResponse = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: conceptPrompt }], response_format: { type: "json_object" } });
         const concepts: string[] = JSON.parse(conceptResponse.choices[0]?.message?.content || '[]').phrases || [];
         let linkedBody = articleBody;
@@ -338,15 +359,30 @@ async function addExternalLinks(articleBody: string): Promise<string> {
     }
 }
 
-async function generateMetaDescription(articleBody: string): Promise<string> {
-    console.log('   ✍️  Generating meta description...');
-    const prompt = `Based on the following article text, write a concise and compelling meta description of about 150-160 characters. It should be engaging for users on a search engine results page. Article text: "${articleBody.substring(0, 4000)}"`;
+async function generateMetaDescription(plan: ContentPlan): Promise<string> {
+    console.log('   ✍️  Generating a high-click-through-rate meta description...');
+    const prompt = `You are an expert direct response copywriter. Your goal is to write a meta description for a blog post that gets the highest possible click-through rate (CTR) on Google.
+
+Topic: "${plan.title}"
+Keywords: "${plan.keywords.join(', ')}"
+
+Instructions:
+1.  **Start with a Hook:** Ask a question or state a bold claim that addresses the user's pain point or curiosity.
+2.  **Promise a Solution:** Clearly state what the user will learn or gain from reading the article.
+3.  **Create Urgency/Intrigue:** Use powerful words to make the content seem unmissable.
+4.  **Stay within 160 characters.** This is critical.
+
+Write the meta description now.`;
+
     try {
-      const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }]});
-      return response.choices[0]?.message?.content?.replace(/"/g, '\\"') || "A deep dive into Aptos blockchain topics.";
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: prompt }]
+      });
+      return response.choices[0]?.message?.content?.replace(/"/g, '\\"') || `A deep dive into ${plan.title}.`;
     } catch (error: any) {
       console.error(`   ❌ Error generating meta description:`, error);
-      return "A deep dive into Aptos blockchain topics.";
+      return `Learn all about ${plan.title} and its impact on the Aptos ecosystem.`;
     }
 }
 
@@ -461,16 +497,20 @@ async function main() {
         console.log("🛑 Article generation failed.");
         return; 
     }
+
+    const introductionHook = await generateHookingIntroduction(fullPlan);
     
-    const faqSection = await generateFaqSection(fullPlan.title, articleBody);
-    articleBody += faqSection;
+    let finalArticleBody = introductionHook + '\n\n' + articleBody;
     
-    const articleBodyWithInternalLinks = await addInternalLinks(articleBody, fullPlan.title);
-    const finalArticleBody = await addExternalLinks(articleBodyWithInternalLinks);
+    const faqSection = await generateFaqSection(fullPlan.title, finalArticleBody);
+    finalArticleBody += faqSection;
+
+    const articleBodyWithInternalLinks = await addInternalLinks(finalArticleBody, fullPlan.title);
+    const finalArticleBodyWithAllLinks = await addExternalLinks(articleBodyWithInternalLinks);
     
-    const visualConcept = await generateImageConcept(fullPlan.title, fullPlan.keywords);
+    const description = await generateMetaDescription(fullPlan);
+    const visualConcept = await generateImageConcept(fullPlan, introductionHook);
     const altText = await generateImageAltText(visualConcept);
-    const description = await generateMetaDescription(finalArticleBody);
     
     const tempImageUrl = await createImageWithDalle(fullPlan.title, visualConcept);
 
@@ -485,7 +525,7 @@ async function main() {
         filesToCommit.push({ path: `blog/public/blog-assets/${imageFilename}`, content: imageBuffer.toString('base64') });
     }
 
-    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(fullPlan, finalArticleBody, { imagePath: finalImagePathInMdx, description, altText });
+    const { filename: mdxFilename, content: mdxContent } = assembleMdxFile(fullPlan, finalArticleBodyWithAllLinks, { imagePath: finalImagePathInMdx, description, altText });
     filesToCommit.push({ path: `blog/src/content/blog/${mdxFilename}`, content: Buffer.from(mdxContent).toString('base64') });
 
     const prCreated = await createPullRequest(filesToCommit, fullPlan);
