@@ -11,7 +11,9 @@
     "blogger"
   ],
   "https://aptcore.one/blog/choosing-aptos-staking-partner": [
-    "twitter"
+    "twitter",
+    "blogger",
+    "hashnode"
   ],
   "https://aptcore.one/blog/aptos-liquid-staking-deep-dive": [
     "twitter",
@@ -64,5 +66,14 @@
     "twitter",
     "hashnode",
     "blogger"
+  ],
+  "https://aptcore.one/blog/case-study-my-first-month-staking-aptos-earnings-experience": [
+    "twitter",
+    "blogger",
+    "hashnode"
+  ],
+  "https://aptcore.one/blog/comparing-top-aptos-staking-wallets": [
+    "blogger",
+    "hashnode"
   ]
 }
