@@ -1,5 +1,9 @@
-// File: api-functions/getUserStake.js
-import { Aptos, Network } from '@aptos-labs/ts-sdk';
+// api/getUserStake.js
+
+import { Aptos, Network, AptosConfig } from '@aptos-labs/ts-sdk';
+
+const aptosConfig = new AptosConfig({ network: Network.MAINNET });
+const client = new Aptos(aptosConfig);
 
 export default async function handler(request) {
   const url = new URL(request.url, `http://${request.headers.host}`);
@@ -14,7 +18,6 @@ export default async function handler(request) {
   }
 
   try {
-    const client = new Aptos({ network: Network.MAINNET });
     const userStakeResult = await client.view({
       payload: {
         function: '0x1::delegation_pool::get_stake',
@@ -35,13 +38,13 @@ export default async function handler(request) {
       status: 200,
       headers: { 
         'Content-Type': 'application/json',
-        'Cache-Control': 's-maxage=10, stale-while-revalidate=30'
+        'Cache-Control': 's-maxage=10, stale-while-revalidate=30' 
       },
     });
 
   } catch (error) {
     console.error('API Error in /api/getUserStake:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch stake data' }), {
+    return new Response(JSON.stringify({ error: 'Failed to fetch stake data from Aptos network' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
