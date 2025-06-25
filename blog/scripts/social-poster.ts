@@ -3,265 +3,266 @@ import axios from 'axios';
 import { promises as fs } from 'fs';
 import path from 'path';
 import OpenAI from 'openai';
-import { google } from 'googleapis';
-import showdown from 'showdown';
-import { TwitterApi } from 'twitter-api-v2';
+import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
-const LIVE_POSTS_URL = process.env.POSTS_JSON_URL!;
-const DB_FILE_PATH = path.join(process.cwd(), 'scripts', 'processed_social_posts.json');
-const POSTING_DELAY_DAYS = 2;
-const BATCH_SIZE = 3;
-// УДАЛЕНЫ ПЛАТФОРМЫ, КОТОРЫЕ ВЫ НЕ ИСПОЛЬЗУЕТЕ
-const ALL_PLATFORMS = ['twitter', 'blogger', 'hashnode'];
+const {
+    POSTS_JSON_URL,
+    OPENAI_API_KEY,
+} = process.env;
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const DB_VIDEO_PATH = path.join(process.cwd(), 'scripts', 'processed_videos.json');
+const CONTENT_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
-const twitter = {
-    client: new TwitterApi({
-        appKey: process.env.TWITTER_API_KEY!,
-        appSecret: process.env.TWITTER_API_SECRET!,
-        accessToken: process.env.TWITTER_ACCESS_TOKEN!,
-        accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET!
-    }),
-    enabled: !!(
-        process.env.TWITTER_API_KEY &&
-        process.env.TWITTER_API_SECRET &&
-        process.env.TWITTER_ACCESS_TOKEN &&
-        process.env.TWITTER_ACCESS_TOKEN_SECRET
-    )
-};
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
-const hashnode = { 
-    apiKey: process.env.HASHNODE_API_KEY, 
-    publicationId: process.env.HASHNODE_PUBLICATION_ID, 
-    enabled: !!(process.env.HASHNODE_API_KEY && process.env.HASHNODE_PUBLICATION_ID) 
-};
-
-const devto = { 
-    apiKey: process.env.DEVTO_API_KEY, 
-    enabled: !!process.env.DEVTO_API_KEY 
-};
-
-const blogger = {
-    blogId: process.env.BLOGGER_BLOG_ID,
-    auth: new google.auth.OAuth2(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET,
-        "https://developers.google.com/oauthplayground"
-    ),
-    enabled: !!(
-        process.env.GOOGLE_CLIENT_ID && 
-        process.env.GOOGLE_CLIENT_SECRET && 
-        process.env.GOOGLE_REFRESH_TOKEN && 
-        process.env.BLOGGER_BLOG_ID
-    ),
-};
-if(blogger.enabled) {
-    blogger.auth.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+interface Post { 
+    title: string; 
+    link: string; 
+    description: string; 
+    pubDate: string; 
+    keywords: string[]; 
 }
 
-const sd = new showdown.Converter();
+interface Scene { 
+    scene_number: number; 
+    text: string; 
+    video_prompt: string;
+}
 
-interface Post { title: string; pubDate: string; description: string; link: string; heroImage: string; keywords: string[]; tags?: string[]; author: string; }
-type ProcessedDb = Record<string, string[]>;
+interface VideoScript { 
+    full_monologue: string; 
+    scenes: Scene[]; 
+}
 
-async function getProcessedDb(): Promise<ProcessedDb> {
+async function getProcessedVideoLinks(): Promise<Set<string>> {
     try {
-        const data = await fs.readFile(DB_FILE_PATH, 'utf-8');
-        return JSON.parse(data);
+        const data = await fs.readFile(DB_VIDEO_PATH, 'utf-8');
+        return new Set(JSON.parse(data));
     } catch (error) {
-        if (error.code === 'ENOENT') return {};
+        if ((error as NodeJS.ErrnoException).code === 'ENOENT') return new Set();
         throw error;
     }
 }
 
-async function saveProcessedDb(db: ProcessedDb): Promise<void> {
-    const data = JSON.stringify(db, null, 2);
-    await fs.writeFile(DB_FILE_PATH, data, 'utf-8');
+async function saveProcessedVideoLinks(processedLinks: Set<string>): Promise<void> {
+    const data = JSON.stringify(Array.from(processedLinks), null, 2);
+    await fs.writeFile(DB_VIDEO_PATH, data, 'utf-8');
 }
 
-async function rewriteForTwitter(post: Post): Promise<string> {
-    const twitterLinkLength = 23;
-    const accompanyingTextLength = "\n\nRead more: ".length;
-    const totalReservedChars = twitterLinkLength + accompanyingTextLength;
-    const maxCharsForAI = 280 - totalReservedChars;
-    const keywordsText = post.keywords && post.keywords.length > 0 ? `Main keywords are: "${post.keywords.join(', ')}".` : '';
-    const prompt = `Write a promotional tweet for a tech blog post about the Aptos blockchain. Your response MUST be strictly under ${maxCharsForAI} characters. ${keywordsText} If possible, naturally weave one of these phrases into the tweet. Use 2-3 relevant hashtags. Article Title: "${post.title}".`;
+async function getArticleContent(post: Post): Promise<string | null> {
+    const slug = post.link.split('/').filter(Boolean).pop();
+    if (!slug) {
+        console.error(`   ❌ Could not determine slug from post link: ${post.link}`);
+        return null;
+    }
+    const filePath = path.join(CONTENT_DIR, `${slug}.mdx`);
+    console.log(`   📖 Checking for article content at: ${filePath}`);
     try {
-        const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'system', content: 'You are an expert SMM manager for a blockchain tech project.' }, { role: 'user', content: prompt }], temperature: 0.7, max_tokens: 120 });
-        let rewrittenText = response.choices[0]?.message?.content;
-        if (!rewrittenText) throw new Error('ChatGPT returned an empty response.');
-        if (rewrittenText.length > maxCharsForAI) { rewrittenText = rewrittenText.substring(0, maxCharsForAI - 3) + '...'; }
-        return rewrittenText.trim();
+        await fs.access(filePath);
+        const content = await fs.readFile(filePath, 'utf-8');
+        return content.split('---')[2] || '';
     } catch (error) {
-        console.error(`  ❌ Error rewriting for Twitter:`, error);
-        return `${post.title} - read more on our blog! #Aptos`;
+        console.warn(`   ⚠️  Local file for article "${post.title}" not found. Please sync your local repository.`);
+        return null;
     }
 }
 
-async function rewriteForLongform(post: Post): Promise<{ title: string; content: string }> {
-    const keywordsText = post.keywords && post.keywords.length > 0 ? `Main keywords to include: "${post.keywords.join(', ')}".` : '';
-    const prompt = `You are a blog editor. Take the following article information and write a high-quality summary of about 300-400 words. This will be published on a satellite blog. Structure the text with paragraphs using Markdown. End with a strong call to action to read the full, original article. Original Title: "${post.title}". Original Description: "${post.description}". ${keywordsText}`;
-    try {
-        const response = await openai.chat.completions.create({ model: 'gpt-4o', messages: [{ role: 'user', content: prompt }], temperature: 0.7 });
-        const content = response.choices[0]?.message?.content || post.description;
-        return { title: `From the aptcore.one Blog: ${post.title}`, content };
-    } catch (error) {
-        console.error(`  ❌ Error rewriting for Longform:`, error);
-        return { title: post.title, content: post.description };
+async function generateShortsScript(articleContent: string, post: Post): Promise<VideoScript> {
+    console.log(`✍️  Generating E-A-T infographic script and visual concepts for "${post.title}"...`);
+
+    const prompt = `
+    ROLE: You are a Lead Motion Graphics Designer working for a premium crypto media outlet. 
+    Your mission is to turn article insights into an engaging, structured animated short video.
+
+    CONTEXT:
+    - Topic: **${post.title}**
+    - Audience: crypto investors, DeFi users, staking participants.
+    - Tone: concise, trustworthy, informative.
+
+    REQUIREMENTS:
+    1. Write a polished voiceover monologue (120–150 words max).
+    2. Split the monologue into 4–5 scenes.
+    3. For each scene, generate a "video_prompt" to visualize the scene with a **static** 3D icon or abstract infographic.
+
+    ⚠️ STRICT RULES for "video_prompt":
+    - Absolutely NO text, letters, logos, or numbers.
+    - Only describe visual shapes, compositions, materials, and layout.
+    - The visual concept should be clear and metaphorical. For example, instead of "map with path", describe "A 3D abstract map platform with a highlighted path leading to a glowing node, suggesting a strategic start of a crypto journey."
+
+    ARTICLE:
+    """${articleContent}"""
+
+    OUTPUT FORMAT (VALID JSON):
+    {
+      "full_monologue": "A short, compelling voiceover...",
+      "scenes": [
+        {
+          "scene_number": 1,
+          "text": "First sentence of the scene...",
+          "video_prompt": "Visual description with NO TEXT, in a clean 3D style..."
+        }
+      ]
     }
+    `;
+    
+    const messages: ChatCompletionMessageParam[] = [{ role: 'user', content: prompt }];
+    const response = await openai.chat.completions.create({ model: 'gpt-4o', messages, response_format: { type: "json_object" }, });
+    
+    const scriptJson = JSON.parse(response.choices[0]?.message?.content || '{}');
+    console.log(`   ✅ E-A-T script and visual concepts generated for ${scriptJson.scenes.length} scenes.`);
+    return scriptJson;
 }
 
-async function postToTwitter(textToPost: string): Promise<boolean> {
-    if (!twitter.enabled) return false;
-    console.log(`  🐦 Posting to Twitter...`);
+async function generateVoiceover(text: string): Promise<Buffer | null> {
+    if (!text) return null;
+    console.log(`   🗣️  Generating voiceover for: "${text.substring(0, 40)}..."`);
     try {
-        await twitter.client.v2.tweet(textToPost);
-        console.log(`  ✅ Success!`);
-        return true;
-    } catch (error) { console.error(`  ❌ Failed:`, error); return false; }
-}
-
-async function postToBlogger(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
-    if (!blogger.enabled) return false;
-    console.log(`  🔗 Posting to Blogger...`);
-    try {
-        const bloggerApi = google.blogger({ version: 'v3', auth: blogger.auth });
-        const htmlContent = sd.makeHtml(`${rewrittenPost.content}\n\n<hr><p><i><a href="${post.link}">Read the full, original article on aptcore.one</a>.</i></p>`);
-        await bloggerApi.posts.insert({
-            blogId: blogger.blogId!,
-            requestBody: { title: rewrittenPost.title, content: htmlContent, labels: post.tags },
+        const mp3 = await openai.audio.speech.create({
+            model: "tts-1",
+            voice: "alloy",
+            input: text,
+            speed: 1.0
         });
-        console.log(`  ✅ Success!`);
-        return true;
-    } catch (error) { console.error(`  ❌ Failed:`, error.message); return false; }
+        return Buffer.from(await mp3.arrayBuffer());
+    } catch (error) {
+        console.error("   ❌ Error during voiceover generation:", error);
+        return null;
+    }
 }
 
-async function postToDevTo(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
-    if (!devto.enabled) return false;
-    console.log(`  🔗 Posting to Dev.to...`);
-    const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
-    const body = { article: { title: rewrittenPost.title, body_markdown: `${rewrittenPost.content}\n\n---\n*Originally published at [aptcore.one](${post.link}).*`, published: true, main_image: absoluteImageUrl, tags: post.tags?.slice(0, 4).map(t => t.toLowerCase().replace(/\s+/g, '')), canonical_url: post.link } };
-    try {
-        await axios.post('https://dev.to/api/articles', body, { headers: { 'api-key': devto.apiKey!, 'Content-Type': 'application/json' } });
-        console.log(`  ✅ Success!`);
-        return true;
-    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data?.error); return false; }
-}
-
-async function postToHashnode(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
-    if (!hashnode.enabled) return false;
-    console.log(`  🔗 Posting to Hashnode...`);
+async function generateDalleAsset(prompt: string, title: string): Promise<Buffer | null> {
+    console.log(`   🎨 [DALL-E 3] Generating asset with master brief for: "${prompt.substring(0, 50)}..."`);
     
-   
-    const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
-    
-    const tagsForApi = post.tags?.slice(0, 5).map(tag => ({
-        name: tag,
-        slug: tag.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
-    })) || [];
-
-    const postSlug = rewrittenPost.title
-        .toLowerCase()
-        .replace(/^from-the-aptcore-one-blog:/, '')
-        .trim()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .slice(0, 100);
-
-    
-    const mutation = `mutation publishPost($input: PublishPostInput!) { publishPost(input: $input) { post { url } } }`;
-    
-    const variables = { 
-        input: { 
-            title: rewrittenPost.title, 
-            slug: postSlug,
-            contentMarkdown: rewrittenPost.content,
-            publicationId: hashnode.publicationId!, 
-            tags: tagsForApi,
-            coverImageOptions: absoluteImageUrl 
-                ? { coverImageURL: absoluteImageUrl } 
-                : undefined,
-            originalArticleURL: post.link,
-            publishedAt: new Date(post.pubDate).toISOString(),
-            metaTags: {
-                title: post.title,
-                description: post.description.slice(0, 160),
-                image: absoluteImageUrl
-            }
-        } 
+    const brandPalette = {
+        purple: "#A78BFA",
+        cyan: "#22D3EE",
+        textLight: "#E5E7EB"
     };
 
+    const finalPrompt = `
+    A clean, modern, high-quality 3D render illustrating a visual concept.
+
+    VISUAL CONCEPT: "${prompt}"
+    
+    ---
+    MANDATORY STYLE AND SAFETY GUIDE:
+    
+    1. STYLE & MATERIALS:
+       - Render must be minimalist, soft 3D with smooth metallic or matte surfaces.
+       - Lighting must be studio-grade with soft shadows and subtle reflections.
+       - Color palette: use mainly vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}), with light gray (${brandPalette.textLight}) for neutral accents.
+    
+    2. CRITICAL CONTENT RULES:
+       - Asset must be isolated on a fully transparent background.
+       - Absolutely NO text, numbers, letters, logos, or identifiable symbols.
+       - DO NOT use any real-world cryptocurrency or brand logos (e.g., BTC, ETH).
+       - All objects must be abstract, generic, or geometric in form — not specific coins.
+    
+    This asset will be used in a professional crypto/fintech explainer video about Aptos staking.
+    `;
+    
     try {
-        const response = await axios.post('https://gql.hashnode.com/', { query: mutation, variables }, { headers: { 'Authorization': hashnode.apiKey! } });
-        if (response.data.errors) { throw new Error(JSON.stringify(response.data.errors)); }
-        console.log(`  ✅ Success!`);
-        return true;
-    } catch (error) { console.error(`  ❌ Failed:`, error.response?.data?.errors || error.message); return false; }
+        const response = await openai.images.generate({ 
+            model: "dall-e-3", 
+            prompt: finalPrompt, 
+            n: 1, 
+            size: "1024x1024",
+            response_format: 'b64_json',
+            quality: 'hd',
+            style: 'vivid' 
+        });
+        
+        const b64_json = response.data?.[0]?.b64_json;
+
+        if (b64_json) {
+            return Buffer.from(b64_json, 'base64');
+        }
+        console.error("   ❌ DALL-E 3 API response did not contain b64_json data.");
+        return null;
+    } catch (error) {
+        console.error("   ❌ Error during DALL-E 3 asset generation:", error);
+        return null;
+    }
 }
 
 async function main() {
-    console.log('🤖 Starting SMM Poster Bot...');
-    let allPosts: Post[];
+    console.log('🤖 Starting E-A-T Asset Producer (Live Mode)...');
+
+    if (!POSTS_JSON_URL) {
+        console.error('❌ POSTS_JSON_URL environment variable is not set.');
+        return;
+    }
+
+    console.log(`\n📚 Fetching live posts from ${POSTS_JSON_URL}...`);
+    const { data: allPosts } = await axios.get<Post[]>(POSTS_JSON_URL);
+    console.log(`   ✅ Found ${allPosts.length} published posts.`);
+
+    const processedLinks = await getProcessedVideoLinks();
+    const postsToProcess = allPosts
+        .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+        .filter(post => !processedLinks.has(post.link));
+    
+    if (postsToProcess.length === 0) {
+        console.log('✅ All published posts have been processed.');
+        return;
+    }
+
+    const postToProcess = postsToProcess[0];
+    console.log(`\n🚀 Processing article for video assets: "${postToProcess.title}"`);
+
     try {
-        const response = await axios.get<Post[]>(LIVE_POSTS_URL);
-        allPosts = response.data;
-    } catch (error) {
-        console.error(`❌ Could not fetch posts from ${LIVE_POSTS_URL}.`); return;
-    }
-
-    const processedDb = await getProcessedDb();
-    
-    const postsToProcess: Post[] = [];
-    const now = new Date();
-    for (const post of allPosts) {
-        const postedPlatforms = processedDb[post.link] || [];
-        if ( (now.getTime() - new Date(post.pubDate).getTime()) / (1000 * 3600 * 24) >= POSTING_DELAY_DAYS && postedPlatforms.length < ALL_PLATFORMS.length ) {
-            postsToProcess.push(post);
+        const articleContent = await getArticleContent(postToProcess);
+        if (articleContent === null) {
+            console.log(`   🛑 Halting because the local .mdx file for this article could not be found. Please ensure your branch is synced with main.`);
+            return;
         }
-    }
-    
-    const batch = postsToProcess.slice(0, BATCH_SIZE);
-    if (batch.length === 0) { console.log('✅ All published posts are fully distributed or still maturing.'); return; }
 
-    console.log(`\n🔥 Processing a batch of ${batch.length} article(s)...`);
-    for (const post of batch) {
-        console.log(`\n- - - - - \n- Processing: "${post.title}"`);
-        const alreadyPostedTo = processedDb[post.link] || [];
-        const originalPostCount = alreadyPostedTo.length;
+        const script = await generateShortsScript(articleContent, postToProcess);
+
+        const slug = postToProcess.link.split('/').filter(Boolean).pop()!;
+        const videoAssetDir = path.join(process.cwd(), 'video_assets', slug);
+        await fs.mkdir(videoAssetDir, { recursive: true });
         
-        const [twitterText, longformPost] = await Promise.all([
-            rewriteForTwitter(post),
-            rewriteForLongform(post),
-        ]);
+        await fs.writeFile(path.join(videoAssetDir, 'script.json'), JSON.stringify(script, null, 2));
+        console.log(`   ✅ Script saved to ${videoAssetDir}`);
 
-        const postJobs = [
-            { platform: 'twitter', task: () => postToTwitter(`${twitterText}\n\nRead more: ${post.link}`)},
-            { platform: 'blogger', task: () => postToBlogger(post, longformPost)},
-            { platform: 'hashnode', task: () => postToHashnode(post, longformPost)},
-        ];
+        console.log(`\n🎤🎬 Starting asset generation for ${script.scenes.length} scenes...`);
+        let allAssetsGenerated = true;
 
-        for (const job of postJobs) {
-            if (!alreadyPostedTo.includes(job.platform)) {
-                if (await job.task()) {
-                    alreadyPostedTo.push(job.platform);
-                }
+        const voiceoverBuffer = await generateVoiceover(script.full_monologue);
+        if (voiceoverBuffer) {
+            await fs.writeFile(path.join(videoAssetDir, 'voiceover.mp3'), voiceoverBuffer);
+            console.log(`   ✅ Voiceover saved.`);
+        } else {
+            console.log(`   ❌ Voiceover generation failed.`);
+            allAssetsGenerated = false;
+        }
+
+        for (const scene of script.scenes) {
+            const imageBuffer = await generateDalleAsset(scene.video_prompt, postToProcess.title);
+            if (imageBuffer) {
+                await fs.writeFile(path.join(videoAssetDir, `scene_${scene.scene_number}.png`), imageBuffer);
+                 console.log(`   ✅ Asset for scene ${scene.scene_number} saved.`);
+            } else {
+                console.log(`   ❌ Asset generation failed for scene ${scene.scene_number}.`);
+                allAssetsGenerated = false;
             }
         }
-        
-        if (alreadyPostedTo.length > originalPostCount) {
-            processedDb[post.link] = alreadyPostedTo;
-            console.log(`\n- Marking "${post.title}" as partially/fully processed.`);
-            await saveProcessedDb(processedDb);
-            console.log(`- SMM database updated for this post.`);
-        } else {
-            console.log(`\n- No new platforms were posted for "${post.title}".`);
-        }
-    }
 
-    console.log('\n🤖 SMM Bot finished processing the batch.');
+        if (allAssetsGenerated) {
+            console.log(`\n✨✨✨\n✅ Success! All assets for "${postToProcess.title}" are generated in:\n${videoAssetDir}\n✨✨✨`);
+            processedLinks.add(postToProcess.link);
+            await saveProcessedVideoLinks(processedLinks);
+        } else {
+            console.log(`\n🛑 Could not generate all required assets. Halting. The post will be re-processed on the next run.`);
+        }
+
+    } catch (error) {
+        console.error(`❌ A critical error occurred while processing "${postToProcess.title}":`, error);
+    }
 }
 
 main().catch(error => {
-    console.error('❌ A critical error occurred in SMM Bot:', error);
+    console.error('❌ A critical error occurred in the Video Producer Bot:', error);
+    process.exit(1);
 });

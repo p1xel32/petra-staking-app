@@ -1,0 +1,24 @@
+{
+  "scenes": [
+    {
+      "text": "Have you ever thought staking Aptos is too complex, risky, or just not worth it? Think again.",
+      "highlights": ["too complex", "risky"]
+    },
+    {
+      "text": "In this video, we're debunking the three biggest myths. Myth one: Is Aptos staking truly too complex?",
+      "highlights": ["three biggest myths"]
+    },
+    {
+      "text": "In reality, it's as easy as a few clicks, and you're in the game.",
+      "highlights": ["a few clicks"]
+    },
+    {
+      "text": "Myth two: Is it actually risky? No. Your funds stay with you, secured by robust technology.",
+      "highlights": ["risky", "robust technology"]
+    },
+    {
+      "text": "And finally, myth three: Aren't rewards too small? With yields around 7%, Aptos becomes steady passive income.",
+      "highlights": ["too small", "7%", "passive income"]
+    }
+  ]
+}

@@ -22,3 +22,6 @@ Thumbs.db
 # Optional: IDE/Editor folders
 .vscode/
 .idea/
+client_secret.json
+token.json
+
