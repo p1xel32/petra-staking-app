@@ -5,14 +5,13 @@ import { cjsInterop } from 'vite-plugin-cjs-interop';
 import vercel from 'vite-plugin-vercel';
 import path from 'path';
 
-// This is our new custom plugin for the dev server
 const devApiPlugin = () => ({
   name: 'dev-api-plugin',
   configureServer(server) {
     server.middlewares.use(async (req, res, next) => {
       if (req.originalUrl.startsWith('/api/getUserStake')) {
         try {
-          const apiHandler = (await server.ssrLoadModule('./api-functions/getUserStake.js')).default;
+          const apiHandler = (await server.ssrLoadModule('./api/getUserStake.js')).default;
           
           const response = await apiHandler(req);
 
@@ -40,14 +39,7 @@ export default defineConfig({
   plugins: [
     react(),
     vike(),
-    vercel({
-      additionalEndpoints: [
-        {
-          source: 'api-functions/getUserStake.js',
-          destination: 'getUserStake',
-        },
-      ],
-    }),
+    vercel(),
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
