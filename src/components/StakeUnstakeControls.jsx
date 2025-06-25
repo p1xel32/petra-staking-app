@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { Aptos, Network } from '@aptos-labs/ts-sdk';
 import { CheckCircle, AlertTriangle, RefreshCw, TrendingUp, TrendingDown, Download, Loader2 } from 'lucide-react';
 
-const client = new Aptos({ network: Network.MAINNET });
 const VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 const OCTAS_PER_APT = 100_000_000;
 const MIN_STAKE_APT = 11;
 
-function StakeUnstakeControls({ account, onTransactionSuccess }) {
+export default function StakeUnstakeControls({ account, onTransactionSuccess }) {
   const { signAndSubmitTransaction } = useWallet();
   const [amountApt, setAmountApt] = useState('');
   const [withdrawableAmountApt, setWithdrawableAmountApt] = useState(0);
@@ -18,60 +16,110 @@ function StakeUnstakeControls({ account, onTransactionSuccess }) {
   const [isFetchingWithdrawable, setIsFetchingWithdrawable] = useState(false);
 
   const fetchWithdrawableStake = useCallback(async () => {
-    if (!account) { setWithdrawableAmountApt(0); return; }
-    setIsFetchingWithdrawable(true); setWithdrawableAmountApt(0);
+    if (!account) {
+      setWithdrawableAmountApt(0);
+      return;
+    }
+    setIsFetchingWithdrawable(true);
     try {
-      const result = await client.view({ payload: { function: '0x1::delegation_pool::get_stake', functionArguments: [VALIDATOR_POOL_ADDRESS, account] } });
-      if (result && Array.isArray(result) && result.length >= 2) {
-        setWithdrawableAmountApt(Number(BigInt(result[1])) / OCTAS_PER_APT);
-      } else { setWithdrawableAmountApt(0); }
-    } catch (error) { console.error("Failed to fetch withdrawable amount:", error); setWithdrawableAmountApt(0); }
-    finally { setIsFetchingWithdrawable(false); }
+      const response = await fetch(`/api/getUserStake?account=${account}&pool=${VALIDATOR_POOL_ADDRESS}`);
+      if (!response.ok) {
+        throw new Error('API request failed to get user stake');
+      }
+      const data = await response.json();
+      setWithdrawableAmountApt(data.inactive || 0);
+    } catch (error) {
+      console.error("Failed to fetch withdrawable amount via API:", error);
+      setWithdrawableAmountApt(0);
+    } finally {
+      setIsFetchingWithdrawable(false);
+    }
   }, [account]);
 
-  useEffect(() => { fetchWithdrawableStake(); }, [account, fetchWithdrawableStake]);
+  useEffect(() => {
+    fetchWithdrawableStake();
+  }, [account, fetchWithdrawableStake]);
 
   const handleTransaction = async (actionType, functionName, amountOctas) => {
-     if (!account || isSubmitting) { setTxError({ message: "Wallet not connected or already submitting." }); return; }
-     if (typeof signAndSubmitTransaction !== 'function') { setTxError({ message: "signAndSubmitTransaction function is not available." }); return; }
+     if (!account || isSubmitting) {
+       setTxError({ message: "Wallet not connected or already submitting." });
+       return;
+     }
+     if (typeof signAndSubmitTransaction !== 'function') {
+       setTxError({ message: "signAndSubmitTransaction function is not available." });
+       return;
+     }
 
-    setIsSubmitting(true); setTxError(null); setTxResult(null);
-    const transactionData = { function: `0x1::delegation_pool::${functionName}`, functionArguments: [VALIDATOR_POOL_ADDRESS, amountOctas], typeArguments: [] };
+    setIsSubmitting(true);
+    setTxError(null);
+    setTxResult(null);
+    
+    const transactionData = {
+        function: `0x1::delegation_pool::${functionName}`,
+        functionArguments: [VALIDATOR_POOL_ADDRESS, String(amountOctas)],
+        typeArguments: []
+    };
     const transactionInput = { data: transactionData };
 
     try {
-      const result = await signAndSubmitTransaction(transactionInput);
-      setTxResult({ type: 'success', message: `${actionType} successful! Tx hash: ${result.hash.substring(0, 10)}...` });
-      fetchWithdrawableStake();
-      if (onTransactionSuccess) onTransactionSuccess();
+      const pendingTx = await signAndSubmitTransaction(transactionInput);
+      
+      setTxResult({ type: 'success', message: `${actionType} successful! Tx hash: ${pendingTx.hash.substring(0, 10)}...` });
+      
+      setTimeout(() => {
+        fetchWithdrawableStake();
+        if (onTransactionSuccess) onTransactionSuccess();
+      }, 1000);
+
       setAmountApt('');
     } catch (error) {
       let errorMessage = error.message || String(error);
-      if (errorMessage.includes('User has rejected the request') || (error && error.code === 4001)) { errorMessage = 'Transaction rejected by user.'; }
-      else if (error.errorCode === 'invalid_argument' && error.message && error.message.includes('EDELEGATOR_ACTIVE_BALANCE_TOO_LOW')) { errorMessage = `Stake amount is too low. Min ${MIN_STAKE_APT} APT.`; }
-      else if (errorMessage.includes("Cannot use 'in' operator")) { errorMessage = `Internal adapter error. Please try again or check library versions.`; }
+      if (errorMessage.includes('User has rejected the request') || (error && error.code === 4001)) {
+        errorMessage = 'Transaction rejected by user.';
+      } else if (error.errorCode === 'invalid_argument' && error.message && error.message.includes('EDELEGATOR_ACTIVE_BALANCE_TOO_LOW')) {
+        errorMessage = `Stake amount is too low. Min ${MIN_STAKE_APT} APT.`;
+      } else if (errorMessage.includes("Cannot use 'in' operator")) {
+        errorMessage = `Internal adapter error. Please try again or check library versions.`;
+      }
       console.error("Raw transaction error object:", error);
       setTxError({ message: `Error during ${actionType}: ${errorMessage}` });
-    } finally { setIsSubmitting(false); }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleStake = () => {
     const amount = parseFloat(amountApt);
-    if (isNaN(amount) || amount <= 0) { setTxError({ message: "Please enter a valid amount > 0 to stake." }); return; }
-    if (amount < MIN_STAKE_APT) { setTxError({ message: `Minimum stake amount is ${MIN_STAKE_APT} APT.` }); return; }
+    if (isNaN(amount) || amount <= 0) {
+      setTxError({ message: "Please enter a valid amount > 0 to stake." });
+      return;
+    }
+    if (amount < MIN_STAKE_APT) {
+      setTxError({ message: `Minimum stake amount is ${MIN_STAKE_APT} APT.` });
+      return;
+    }
     handleTransaction("Stake", "add_stake", BigInt(Math.floor(amount * OCTAS_PER_APT)));
   };
 
   const handleUnstake = () => {
     const amount = parseFloat(amountApt);
-    if (isNaN(amount) || amount <= 0) { setTxError({ message: "Please enter a valid amount > 0 to unstake." }); return; }
+    if (isNaN(amount) || amount <= 0) {
+      setTxError({ message: "Please enter a valid amount > 0 to unstake." });
+      return;
+    }
     handleTransaction("Unstake", "unlock", BigInt(Math.floor(amount * OCTAS_PER_APT)));
   };
 
   const handleWithdraw = () => {
-    if (withdrawableAmountApt <= 0) { setTxError({ message: "No withdrawable amount available." }); return; }
+    if (withdrawableAmountApt <= 0) {
+      setTxError({ message: "No withdrawable amount available." });
+      return;
+    }
     const amountOctas = BigInt(Math.floor(withdrawableAmountApt * OCTAS_PER_APT));
-    if (amountOctas <= 0n) { setTxError({ message: "Withdrawable amount is too small." }); return; }
+    if (amountOctas <= 0n) {
+      setTxError({ message: "Withdrawable amount is too small." });
+      return;
+    }
     handleTransaction("Withdraw", "withdraw", amountOctas);
   };
 
@@ -164,5 +212,3 @@ function StakeUnstakeControls({ account, onTransactionSuccess }) {
     </div>
   );
 }
-
-export default StakeUnstakeControls;

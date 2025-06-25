@@ -1,10 +1,14 @@
+// tailwind.config.js
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './index.html',
-    './src/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './index.html',                     
+    './pages/**/*.{js,ts,jsx,tsx}',     
+    './renderer/**/*.{js,ts,jsx,tsx}',  
+    './src/**/*.{js,jsx,ts,tsx}',       
   ],
+
   theme: {
     extend: {
       backgroundImage: {
@@ -15,6 +19,7 @@ module.exports = {
       },
     },
   },
+
   plugins: [
     require('tailwindcss-animate'),
   ],

@@ -1,3 +1,4 @@
+// renderer/+onRenderHtml.jsx
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { escapeInject, dangerouslySkipEscape } from 'vike/server';
@@ -5,10 +6,14 @@ import { HelmetProvider } from 'react-helmet-async';
 import { PageShell } from './PageShell';
 
 export async function onRenderHtml(pageContext) {
-  const { Page, pageProps } = pageContext;
+  // ИСПРАВЛЕНИЕ: Объединяем pageProps и данные из +data.js
+  const pageProps = { ...pageContext.data, ...pageContext.pageProps };
+  
+  const { Page } = pageContext;
   if (!Page) {
     return { documentHtml: '<!DOCTYPE html><html><head><title>Error</title></head><body>Page component not found.</body></html>' };
   }
+  
   const localHelmetContext = {};
   let pageHtml = "";
   try {

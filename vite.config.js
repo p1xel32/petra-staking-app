@@ -5,14 +5,53 @@ import { cjsInterop } from 'vite-plugin-cjs-interop';
 import vercel from 'vite-plugin-vercel';
 import path from 'path';
 
+// This is our new custom plugin for the dev server
+const devApiPlugin = () => ({
+  name: 'dev-api-plugin',
+  configureServer(server) {
+    server.middlewares.use(async (req, res, next) => {
+      if (req.originalUrl.startsWith('/api/getUserStake')) {
+        try {
+          const apiHandler = (await server.ssrLoadModule('./api-functions/getUserStake.js')).default;
+          
+          const response = await apiHandler(req);
+
+          res.statusCode = response.status;
+          response.headers.forEach((value, key) => {
+            res.setHeader(key, value);
+          });
+          res.end(await response.text());
+
+          return;
+        } catch (error) {
+          console.error('API handler error:', error);
+          res.statusCode = 500;
+          res.end('Internal Server Error');
+          return;
+        }
+      }
+      next();
+    });
+  },
+});
+
+
 export default defineConfig({
   plugins: [
     react(),
     vike(),
-    vercel(),
+    vercel({
+      additionalEndpoints: [
+        {
+          source: 'api-functions/getUserStake.js',
+          destination: 'getUserStake',
+        },
+      ],
+    }),
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
+    devApiPlugin(),
   ],
   resolve: {
     alias: {

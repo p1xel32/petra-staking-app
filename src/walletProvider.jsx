@@ -6,7 +6,7 @@ export function WalletProvider({ children }) {
   return (
     <AptosWalletAdapterProvider
       plugins={legacyPlugins}
-      autoConnect={false} 
+      autoConnect={true} 
       onError={(error) => {
         console.error("Wallet Provider Error:", error);
       }}
