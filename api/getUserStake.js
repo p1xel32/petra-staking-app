@@ -1,20 +1,13 @@
 // File: api/getUserStake.js
 
-import { Aptos, Network, AptosConfig } from '@aptos-labs/ts-sdk';
-
-const aptosConfig = new AptosConfig({ network: Network.MAINNET });
+const APTOS_FULLNODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
 
 export default async function handler(request) {
-  // Создаем новый, чистый клиент для каждого запроса. Это самое надежное решение для Vercel.
-  const client = new Aptos(aptosConfig);
-
   const url = new URL(request.url, `http://${request.headers.host}`);
   const userAccountAddress = url.searchParams.get('account');
   const poolAddress = url.searchParams.get('pool');
 
-  // --- ВАШ КОД ДЛЯ ЛОГИРОВАНИЯ ---
-  // Проверяем, что именно приходит на сервер Vercel.
-  console.log('Incoming stake request. Parameters received:', {
+  console.log('[Direct Fetch] Incoming request. Parameters received:', {
     account: userAccountAddress,
     pool: poolAddress,
   });
@@ -26,17 +19,33 @@ export default async function handler(request) {
     });
   }
 
+  const requestBody = {
+    function: '0x1::delegation_pool::get_stake',
+    type_arguments: [],
+    arguments: [poolAddress, userAccountAddress],
+  };
+
   try {
-    console.log(`Attempting client.view with account: ${userAccountAddress} and pool: ${poolAddress}`);
-    const userStakeResult = await client.view({
-      payload: {
-        function: '0x1::delegation_pool::get_stake',
-        functionArguments: [poolAddress, userAccountAddress],
+    console.log('[Direct Fetch] Attempting direct fetch to Aptos fullnode...');
+    const start = performance.now();
+    
+    const aptosResponse = await fetch(`${APTOS_FULLNODE_URL}/view`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify(requestBody),
     });
 
-    // Если мы дошли до сюда, значит, зависания не было.
-    console.log('Successfully received data from client.view');
+    const duration = performance.now() - start;
+    console.log(`[Direct Fetch] Got response from fullnode in ${duration.toFixed(2)}ms. Status: ${aptosResponse.status}`);
+
+    if (!aptosResponse.ok) {
+      throw new Error(`Aptos fullnode responded with status ${aptosResponse.status}`);
+    }
+
+    const userStakeResult = await aptosResponse.json();
+    console.log('[Direct Fetch] Successfully received and parsed data.');
 
     let stakeData = { active: 0, inactive: 0, pendingInactive: 0 };
     if (Array.isArray(userStakeResult) && userStakeResult.length >= 3) {
@@ -56,7 +65,7 @@ export default async function handler(request) {
     });
 
   } catch (error) {
-    console.error('API Error in /api/getUserStake:', error);
+    console.error('[Direct Fetch] API Error:', error);
     return new Response(JSON.stringify({ error: 'Failed to fetch stake data from Aptos network' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
