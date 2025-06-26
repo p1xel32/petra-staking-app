@@ -11,7 +11,7 @@ const devApiPlugin = () => ({
     server.middlewares.use(async (req, res, next) => {
       if (req.originalUrl.startsWith('/api/getUserStake')) {
         try {
-          const apiHandler = (await server.ssrLoadModule('./_api/getUserStake.js')).default;
+          const apiHandler = (await server.ssrLoadModule('./api/getUserStake.js')).default;
           
           const response = await apiHandler(req);
 
