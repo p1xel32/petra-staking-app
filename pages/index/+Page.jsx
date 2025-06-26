@@ -51,11 +51,11 @@ export default function Page({ serverFetchedPoolInfo, serverFetchedApy, error })
   }, [userAccountAddress, serverFetchedPoolInfo?.poolAddress]);
 
   useEffect(() => {
-    // Запускаем загрузку только на клиенте И только когда кошелек подключен
-    if (isMounted && connected && userAccountAddress) {
+    if (!isMounted) return;
+
+    if (connected && userAccountAddress) {
       fetchUserStake();
-    } else if (isMounted) {
-      // Если кошелек отключили, сбрасываем состояние
+    } else {
       setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
     }
   }, [isMounted, connected, userAccountAddress, fetchUserStake]);
