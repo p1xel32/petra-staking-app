@@ -1,10 +1,12 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vike from 'vike/plugin';
+import path from 'path';
 import { cjsInterop } from 'vite-plugin-cjs-interop';
 import vercel from 'vite-plugin-vercel';
-import path from 'path';
 
+// ✅ Только для локальной разработки: позволяет эмулировать работу API, как Vercel
 const devApiPlugin = () => ({
   name: 'dev-api-plugin',
   configureServer(server) {
@@ -12,15 +14,12 @@ const devApiPlugin = () => ({
       if (req.originalUrl.startsWith('/api/getUserStake')) {
         try {
           const apiHandler = (await server.ssrLoadModule('./api/getUserStake.js')).default;
-          
           const response = await apiHandler(req);
-
           res.statusCode = response.status;
           response.headers.forEach((value, key) => {
             res.setHeader(key, value);
           });
           res.end(await response.text());
-
           return;
         } catch (error) {
           console.error('API handler error:', error);
@@ -34,16 +33,17 @@ const devApiPlugin = () => ({
   },
 });
 
-
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      jsxRuntime: 'automatic',
+    }),
     vike(),
-    vercel(), 
+    vercel(), // 🧠 нужен только для корректной интеграции Vercel + Vike
     cjsInterop({
       dependencies: ['react-helmet-async'],
     }),
-    devApiPlugin(),
+    devApiPlugin(), // для локальной разработки — позволяет эмулировать `/api` как Vercel
   ],
   resolve: {
     alias: {
