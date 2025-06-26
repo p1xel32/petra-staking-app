@@ -51,12 +51,14 @@ export default function Page({ serverFetchedPoolInfo, serverFetchedApy, error })
   }, [userAccountAddress, serverFetchedPoolInfo?.poolAddress]);
 
   useEffect(() => {
-    if (connected && userAccountAddress) {
+    // Запускаем загрузку только на клиенте И только когда кошелек подключен
+    if (isMounted && connected && userAccountAddress) {
       fetchUserStake();
-    } else {
+    } else if (isMounted) {
+      // Если кошелек отключили, сбрасываем состояние
       setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
     }
-  }, [connected, userAccountAddress, fetchUserStake]);
+  }, [isMounted, connected, userAccountAddress, fetchUserStake]);
 
 
   const pageUrl = "https://aptcore.one/";
@@ -113,7 +115,6 @@ export default function Page({ serverFetchedPoolInfo, serverFetchedApy, error })
         </motion.div>
       );
     }
-    
     if (connected && userAccountAddress) {
       return (
         <Suspense key="connected-view" fallback={<WidgetSkeleton height="h-64" />}>
@@ -175,7 +176,14 @@ export default function Page({ serverFetchedPoolInfo, serverFetchedApy, error })
         <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section">
             <Suspense fallback={<WidgetSkeleton height="h-48" />}>
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="w-full">
-                    <ValidatorInfo poolInfo={serverFetchedPoolInfo} apy={serverFetchedApy} account={userAccountAddress} userStake={userStake} />
+                    <ValidatorInfo 
+                      poolInfo={serverFetchedPoolInfo} 
+                      apy={serverFetchedApy} 
+                      account={userAccountAddress} 
+                      userStake={userStake}
+                      isMounted={isMounted}
+                      connected={connected}
+                    />
                 </motion.div>
             </Suspense>
             

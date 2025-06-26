@@ -16,7 +16,6 @@ import {
     Loader2
 } from 'lucide-react';
 
-// Компонент InfoRow и функция formatRemainingTime остаются без изменений
 const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-semibold", link = null, subValue = null, iconColor = "text-purple-400", tooltipContent = null }) => (
   <div className="flex justify-between items-center py-2.5 border-b border-gray-700/60 last:border-b-0">
     <span className="text-gray-400 flex items-center text-sm">
@@ -57,7 +56,7 @@ function formatRemainingTime(totalSeconds) {
   return parts.length > 0 ? `in ${parts.join(' ')}` : "Soon";
 }
 
-export default function ValidatorInfo({ poolInfo, apy, account, userStake }) {
+export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMounted, connected }) {
 
   if (!poolInfo) {
       return (
@@ -133,41 +132,40 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake }) {
         />
       </div>
 
-      {/* ИЗМЕНЕНИЕ: Мы убираем внешнее условие `{account && ...}`.
-        Блок теперь рендерится всегда, а его содержимое управляется состоянием `userStake.isFetching`.
-      */}
-      <>
-        <hr className="my-6 border-t border-gray-700/60"/>
-        <h3 className="text-xl font-semibold mb-4 text-center text-gray-100">Your Current Aptos (APT) Stake with aptcore.one</h3>
-        {userStake.isFetching ? (
-          <div className="text-center py-4"><Loader2 size={24} className="animate-spin text-purple-400 mx-auto" /></div>
-        ) : (
-          <div className="space-y-2.5 text-sm">
-            <InfoRow
-                icon={CheckSquare}
-                label="Your Active APT Stake"
-                value={`${userStake.active.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                valueClasses="font-semibold text-green-400"
-                iconColor="text-green-400"
-            />
-            <InfoRow
-                icon={Hourglass}
-                label="APT Pending Unstake"
-                value={`${userStake.pendingInactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                valueClasses="font-semibold text-zinc-400"
-                iconColor="text-zinc-400"
-            />
-            <InfoRow
-                icon={Package}
-                label="APT Ready to Withdraw"
-                value={`${userStake.inactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                valueClasses="font-semibold text-blue-400"
-                iconColor="text-blue-400"
-            />
-          </div>
-        )}
-      </>
-
+     
+      {isMounted && connected && (
+        <>
+          <hr className="my-6 border-t border-gray-700/60"/>
+          <h3 className="text-xl font-semibold mb-4 text-center text-gray-100">Your Current Aptos (APT) Stake with aptcore.one</h3>
+          {userStake.isFetching ? (
+            <div className="text-center py-4"><Loader2 size={24} className="animate-spin text-purple-400 mx-auto" /></div>
+          ) : (
+            <div className="space-y-2.5 text-sm">
+              <InfoRow
+                  icon={CheckSquare}
+                  label="Your Active APT Stake"
+                  value={`${userStake.active.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                  valueClasses="font-semibold text-green-400"
+                  iconColor="text-green-400"
+              />
+              <InfoRow
+                  icon={Hourglass}
+                  label="APT Pending Unstake"
+                  value={`${userStake.pendingInactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                  valueClasses="font-semibold text-zinc-400"
+                  iconColor="text-zinc-400"
+              />
+              <InfoRow
+                  icon={Package}
+                  label="APT Ready to Withdraw"
+                  value={`${userStake.inactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                  valueClasses="font-semibold text-blue-400"
+                  iconColor="text-blue-400"
+              />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
