@@ -21,12 +21,6 @@ const WidgetSkeleton = ({ height = 'h-48' }) => (
 const StakeUnstakeControls = lazy(() => import('../../src/components/StakeUnstakeControls'));
 
 export default function Page({ serverFetchedPoolInfo, serverFetchedApy, error }) {
-   console.log("4. [Page.jsx] Пропсы, полученные компонентом страницы:", {
-    serverFetchedPoolInfo,
-    serverFetchedApy,
-    error,
-    });
-
   const { account, connected } = useWallet();
   const userAccountAddress = account?.address ? account.address.toString() : null;
 
@@ -119,11 +113,16 @@ export default function Page({ serverFetchedPoolInfo, serverFetchedApy, error })
         </motion.div>
       );
     }
+    
     if (connected && userAccountAddress) {
       return (
         <Suspense key="connected-view" fallback={<WidgetSkeleton height="h-64" />}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="w-full">
-            <StakeUnstakeControls account={userAccountAddress} onTransactionSuccess={fetchUserStake} />
+            <StakeUnstakeControls 
+              account={userAccountAddress} 
+              onTransactionSuccess={fetchUserStake} 
+              userStake={userStake} 
+            />
           </motion.div>
         </Suspense>
       );

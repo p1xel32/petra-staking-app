@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+// src/components/StakeUnstakeControls.jsx
+
+import React, { useState } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { CheckCircle, AlertTriangle, RefreshCw, TrendingUp, TrendingDown, Download, Loader2 } from 'lucide-react';
 
@@ -6,80 +8,47 @@ const VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e
 const OCTAS_PER_APT = 100_000_000;
 const MIN_STAKE_APT = 11;
 
-export default function StakeUnstakeControls({ account, onTransactionSuccess }) {
+export default function StakeUnstakeControls({ account, onTransactionSuccess, userStake }) {
   const { signAndSubmitTransaction } = useWallet();
   const [amountApt, setAmountApt] = useState('');
-  const [withdrawableAmountApt, setWithdrawableAmountApt] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [txResult, setTxResult] = useState(null);
   const [txError, setTxError] = useState(null);
-  const [isFetchingWithdrawable, setIsFetchingWithdrawable] = useState(false);
+  
+  const withdrawableAmountApt = userStake?.inactive || 0;
+  const isFetchingBalances = userStake?.isFetching || false;
 
-  const fetchWithdrawableStake = useCallback(async () => {
-    if (!account) {
-      setWithdrawableAmountApt(0);
-      return;
-    }
-    setIsFetchingWithdrawable(true);
-    try {
-      const response = await fetch(`/api/getUserStake?account=${account}&pool=${VALIDATOR_POOL_ADDRESS}`);
-      if (!response.ok) {
-        throw new Error('API request failed to get user stake');
-      }
-      const data = await response.json();
-      setWithdrawableAmountApt(data.inactive || 0);
-    } catch (error) {
-      console.error("Failed to fetch withdrawable amount via API:", error);
-      setWithdrawableAmountApt(0);
-    } finally {
-      setIsFetchingWithdrawable(false);
-    }
-  }, [account]);
-
-  useEffect(() => {
-    fetchWithdrawableStake();
-  }, [account, fetchWithdrawableStake]);
 
   const handleTransaction = async (actionType, functionName, amountOctas) => {
-     if (!account || isSubmitting) {
-       setTxError({ message: "Wallet not connected or already submitting." });
-       return;
-     }
-     if (typeof signAndSubmitTransaction !== 'function') {
-       setTxError({ message: "signAndSubmitTransaction function is not available." });
-       return;
-     }
+    if (!account || isSubmitting || typeof signAndSubmitTransaction !== 'function') return;
 
     setIsSubmitting(true);
     setTxError(null);
     setTxResult(null);
     
-    const transactionData = {
+    const transactionInput = { 
+      data: {
         function: `0x1::delegation_pool::${functionName}`,
         functionArguments: [VALIDATOR_POOL_ADDRESS, String(amountOctas)],
         typeArguments: []
+      }
     };
-    const transactionInput = { data: transactionData };
 
     try {
       const pendingTx = await signAndSubmitTransaction(transactionInput);
-      
       setTxResult({ type: 'success', message: `${actionType} successful! Tx hash: ${pendingTx.hash.substring(0, 10)}...` });
       
-      setTimeout(() => {
-        fetchWithdrawableStake();
-        if (onTransactionSuccess) onTransactionSuccess();
-      }, 1000);
+      if (onTransactionSuccess) {
+        setTimeout(() => {
+            onTransactionSuccess();
+        }, 1500);
+      }
 
       setAmountApt('');
     } catch (error) {
       let errorMessage = error.message || String(error);
-      if (errorMessage.includes('User has rejected the request') || (error && error.code === 4001)) {
+      if (errorMessage.includes('User has rejected the request')) { 
         errorMessage = 'Transaction rejected by user.';
-      } else if (error.errorCode === 'invalid_argument' && error.message && error.message.includes('EDELEGATOR_ACTIVE_BALANCE_TOO_LOW')) {
-        errorMessage = `Stake amount is too low. Min ${MIN_STAKE_APT} APT.`;
-      } else if (errorMessage.includes("Cannot use 'in' operator")) {
-        errorMessage = `Internal adapter error. Please try again or check library versions.`;
       }
       console.error("Raw transaction error object:", error);
       setTxError({ message: `Error during ${actionType}: ${errorMessage}` });
@@ -90,11 +59,7 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess }) 
 
   const handleStake = () => {
     const amount = parseFloat(amountApt);
-    if (isNaN(amount) || amount <= 0) {
-      setTxError({ message: "Please enter a valid amount > 0 to stake." });
-      return;
-    }
-    if (amount < MIN_STAKE_APT) {
+    if (isNaN(amount) || amount < MIN_STAKE_APT) {
       setTxError({ message: `Minimum stake amount is ${MIN_STAKE_APT} APT.` });
       return;
     }
@@ -111,10 +76,7 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess }) 
   };
 
   const handleWithdraw = () => {
-    if (withdrawableAmountApt <= 0) {
-      setTxError({ message: "No withdrawable amount available." });
-      return;
-    }
+    if (withdrawableAmountApt <= 0) return;
     const amountOctas = BigInt(Math.floor(withdrawableAmountApt * OCTAS_PER_APT));
     if (amountOctas <= 0n) {
       setTxError({ message: "Withdrawable amount is too small." });
@@ -123,7 +85,7 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess }) 
     handleTransaction("Withdraw", "withdraw", amountOctas);
   };
 
-   return (
+  return (
     <div className="w-full">
       <h2 className="text-2xl font-semibold mb-6 text-gray-100 text-center">Manage Your Stake</h2>
 
@@ -173,12 +135,12 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess }) 
             <p className="text-sm text-gray-400">
                 Withdrawable:
                 <span className={`font-semibold ml-1 ${withdrawableAmountApt > 0 ? 'text-green-400' : 'text-gray-400'}`}>
-                    {isFetchingWithdrawable ? <Loader2 size={14} className="inline animate-spin" /> : `${withdrawableAmountApt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 8})} APT`}
+                    {isFetchingBalances ? <Loader2 size={14} className="inline animate-spin" /> : `${withdrawableAmountApt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 8})} APT`}
                 </span>
             </p>
             <button
-              onClick={fetchWithdrawableStake}
-              disabled={isFetchingWithdrawable || isSubmitting}
+              onClick={onTransactionSuccess} // Можно обновлять по кнопке
+              disabled={isFetchingBalances || isSubmitting}
               className="text-xs text-blue-400 hover:text-blue-300 disabled:opacity-50 flex items-center gap-1 transition-colors duration-150"
               type="button"
             >
@@ -187,11 +149,11 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess }) 
          </div>
          <button
            onClick={handleWithdraw}
-           disabled={isSubmitting || isFetchingWithdrawable || withdrawableAmountApt <= 0}
+           disabled={isSubmitting || isFetchingBalances || withdrawableAmountApt <= 0}
            className="w-full px-6 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold rounded-xl shadow-lg hover:from-red-600 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-pink-500 transition-all duration-150 ease-in-out disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
            type="button"
          >
-           {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : <Download size={20} />}
+           {isSubmitting || isFetchingBalances ? <Loader2 size={20} className="animate-spin" /> : <Download size={20} />}
            {isSubmitting ? 'Processing...' : `Withdraw Available`}
          </button>
       </div>
