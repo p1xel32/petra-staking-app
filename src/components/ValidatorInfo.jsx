@@ -16,6 +16,7 @@ import {
     Loader2
 } from 'lucide-react';
 
+
 const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-semibold", link = null, subValue = null, iconColor = "text-purple-400", tooltipContent = null }) => (
   <div className="flex justify-between items-center py-2.5 border-b border-gray-700/60 last:border-b-0">
     <span className="text-gray-400 flex items-center text-sm">
@@ -44,6 +45,7 @@ const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-
   </div>
 );
 
+// Функция formatRemainingTime остается без изменений
 function formatRemainingTime(totalSeconds) {
   if (totalSeconds <= 0) return "Unlocked";
   const days = Math.floor(totalSeconds / (3600 * 24));
@@ -76,9 +78,18 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMou
   
   const unlockTimestamp = poolInfo.locked_until_secs;
   const unlockDateString = unlockTimestamp ? new Date(unlockTimestamp * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
-  const nowSeconds = Math.floor(Date.now() / 1000);
-  const remainingSeconds = unlockTimestamp ? unlockTimestamp - nowSeconds : -1;
-  const unlockRemainingString = unlockTimestamp ? formatRemainingTime(remainingSeconds) : 'N/A';
+
+
+  let timeDependentSubValue = null;
+  if (isMounted && unlockTimestamp) {
+    const nowSeconds = Math.floor(Date.now() / 1000);
+    const remainingSeconds = unlockTimestamp - nowSeconds;
+    if (remainingSeconds > 0) {
+        timeDependentSubValue = formatRemainingTime(remainingSeconds);
+    } else {
+        timeDependentSubValue = '(Unlocked)';
+    }
+  }
 
   const aprApyTooltipContent = (
     <>
@@ -99,40 +110,18 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMou
         </h2>
       </div>
       <div className="space-y-3 mb-6">
-        <InfoRow
-            icon={Landmark}
-            label="Validator Pool Address"
-            value={`${poolInfo.poolAddress.substring(0, 8)}...${poolInfo.poolAddress.substring(poolInfo.poolAddress.length - 6)}`}
-            valueClasses="text-purple-300"
-            link={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`}
-        />
-        <InfoRow
-            icon={Layers}
-            label="Total APT Delegated to Pool"
-            value={`${delegatedAmountApt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} APT`}
-        />
-        <InfoRow
-            icon={Percent}
-            label="Validator Commission Rate"
-            value={`${commissionToDisplay.toFixed(2)} %`}
-        />
-        <InfoRow
-            icon={AprIcon}
-            label="Est. Net Yield"
-            value={`${netApy}% APY`}
-            valueClasses="font-bold text-xl text-green-400"
-            tooltipContent={aprApyTooltipContent}
-        />
+        <InfoRow icon={Landmark} label="Validator Pool Address" value={`${poolInfo.poolAddress.substring(0, 8)}...`} link={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`} />
+        <InfoRow icon={Layers} label="Total APT Delegated to Pool" value={`${delegatedAmountApt.toLocaleString(undefined, {})} APT`} />
+        <InfoRow icon={Percent} label="Validator Commission Rate" value={`${commissionToDisplay.toFixed(2)} %`} />
+        <InfoRow icon={AprIcon} label="Est. Net Yield" value={`${netApy}% APY`} valueClasses="font-bold text-xl text-green-400" tooltipContent={aprApyTooltipContent} />
         <InfoRow
             icon={Clock}
             label="Pool Lockup Period Ends"
             value={unlockDateString}
-            valueClasses="text-gray-300"
-            subValue={unlockTimestamp && remainingSeconds > 0 ? unlockRemainingString : (unlockTimestamp ? '(Unlocked - Ready for unstake/withdraw)' : null)}
+            subValue={timeDependentSubValue} 
         />
       </div>
 
-     
       {isMounted && connected && (
         <>
           <hr className="my-6 border-t border-gray-700/60"/>
@@ -141,27 +130,9 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMou
             <div className="text-center py-4"><Loader2 size={24} className="animate-spin text-purple-400 mx-auto" /></div>
           ) : (
             <div className="space-y-2.5 text-sm">
-              <InfoRow
-                  icon={CheckSquare}
-                  label="Your Active APT Stake"
-                  value={`${userStake.active.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                  valueClasses="font-semibold text-green-400"
-                  iconColor="text-green-400"
-              />
-              <InfoRow
-                  icon={Hourglass}
-                  label="APT Pending Unstake"
-                  value={`${userStake.pendingInactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                  valueClasses="font-semibold text-zinc-400"
-                  iconColor="text-zinc-400"
-              />
-              <InfoRow
-                  icon={Package}
-                  label="APT Ready to Withdraw"
-                  value={`${userStake.inactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                  valueClasses="font-semibold text-blue-400"
-                  iconColor="text-blue-400"
-              />
+              <InfoRow icon={CheckSquare} label="Your Active APT Stake" value={`${userStake.active.toLocaleString(undefined, {})} APT`} valueClasses="font-semibold text-green-400" iconColor="text-green-400" />
+              <InfoRow icon={Hourglass} label="APT Pending Unstake" value={`${userStake.pendingInactive.toLocaleString(undefined, {})} APT`} valueClasses="font-semibold text-zinc-400" iconColor="text-zinc-400" />
+              <InfoRow icon={Package} label="APT Ready to Withdraw" value={`${userStake.inactive.toLocaleString(undefined, {})} APT`} valueClasses="font-semibold text-blue-400" iconColor="text-blue-400" />
             </div>
           )}
         </>
