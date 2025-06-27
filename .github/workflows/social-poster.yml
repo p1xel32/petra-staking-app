@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: 'blog/package-lock.json'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./blog
 
       - name: Run E-A-T Asset Producer
@@ -50,17 +50,18 @@ jobs:
           PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
         run: npx tsx scripts/social-poster.ts
 
-      - name: Commit and push if database and assets changed
+      - name: Commit and push if changes are detected
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           git add blog/scripts/processed_videos.json
           git add blog/video_assets/
+          git add blog/package-lock.json
           
           if ! git diff --staged --quiet; then
             git commit -m "🤖 Chore: Update E-A-T assets and database"
             git push
           else
-            echo "No new video assets to commit."
+            echo "No new video assets or dependency changes to commit."
           fi
