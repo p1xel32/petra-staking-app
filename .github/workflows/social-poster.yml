@@ -25,7 +25,7 @@ jobs:
         run: npm install
         working-directory: ./blog
 
-      - name: Run E-A-T Asset Producer
+      - name: Run SMM Poster Script
         working-directory: ./blog
         env:
           POSTS_JSON_URL: "https://aptcore.one/blog/posts.json"
@@ -55,13 +55,14 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add blog/scripts/processed_videos.json
-          git add blog/video_assets/
+          # Stage the social posts database and the lock file
+          git add blog/scripts/processed_social_posts.json
           git add blog/package-lock.json
           
+          # Check if there are staged changes before committing
           if ! git diff --staged --quiet; then
-            git commit -m "🤖 Chore: Update E-A-T assets and database"
+            git commit -m "🤖 Chore: Update processed posts SMM database"
             git push
           else
-            echo "No new video assets or dependency changes to commit."
+            echo "SMM database has no changes to commit."
           fi
