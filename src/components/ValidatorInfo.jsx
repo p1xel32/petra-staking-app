@@ -1,5 +1,4 @@
-// src/components/ValidatorInfo.jsx
-
+//src/components/Validatorinfo.jsx
 import React from 'react';
 import {
     Landmark,
@@ -15,7 +14,6 @@ import {
     CheckSquare,
     Loader2
 } from 'lucide-react';
-
 
 const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-semibold", link = null, subValue = null, iconColor = "text-purple-400", tooltipContent = null }) => (
   <div className="flex justify-between items-center py-2.5 border-b border-gray-700/60 last:border-b-0">
@@ -45,19 +43,6 @@ const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-
   </div>
 );
 
-// Функция formatRemainingTime остается без изменений
-function formatRemainingTime(totalSeconds) {
-  if (totalSeconds <= 0) return "Unlocked";
-  const days = Math.floor(totalSeconds / (3600 * 24));
-  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  let parts = [];
-  if (days > 0) parts.push(`${days}d`);
-  if (hours > 0) parts.push(`${hours}h`);
-  if (minutes > 0 || (days === 0 && hours === 0)) parts.push(`${minutes}m`);
-  return parts.length > 0 ? `in ${parts.join(' ')}` : "Soon";
-}
-
 export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMounted, connected }) {
 
   if (!poolInfo) {
@@ -69,35 +54,15 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMou
       );
   }
   
-  const commissionInBasisPoints = Number(poolInfo.operator_commission_percentage);
-  const commissionAsFraction = commissionInBasisPoints / 10000;
-  const commissionToDisplay = commissionAsFraction * 100;
-  const delegatedAmountApt = Number(poolInfo.active_stake_octas) / 100_000_000;
-  const netApy = apy ? (apy * (1 - commissionAsFraction)).toFixed(2) : 'N/A';
-  const grossApy = apy ? apy.toFixed(2) : 'N/A';
+  const commissionAsFraction = Number(poolInfo.operator_commission_percentage) / 10000;
   
-  const unlockTimestamp = poolInfo.locked_until_secs;
-  const unlockDateString = unlockTimestamp ? new Date(unlockTimestamp * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
-
-
-  let timeDependentSubValue = null;
-  if (isMounted && unlockTimestamp) {
-    const nowSeconds = Math.floor(Date.now() / 1000);
-    const remainingSeconds = unlockTimestamp - nowSeconds;
-    if (remainingSeconds > 0) {
-        timeDependentSubValue = formatRemainingTime(remainingSeconds);
-    } else {
-        timeDependentSubValue = '(Unlocked)';
-    }
-  }
-
   const aprApyTooltipContent = (
     <>
       <p className="font-semibold mb-1 text-sm">Reward Calculation:</p>
-      {netApy !== 'N/A' && <p><strong>Est. Net APY: {netApy}%</strong></p>}
-      <p className="text-xs">(after {commissionToDisplay.toFixed(2)}% commission, compounded)</p>
+      {isMounted && apy && <p><strong>Est. Net APY: {(apy * (1 - commissionAsFraction)).toFixed(2)}%</strong></p>}
+      {isMounted && <p className="text-xs">(after {(commissionAsFraction * 100).toFixed(2)}% commission, compounded)</p>}
       <hr className="my-1.5 border-gray-600" />
-      {grossApy !== 'N/A' && <p className="text-xs">Est. Gross APY: {grossApy}%</p>}
+      {isMounted && apy && <p className="text-xs">Est. Gross APY: {apy.toFixed(2)}%</p>}
       <p className="text-xs mt-1.5 italic">APY includes compounding. All figures are estimates and may vary.</p>
     </>
   );
@@ -110,15 +75,33 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMou
         </h2>
       </div>
       <div className="space-y-3 mb-6">
-        <InfoRow icon={Landmark} label="Validator Pool Address" value={`${poolInfo.poolAddress.substring(0, 8)}...`} link={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`} />
-        <InfoRow icon={Layers} label="Total APT Delegated to Pool" value={`${delegatedAmountApt.toLocaleString(undefined, {})} APT`} />
-        <InfoRow icon={Percent} label="Validator Commission Rate" value={`${commissionToDisplay.toFixed(2)} %`} />
-        <InfoRow icon={AprIcon} label="Est. Net Yield" value={`${netApy}% APY`} valueClasses="font-bold text-xl text-green-400" tooltipContent={aprApyTooltipContent} />
+        <InfoRow
+            icon={Landmark}
+            label="Validator Pool Address"
+            value={`${poolInfo.poolAddress.substring(0, 8)}...${poolInfo.poolAddress.substring(poolInfo.poolAddress.length - 6)}`}
+            link={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`}
+        />
+        <InfoRow
+            icon={Layers}
+            label="Total APT Delegated to Pool"
+            value={isMounted ? `${(Number(poolInfo.active_stake_octas) / 1e8).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} APT` : 'Loading...'}
+        />
+        <InfoRow
+            icon={Percent}
+            label="Validator Commission Rate"
+            value={isMounted ? `${(commissionAsFraction * 100).toFixed(2)} %` : '...'}
+        />
+        <InfoRow
+            icon={AprIcon}
+            label="Est. Net Yield"
+            value={isMounted && apy ? `${(apy * (1 - commissionAsFraction)).toFixed(2)}% APY` : '...'}
+            valueClasses="font-bold text-xl text-green-400"
+            tooltipContent={aprApyTooltipContent}
+        />
         <InfoRow
             icon={Clock}
             label="Pool Lockup Period Ends"
-            value={unlockDateString}
-            subValue={timeDependentSubValue} 
+            value={isMounted ? new Date(poolInfo.locked_until_secs * 1000).toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '...'}
         />
       </div>
 
@@ -130,9 +113,27 @@ export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMou
             <div className="text-center py-4"><Loader2 size={24} className="animate-spin text-purple-400 mx-auto" /></div>
           ) : (
             <div className="space-y-2.5 text-sm">
-              <InfoRow icon={CheckSquare} label="Your Active APT Stake" value={`${userStake.active.toLocaleString(undefined, {})} APT`} valueClasses="font-semibold text-green-400" iconColor="text-green-400" />
-              <InfoRow icon={Hourglass} label="APT Pending Unstake" value={`${userStake.pendingInactive.toLocaleString(undefined, {})} APT`} valueClasses="font-semibold text-zinc-400" iconColor="text-zinc-400" />
-              <InfoRow icon={Package} label="APT Ready to Withdraw" value={`${userStake.inactive.toLocaleString(undefined, {})} APT`} valueClasses="font-semibold text-blue-400" iconColor="text-blue-400" />
+              <InfoRow
+                  icon={CheckSquare}
+                  label="Your Active APT Stake"
+                  value={`${userStake.active.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                  valueClasses="font-semibold text-green-400"
+                  iconColor="text-green-400"
+              />
+              <InfoRow
+                  icon={Hourglass}
+                  label="APT Pending Unstake"
+                  value={`${userStake.pendingInactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                  valueClasses="font-semibold text-zinc-400"
+                  iconColor="text-zinc-400"
+              />
+              <InfoRow
+                  icon={Package}
+                  label="APT Ready to Withdraw"
+                  value={`${userStake.inactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
+                  valueClasses="font-semibold text-blue-400"
+                  iconColor="text-blue-400"
+              />
             </div>
           )}
         </>

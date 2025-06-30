@@ -1,5 +1,9 @@
 .
 ├── _api
+│   ├── getApyCalculatorData.js
+│   ├── getIndexData.js
+│   ├── getLockupVisualizerData.js
+│   ├── getPageData.js
 │   └── getUserStake.js
 ├── blog
 │   ├── astro.config.mjs
@@ -8,9 +12,41 @@
 │   ├── pnpm-lock.yaml
 │   ├── postcss.config.cjs
 │   ├── public
+│   │   ├── apple-touch-icon.png
+│   │   ├── aptcore-logo.svg
+│   │   ├── blog-assets
+│   │   ├── blog-placeholder-1.jpg
+│   │   ├── blog-placeholder-2.jpg
+│   │   ├── blog-placeholder-3.jpg
+│   │   ├── blog-placeholder-4.jpg
+│   │   ├── blog-placeholder-5.jpg
+│   │   ├── blog-placeholder-about.jpg
+│   │   ├── favicon.ico
+│   │   ├── fonts
+│   │   ├── og-image.png
+│   │   ├── robots.txt
+│   │   ├── twitter-image.png
+│   │   └── videos.json
 │   ├── README.md
 │   ├── scripts
+│   │   ├── client_secret.json
+│   │   ├── content-generator.ts
+│   │   ├── posts.json
+│   │   ├── processed_social_posts.json
+│   │   ├── processed_videos.json
+│   │   ├── script.json
+│   │   ├── social-poster.ts
+│   │   ├── token.json
+│   │   ├── topic_queue.json
+│   │   └── video-producer.ts
 │   ├── src
+│   │   ├── assets
+│   │   ├── components
+│   │   ├── consts.ts
+│   │   ├── content
+│   │   ├── layouts
+│   │   ├── pages
+│   │   └── styles
 │   ├── tailwind.config.mjs
 │   └── tsconfig.json
 ├── index.css
@@ -18,8 +54,14 @@
 ├── package.json
 ├── pages
 │   ├── _error
+│   │   ├── +config.js
+│   │   └── +Page.jsx
 │   ├── index
+│   │   ├── +data.js
+│   │   └── +Page.jsx
 │   └── tools
+│       ├── aptos-staking-apy-calculator
+│       └── aptos-staking-lockup-visualizer
 ├── pnpm-lock.yaml
 ├── postcss.config.cjs
 ├── project_structure.txt
@@ -44,13 +86,26 @@
 ├── src
 │   ├── App.jsx
 │   ├── assets
+│   │   ├── aptcore_interface.png
+│   │   ├── aptcore-logo.svg
+│   │   └── noise.png
 │   ├── components
+│   │   ├── ClientOnly.jsx
+│   │   ├── ConnectWalletButton.jsx
+│   │   ├── FaqItem.jsx
+│   │   ├── FaqSection.jsx
+│   │   ├── IndexPageContent.jsx
+│   │   ├── Layout
+│   │   ├── StakeUnstakeControls.jsx
+│   │   ├── StakingInterface.jsx
+│   │   ├── StructuredData.jsx
+│   │   └── ValidatorInfo.jsx
 │   ├── hooks
+│   │   └── useWallet.jsx
 │   ├── index.css
-│   ├── services
 │   └── walletProvider.jsx
 ├── tailwind.config.js
 ├── vercel.json
 └── vite.config.js
 
-17 directories, 37 files
+27 directories, 82 files

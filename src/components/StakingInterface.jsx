@@ -1,18 +1,32 @@
-// src/components/StakingInterface.jsx
+// Файл: src/components/StakingInterface.jsx
+
 import React, { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { Wallet } from 'lucide-react';
-import ValidatorInfo from '@/components/ValidatorInfo';
-import ClientOnly from '@/components/ClientOnly';
+import { motion } from 'framer-motion';
 
-const WidgetSkeleton = ({ height = 'h-48' }) => ( <div className={`w-full ... animate-pulse ${height}`}>...</div> );
-const StakeUnstakeControls = lazy(() => import('@/components/StakeUnstakeControls'));
+import ValidatorInfo from './ValidatorInfo';
+const StakeUnstakeControls = lazy(() => import('./StakeUnstakeControls'));
 
-// This component ONLY runs on the client, so using useWallet() here is safe.
+const WidgetSkeleton = ({ height = 'h-48' }) => (
+  <div className={`w-full bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)] animate-pulse ${height}`}>
+    <div className="h-6 bg-gray-500/30 rounded w-3/4 mb-4"></div>
+    <div className="h-4 bg-gray-500/30 rounded w-1/2 mb-2"></div>
+    <div className="h-4 bg-gray-500/30 rounded w-5/6"></div>
+  </div>
+);
+
 export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedApy }) {
   const { account, connected } = useWallet();
   const userAccountAddress = account?.address ? account.address.toString() : null;
-  const [userStake, setUserStake] = useState({ active: 0, inactive: 0, pendingInactive: 0, isFetching: true });
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const [userStake, setUserStake] = useState({
+    active: 0, inactive: 0, pendingInactive: 0, isFetching: true,
+  });
 
   const fetchUserStake = useCallback(async () => {
     if (!userAccountAddress || !serverFetchedPoolInfo?.poolAddress) {
@@ -21,50 +35,62 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
     }
     setUserStake(prev => ({ ...prev, isFetching: true }));
     try {
-      const poolAddress = serverFetchedPoolInfo.poolAddress;
-      const response = await fetch(`/api/getUserStake?account=${userAccountAddress}&pool=${poolAddress}`);
-      if (!response.ok) throw new Error(`API request failed`);
+      const response = await fetch(`/api/getUserStake?account=${userAccountAddress}&pool=${serverFetchedPoolInfo.poolAddress}`);
+      if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
       const data = await response.json();
       setUserStake({ ...data, isFetching: false });
-    } catch (err) {
-      console.error("Error calling getUserStake API:", err);
+    } catch (error) {
+      console.error("Error fetching user stake via API:", error);
       setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
     }
   }, [userAccountAddress, serverFetchedPoolInfo?.poolAddress]);
 
   useEffect(() => {
-    if (connected && userAccountAddress) fetchUserStake();
+    if (connected && userAccountAddress) {
+      fetchUserStake();
+    } else {
+      setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
+    }
   }, [connected, userAccountAddress, fetchUserStake]);
 
-  return (
-    <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section">
-      <Suspense fallback={<WidgetSkeleton height="h-48" />}>
-        <div className="w-full">
-          <ValidatorInfo 
-            poolInfo={serverFetchedPoolInfo} 
-            apy={serverFetchedApy} 
-            userStake={userStake}
-          />
-        </div>
-      </Suspense>
-      
-      {connected && userAccountAddress ? (
-        <Suspense fallback={<WidgetSkeleton height="h-64" />}>
-          <StakeUnstakeControls 
-            account={userAccountAddress} 
-            onTransactionSuccess={fetchUserStake} 
-            userStake={userStake} 
-          />
+  const renderControls = () => {
+    if (connected && userAccountAddress) {
+      return (
+        <Suspense key="connected-view" fallback={<WidgetSkeleton height="h-64" />}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="w-full">
+            <StakeUnstakeControls 
+              account={userAccountAddress} 
+              onTransactionSuccess={fetchUserStake} 
+              userStake={userStake} 
+            />
+          </motion.div>
         </Suspense>
-      ) : (
-        <div className="text-center w-full bg-white/5 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-          <div className="flex justify-center mb-4">
-            <Wallet size={32} className="text-purple-400" />
-          </div>
+      );
+    } else {
+      return (
+        <motion.div key="unconnected-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="text-center w-full bg-white/5 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)]">
           <h2 className="text-2xl font-semibold mb-3 text-gray-100">Ready to Earn Aptos Staking Rewards?</h2>
-          <p className="text-base text-zinc-300 mb-4">Connect your Aptos wallet to get started. It's the first step to stake your APT, manage your delegation, and start accumulating rewards.</p>
-        </div>
-      )}
-    </div>
+          <p className="text-base text-zinc-300 mb-4">Connect your Aptos wallet to aptcore.one to get started.</p>
+        </motion.div>
+      );
+    }
+  };
+
+  return (
+    <>
+      <Suspense fallback={<WidgetSkeleton height="h-48" />}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="w-full">
+              <ValidatorInfo 
+                poolInfo={serverFetchedPoolInfo} 
+                apy={serverFetchedApy} 
+                account={userAccountAddress} 
+                userStake={userStake}
+                isMounted={isMounted}
+                connected={connected}
+              />
+          </motion.div>
+      </Suspense>
+      {renderControls()}
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Space } from 'antd';
-import { Cog, Info as InfoIcon, Clock, KeyRound } from 'lucide-react'; // KeyRound for recurring lockup
+import { Cog, Info as InfoIcon, Clock, KeyRound } from 'lucide-react';
 
 const { Text, Title } = Typography;
 
@@ -14,8 +14,8 @@ const InfoRowUIDisplay = ({ label, value, icon: Icon }) => (
   </div>
 );
 
-const NetworkInfoDisplay = ({ stakingConfig, epochTiming, validatorPoolInfo }) => { // validatorPoolInfo can be used if needed
-  if (!stakingConfig || !epochTiming) { // validatorPoolInfo might not be needed here if main timeline shows its specifics
+const NetworkInfoDisplay = ({ stakingConfig, epochTiming, validatorPoolInfo }) => {
+  if (!stakingConfig || !epochTiming) {
     return (
       <div className="mt-6 text-center text-slate-400 text-sm">
         Loading network parameters...
@@ -38,7 +38,7 @@ const NetworkInfoDisplay = ({ stakingConfig, epochTiming, validatorPoolInfo }) =
     }
   }
 
-  const currentEpoch = epochTiming.currentEpoch ? epochTiming.currentEpoch.toLocaleString() : 'N/A';
+  const currentEpoch = epochTiming.currentEpoch ? Number(epochTiming.currentEpoch).toLocaleString() : 'N/A';
 
   let dataAsOfDisplay = 'N/A';
   if (epochTiming.dataAsOfTimestamp) { 
@@ -46,13 +46,6 @@ const NetworkInfoDisplay = ({ stakingConfig, epochTiming, validatorPoolInfo }) =
       hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
   }
-  
-  // Info about the specific validator being visualized (optional here if shown elsewhere)
-  // let validatorSpecificInfo = null;
-  // if (validatorPoolInfo) {
-  //   validatorSpecificInfo = `Target Pool (${validatorPoolInfo.poolAddress.substring(0,6)}...) Lockup End: ${new Date(validatorPoolInfo.locked_until_secs * 1000).toLocaleDateString()}`;
-  // }
-
 
   return (
     <div className="mt-6 sm:mt-8">
@@ -69,9 +62,6 @@ const NetworkInfoDisplay = ({ stakingConfig, epochTiming, validatorPoolInfo }) =
         {epochTiming.dataAsOfTimestamp && (
            <InfoRowUIDisplay icon={InfoIcon} label="Epoch Data as of" value={dataAsOfDisplay} />
         )}
-        {/* {validatorSpecificInfo && (
-          <InfoRowUIDisplay icon={InfoIcon} label="Target Validator Info" value={validatorSpecificInfo} />
-        )} */}
       </div>
     </div>
   );

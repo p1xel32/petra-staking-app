@@ -1,5 +1,4 @@
-// File: pages/tools/aptos-staking-lockup-visualizer/+Page.jsx
-
+//pages/tools/aptos-staking-lockup-visualizer
 import React, { useState, useEffect, useCallback } from 'react';
 import { Typography, Spin, Divider } from 'antd';
 import { Helmet } from 'react-helmet-async';
