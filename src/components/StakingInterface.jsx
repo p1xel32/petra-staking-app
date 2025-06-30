@@ -1,5 +1,3 @@
-// Файл: src/components/StakingInterface.jsx
-
 import React, { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { motion } from 'framer-motion';
@@ -46,12 +44,14 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
   }, [userAccountAddress, serverFetchedPoolInfo?.poolAddress]);
 
   useEffect(() => {
-    if (connected && userAccountAddress) {
+    // ✅ ИСПРАВЛЕНИЕ: Добавлена проверка на наличие serverFetchedPoolInfo.poolAddress
+    // Это предотвращает отправку запроса до того, как данные о пуле будут доступны.
+    if (connected && userAccountAddress && serverFetchedPoolInfo?.poolAddress) {
       fetchUserStake();
     } else {
       setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
     }
-  }, [connected, userAccountAddress, fetchUserStake]);
+  }, [connected, userAccountAddress, fetchUserStake, serverFetchedPoolInfo]); // ✅ ИСПРАВЛЕНИЕ: serverFetchedPoolInfo добавлен в массив зависимостей
 
   const renderControls = () => {
     if (connected && userAccountAddress) {
