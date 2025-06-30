@@ -34,9 +34,6 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
     setUserStake(prev => ({ ...prev, isFetching: true }));
     try {
       const apiUrl = `/api/getUserStake?account=${userAccountAddress}&pool=${serverFetchedPoolInfo.poolAddress}`;
-      
-      console.log("DEBUG: Fetching user stake with URL:", apiUrl);
-      
       const response = await fetch(apiUrl);
       if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
       const data = await response.json();
