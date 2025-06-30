@@ -4,34 +4,31 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
+    "@aptos-connect/wallet-adapter-plugin": "^2.4.3",
     "@aptos-labs/derived-wallet-ethereum": "^0.3.0",
     "@aptos-labs/derived-wallet-solana": "^0.3.0",
-    "@aptos-labs/ts-sdk": "^2.0.1",
+    "@aptos-labs/ts-sdk": "^3.0.0",
     "@aptos-labs/wallet-adapter-core": "^5.7.0",
     "@aptos-labs/wallet-adapter-react": "^6.1.1",
     "@aptos-labs/wallet-standard": "^0.4.0",
     "@vitejs/plugin-react": "^4.5.1",
     "@wallet-standard/core": "^1.1.1",
     "antd": "5.25.2",
-    "axios": "^1.9.0",
     "ethers": "^5.7.2",
-    "express": "^4.19.2",
     "framer-motion": "10.12.5",
-    "http-proxy-middleware": "^3.0.5",
     "lucide-react": "^0.508.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^7.6.1",
     "tailwindcss-animate": "^1.0.7",
     "vike": "^0.4.231",
     "vike-react": "^0.6.4",
@@ -44,6 +41,7 @@
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "postcss": "^8.5.4",
+    "rollup-plugin-visualizer": "^6.0.3",
     "tailwindcss": "^3.3.2",
     "vite-plugin-cjs-interop": "^2.2.0",
     "vite-plugin-vercel": "^9.0.7"
@@ -52,7 +50,9 @@
     "overrides": {
       "axios": "^1.9.0",
       "esbuild": "^0.25.0",
-      "path-to-regexp": "^6.3.0"
+      "path-to-regexp": "^6.3.0",
+      "@aptos-labs/ts-sdk": "$@aptos-labs/ts-sdk",
+      "aptos": "npm:@aptos-labs/ts-sdk@^2.0.0"
     }
   }
 }

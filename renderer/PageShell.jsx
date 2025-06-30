@@ -1,11 +1,16 @@
+// renderer/PageShell.jsx
+
 import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { PageContextProvider } from './usePageContext';
 import { ConfigProvider, theme as antTheme, Spin } from 'antd';
-import { WalletProvider } from '../src/walletProvider';
 import Layout from '../src/components/Layout/Layout';
-import '../src/index.css';
+// ✅ 1. Импортируем ClientOnly
+import ClientOnly from '../src/components/ClientOnly';
+
+// Стили остаются здесь
 import 'antd/dist/reset.css';
+import '../src/index.css';
 
 const PageLoader = () => (
   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#e0e0e0', backgroundColor: '#18181b' }}>
@@ -30,20 +35,21 @@ export function PageShell({ pageContext, children }) {
       <PageContextProvider pageContext={pageContext}>
         <Helmet>
           <html lang="en" />
-          <meta name="description" content="Petra Staking Application - Default Description" />
-          <title>Petra Staking App - Default Title</title>
-        </Helmet>
-        <WalletProvider>
-          <ConfigProvider
-            theme={{ algorithm: isDarkMode ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm, token: { colorPrimary: '#a855f7' } }}
-          >
+          <meta name="description" content="aptcore.one: Secure & Transparent Aptos (APT) Staking Platform" />
+          <title>aptcore.one: Secure & Transparent Aptos (APT) Staking</title>
+        </Helmet>        
+        <ConfigProvider
+          theme={{ algorithm: isDarkMode ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm, token: { colorPrimary: '#a855f7' } }}
+        >
+          {/* ✅ 2. Оборачиваем Layout в ClientOnly */}
+          <ClientOnly>
             <Layout>
               <Suspense fallback={<PageLoader />}>
                 {children}
               </Suspense>
             </Layout>
-          </ConfigProvider>
-        </WalletProvider>
+          </ClientOnly>
+        </ConfigProvider>
       </PageContextProvider>
     </React.StrictMode>
   );

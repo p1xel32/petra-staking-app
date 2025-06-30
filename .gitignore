@@ -14,3 +14,5 @@ Thumbs.db
 .vscode/
 .idea/
 *.sublime-project
+.tmp.driveupload/
+.vercel

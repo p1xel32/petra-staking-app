@@ -7,6 +7,7 @@ export default {
   passToClient: [
     'pageProps',
     'title',
-    'routeParams'
-  ],
+    'routeParams',
+    'data'
+  ]
 };

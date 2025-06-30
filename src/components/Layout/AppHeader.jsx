@@ -1,9 +1,7 @@
-// src/components/Layout/AppHeader.jsx
 import React, { useState, useEffect, useRef } from 'react';
-// react-router-dom import removed assuming Link/NavLink are replaced by <a> tags
-
 import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
 import ConnectWalletButton from '../ConnectWalletButton';
+import ClientOnly from '../ClientOnly'; // ✅ ИМПОРТИРУЕМ НАШ СПАСАТЕЛЬНЫЙ КОМПОНЕНТ
 
 const AppHeader = () => {
   const BLOG_URL_ASTRO = "/blog";
@@ -48,7 +46,7 @@ const AppHeader = () => {
   return (
     <header className="relative w-full backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center sticky top-0 z-50">
       <div className="flex items-center">
-        <a // Using <a> tag for Vike compatibility
+        <a
           href="/"
           className="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1 shrink-0"
           aria-label="aptcore.one homepage"
@@ -79,7 +77,7 @@ const AppHeader = () => {
 
         <nav className="hidden md:flex items-center gap-x-1 sm:gap-x-2 ml-6 lg:ml-10">
           {navLinks.map(({ label, href, external }) => (
-            <a // Using <a> tags for Vike compatibility
+            <a
               key={label}
               href={href}
               className="text-sm font-medium text-zinc-300 hover:text-purple-400 transition-colors px-2.5 py-1.5 rounded-md"
@@ -94,7 +92,10 @@ const AppHeader = () => {
 
       <div className="flex items-center">
         <div className="flex-shrink-0">
-          <ConnectWalletButton />
+          {/* ✅ КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: Оборачиваем кнопку в ClientOnly */}
+          <ClientOnly>
+            <ConnectWalletButton />
+          </ClientOnly>
         </div>
       </div>
 
@@ -106,7 +107,7 @@ const AppHeader = () => {
         >
           <nav className="flex flex-col px-4 py-4 space-y-1.5">
             {navLinks.map(({ label, href, external }) => (
-              <a // Using <a> tags for Vike compatibility
+              <a
                 key={label}
                 href={href}
                 onClick={handleMobileLinkClick}

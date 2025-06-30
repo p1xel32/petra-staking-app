@@ -1,2 +1,0 @@
-// src/pages/tools/AptosAPYCalculator/index.js
-export { default } from './AptosAPYCalculatorPage';
