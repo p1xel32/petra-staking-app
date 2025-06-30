@@ -33,7 +33,8 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
     }
     setUserStake(prev => ({ ...prev, isFetching: true }));
     try {
-      const response = await fetch(`/api/getUserStake?account=${userAccountAddress}&pool=${serverFetchedPoolInfo.poolAddress}`);
+      const apiUrl = `/api/getUserStake?account=${userAccountAddress}&pool=${serverFetchedPoolInfo.poolAddress}`;
+      const response = await fetch(apiUrl);
       if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
       const data = await response.json();
       setUserStake({ ...data, isFetching: false });
@@ -44,14 +45,12 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
   }, [userAccountAddress, serverFetchedPoolInfo?.poolAddress]);
 
   useEffect(() => {
-    // ✅ ИСПРАВЛЕНИЕ: Добавлена проверка на наличие serverFetchedPoolInfo.poolAddress
-    // Это предотвращает отправку запроса до того, как данные о пуле будут доступны.
     if (connected && userAccountAddress && serverFetchedPoolInfo?.poolAddress) {
       fetchUserStake();
     } else {
       setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
     }
-  }, [connected, userAccountAddress, fetchUserStake, serverFetchedPoolInfo]); // ✅ ИСПРАВЛЕНИЕ: serverFetchedPoolInfo добавлен в массив зависимостей
+  }, [connected, userAccountAddress, fetchUserStake, serverFetchedPoolInfo]);
 
   const renderControls = () => {
     if (connected && userAccountAddress) {
