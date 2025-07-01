@@ -1,68 +1,49 @@
+// --- START OF FILE NetworkInfoDisplay.jsx ---
+
 import React from 'react';
-import { Typography, Space } from 'antd';
-import { Cog, Info as InfoIcon, Clock, KeyRound } from 'lucide-react';
+import { Layers, Clock, CalendarDays, Hash } from 'lucide-react';
 
-const { Text, Title } = Typography;
-
-const InfoRowUIDisplay = ({ label, value, icon: Icon }) => (
-  <div className="flex justify-between items-center py-2.5 border-b border-slate-700/60 last:border-b-0">
-    <span className="text-gray-400 flex items-center text-sm">
-      {Icon && <Icon size={16} className="mr-2.5 text-purple-400 flex-shrink-0" />}
-      {label}:
-    </span>
-    <Text className="text-sm text-slate-200 font-medium text-right">{value}</Text>
-  </div>
+// Универсальный компонент для строки данных
+const DataRow = ({ icon: Icon, label, children }) => (
+    <div className="flex justify-between items-center py-3">
+        <div className="flex items-center text-sm">
+            <Icon size={18} className="text-zinc-400 mr-4 flex-shrink-0" />
+            <span className="text-zinc-300">{label}</span>
+        </div>
+        <div className="flex items-center justify-end text-right text-sm font-mono text-zinc-100">
+            {children}
+        </div>
+    </div>
 );
 
-const NetworkInfoDisplay = ({ stakingConfig, epochTiming, validatorPoolInfo }) => {
+const NetworkInfoDisplay = ({ stakingConfig, epochTiming }) => {
   if (!stakingConfig || !epochTiming) {
-    return (
-      <div className="mt-6 text-center text-slate-400 text-sm">
-        Loading network parameters...
-      </div>
-    );
+    return null; // Рендер загрузчика будет обработан в Page.jsx
   }
   
-  let recurringLockupDisplay = 'N/A';
-  if (stakingConfig.recurring_lockup_duration_secs) {
-    const lockupSecs = Number(stakingConfig.recurring_lockup_duration_secs);
-    recurringLockupDisplay = (lockupSecs / (60 * 60 * 24)).toFixed(1) + " days";
-  }
+  const recurringLockupDays = (Number(stakingConfig.recurring_lockup_duration_secs) / 86400).toFixed(1);
+  const epochIntervalHours = `~${(Number(epochTiming.epochIntervalMicroseconds) / 1_000_000 / 3600).toFixed(1)} hours`;
   
-  let epochIntervalHoursDisplay = 'N/A';
-  if (epochTiming.epochIntervalMicroseconds) {
-    const intervalMicros = BigInt(epochTiming.epochIntervalMicroseconds);
-    if (intervalMicros > 0) {
-      const intervalSecs = Number(intervalMicros / 1_000_000n);
-      epochIntervalHoursDisplay = "~" + (intervalSecs / 3600).toFixed(1) + " hours";
-    }
-  }
+  // ✅ ИСПРАВЛЕННАЯ СТРОКА
+  const currentEpoch = epochTiming.currentEpoch ? Number(epochTiming.currentEpoch).toLocaleString() : 'Loading...';
 
-  const currentEpoch = epochTiming.currentEpoch ? Number(epochTiming.currentEpoch).toLocaleString() : 'N/A';
-
-  let dataAsOfDisplay = 'N/A';
-  if (epochTiming.dataAsOfTimestamp) { 
-    dataAsOfDisplay = new Date(epochTiming.dataAsOfTimestamp).toLocaleString(undefined, {
-      hour: '2-digit', minute: '2-digit', second: '2-digit'
-    });
-  }
+  const dataAsOfDisplay = epochTiming.epochStartTime ? new Date(epochTiming.epochStartTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : 'Loading...';
 
   return (
-    <div className="mt-6 sm:mt-8">
-      <Title level={3} className="!text-xl sm:!text-2xl !font-semibold !mb-5 text-center !text-white">
-        <Space align="center">
-            <Cog size={24} className="text-purple-400"/>
-            <span>Network & Staking Parameters</span>
-        </Space>
-      </Title>
-      <div className="bg-slate-800/40 backdrop-blur-md border border-slate-700/60 rounded-xl p-4 sm:p-6 shadow-md">
-        <InfoRowUIDisplay icon={KeyRound} label="Network Staking Cycle Duration" value={recurringLockupDisplay} />
-        <InfoRowUIDisplay icon={InfoIcon} label="Current Epoch Number" value={currentEpoch} />
-        <InfoRowUIDisplay icon={Clock} label="Average Epoch Duration" value={epochIntervalHoursDisplay} />
-        {epochTiming.dataAsOfTimestamp && (
-           <InfoRowUIDisplay icon={InfoIcon} label="Epoch Data as of" value={dataAsOfDisplay} />
-        )}
-      </div>
+    // Убран внешний div и заголовок. Теперь это просто список данных.
+    <div className="divide-y divide-zinc-800">
+      <DataRow icon={Layers} label="Network Staking Cycle Duration">
+        <span>{recurringLockupDays} days</span>
+      </DataRow>
+      <DataRow icon={Hash} label="Current Epoch Number">
+        <span>{currentEpoch}</span>
+      </DataRow>
+      <DataRow icon={Clock} label="Average Epoch Duration">
+        <span>{epochIntervalHours}</span>
+      </DataRow>
+      <DataRow icon={CalendarDays} label="Epoch Data as of">
+        <span>{dataAsOfDisplay}</span>
+      </DataRow>
     </div>
   );
 };

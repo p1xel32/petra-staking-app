@@ -1,143 +1,147 @@
-//src/components/Validatorinfo.jsx
 import React from 'react';
 import {
-    Landmark,
-    Percent,
-    TrendingUp as AprIcon,
-    Info as InfoIcon,
-    Clock,
-    Activity,
-    ExternalLink,
-    Package,
-    Hourglass,
-    Layers,
-    CheckSquare,
-    Loader2
+    Network, Database, BadgePercent, Signal, CalendarClock,
+    Percent, Info as InfoIcon, Loader2, ExternalLink
 } from 'lucide-react';
 
-const InfoRow = ({ icon: Icon, label, value, valueClasses = "text-gray-100 font-semibold", link = null, subValue = null, iconColor = "text-purple-400", tooltipContent = null }) => (
-  <div className="flex justify-between items-center py-2.5 border-b border-gray-700/60 last:border-b-0">
-    <span className="text-gray-400 flex items-center text-sm">
-      {Icon && <Icon size={16} className={`mr-2 ${iconColor}`} />}
-      {label}:
-    </span>
-    {link ? (
-      <a href={link} target="_blank" rel="noopener noreferrer" className={`font-mono text-sm break-all text-right ${valueClasses} hover:text-purple-300 transition-colors duration-150 flex items-center gap-1`}>
-        {value}
-        <ExternalLink size={12} />
-      </a>
-    ) : (
-      <div className="flex items-center justify-end text-right">
-        <span className={`text-sm ${valueClasses}`}>{value}</span>
-        {tooltipContent && (
-          <span className="ml-1.5 group relative cursor-help">
-            <InfoIcon size={14} className="text-gray-500 group-hover:text-gray-300" />
-            <div className="absolute bottom-full right-0 transform translate-y-0 mb-2 w-64 p-3 text-xs text-left bg-gray-800 border border-gray-700 text-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-              {tooltipContent}
-            </div>
-          </span>
-        )}
-        {subValue && !tooltipContent && <p className="text-xs text-zinc-400 ml-1">{subValue}</p>}
-      </div>
-    )}
-  </div>
+// --- ВСПОМОГАТЕЛЬНЫЕ КОМПОНЕНТЫ ---
+
+// ✅ УЛУЧШЕННЫЙ КОМПОНЕНТ КАРТОЧКИ С НОВЫМ ДИЗАЙНОМ
+const StatCard = ({ icon: Icon, label, children }) => (
+    <div className="
+      bg-zinc-900/50
+      rounded-xl p-4
+      border border-white/10
+      transition-colors duration-200
+      hover:bg-zinc-800/50
+    ">
+        <div className="flex items-center text-sm text-zinc-400">
+            <Icon size={16} className="mr-2" />
+            <span>{label}</span>
+        </div>
+        <div className="mt-1 text-2xl font-semibold text-zinc-100">
+            {children}
+        </div>
+    </div>
 );
 
-export default function ValidatorInfo({ poolInfo, apy, account, userStake, isMounted, connected }) {
-
-  if (!poolInfo) {
-      return (
-        <div className="w-full text-center py-8">
-          <Activity size={36} className="text-purple-400 animate-spin mx-auto mb-4" />
-          <p className="text-gray-400 text-lg">Loading Aptos Validator Info...</p>
+// Базовый компонент строки для отображения данных
+const DataRow = ({ icon: Icon, label, children }) => (
+    <div className="flex justify-between items-center py-3">
+        <div className="flex items-center text-sm">
+            <Icon size={16} className="text-zinc-400 mr-4 flex-shrink-0" />
+            <span className="text-zinc-300">{label}</span>
         </div>
-      );
-  }
-  
-  const commissionAsFraction = Number(poolInfo.operator_commission_percentage) / 10000;
-  
-  const aprApyTooltipContent = (
-    <>
-      <p className="font-semibold mb-1 text-sm">Reward Calculation:</p>
-      {isMounted && apy && <p><strong>Est. Net APY: {(apy * (1 - commissionAsFraction)).toFixed(2)}%</strong></p>}
-      {isMounted && <p className="text-xs">(after {(commissionAsFraction * 100).toFixed(2)}% commission, compounded)</p>}
-      <hr className="my-1.5 border-gray-600" />
-      {isMounted && apy && <p className="text-xs">Est. Gross APY: {apy.toFixed(2)}%</p>}
-      <p className="text-xs mt-1.5 italic">APY includes compounding. All figures are estimates and may vary.</p>
-    </>
-  );
-
-  return (
-    <div className="w-full text-gray-200">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-100">
-          Validator Pool Details
-        </h2>
-      </div>
-      <div className="space-y-3 mb-6">
-        <InfoRow
-            icon={Landmark}
-            label="Validator Pool Address"
-            value={`${poolInfo.poolAddress.substring(0, 8)}...${poolInfo.poolAddress.substring(poolInfo.poolAddress.length - 6)}`}
-            link={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`}
-        />
-        <InfoRow
-            icon={Layers}
-            label="Total APT Delegated to Pool"
-            value={isMounted ? `${(Number(poolInfo.active_stake_octas) / 1e8).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} APT` : 'Loading...'}
-        />
-        <InfoRow
-            icon={Percent}
-            label="Validator Commission Rate"
-            value={isMounted ? `${(commissionAsFraction * 100).toFixed(2)} %` : '...'}
-        />
-        <InfoRow
-            icon={AprIcon}
-            label="Est. Net Yield"
-            value={isMounted && apy ? `${(apy * (1 - commissionAsFraction)).toFixed(2)}% APY` : '...'}
-            valueClasses="font-bold text-xl text-green-400"
-            tooltipContent={aprApyTooltipContent}
-        />
-        <InfoRow
-            icon={Clock}
-            label="Pool Lockup Period Ends"
-            value={isMounted ? new Date(poolInfo.locked_until_secs * 1000).toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '...'}
-        />
-      </div>
-
-      {isMounted && connected && (
-        <>
-          <hr className="my-6 border-t border-gray-700/60"/>
-          <h3 className="text-xl font-semibold mb-4 text-center text-gray-100">Your Current Aptos (APT) Stake with aptcore.one</h3>
-          {userStake.isFetching ? (
-            <div className="text-center py-4"><Loader2 size={24} className="animate-spin text-purple-400 mx-auto" /></div>
-          ) : (
-            <div className="space-y-2.5 text-sm">
-              <InfoRow
-                  icon={CheckSquare}
-                  label="Your Active APT Stake"
-                  value={`${userStake.active.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                  valueClasses="font-semibold text-green-400"
-                  iconColor="text-green-400"
-              />
-              <InfoRow
-                  icon={Hourglass}
-                  label="APT Pending Unstake"
-                  value={`${userStake.pendingInactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                  valueClasses="font-semibold text-zinc-400"
-                  iconColor="text-zinc-400"
-              />
-              <InfoRow
-                  icon={Package}
-                  label="APT Ready to Withdraw"
-                  value={`${userStake.inactive.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })} APT`}
-                  valueClasses="font-semibold text-blue-400"
-                  iconColor="text-blue-400"
-              />
-            </div>
-          )}
-        </>
-      )}
+        <div className="flex items-center justify-end text-right text-sm">
+            {children}
+        </div>
     </div>
-  );
+);
+
+// Компонент для отображения простого текстового значения
+const ValueDisplay = ({ children, className = "text-zinc-200" }) => (
+    <span className={className}>{children}</span>
+);
+
+// Компонент для значения, которое является ссылкой
+const LinkValue = ({ href, children }) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="font-mono text-zinc-200 hover:text-white transition-colors duration-150 flex items-center gap-1.5">
+        <span>{children}</span>
+        <ExternalLink size={12} />
+    </a>
+);
+
+// Компонент для создания иконки с всплывающей подсказкой
+const InfoTooltip = ({ content }) => (
+    <span className="ml-1.5 group relative cursor-help">
+        <InfoIcon size={14} className="text-zinc-500 group-hover:text-zinc-300" />
+        <div className="absolute bottom-full right-0 mb-2 w-64 p-3 text-xs text-left bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            {content}
+        </div>
+    </span>
+);
+
+// Компонент для пульсирующего индикатора "живых" данных
+const LiveIndicator = () => (
+    <div className="flex items-center ml-2">
+        <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+        </span>
+    </div>
+);
+
+
+// --- ОСНОВНОЙ КОМПОНЕНТ ---
+export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
+    if (!poolInfo) {
+        return (
+            <div className="w-full rounded-3xl bg-[#0d0d1f]/70 backdrop-blur-xl border border-purple-600 p-8 sm:p-10 shadow-[0_0_20px_rgba(168,85,247,0.25)]">
+                <div className="w-full h-[450px] bg-zinc-900/50 rounded-2xl animate-pulse" />
+            </div>
+        );
+    }
+  
+    const commissionAsFraction = Number(poolInfo.operator_commission_percentage) / 10000;
+  
+    const aprApyTooltipContent = (
+        <>
+            <p className="font-semibold mb-1 text-sm text-zinc-100">Reward Calculation:</p>
+            {isMounted && apy && <p><strong>Est. Net APY: {(apy * (1 - commissionAsFraction)).toFixed(2)}%</strong></p>}
+            {isMounted && <p className="text-xs text-zinc-400">(after {(commissionAsFraction * 100).toFixed(2)}% commission, compounded)</p>}
+            <hr className="my-1.5 border-zinc-700" />
+            {isMounted && apy && <p className="text-xs">Est. Gross APY: {apy.toFixed(2)}%</p>}
+            <p className="text-xs mt-1.5 italic text-zinc-500">APY includes compounding. All figures are estimates and may vary.</p>
+        </>
+    );
+
+    return (
+        <div className="w-full rounded-3xl bg-[#0d0d1f]/70 backdrop-blur-xl border border-purple-600 p-8 sm:p-10 shadow-[0_0_20px_rgba(168,85,247,0.25)] hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-shadow duration-300">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold text-zinc-100 tracking-tight">Validator Pool Details</h2>
+            </div>
+            {/* Этот блок теперь использует обновленный StatCard */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <StatCard icon={Database} label="Total Delegated">
+                    {isMounted ? `${(Number(poolInfo.active_stake_octas) / 1e8).toLocaleString(undefined, { maximumFractionDigits: 0 })} APT` : <Loader2 size={20} className="animate-spin" />}
+                </StatCard>
+                <StatCard icon={BadgePercent} label="Est. Net Yield">
+                    <div className="flex items-center">
+                        <span className="text-green-400">{isMounted && apy ? `${(apy * (1 - commissionAsFraction)).toFixed(2)}% APY` : <Loader2 size={20} className="animate-spin" />}</span>
+                        {isMounted && apy && <LiveIndicator />}
+                        <InfoTooltip content={aprApyTooltipContent} />
+                    </div>
+                </StatCard>
+            </div>
+            <div className="divide-y divide-zinc-800 border-t border-zinc-800">
+                <DataRow icon={Signal} label="Validator Status">
+                    <ValueDisplay className="font-semibold text-green-400">Online</ValueDisplay>
+                </DataRow>
+                <DataRow icon={Percent} label="Commission Rate">
+                    <ValueDisplay>{isMounted ? `${(commissionAsFraction * 100).toFixed(2)} %` : '...'}</ValueDisplay>
+                </DataRow>
+                <DataRow icon={CalendarClock} label={
+                    <div>
+                        <div>Pool Lockup Ends</div>
+                        <div className="text-xs text-zinc-500">Unstaking takes 14 days to complete.</div>
+                    </div>
+                    }>
+                    <ValueDisplay>
+                        {isMounted
+                        ? new Date(poolInfo.locked_until_secs * 1000).toLocaleDateString(undefined, {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                            })
+                        : '...'}
+                    </ValueDisplay>
+                </DataRow>
+                <DataRow icon={Network} label="Pool Address">
+                    <LinkValue href={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`}>
+                        {`${poolInfo.poolAddress.substring(0, 8)}...`}
+                    </LinkValue>
+                </DataRow>
+            </div>
+        </div>
+    );
 }

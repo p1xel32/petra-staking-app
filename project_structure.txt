@@ -3,8 +3,8 @@
 │   ├── getApyCalculatorData.js
 │   ├── getIndexData.js
 │   ├── getLockupVisualizerData.js
-│   ├── getPageData.js
-│   └── getUserStake.js
+│   ├── getUserStake.js
+│   └── getWalletBalance.js
 ├── blog
 │   ├── astro.config.mjs
 │   ├── package-lock.json
@@ -57,7 +57,7 @@
 │   │   ├── +config.js
 │   │   └── +Page.jsx
 │   ├── index
-│   │   ├── +data.js
+│   │   ├── +onBeforeRender.js
 │   │   └── +Page.jsx
 │   └── tools
 │       ├── aptos-staking-apy-calculator
@@ -79,6 +79,7 @@
 ├── README.md
 ├── renderer
 │   ├── +config.js
+│   ├── +onBeforeRender.js
 │   ├── +onRenderClient.jsx
 │   ├── +onRenderHtml.jsx
 │   ├── PageShell.jsx
@@ -96,8 +97,7 @@
 │   │   ├── FaqSection.jsx
 │   │   ├── IndexPageContent.jsx
 │   │   ├── Layout
-│   │   ├── StakeUnstakeControls.jsx
-│   │   ├── StakingInterface.jsx
+│   │   ├── StakeUnstakeControls
 │   │   ├── StructuredData.jsx
 │   │   └── ValidatorInfo.jsx
 │   ├── hooks
@@ -108,4 +108,4 @@
 ├── vercel.json
 └── vite.config.js
 
-27 directories, 82 files
+28 directories, 81 files
