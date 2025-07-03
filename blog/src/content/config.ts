@@ -2,7 +2,7 @@
 import { defineCollection, z } from 'astro:content';
 
 const blogCollection = defineCollection({
-  type: 'content', // for .md or .mdx files
+  type: 'content', 
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -17,5 +17,5 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
-  'blog': blogCollection, // Collection name is 'blog', files in src/content/blog/
+  'blog': blogCollection, 
 };

@@ -1,64 +1,80 @@
 // src/components/Layout/AppFooter.jsx
+
 import React from 'react';
+import { Twitter, Youtube, Github, Award } from 'lucide-react';
+import { PATHS, SOCIALS } from '@/config/consts.ts'; 
 
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
 
-  const MAIN_APP_URL = "/";
-  const APY_CALCULATOR_URL = "/tools/aptos-staking-apy-calculator";
-  const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer";
-
-  const BLOG_BASE_URL = "/blog"; 
-  const FAQ_URL_BLOG = `${BLOG_BASE_URL}/faq`;
-  const ABOUT_URL_BLOG = `${BLOG_BASE_URL}/about`;
-  const CONTACT_URL_BLOG = `${BLOG_BASE_URL}/contact`;
-  const DISCLAIMER_URL_BLOG = `${BLOG_BASE_URL}/legal/disclaimer`;
-  const TERMS_URL_BLOG = `${BLOG_BASE_URL}/legal/terms`;
+  const productLinks = [
+    { label: "Stake", href: PATHS.home },
+    { label: "APY Calculator", href: PATHS.tools.apyCalculator },
+    { label: "Lockup Visualizer", href: PATHS.tools.lockupVisualizer },
+  ];
+  const companyLinks = [
+    { label: "About Us", href: PATHS.about },
+    { label: "Contact", href: PATHS.contact },
+    { label: "Disclaimer", href: PATHS.legal.disclaimer },
+    { label: "Terms", href: PATHS.legal.terms },
+  ];
+  const resourcesLinks = [
+    { label: "Blog", href: PATHS.blog },
+    { label: "FAQ", href: PATHS.faq },
+    { label: "Help Center", href: PATHS.help },
+  ];
+  const socialLinks = [
+    { label: "Twitter", href: SOCIALS.twitter, Icon: Twitter },
+    { label: "StakingRewards", href: SOCIALS.stakingRewards, Icon: Award },
+    { label: "YouTube", href: SOCIALS.youtube, Icon: Youtube },
+    { label: "GitHub", href: SOCIALS.github, Icon: Github },
+  ];
 
   return (
-    <footer className="text-center py-8 text-zinc-400 text-sm border-t border-white/10 mt-16">
-      <div className="container mx-auto px-4">
-        <nav className="mb-3 space-x-2 sm:space-x-4" aria-label="Footer navigation">
-          <a href={MAIN_APP_URL} className="hover:text-purple-400 transition-colors">
-            Main App
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={APY_CALCULATOR_URL} className="hover:text-purple-400 transition-colors">
-            APY Calculator
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={LOCKUP_VISUALIZER_URL} className="hover:text-purple-400 transition-colors">
-            Lockup Visualizer
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">
-            Blog
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={FAQ_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">
-            FAQ
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={ABOUT_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">
-            About
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={CONTACT_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">
-            Contact
-          </a>
-        </nav>
-
-        <div className="mb-3 text-xs space-x-2 sm:space-x-4">
-          <a href={DISCLAIMER_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">
-            Disclaimer
-          </a>
-          <span className="text-zinc-600" aria-hidden="true">|</span>
-          <a href={TERMS_URL_BLOG} className="hover:text-purple-400 transition-colors" target="_blank" rel="noopener noreferrer">
-            Terms of Use
-          </a>
+    <footer className="border-t border-zinc-800/50 mt-16">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-10 text-left">
+          <div className="hidden lg:block"></div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-zinc-200">Product</h4>
+            <ul className="space-y-2">
+              {productLinks.map(link => (
+                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-zinc-200">Company</h4>
+            <ul className="space-y-2">
+              {companyLinks.map(link => (
+                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-zinc-200">Resources</h4>
+            <ul className="space-y-2">
+              {resourcesLinks.map(link => (
+                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <p>&copy; {currentYear} aptcore.one — Secure & Transparent Aptos (APT) Staking. Your trusted platform.</p>
+        <div className="border-t border-zinc-800/50 pt-8 text-center text-zinc-500 text-sm">
+          <div className="flex justify-center items-center space-x-6 mb-6">
+            {socialLinks.map(({ label, href, Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="text-zinc-400 hover:text-purple-400 transition-colors">
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+          <div className="mb-4 text-xs space-y-1 text-zinc-400">
+            <p>Secure staking infrastructure by core Aptos contributors — no slashing since day one.</p>
+            <p>Verifiable On-chain</p>
+          </div>
+          <p>© {currentYear} aptcore.one</p>
+        </div>
       </div>
     </footer>
   );

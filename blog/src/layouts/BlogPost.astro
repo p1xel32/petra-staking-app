@@ -20,20 +20,20 @@ const {
   video,
 } = Astro.props;
 
-const postUrl = new URL(`${import.meta.env.BASE_URL}/${Astro.params.slug}`, SITE_URL).href;
+const postUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/${Astro.params.slug}`, SITE_URL).href;
 
 const resolvedHeroImageUrl = heroImage?.startsWith('http')
   ? heroImage
-  : new URL(`${import.meta.env.BASE_URL}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href;
+  : new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href;
 
 const resolvedThumbnailUrl = video?.thumbnailUrl?.startsWith('http')
   ? video.thumbnailUrl
   : video?.thumbnailUrl
-    ? new URL(`${import.meta.env.BASE_URL}${video.thumbnailUrl.startsWith('/') ? '' : '/'}${video.thumbnailUrl}`, SITE_URL).href
+    ? new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${video.thumbnailUrl.startsWith('/') ? '' : '/'}${video.thumbnailUrl}`, SITE_URL).href
     : undefined;
 
 const ORG_NAME = 'aptcore.one';
-const ORG_LOGO_URL = `${SITE_URL}/aptcore-logo.svg`;
+const ORG_LOGO_URL = new URL('/aptcore-logo.svg', SITE_URL).href;
 const ORGANIZATION_SCHEMA_ID = `${SITE_URL}/#organization`;
 
 const jsonLdGraph = [];
@@ -146,11 +146,11 @@ const finalJsonLd = {
     />
     <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
   </head>
-  <body class="bg-brand-bg-dark text-brand-text-light font-sans antialiased min-h-screen flex flex-col">
+  <body class="text-zinc-300 font-sans antialiased min-h-screen flex flex-col">
     <Header />
-    <main class="py-8 flex-grow">
+    <main class="py-8 sm:py-12 flex-grow">
       <article class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <p class="text-sm text-brand-text-secondary mb-2">
+        <p class="text-sm text-zinc-400 mb-2">
           {pubDate && <FormattedDate date={pubDate} />}
           {updatedDate && pubDate && (
             <span class="block italic text-xs mt-1">
@@ -158,9 +158,9 @@ const finalJsonLd = {
             </span>
           )}
         </p>
-        {title && <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>}
+        {title && <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 leading-tight">{title}</h1>}
         {video ? (
-          <div class="aspect-w-16 aspect-h-9 mb-6">
+          <div class="aspect-w-16 aspect-h-9 mb-8">
             <iframe
               src={video.url}
               title={video.name}
@@ -180,7 +180,7 @@ const finalJsonLd = {
             />
           )
         )}
-        <div class="prose prose-invert lg:prose-xl max-w-none">
+        <div class="prose prose-invert lg:prose-xl max-w-none" data-pagefind-body>
           <slot />
         </div>
       </article>

@@ -1,15 +1,31 @@
-//pages/tools/aptos-staking-lockup-visualizer
+// pages/tools/aptos-staking-lockup-visualizer/+Page.jsx
+
 import React, { useState, useEffect, useCallback } from 'react';
-import { Typography, Spin, Divider } from 'antd';
 import { Helmet } from 'react-helmet-async';
+import { AlertTriangle, Info, Loader2, Settings, BarChart2, CalendarDays } from 'lucide-react';
+
 import LockupInputControls from './components/LockupInputControls';
 import LockupTimelineDisplay from './components/LockupTimelineDisplay';
 import NetworkInfoDisplay from './components/NetworkInfoDisplay';
 import LockupDisclaimer from './components/LockupDisclaimer';
 import LockupFAQ from './components/LockupFAQ';
-import { AlertTriangle, Info } from 'lucide-react';
 
-const { Title, Paragraph } = Typography;
+// Кастомный компонент для загрузки
+const Loader = ({ text }) => (
+  <div className="flex flex-col items-center justify-center py-10 text-center">
+    <Loader2 size={32} className="animate-spin text-purple-400" />
+    <p className="text-zinc-300 mt-4 text-base">{text}</p>
+  </div>
+);
+
+// Кастомный компонент для заголовка секции ВНУТРИ карточки
+const SectionHeader = ({ icon: Icon, title }) => (
+    <div className="flex items-center justify-center text-center mb-6">
+        <Icon size={20} className="text-zinc-400 mr-3" />
+        <h3 className="text-xl font-semibold text-zinc-200 tracking-tight">{title}</h3>
+    </div>
+);
+
 const TARGET_VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 
 const hardcodedFaqData = [
@@ -25,12 +41,9 @@ export default function Page({ stakingConfig, epochTiming, validatorPoolInfo, er
 
   const calculateLockupTimeline = useCallback((userInitiationTimeMs) => {
     setCalculationError(null);
-    if (!stakingConfig || !epochTiming || !validatorPoolInfo) {
-      return;
-    }
+    if (!stakingConfig || !epochTiming || !validatorPoolInfo) return;
     try {
-      const general_network_lockup_duration_secs = Number(stakingConfig.recurring_lockup_duration_secs);
-      let T_pool_cycle_end_secs = Number(validatorPoolInfo.locked_until_secs);
+      const T_pool_cycle_end_secs = Number(validatorPoolInfo.locked_until_secs);
       const T_funds_become_inactive_secs = T_pool_cycle_end_secs;
       const epoch_interval_micros = BigInt(epochTiming.epochIntervalMicroseconds);
       const current_epoch_start_time_micros = BigInt(new Date(epochTiming.epochStartTime).getTime() * 1000);
@@ -40,17 +53,13 @@ export default function Page({ stakingConfig, epochTiming, validatorPoolInfo, er
       let T_actual_unlock_secs;
       let relevant_epoch_start_for_unlock_calc = current_epoch_start_secs_ref;
       if (T_funds_become_inactive_secs < current_epoch_start_secs_ref) {
-          while (relevant_epoch_start_for_unlock_calc > T_funds_become_inactive_secs) {
-              relevant_epoch_start_for_unlock_calc -= epoch_interval_secs;
-          }
+          while (relevant_epoch_start_for_unlock_calc > T_funds_become_inactive_secs) { relevant_epoch_start_for_unlock_calc -= epoch_interval_secs; }
       } else {
           const epochs_passed = Math.floor((T_funds_become_inactive_secs - current_epoch_start_secs_ref) / epoch_interval_secs);
           relevant_epoch_start_for_unlock_calc = current_epoch_start_secs_ref + (epochs_passed * epoch_interval_secs);
       }
       T_actual_unlock_secs = relevant_epoch_start_for_unlock_calc + epoch_interval_secs;
-      if (T_actual_unlock_secs < T_funds_become_inactive_secs) {
-          T_actual_unlock_secs += epoch_interval_secs;
-      }
+      if (T_actual_unlock_secs < T_funds_become_inactive_secs) { T_actual_unlock_secs += epoch_interval_secs; }
       const nowSecs = Math.floor(Date.now() / 1000);
       const remainingSecondsToFinalUnlock = T_actual_unlock_secs > nowSecs ? T_actual_unlock_secs - nowSecs : 0;
       let remainingTimeStr = "Available now";
@@ -65,12 +74,7 @@ export default function Page({ stakingConfig, epochTiming, validatorPoolInfo, er
         remainingTimeStr = parts.join(' ');
         if (!remainingTimeStr || remainingTimeStr === "0m") remainingTimeStr = "<1m";
       }
-      setTimelineData({
-        initiationTime: userInitiationTimeMs,
-        poolCycleEndTime: T_funds_become_inactive_secs * 1000, 
-        actualUnlockTime: T_actual_unlock_secs * 1000,
-        remainingTime: remainingSecondsToFinalUnlock > 0 ? `in ~${remainingTimeStr}` : "Available now",
-      });
+      setTimelineData({ initiationTime: userInitiationTimeMs, poolCycleEndTime: T_funds_become_inactive_secs * 1000, actualUnlockTime: T_actual_unlock_secs * 1000, remainingTime: remainingSecondsToFinalUnlock > 0 ? `in ~${remainingTimeStr}` : "Available now" });
     } catch (e) {
       setCalculationError(`Calculation error: ${e.message}`);
       setTimelineData(null);
@@ -103,44 +107,53 @@ export default function Page({ stakingConfig, epochTiming, validatorPoolInfo, er
   const renderContent = () => {
     if (error) {
       return (
-        <div className="mb-6 p-4 bg-red-900/40 border border-red-700/60 text-red-300 rounded-lg text-sm flex items-center gap-x-3">
+        <div className="p-4 bg-red-900/40 border border-red-700/60 text-red-300 rounded-lg text-sm flex items-center gap-x-3">
           <AlertTriangle size={20} className="flex-shrink-0" />
           <div><strong className="font-semibold block text-red-200">Error</strong><span>{error}</span></div>
         </div>
       );
     }
     if (!stakingConfig || !epochTiming || !validatorPoolInfo) {
-      return (<div className="py-10 text-center"><Spin size="large" /><p className="text-slate-300 mt-4 text-base">Loading Network & Validator Data...</p></div>);
+      return (<Loader text="Loading Network & Validator Data..." />);
     }
     return (
       <>
+        <SectionHeader icon={Settings} title="Set Unstake Initiation Time" />
         <LockupInputControls onVisualize={handleVisualize} />
-        <Divider className="!my-6 sm:!my-8 !bg-slate-700/60" />
+        
+        <hr className="my-8 border-zinc-800" />
+        
+        <SectionHeader icon={BarChart2} title="Network & Staking Parameters" />
         <NetworkInfoDisplay 
             stakingConfig={stakingConfig} 
             epochTiming={epochTiming} 
             validatorPoolInfo={validatorPoolInfo}
         />
+
         {calculationError && (
           <div className="my-4 p-3 bg-red-900/40 border-red-700/60 text-red-300 rounded-lg">
             {calculationError}
           </div>
         )}
+        
         {timelineData && !calculationError && ( 
           <>
-            <Divider className="!my-6 sm:!my-8 !bg-slate-700/60" />
+            <hr className="my-8 border-zinc-800" />
+            <SectionHeader icon={CalendarDays} title="Your Estimated Timeline" />
             <LockupTimelineDisplay timelineData={timelineData} />
           </>
         )}
-        {!timelineData && !calculationError && !initiationTime && ( 
-           <div className="mt-6 text-center text-slate-400 text-sm p-6 bg-slate-800/40 rounded-xl border border-slate-700/60">
-              <Info size={24} className="mx-auto mb-2 text-blue-400"/>
-              <p>Select an unstake initiation time or click "Visualize Unstaking From Now" to see the estimated timeline.</p>
-           </div>
+
+        {/* ✅ ИСПРАВЛЕННЫЙ БЛОК */}
+        {!timelineData && !calculationError && !initiationTime && (
+           <>
+             <hr className="my-8 border-zinc-800" />
+             <div className="text-center text-zinc-400 text-sm px-4">
+                <Info size={24} className="mx-auto mb-3 text-purple-400"/>
+                <p>Select an unstake initiation time or click "Visualize From Now" to see the estimated timeline.</p>
+             </div>
+           </>
         )}
-        <Divider className="!my-10 sm:!my-12 !bg-slate-700/60" />
-        <LockupFAQ faqData={hardcodedFaqData} />
-        <div className="mt-10 sm:mt-12 pt-6 border-t border-slate-700/50"><LockupDisclaimer /></div>
       </>
     );
   };
@@ -167,13 +180,26 @@ export default function Page({ stakingConfig, epochTiming, validatorPoolInfo, er
         <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
         {shouldRenderFaqSchema && (<script type="application/ld+json">{JSON.stringify(faqPageSchemaObject)}</script>)}
       </Helmet>
-      <div className="w-full max-w-3xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
-        <div className="bg-slate-800/70 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl shadow-purple-500/20 p-6 sm:p-10">
-          <div className="text-center mb-8 sm:mb-10">
-            <Title level={1} className="!text-3xl sm:!text-4xl !font-bold !mb-4 tracking-tight !text-white">{pageTitle.split(' | ')[0]}</Title>
-            <Paragraph className="text-slate-300 text-base sm:text-lg max-w-xl mx-auto">{pageDescription} This tool currently visualizes unstaking timelines for the validator pool at: <strong className="text-purple-300 block break-all mt-1">{TARGET_VALIDATOR_POOL_ADDRESS}</strong></Paragraph>
-          </div>
+      
+      <div className="w-full max-w-4xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        
+        <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-zinc-100 tracking-tight mb-4">{pageTitle.split(' | ')[0]}</h1>
+            <p className="text-lg text-zinc-400 max-w-2xl mx-auto">{pageDescription}</p>
+            <p className="mt-4 text-sm text-zinc-500">
+              This tool visualizes unstaking timelines for the validator pool at: 
+              <strong className="text-purple-400 block break-all mt-1 font-mono">{TARGET_VALIDATOR_POOL_ADDRESS}</strong>
+            </p>
+        </div>
+
+        <div className="w-full rounded-3xl bg-[#0d0d1f]/70 backdrop-blur-xl border border-purple-600 p-8 sm:p-10 shadow-[0_0_20px_rgba(168,85,247,0.25)]">
           {renderContent()}
+        </div>
+
+        <div className="mt-16 sm:mt-24">
+          <LockupFAQ faqData={hardcodedFaqData} />
+          <hr className="my-12 border-zinc-800" />
+          <LockupDisclaimer />
         </div>
       </div>
     </>

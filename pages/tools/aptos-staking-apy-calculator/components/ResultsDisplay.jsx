@@ -14,21 +14,19 @@ import {
 
 const { Title, Text } = Typography;
 
-// Styling to match label-value pairs in the main page screenshot
 const ResultInfoRow = ({ label, aptValue, usdValue, isPriceAvailable, icon: Icon }) => {
   return (
-    // Removed bottom border for a cleaner look like the screenshot
-    <div className="flex justify-between items-center py-3"> {/* Increased padding slightly */}
-      <span className="text-gray-300 flex items-center text-sm sm:text-base"> {/* Brighter label */}
-        {Icon && <Icon size={18} className="mr-2.5 text-purple-400 flex-shrink-0" />} {/* Consistent icon style */}
+    <div className="flex justify-between items-center py-3"> 
+      <span className="text-gray-300 flex items-center text-sm sm:text-base"> 
+        {Icon && <Icon size={18} className="mr-2.5 text-zinc-400 flex-shrink-0" />} 
         {label}:
       </span>
       <div className="text-right flex-shrink-0 pl-2">
-        <Text className="text-base sm:text-lg font-semibold text-green-400 block"> {/* Matched positive value color & size */}
+        <Text className="text-base sm:text-lg font-semibold text-green-400 block"> 
           {aptValue.toFixed(4)} APT
         </Text>
         {isPriceAvailable ? (
-          <Text className="text-xs sm:text-sm text-gray-400"> {/* Matched note color & size */}
+          <Text className="text-xs sm:text-sm text-gray-400"> 
             ~ ${usdValue.toFixed(2)} USD
           </Text>
         ) : (
@@ -63,7 +61,6 @@ const ResultsDisplay = ({
     );
   }
 
-  // Using custom div styled alerts for consistency
   if (!showResults && !isLoading) {
     return (
       <div className="mt-6 p-4 bg-blue-600 bg-opacity-20 text-blue-200 rounded-lg text-sm flex items-center gap-3 border border-blue-500/30">
@@ -93,15 +90,14 @@ const ResultsDisplay = ({
   }
 
   return (
-    // Added a title consistent with other section titles if needed, or remove if implicit
-    // Based on the main page screenshot, section titles are common.
-    <div className="mt-0"> {/* Remove top margin if page already has it */}
+    
+    <div className="mt-0"> 
       <Title level={2} className="!text-xl sm:!text-2xl !font-semibold !mb-4 !text-gray-100 flex items-center gap-2">
-        <TrendingUp size={24} className="text-purple-400" />
+        <TrendingUp size={24} className="text-zinc-400" />
         Expected Returns
       </Title>
       
-      <div className="divide-y divide-gray-700/50"> {/* Subtle dividers between rows */}
+      <div className="divide-y divide-gray-700/50"> 
         {rewards.map((reward) => (
           <ResultInfoRow
             key={reward.period}

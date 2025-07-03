@@ -1,80 +1,39 @@
-  /* src/index.css */
-  /*@import 'antd/dist/reset.css';*/
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-  @layer base {
-    body {
-          @apply bg-gray-50 dark:bg-black text-gray-900 dark:text-gray-100 antialiased font-sans;/* Light background, default dark text */
-    }
-    /* You can define custom scrollbar styles here if desired */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      @apply bg-gray-100;
-    }
-    ::-webkit-scrollbar-thumb {
-      @apply bg-gray-300 rounded-full;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      @apply bg-gray-400;
-    }
+@layer base {
+  body {
+    
+    @apply bg-[#111015] text-gray-200 antialiased font-sans;
+    background-image: radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.1), transparent 40%),
+                      radial-gradient(circle at 90% 80%, rgba(79, 70, 229, 0.1), transparent 40%);
+    background-attachment: fixed;
   }
 
-  /* Custom class for glassmorphism effect */
-  .glass-card {
-    @apply bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-white/30;
-    /* Adjust opacity (e.g., bg-white/70) and blur (backdrop-blur-lg) as needed */
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-zinc-800/50;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-600;
   }
 
-  /* Basic button styling to be extended */
-  .btn {
-    @apply px-4 py-2 rounded-lg font-semibold shadow-md transition-all duration-150 ease-in-out;
-  }
-  .btn-primary {
-    @apply btn bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  .btn-secondary {
-    @apply btn bg-gray-200 text-gray-700 hover:bg-gray-300 active:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  .btn-success {
-    @apply btn bg-green-500 text-white hover:bg-green-600 active:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  .btn-warning {
-    @apply btn bg-yellow-500 text-white hover:bg-yellow-600 active:bg-yellow-700 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  .btn-danger {
-    @apply btn bg-red-500 text-white hover:bg-red-600 active:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  /* Input styling */
-  .input-glass {
-    @apply w-full px-4 py-3 border border-gray-300/50 bg-white/50 backdrop-blur-sm text-gray-800 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500;
-  }
-    .ant-input-number .ant-input-number-handler-wrap {
-    display: none !important;
-  }
-
-  /* General hide number input spinners for Webkit browsers */
+  
   input[type='number']::-webkit-outer-spin-button,
   input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-
-  /* General hide number input spinners for Firefox */
   input[type='number'] {
     -moz-appearance: textfield;
   }
-  .hide-number-spinners::-webkit-outer-spin-button,
-.hide-number-spinners::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  }
-  .hide-number-spinners {
-    -moz-appearance: textfield; /* Firefox */
-  }
+}

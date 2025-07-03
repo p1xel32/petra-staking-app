@@ -1,0 +1,22 @@
+---
+import type { LucideIcon } from 'lucide-astro';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+}
+
+const { href, title, description, icon: Icon } = Astro.props;
+---
+<a 
+  href={href} 
+  class="block p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-purple-500/50 hover:bg-zinc-800/60 transition-all duration-200 h-full"
+>
+  <div class="mb-3">
+    <Icon size={24} class="text-purple-400" />
+  </div>
+  <h3 class="text-xl font-semibold text-zinc-100 mb-1">{title}</h3>
+  <p class="text-zinc-400 text-sm leading-relaxed">{description}</p>
+</a>

@@ -50,7 +50,7 @@ const StyledNumberInputWithAddon = ({
 const CustomFormRow = ({ labelIcon: Icon, labelText, children, isCheckboxRow = false }) => (
   <div className={`flex justify-between items-center py-3.5 border-b border-gray-700 ${isCheckboxRow ? 'last:border-b-0' : ''}`}>
     <span className="text-gray-300 flex items-center text-sm sm:text-base">
-      {Icon && <Icon size={18} className="mr-2.5 text-purple-400 flex-shrink-0" />}
+      {Icon && <Icon size={18} className="mr-2.5 text-zinc-400 flex-shrink-0" />}
       {labelText ? `${labelText}:` : ''} {/* Conditionally add colon, or handle empty labelText */}
     </span>
     <div className={`${isCheckboxRow ? 'flex justify-end' : 'w-[55%] sm:w-2/5'}`}>
@@ -155,11 +155,11 @@ const CalculatorForm = ({
         <div className="py-3.5 border-b border-gray-700 last:border-b-0">
           <div className="flex justify-between items-center">
             <span className="text-gray-300 flex items-center text-sm sm:text-base">
-              <InfoCircleOutlined className="mr-2.5 text-purple-400" />
+              <InfoCircleOutlined className="mr-2.5 text-zinc-400" />
               Current estimated network APY:
             </span>
             <div className="text-right">
-              <Text strong className="text-lg font-semibold text-purple-300">
+              <Text strong className="text-lg font-semibold text-zinc-300">
                 {isApyLoading ? 'Loading...' : (defaultApy !== null && defaultApy !== undefined ? `${defaultApy.toFixed(2)}%` : 'N/A')}
               </Text>
             </div>
