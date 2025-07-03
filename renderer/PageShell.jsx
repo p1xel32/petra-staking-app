@@ -2,13 +2,14 @@
 
 import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { PageContextProvider } from './usePageContext';
+import { PageContextProvider } from './usePageContext.jsx';
 import { ConfigProvider, theme as antTheme, Spin } from 'antd';
-import Layout from '../src/components/Layout/Layout';
-// ✅ 1. Импортируем ClientOnly
-import ClientOnly from '../src/components/ClientOnly';
+import Layout from '../src/components/Layout/Layout.jsx';
+import ClientOnly from '../src/components/ClientOnly.jsx';
 
-// Стили остаются здесь
+
+import { WalletProvider } from '../src/walletProvider.jsx';
+
 import 'antd/dist/reset.css';
 import '../src/index.css';
 
@@ -41,14 +42,15 @@ export function PageShell({ pageContext, children }) {
         <ConfigProvider
           theme={{ algorithm: isDarkMode ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm, token: { colorPrimary: '#a855f7' } }}
         >
-          {/* ✅ 2. Оборачиваем Layout в ClientOnly */}
-          <ClientOnly>
-            <Layout>
-              <Suspense fallback={<PageLoader />}>
-                {children}
-              </Suspense>
-            </Layout>
-          </ClientOnly>
+          <WalletProvider>
+            <ClientOnly>
+              <Layout>
+                <Suspense fallback={<PageLoader />}>
+                  {children}
+                </Suspense>
+              </Layout>
+            </ClientOnly>
+          </WalletProvider>
         </ConfigProvider>
       </PageContextProvider>
     </React.StrictMode>

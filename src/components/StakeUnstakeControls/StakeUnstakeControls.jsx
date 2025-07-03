@@ -10,7 +10,7 @@ const VALIDATOR_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e
 const OCTAS_PER_APT = 100_000_000;
 
 export default function StakeUnstakeControls({ account, onTransactionSuccess, userStake, connected, walletBalance = 0 }) {
-    const { signAndSubmitTransaction, connect, wallets } = useWallet();
+    const { signAndSubmitTransaction } = useWallet();
     
     const [activeTab, setActiveTab] = useState('stake');
     const [amountApt, setAmountApt] = useState('');
@@ -23,12 +23,8 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess, us
         pendingInactive 
     } = userStake || {};
 
-    const handleConnect = () => {
-        if (wallets && wallets.length > 0) {
-            connect(wallets[0].name);
-        } else {
-            setTxError({ message: "No Aptos wallet found. Please install a wallet extension." });
-        }
+    const triggerHeaderConnect = () => {
+        document.getElementById('main-header-connect-button')?.click();
     };
 
     const handleTransaction = async (functionName, amountOctas) => {
@@ -96,7 +92,7 @@ export default function StakeUnstakeControls({ account, onTransactionSuccess, us
                         Connect your wallet to stake, see your balance, active stake, and withdrawable rewards.
                     </p>
                     <div className="pt-6 border-t border-zinc-800">
-                        <button onClick={handleConnect} className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:shadow-purple-500/40 focus:outline-none flex items-center justify-center gap-2">
+                        <button onClick={triggerHeaderConnect} className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:shadow-purple-500/40 focus:outline-none flex items-center justify-center gap-2">
                             <Wallet size={20} />
                             Connect Wallet
                         </button>
