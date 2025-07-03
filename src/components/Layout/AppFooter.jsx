@@ -33,8 +33,9 @@ const AppFooter = () => {
   return (
     <footer className="border-t border-zinc-800/50 mt-16">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-10 text-left">
-          <div className="hidden lg:block"></div>
+
+        {/* ✅ ИЗМЕНЕНИЕ ЗДЕСЬ: Заменяем сложную сетку на простую и центрированную */}
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10 text-left sm:text-center">
           <div className="space-y-3">
             <h4 className="font-semibold text-zinc-200">Product</h4>
             <ul className="space-y-2">
