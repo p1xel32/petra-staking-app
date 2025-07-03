@@ -5,7 +5,6 @@ import { PlayCircle } from 'lucide-react';
 
 const LockupInputControls = ({ onVisualize }) => {
   return (
-    // ✅ Убран внешний div, заголовок и параграф. Осталась только кнопка.
     <div className="flex justify-center">
       <button 
         onClick={() => onVisualize(Date.now())}

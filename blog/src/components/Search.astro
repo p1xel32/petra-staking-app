@@ -1,0 +1,42 @@
+---
+// blog/src/components/Search.astro
+---
+
+<div id="search" data-pagefind-ui></div>
+
+<script>
+  const initPagefind = async () => {
+    const PagefindUI = (await import('@pagefind/default-ui')).PagefindUI;
+    const bundlePath = `${import.meta.env.BASE_URL}/pagefind/`;
+
+    
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true, 
+      showImages: false,
+        bundlePath: bundlePath 
+    
+      // Можно добавить перевод, если нужно
+      // translations: {
+      //   placeholder: "Search for answers..."
+      // }
+    });
+  };
+
+  initPagefind();
+</script>
+
+<style is:global>
+  @import "@pagefind/default-ui/css/ui.css";
+
+  :root {
+    --pagefind-ui-primary: #a855f7; /* Фиолетовый акцент */
+    --pagefind-ui-text: #e4e4e7; /* Основной текст */
+    --pagefind-ui-background: #18181b; /* Фон выпадающего меню */
+    --pagefind-ui-border: #3f3f46; /* Рамка */
+    --pagefind-ui-tag: #27272a; /* Фон тегов */
+    --pagefind-ui-font: "Inter", sans-serif; /* Шрифт */
+    --pagefind-ui-border-radius: 0.75rem; /* Скругление углов (12px) */
+    --pagefind-ui-scale: 1.0; /* Масштаб интерфейса */
+  }
+</style>

@@ -3,8 +3,7 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
-import { fileURLToPath } from 'url'; // <-- Добавлен этот импорт
-
+import { fileURLToPath } from 'url'; 
 import remarkGfm from 'remark-gfm';
 import remarkSmartypants from 'remark-smartypants';
 

@@ -1,49 +1,32 @@
+// File: src/components/ValidatorInfo.jsx
+
 import React from 'react';
 import {
     Network, Database, BadgePercent, Signal, CalendarClock,
     Percent, Info as InfoIcon, Loader2, ExternalLink
 } from 'lucide-react';
+import LockupProgressBar from './LockupProgressBar'; 
 
-// --- ВСПОМОГАТЕЛЬНЫЕ КОМПОНЕНТЫ ---
 
-// ✅ УЛУЧШЕННЫЙ КОМПОНЕНТ КАРТОЧКИ С НОВЫМ ДИЗАЙНОМ
 const StatCard = ({ icon: Icon, label, children }) => (
-    <div className="
-      bg-zinc-900/50
-      rounded-xl p-4
-      border border-white/10
-      transition-colors duration-200
-      hover:bg-zinc-800/50
-    ">
-        <div className="flex items-center text-sm text-zinc-400">
-            <Icon size={16} className="mr-2" />
-            <span>{label}</span>
-        </div>
-        <div className="mt-1 text-2xl font-semibold text-zinc-100">
-            {children}
-        </div>
+    <div className="bg-zinc-900/50 rounded-xl p-4 border border-white/10 transition-colors duration-200 hover:bg-zinc-800/50">
+        <div className="flex items-center text-sm text-zinc-400"><Icon size={16} className="mr-2" /><span>{label}</span></div>
+        <div className="mt-1 text-2xl font-semibold text-zinc-100">{children}</div>
     </div>
 );
 
-// Базовый компонент строки для отображения данных
 const DataRow = ({ icon: Icon, label, children }) => (
     <div className="flex justify-between items-center py-3">
         <div className="flex items-center text-sm">
             <Icon size={16} className="text-zinc-400 mr-4 flex-shrink-0" />
             <span className="text-zinc-300">{label}</span>
         </div>
-        <div className="flex items-center justify-end text-right text-sm">
-            {children}
-        </div>
+        <div className="flex items-center justify-end text-right text-sm">{children}</div>
     </div>
 );
 
-// Компонент для отображения простого текстового значения
-const ValueDisplay = ({ children, className = "text-zinc-200" }) => (
-    <span className={className}>{children}</span>
-);
+const ValueDisplay = ({ children, className = "text-zinc-200" }) => (<span className={className}>{children}</span>);
 
-// Компонент для значения, которое является ссылкой
 const LinkValue = ({ href, children }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="font-mono text-zinc-200 hover:text-white transition-colors duration-150 flex items-center gap-1.5">
         <span>{children}</span>
@@ -51,17 +34,13 @@ const LinkValue = ({ href, children }) => (
     </a>
 );
 
-// Компонент для создания иконки с всплывающей подсказкой
 const InfoTooltip = ({ content }) => (
     <span className="ml-1.5 group relative cursor-help">
         <InfoIcon size={14} className="text-zinc-500 group-hover:text-zinc-300" />
-        <div className="absolute bottom-full right-0 mb-2 w-64 p-3 text-xs text-left bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-            {content}
-        </div>
+        <div className="absolute bottom-full right-0 mb-2 w-64 p-3 text-xs text-left bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">{content}</div>
     </span>
 );
 
-// Компонент для пульсирующего индикатора "живых" данных
 const LiveIndicator = () => (
     <div className="flex items-center ml-2">
         <span className="relative flex h-2 w-2">
@@ -72,7 +51,7 @@ const LiveIndicator = () => (
 );
 
 
-// --- ОСНОВНОЙ КОМПОНЕНТ ---
+// --- ОСНОВНОЙ КОМПОНЕНТ С ИЗМЕНЕНИЯМИ ---
 export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
     if (!poolInfo) {
         return (
@@ -100,7 +79,7 @@ export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold text-zinc-100 tracking-tight">Validator Pool Details</h2>
             </div>
-            {/* Этот блок теперь использует обновленный StatCard */}
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <StatCard icon={Database} label="Total Delegated">
                     {isMounted ? `${(Number(poolInfo.active_stake_octas) / 1e8).toLocaleString(undefined, { maximumFractionDigits: 0 })} APT` : <Loader2 size={20} className="animate-spin" />}
@@ -121,20 +100,15 @@ export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
                     <ValueDisplay>{isMounted ? `${(commissionAsFraction * 100).toFixed(2)} %` : '...'}</ValueDisplay>
                 </DataRow>
                 <DataRow icon={CalendarClock} label={
-                    <div>
-                        <div>Pool Lockup Ends</div>
-                        <div className="text-xs text-zinc-500">Unstaking takes 14 days to complete.</div>
+                    <div className='max-w-[150px]'>
+                        <div>Time Until Unlock</div>
+                        <div className="text-xs text-zinc-500">Current pool lockup period.</div>
                     </div>
-                    }>
-                    <ValueDisplay>
-                        {isMounted
-                        ? new Date(poolInfo.locked_until_secs * 1000).toLocaleDateString(undefined, {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                            })
-                        : '...'}
-                    </ValueDisplay>
+                }>
+                    {isMounted
+                        ? <LockupProgressBar lockupEndsSecs={poolInfo.locked_until_secs} />
+                        : <div className='w-full max-w-[180px] h-8 bg-zinc-800/50 rounded-lg animate-pulse' />
+                    }
                 </DataRow>
                 <DataRow icon={Network} label="Pool Address">
                     <LinkValue href={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`}>

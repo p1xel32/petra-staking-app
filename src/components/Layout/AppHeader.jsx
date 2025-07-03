@@ -1,20 +1,10 @@
-// src/components/Layout/AppHeader.jsx (примерный путь)
-
 import React, { useState, useEffect, useRef } from 'react';
-// ✅ ИСПРАВЛЕННЫЙ ОТНОСИТЕЛЬНЫЙ ПУТЬ
 import aptcoreLogoUrl from '../../assets/aptcore-logo.svg'; 
 import ConnectWalletButton from '../ConnectWalletButton';
 import ClientOnly from '../ClientOnly';
+import { PATHS } from '@/config/consts.ts';
 
 const AppHeader = () => {
-  const BLOG_URL = "/blog";
-  const FAQ_URL = "/blog/faq";
-  const ABOUT_URL = "/blog/about";
-  const CONTACT_URL = "/blog/contact";
-
-  const CALC_URL = "/tools/aptos-staking-apy-calculator";
-  const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer";
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
@@ -38,19 +28,15 @@ const AppHeader = () => {
   const handleMobileLinkClick = () => setIsMobileMenuOpen(false);
 
   const navLinks = [
-    { label: "APY Calculator", href: CALC_URL },
-    { label: "Lockup Visualizer", href: LOCKUP_VISUALIZER_URL },
-    { label: "Blog", href: BLOG_URL },
-    { label: "FAQ", href: FAQ_URL },
-    { label: "About", href: ABOUT_URL },
-    { label: "Contact", href: CONTACT_URL }
+    { label: "Blog", href: PATHS.blog },
+    { label: "Help", href: PATHS.help }
   ];
 
   return (
     <header className="relative w-full backdrop-blur-xl bg-black/5 border-b border-white/10 px-4 sm:px-6 py-2.5 flex justify-between items-center sticky top-0 z-50">
       <div className="flex items-center">
         <a
-          href="/"
+          href={PATHS.home}
           className="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1 shrink-0"
           aria-label="aptcore.one homepage"
         >

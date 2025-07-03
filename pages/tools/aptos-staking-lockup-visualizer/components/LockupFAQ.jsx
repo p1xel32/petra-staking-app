@@ -38,7 +38,6 @@ const LockupFAQ = ({ faqData = [] }) => {
   }
 
   return (
-    // ✅ Убран внешний div с фоном и рамкой
     <div> 
       <div className="flex items-center justify-center text-center mb-8">
           <HelpCircle size={28} className="text-zinc-400 mr-3" />

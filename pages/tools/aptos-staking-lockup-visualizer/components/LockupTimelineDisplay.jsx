@@ -1,14 +1,11 @@
 // --- START OF FILE LockupTimelineDisplay.jsx ---
 
 import React, { useState, useEffect, useCallback } from 'react';
-// ✅ Новые, более подходящие иконки
 import { Play, Hourglass, Lock, CheckCircle } from 'lucide-react'; 
 
-// ✅ Компонент строки события с УБРАННЫМИ цветами
 const TimelineEventRow = ({ icon: Icon, title, time, details }) => (
   <div className="flex justify-between items-start sm:items-center py-3.5 border-b border-zinc-800 last:border-b-0">
     <div className="flex items-start sm:items-center text-sm w-2/5 sm:w-auto">
-      {/* Все иконки теперь одного цвета */}
       {Icon && <Icon size={18} className="mr-3 text-zinc-400 flex-shrink-0 mt-0.5 sm:mt-0" />}
       <span className="text-zinc-300">{title}:</span>
     </div>
@@ -62,14 +59,13 @@ const LockupTimelineDisplay = ({ timelineData }) => {
   }, [timelineData, calculateAndSetRemaining]);
 
   if (!timelineData) {
-    return null; // Ничего не рендерим, если нет данных
+    return null; 
   }
 
   const { initiationTime, poolCycleEndTime, actualUnlockTime } = timelineData;
 
   return (
     <div className="space-y-2">
-        {/* ✅ Иконки и стили приведены в соответствие */}
         <TimelineEventRow
           icon={Play}
           title="Unstake Initiated"
@@ -89,7 +85,6 @@ const LockupTimelineDisplay = ({ timelineData }) => {
         />
         {liveRemainingTime && ( 
           <div className="pt-4 text-center">
-            {/* Текст стал нейтральным, акцент только на цвете */}
             <p className={`block text-lg font-semibold ${liveRemainingTime === "Available for withdrawal" ? "text-green-400" : "text-zinc-100"}`}>
               {liveRemainingTime}
             </p>

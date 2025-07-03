@@ -1,50 +1,60 @@
 ---
-// blog/src/pages/blog/legal/terms.astro
 import Layout from '@layouts/Layout.astro';
 
-const pageTitle = "Terms of Use - aptcore.one Blog";
-const pageDescription = "Terms and conditions for using the aptcore.one blog and staking interface.";
+const pageTitle = "Terms of Service - aptcore.one";
+const pageDescription = "Binding Terms of Service governing the use of the aptcore.one non-custodial staking platform, including user obligations and risk acknowledgments.";
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <div class="py-8 md:py-12">
     <header class="text-center mb-10 md:mb-14">
       <h1 class="text-4xl md:text-5xl font-bold text-white">
-        Terms of <span class="text-aptcore-purple">Use</span>
+        Terms of <span class="text-purple-400">Use</span>
       </h1>
     </header>
 
     <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
-      <p>These Terms of Use (“Terms”) govern your access to and use of the aptcore.one website, blog, and related services (the “Platform”). By using the Platform, you agree to be bound by these Terms. If you do not agree, you must stop using the Platform immediately.</p>
+        <p>These Terms of Service (“Terms”) constitute a legally binding agreement governing your access to and use of the website https://aptcore.one (the "Site") and the non-custodial staking services offered (the "Services"). By using the Services, you agree to be bound by these Terms.</p>
 
-      <h2>1. Platform Usage</h2>
-      <ul>
-        <li>Use the Platform only for lawful purposes and in accordance with applicable laws and these Terms.</li>
-        <li>You are solely responsible for ensuring that staking or other activities comply with your local regulations.</li>
-      </ul>
+        <h2>1. Description of the Service (Strictly Non-Custodial)</h2>
+        <p>The Service is a technical interface that allows you to delegate your APT tokens to our validator. The Service is strictly non-custodial. We never take custody or control of your assets or private keys. You interact directly with the Aptos protocol smart contracts.</p>
 
-      <h2>2. Staking Interface</h2>
-      <ul>
-        <li>aptcore.one provides a non-custodial interface to delegate Aptos (APT) tokens to our validator node.</li>
-        <li>We do not custody user assets. You maintain full control of your tokens at all times.</li>
-        <li>No guarantees are made regarding validator uptime, reward rates, or risk avoidance.</li>
-      </ul>
+        <h2>2. Eligibility and Prohibited Jurisdictions (OFAC Compliance)</h2>
+        <p>This service is not available to any person or entity who is a resident of, or located in, a jurisdiction subject to a U.S. government embargo (including Cuba, Iran, North Korea, Syria, and certain regions of Ukraine) or who is listed on the OFAC Specially Designated Nationals and Blocked Persons List ("Prohibited Person"). You represent and warrant that you are not a Prohibited Person. Use of a VPN or other methods to circumvent this restriction is strictly prohibited.</p>
+        
+        <h2>3. User Obligations</h2>
+        <p>You are solely responsible for:</p>
+        <ul>
+            <li>The security of your own wallet and private keys.</li>
+            <li>Determining and paying any taxes applicable to your staking rewards.</li>
+            <li>Complying with all laws in your jurisdiction.</li>
+            <li>Verifying all transaction details before signing. Blockchain transactions are irreversible.</li>
+        </ul>
+        
+        <h2>4. No Fiduciary Duty</h2>
+        <p>Your use of our Services does not create a fiduciary, agency, or financial advisory relationship. We owe you no fiduciary duties.</p>
+        
+        <h2>5. Staking Rewards and Commission</h2>
+        <p>Staking rewards are generated and distributed by the Aptos protocol, not by aptcore.one. We charge a commission on these rewards, which is displayed on our Site and deducted automatically by the protocol.</p>
+        
+        <h2>6. Intellectual Property</h2>
+        <p>All content on the Site is the property of aptcore.one or its licensors and is protected by copyright laws.</p>
 
-      <h2>3. Intellectual Property</h2>
-      <p>All content on the Platform is the property of aptcore.one or its licensors. You may use the content for personal, non-commercial purposes only.</p>
+        <h2>7. Limitation of Liability and Indemnification</h2>
+        <p>To the fullest extent permitted by law, our total liability shall not exceed the greater of one hundred U.S. dollars ($100) or the amount of commission fees we received from you in the six months prior to the claim. You agree to indemnify and hold us harmless from any claims arising from your use of the Services or violation of these Terms.</p>
 
-      <h2>4. No Warranties</h2>
-      <p>The Platform is provided “as is” and “as available.” We make no guarantees about accuracy, uptime, or uninterrupted service. See the <a href="/blog/legal/disclaimer">Disclaimer</a> for additional legal limitations.</p>
+        <h2>8. Term and Termination</h2>
+        <p>These Terms will remain in full force and effect while you use the Services. You may terminate this agreement at any time by ceasing all use of the Services. We may, in our sole discretion, suspend or terminate your access to the Services for any reason, including for any breach of these Terms.</p>
 
-      <h2>5. Liability Limitation</h2>
-      <p>To the extent permitted by law, we disclaim all liability for any losses, including indirect, incidental, or consequential damages.</p>
+        <h2>9. Dispute Resolution by Binding Arbitration</h2>
+        <p>All disputes arising from these Terms shall be resolved solely by binding, individual arbitration and not in a class action lawsuit. The arbitration shall be conducted in accordance with the rules of a recognized international arbitration center agreed upon by the parties, or as otherwise determined in accordance with the governing law of these Terms. YOU AND APTCORE.ONE WAIVE THE RIGHT TO A JURY TRIAL AND TO PARTICIPATE IN A CLASS ACTION.</p>
 
-      <h2>6. Terms Revisions</h2>
-      <p>These Terms may be updated at any time. Continued use after updates constitutes agreement to the revised terms.</p>
+        <h2>10. Governing Law</h2>
+        <p>These Terms and any action related thereto will be governed by and construed in accordance with the laws of Ukraine, without regard to its conflict of law provisions.</p>
 
-      <h2>7. Governing Law</h2>
-      <p>These Terms are governed by the laws of the jurisdiction in which the operator of aptcore.one is established.</p>
-
-      <p><em>Last Updated: May 11, 2025</em></p>
+        <h2>11. Miscellaneous</h2>
+        <p>These Terms, along with the Legal Disclaimer, constitute the entire agreement between you and us. We may modify these Terms at any time by posting the revised version on the Site. Your continued use of the Services constitutes acceptance of the new Terms.</p>
+        
+        <p class="mt-8"><em>Last Updated: July 2, 2025</em></p>
     </div>
   </div>
 </Layout>

@@ -1,41 +1,74 @@
 ---
-// blog/src/components/Footer.astro
-import { SITE_URL } from '../consts';
+import { Twitter, Youtube, Github, Award } from 'lucide-astro';
+import { PATHS, SOCIALS } from '../consts';
 
 const currentYear = new Date().getFullYear();
 
-const BLOG_HOME_URL = "/blog";
-const FAQ_URL_BLOG = "/blog/faq";
-const ABOUT_URL_BLOG = "/blog/about";
-const CONTACT_URL_BLOG = "/blog/contact";
-const DISCLAIMER_URL_BLOG = "/blog/legal/disclaimer";
-const TERMS_URL_BLOG = "/blog/legal/terms";
-
-const APY_CALCULATOR_URL = "/tools/aptos-staking-apy-calculator"; 
-const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer"; 
+const productLinks = [
+  { label: "Stake", href: PATHS.home },
+  { label: "APY Calculator", href: PATHS.tools.apyCalculator },
+  { label: "Lockup Visualizer", href: PATHS.tools.lockupVisualizer },
+];
+const companyLinks = [
+  { label: "About Us", href: PATHS.about },
+  { label: "Contact", href: PATHS.contact },
+  { label: "Disclaimer", href: PATHS.legal.disclaimer },
+  { label: "Terms", href: PATHS.legal.terms },
+];
+const resourcesLinks = [
+  { label: "Blog", href: PATHS.blog },
+  { label: "FAQ", href: PATHS.faq },
+  { label: "Help Center", href: PATHS.help },
+];
+const socialLinks = [
+  { label: "Twitter", href: SOCIALS.twitter, icon: Twitter },
+  { label: "StakingRewards", href: SOCIALS.stakingRewards, icon: Award },
+  { label: "YouTube", href: SOCIALS.youtube, icon: Youtube },
+  { label: "GitHub", href: SOCIALS.github, icon: Github },
+];
 ---
-<footer class="bg-brand-bg-dark text-brand-text-secondary border-t border-white/10 py-8 text-center px-4 sm:px-6 lg:px-8">
-  <nav class="mb-4 space-x-2 sm:space-x-4 text-sm sm:text-base" aria-label="Footer navigation">
-    <a href={SITE_URL} class="hover:text-aptcore-purple transition-colors">Main App</a>
-    <span class="text-zinc-500">|</span>
-    <a href={APY_CALCULATOR_URL} class="hover:text-aptcore-purple transition-colors">APY Calculator</a>
-    <span class="text-zinc-500">|</span>
-    <a href={LOCKUP_VISUALIZER_URL} class="hover:text-aptcore-purple transition-colors">Lockup Visualizer</a>
-    <span class="text-zinc-500">|</span>
-    <a href={BLOG_HOME_URL} class="hover:text-aptcore-purple transition-colors">Blog</a>
-    <span class="text-zinc-500">|</span>
-    <a href={FAQ_URL_BLOG} class="hover:text-aptcore-purple transition-colors">FAQ</a>
-    <span class="text-zinc-500">|</span>
-    <a href={ABOUT_URL_BLOG} class="hover:text-aptcore-purple transition-colors">About</a>
-    <span class="text-zinc-500">|</span>
-    <a href={CONTACT_URL_BLOG} class="hover:text-aptcore-purple transition-colors">Contact</a>
-  </nav>
-  <nav class="mb-4 space-x-2 sm:space-x-4 text-xs sm:text-sm" aria-label="Legal navigation">
-    <a href={DISCLAIMER_URL_BLOG} class="hover:text-aptcore-purple transition-colors">Disclaimer</a>
-    <span class="text-zinc-500">|</span>
-    <a href={TERMS_URL_BLOG} class="hover:text-aptcore-purple transition-colors">Terms of Use</a>
-  </nav>
-  <p class="text-xs text-zinc-500">
-    © {currentYear} aptcore.one — Secure & Transparent Aptos (APT) Staking. Your trusted platform.
-  </p>
+<footer class="border-t border-zinc-800/50 mt-16">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-10 text-left">
+      <div class="hidden lg:block"></div>
+      <div class="space-y-3">
+        <h4 class="font-semibold text-zinc-200">Product</h4>
+        <ul class="space-y-2">
+          {productLinks.map(link => (
+            <li><a href={link.href} class="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="space-y-3">
+        <h4 class="font-semibold text-zinc-200">Company</h4>
+        <ul class="space-y-2">
+          {companyLinks.map(link => (
+            <li><a href={link.href} class="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="space-y-3">
+        <h4 class="font-semibold text-zinc-200">Resources</h4>
+        <ul class="space-y-2">
+          {resourcesLinks.map(link => (
+            <li><a href={link.href} class="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-zinc-800/50 pt-8 text-center text-zinc-500 text-sm">
+      <div class="flex justify-center items-center space-x-6 mb-6">
+        {socialLinks.map(link => (
+          <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="text-zinc-400 hover:text-purple-400 transition-colors">
+            <link.icon size={20} />
+          </a>
+        ))}
+      </div>
+      <div class="mb-4 text-xs space-y-1 text-zinc-400">
+        <p>Secure staking infrastructure by core Aptos contributors — no slashing since day one.</p>
+        <p>Verifiable On-chain</p>
+      </div>
+      <p>© {currentYear} aptcore.one</p>
+    </div>
+  </div>
 </footer>

@@ -1,72 +1,170 @@
 ---
-// blog/src/pages/about.astro
 import Layout from '@layouts/Layout.astro';
-import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../consts';
+import { SITE_URL, PATHS, SOCIALS } from '../consts';
+import { Github, Twitter, BookOpenCheck, ShieldCheck, Award } from 'lucide-astro';
 
-const pageTitle = `About - ${SITE_TITLE || 'aptcore.one Blog'}`;
-const pageDescription = `Learn more about aptcore.one, its mission in the Aptos ecosystem, and the team behind it. ${SITE_DESCRIPTION || ''}`;
+const YOUR_VALIDATOR_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
+
+// --- SEO & Page Info ---
+const pageTitle = `About aptcore.one | Our Mission & Team`;
+const pageDescription = `Learn about aptcore.one: a top-performing Aptos genesis validator providing secure staking services. Verifiable on-chain expertise.`;
 const socialImage = "/blog-assets/aptcore-about-og.jpg";
+const canonicalURL = new URL(PATHS.about, SITE_URL);
+
+// --- TEAM DATA ---
+const teamMembers = [
+  {
+    name: "p1xel32",
+    role: "Founder & Genesis Validator",
+    bio: "An original Aptos validator since the genesis block. Author of foundational community guides recognized on the official Aptos developer portal.",
+    links: {
+      github: SOCIALS.github,
+      twitter: SOCIALS.twitter,
+    }
+  },
+];
+
+// --- CONTRIBUTIONS ---
+const contributions = [
+    {
+        title: "Tools to monitor your validator",
+        url: "https://legacy.aptos.dev/community/external-resources/",
+        description: "Co-authored a comprehensive guide on validator monitoring tools, featured in the official Aptos resources."
+    },
+    {
+        title: "Transfer validator node to other server",
+        url: "https://legacy.aptos.dev/community/external-resources/",
+        description: "Authored the definitive manual for node migration, recognized by the Aptos community."
+    }
+];
+
+// --- JSON-LD SCHEMA ---
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalURL.toString(),
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "aptcore.one",
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/blog/aptcore-logo.svg`,
+    "description": "A secure and reliable staking service provider for the Aptos (APT) blockchain, managed by experienced ecosystem contributors.",
+    "founder": teamMembers.map(member => ({
+      "@type": "Person",
+      "name": member.name,
+      "jobTitle": member.role,
+      "url": member.links.github,
+      "sameAs": Object.values(member.links).filter(Boolean)
+    })),
+    "sameAs": [
+      SOCIALS.twitter,
+      SOCIALS.github,
+      SOCIALS.youtube,
+      SOCIALS.stakingRewards
+    ].filter(Boolean)
+  }
+};
 ---
+
 <Layout
   title={pageTitle}
   description={pageDescription}
   image={socialImage}
+  canonicalURL={canonicalURL.toString()}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} slot="head-scripts" />
+
   <div class="py-10 md:py-16">
-    <header class="text-center mb-10 md:mb-14">
-      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
-        About <span class="text-aptcore-purple">aptcore.one</span>
-      </h1>
-      <p class="text-lg md:text-xl text-brand-text-secondary mt-4 max-w-2xl mx-auto">
-        Your dedicated guide to secure and efficient Aptos (APT) staking, built by a team of experienced Aptos contributors.
-      </p>
+    <header class="text-center mb-16 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 leading-tight">
+            Proven by <span class="text-purple-400">Performance</span>, Not Promises
+        </h1>
+        <p class="text-lg md:text-xl text-zinc-400 mt-4 max-w-3xl mx-auto">
+            Our reputation is built on verifiable, on-chain data and consistent contributions to the Aptos ecosystem.
+        </p>
     </header>
 
-    <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
-      <p>
-        Welcome to aptcore.one! This platform is developed and maintained by a team of passionate contributors within the Aptos ecosystem. Our goal is to provide a secure, reliable, and user-friendly staking service for Aptos (APT) token holders, leveraging deep technical expertise and hands-on experience with the Aptos blockchain.
-      </p>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 px-4">
       
-      <h2>Our Mission</h2>
-      <p>
-        Our core mission is to empower individuals to participate actively in the Aptos network's security and success through staking. We aim to:
-      </p>
-      <ul>
-        <li><strong>Optimize Rewards:</strong> Offer competitive returns for delegators through carefully managed and efficient validator operations.</li>
-        <li><strong>Ensure Security:</strong> Implement robust security practices and infrastructure-level protections that contribute to overall network integrity.</li>
-        <li><strong>Promote Transparency:</strong> Provide clear, honest information about staking mechanics, including lock-ups, reward structures, and operational performance.</li>
-        <li><strong>Simplify Staking:</strong> Make delegation accessible and understandable for everyone, regardless of technical expertise.</li>
-      </ul>
+      <!-- Карточка 1: Live Performance -->
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
+        <h3 class="text-2xl font-bold text-zinc-100 mb-4">Live Performance</h3>
+        <ul class="space-y-4 text-zinc-300 flex-grow">
+          <li class="flex items-center gap-3">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            <span><strong>Top-performing validator</strong> in the active set.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <ShieldCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+            <span><strong>Genesis Validator:</strong> Actively securing the network since mainnet launch.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <ShieldCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+            <span><strong>Zero Slashing Incidents:</strong> 100% clean record.</span>
+          </li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-zinc-700">
+          <a href={`https://explorer.aptoslabs.com/validator/${YOUR_VALIDATOR_ADDRESS}?network=mainnet`} target="_blank" rel="noopener noreferrer" class="inline-block w-full text-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-white transition">
+            Verify On-chain Data
+          </a>
+        </div>
+      </div>
 
-      <h2>Why Stake with aptcore.one?</h2>
-      <p>
-        Choosing aptcore.one means staking with a platform built on a foundation of real-world Aptos experience and technical excellence. Our contributors are deeply engaged in the Aptos ecosystem and committed to delivering value to delegators.
-      </p>
-      <ul>
-        <li><strong>Technical Focus:</strong> The infrastructure is managed by individuals with deep knowledge of the Aptos protocol and validator operations.</li>
-        <li><strong>Transparent Approach:</strong> We provide insights and guidance to help users make informed decisions about staking.</li>
-        <li><strong>Community-Driven:</strong> We actively participate in the growth and decentralization of the Aptos ecosystem through tools, documentation, and validator services.</li>
-      </ul>
-      <p>
-        Our platform, <a href={SITE_URL} target="_blank" rel="noopener noreferrer">aptcore.one</a>, is designed to give you a seamless and trustworthy staking experience.
-      </p>
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
+        <h3 class="text-2xl font-bold text-zinc-100 mb-4">Community Contributions</h3>
+        <ul class="space-y-4 text-zinc-300 flex-grow">
+          {contributions.map(item => (
+            <li class="flex items-start gap-3">
+              <BookOpenCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+              <div>
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-zinc-100 hover:underline">{item.title}</a>
+                <p class="text-sm text-zinc-400">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <h2>Our Background</h2>
-      <p>
-        The aptcore.one team consists of infrastructure operators, open-source contributors, and community members who have supported Aptos since its early days. Our work includes building tools, providing technical documentation, and engaging with the broader validator community.
-      </p>
-      <ul>
-        <li><strong>Educational Resources:</strong> We’ve contributed guides such as “Tools to monitor your validator” and “How to transfer a validator node to another server (no fullnode required).”</li>
-        <li><strong>Technical Support:</strong> Our contributors are active on the <code>aptos-labs/aptos-core</code> GitHub and related forums, helping maintain high operational standards and solve complex validator issues.</li>
-      </ul>
-      <p>
-        This collective knowledge and experience are at the core of what aptcore.one offers.
-      </p>
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
+        <h3 class="text-2xl font-bold text-zinc-100 mb-4">Independent Verification</h3>
+        <ul class="space-y-4 text-zinc-300 flex-grow">
+            <li class="flex items-start gap-3">
+                <Award class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+                <div>
+                    <strong>Staking Rewards Profile</strong>
+                    <p class="text-sm text-zinc-400">View detailed performance metrics, reward history, and compare our validator on a trusted, independent platform.</p>
+                </div>
+            </li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-zinc-700">
+          <a href={SOCIALS.stakingRewards} target="_blank" rel="noopener noreferrer" class="inline-block w-full text-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-white transition">
+            View Profile
+          </a>
+        </div>
+      </div>
       
-      <h2>Get Involved</h2>
-      <p>
-        We invite you to explore our blog for more guides, tools, and insights into Aptos staking. Whether you're new to staking or a seasoned delegator, we’re here to support your journey.
-      </p>
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col text-center">
+        <div class="bg-purple-900/40 w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <Github size={40} class="text-purple-300" />
+        </div>
+        <div class="flex-grow">
+            <h4 class="text-2xl font-bold text-zinc-100">{teamMembers[0].name}</h4>
+            <p class="text-purple-400 font-medium mb-3">{teamMembers[0].role}</p>
+            <p class="text-zinc-400 text-sm">{teamMembers[0].bio}</p>
+        </div>
+        <div class="mt-8 pt-6 border-t border-zinc-700">
+            <a href={teamMembers[0].links.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-zinc-300 hover:text-white font-semibold">
+              <Github size={18} />
+              View on GitHub
+            </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </Layout>

@@ -1,7 +1,10 @@
 ---
 import Layout from '@layouts/Layout.astro';
 
-// SEO Meta Data
+import Layout from '../layouts/Layout.astro'; // Используем базовый лейаут
+import { HelpCircle } from 'lucide-astro';
+
+// SEO Meta Data - остается без изменений
 const pageTitle = 'Aptos (APT) Staking FAQ: Rewards, Wallets & Guide | aptcore.one';
 const pageDescription = 'Your complete Aptos (APT) staking FAQ. Learn how to stake, understand rewards & risks, choose wallets, unstake APT, and explore advanced Aptos topics with aptcore.one.';
 const canonicalURL = 'https://aptcore.one/blog/faq';
@@ -996,24 +999,25 @@ const faqStructuredData = {
   lang={pageLanguage}
   image="/blog-assets/aptcore-faq-og.jpg"
 >
-  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} slot="head-scripts" />
 
   <div class="py-10 md:py-16">
     <header class="text-center mb-10 md:mb-14">
-      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
-        Aptos Staking & Ecosystem <span class="text-aptcore-purple">FAQ</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 leading-tight">
+        Aptos Staking & Ecosystem <span class="text-purple-400">FAQ</span>
       </h1>
-      <p class="text-lg md:text-xl text-brand-text-secondary mt-4 max-w-3xl mx-auto">
-        Your comprehensive guide to Aptos (APT) staking, development, wallets, DeFi, NFTs, and more. Find answers to your questions about aptcore.one and the broader Aptos blockchain.
+      <p class="text-lg md:text-xl text-zinc-400 mt-4 max-w-3xl mx-auto">
+        Your comprehensive guide. Find answers to your questions about aptcore.one and the broader Aptos blockchain.
       </p>
     </header>
 
-    <nav class="max-w-3xl mx-auto mb-12 p-6 bg-slate-800 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold text-white mb-4">Table of Contents</h2>
-      <ul class="space-y-2">
+    {/* Оглавление */}
+    <nav class="max-w-3xl mx-auto mb-12 p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
+      <h2 class="text-2xl font-semibold text-zinc-100 mb-4">Table of Contents</h2>
+      <ul class="space-y-2 columns-1 sm:columns-2">
         {faqCategories.map(category => (
-          <li>
-            <a href={`#${category.slug}`} class="text-aptcore-purple hover:underline text-lg transition-colors">
+          <li class="break-inside-avoid">
+            <a href={`#${category.slug}`} class="text-purple-400 hover:underline text-base transition-colors">
               {category.title}
             </a>
           </li>
@@ -1021,19 +1025,23 @@ const faqStructuredData = {
       </ul>
     </nav>
 
-    <div class="max-w-3xl mx-auto">
+    {/* Основной контент FAQ */}
+    <div class="max-w-3xl mx-auto" data-pagefind-body>
       {faqCategories.map(category => (
-        <section id={category.slug} class="mb-12 scroll-mt-20">
-          <h2 class="text-3xl font-bold text-white mb-6 pb-2 border-b border-slate-700">{category.title}</h2>
+        <section id={category.slug} class="mb-12 scroll-mt-24">
+          <div class="flex items-center mb-6 pb-2 border-b border-zinc-800">
+            <HelpCircle size={24} class="text-zinc-500 mr-3 shrink-0" />
+            <h2 class="text-3xl font-bold text-zinc-100">{category.title}</h2>
+          </div>
           <div class="space-y-1">
             {category.questions.map((item) => (
-              <details class="group border-b border-slate-700 last:border-b-0" id={`faq-${item.id}`}>
-                <summary class="flex w-full items-center justify-between cursor-pointer py-4 text-left list-none text-lg font-medium text-white hover:text-aptcore-purple group-open:text-aptcore-purple transition-colors">
+              <details class="group border-b border-zinc-800 last:border-b-0 py-2" id={`faq-${item.id}`}>
+                <summary class="flex w-full items-center justify-between cursor-pointer py-2 text-left list-none text-lg font-medium text-zinc-200 hover:text-purple-300 group-open:text-purple-300 transition-colors">
                   <span>{item.question}</span>
-                  <svg class="w-5 h-5 text-slate-400 group-open:rotate-90 transition-transform duration-300 ease-in-out shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  <svg class="w-5 h-5 text-zinc-400 group-open:rotate-90 transition-transform duration-300 ease-in-out shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </summary>
-                <div class="pt-1 pb-4 text-brand-text-secondary prose prose-invert prose-sm max-w-none">
-                  <p>{item.answer}</p>
+                <div class="pt-2 pb-4 text-zinc-400 prose prose-invert prose-base max-w-none">
+                  <p set:html={item.answer.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-purple-400 hover:underline" target="_blank" rel="noopener noreferrer">$1</a>')} />
                 </div>
               </details>
             ))}

@@ -1,52 +1,80 @@
-// src/components/Layout/AppFooter.jsx (примерный путь)
+// src/components/Layout/AppFooter.jsx
 
 import React from 'react';
-import { Twitter, Youtube, Github } from 'lucide-react';
+import { Twitter, Youtube, Github, Award } from 'lucide-react';
+import { PATHS, SOCIALS } from '@/config/consts.ts'; 
 
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
 
-  // Основные ссылки
-  const MAIN_APP_URL = "/";
-  const APY_CALCULATOR_URL = "/tools/aptos-staking-apy-calculator";
-  const LOCKUP_VISUALIZER_URL = "/tools/aptos-staking-lockup-visualizer";
-  const BLOG_BASE_URL = "/blog"; 
-  const ABOUT_URL_BLOG = `${BLOG_BASE_URL}/about`;
-  
-  // Внешние ссылки на соцсети
-  const TWITTER_URL = "https://x.com/aptcoreone";
-  const YOUTUBE_URL = "https://www.youtube.com/@aptcoreone";
-  const GITHUB_URL = "https://github.com/p1xel32/petra-staking-app";
+  const productLinks = [
+    { label: "Stake", href: PATHS.home },
+    { label: "APY Calculator", href: PATHS.tools.apyCalculator },
+    { label: "Lockup Visualizer", href: PATHS.tools.lockupVisualizer },
+  ];
+  const companyLinks = [
+    { label: "About Us", href: PATHS.about },
+    { label: "Contact", href: PATHS.contact },
+    { label: "Disclaimer", href: PATHS.legal.disclaimer },
+    { label: "Terms", href: PATHS.legal.terms },
+  ];
+  const resourcesLinks = [
+    { label: "Blog", href: PATHS.blog },
+    { label: "FAQ", href: PATHS.faq },
+    { label: "Help Center", href: PATHS.help },
+  ];
+  const socialLinks = [
+    { label: "Twitter", href: SOCIALS.twitter, Icon: Twitter },
+    { label: "StakingRewards", href: SOCIALS.stakingRewards, Icon: Award },
+    { label: "YouTube", href: SOCIALS.youtube, Icon: Youtube },
+    { label: "GitHub", href: SOCIALS.github, Icon: Github },
+  ];
 
   return (
-    <footer className="text-center py-10 text-zinc-500 text-sm border-t border-zinc-800/50 mt-16">
-      <div className="container mx-auto px-4">
-        <nav className="mb-6 space-x-4 sm:space-x-8" aria-label="Footer navigation">
-          <a href={MAIN_APP_URL} className="hover:text-purple-400 transition-colors">Stake</a>
-          <a href={APY_CALCULATOR_URL} className="hover:text-purple-400 transition-colors">APY Calculator</a>
-          <a href={LOCKUP_VISUALIZER_URL} className="hover:text-purple-400 transition-colors">Lockup Visualizer</a>
-          <a href={BLOG_BASE_URL} className="hover:text-purple-400 transition-colors">Blog</a>
-          <a href={ABOUT_URL_BLOG} className="hover:text-purple-400 transition-colors">About</a>
-        </nav>
-
-        <div className="flex justify-center items-center space-x-6 my-8">
-          <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter" className="text-zinc-400 hover:text-purple-400 transition-colors">
-            <Twitter size={20} />
-          </a>
-          <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube" className="text-zinc-400 hover:text-purple-400 transition-colors">
-            <Youtube size={20} />
-          </a>
-          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="View on GitHub" className="text-zinc-400 hover:text-purple-400 transition-colors">
-            <Github size={20} />
-          </a>
+    <footer className="border-t border-zinc-800/50 mt-16">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-10 text-left">
+          <div className="hidden lg:block"></div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-zinc-200">Product</h4>
+            <ul className="space-y-2">
+              {productLinks.map(link => (
+                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-zinc-200">Company</h4>
+            <ul className="space-y-2">
+              {companyLinks.map(link => (
+                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-zinc-200">Resources</h4>
+            <ul className="space-y-2">
+              {resourcesLinks.map(link => (
+                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="mb-4 text-xs space-y-1">
+        <div className="border-t border-zinc-800/50 pt-8 text-center text-zinc-500 text-sm">
+          <div className="flex justify-center items-center space-x-6 mb-6">
+            {socialLinks.map(({ label, href, Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="text-zinc-400 hover:text-purple-400 transition-colors">
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+          <div className="mb-4 text-xs space-y-1 text-zinc-400">
             <p>Secure staking infrastructure by core Aptos contributors — no slashing since day one.</p>
             <p>Verifiable On-chain</p>
+          </div>
+          <p>© {currentYear} aptcore.one</p>
         </div>
-
-        <p>© {currentYear} aptcore.one</p>
       </div>
     </footer>
   );

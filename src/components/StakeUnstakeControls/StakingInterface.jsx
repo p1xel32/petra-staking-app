@@ -1,8 +1,12 @@
+// File: src/components/StakeUnstakeControls/StakingInterface.jsx
+
 import React, { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { motion } from 'framer-motion';
 
-// ▼▼▼ ИЗМЕНЕНИЕ ЗДЕСЬ ▼▼▼
+// ✅ ИСПРАВЛЕНИЕ: Используем правильный относительный путь с двумя точками.
+import { EpochInfoProvider } from '../../context/EpochInfoContext.jsx'; 
+
 import ValidatorInfo from '../ValidatorInfo.jsx'; 
 const StakeUnstakeControls = lazy(() => import('./StakeUnstakeControls'));
 
@@ -18,13 +22,16 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
   useEffect(() => { setIsMounted(true); }, []);
 
   const [userStake, setUserStake] = useState({
-    active: 0, inactive: 0, pendingInactive: 0, isFetching: true,
+    active: 0,
+    inactive: 0,
+    pendingInactive: null,
+    isFetching: true,
   });
   const [walletBalance, setWalletBalance] = useState(0);
 
   const fetchUserStake = useCallback(async () => {
     if (!userAccountAddress || !serverFetchedPoolInfo?.poolAddress) {
-      setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
+      setUserStake({ active: 0, inactive: 0, pendingInactive: null, isFetching: false });
       return;
     }
     setUserStake(prev => ({ ...prev, isFetching: true }));
@@ -33,10 +40,17 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
       const response = await fetch(apiUrl);
       if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
       const data = await response.json();
-      setUserStake({ ...data, isFetching: false });
+
+      setUserStake({
+        active: data.active || 0,
+        inactive: data.inactive || 0,
+        pendingInactive: data.pendingInactive,
+        isFetching: false,
+      });
+
     } catch (error) {
       console.error("Error fetching user stake via API:", error);
-      setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
+      setUserStake({ active: 0, inactive: 0, pendingInactive: null, isFetching: false });
     }
   }, [userAccountAddress, serverFetchedPoolInfo?.poolAddress]);
 
@@ -58,7 +72,7 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
       fetchUserStake();
       fetchWalletBalance();
     } else {
-      setUserStake({ active: 0, inactive: 0, pendingInactive: 0, isFetching: false });
+      setUserStake({ active: 0, inactive: 0, pendingInactive: null, isFetching: false });
       setWalletBalance(0);
     }
   }, [connected, userAccountAddress, fetchUserStake, fetchWalletBalance, serverFetchedPoolInfo]);
@@ -69,7 +83,7 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
   };
 
   return (
-    <>
+    <EpochInfoProvider>
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         animate={{ opacity: 1, y: 0 }} 
@@ -96,9 +110,10 @@ export default function StakingInterface({ serverFetchedPoolInfo, serverFetchedA
             userStake={userStake}
             connected={connected}
             walletBalance={walletBalance}
+            poolInfo={serverFetchedPoolInfo}
           />
         </Suspense>
       </motion.div>
-    </>
+    </EpochInfoProvider>
   );
 }

@@ -17,13 +17,12 @@ export default function StakeForm({
 }) {
   return (
     <>
-      {/* ✅ Улучшенные табы для большей четкости */}
       <div className="flex w-full rounded-xl mb-4 bg-zinc-900/50 p-1 border border-zinc-800">
         <button
           onClick={() => setActiveTab('stake')}
           className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors duration-200 focus:outline-none ${
             activeTab === 'stake'
-              ? 'bg-zinc-700 text-white shadow' // Активная вкладка стала значительно заметнее
+              ? 'bg-zinc-700 text-white shadow' 
               : 'text-zinc-400 hover:text-white'
           }`}
         >
@@ -33,7 +32,7 @@ export default function StakeForm({
           onClick={() => setActiveTab('unstake')}
           className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors duration-200 focus:outline-none ${
             activeTab === 'unstake'
-              ? 'bg-zinc-700 text-white shadow' // Активная вкладка стала значительно заметнее
+              ? 'bg-zinc-700 text-white shadow' 
               : 'text-zinc-400 hover:text-white'
           }`}
         >
@@ -41,7 +40,6 @@ export default function StakeForm({
         </button>
       </div>
 
-      {/* ✅ Улучшенное поле ввода в общем стиле */}
       <div className="mb-4">
         <label
           htmlFor="amount"
@@ -54,7 +52,6 @@ export default function StakeForm({
             type="number"
             id="amount"
             name="amount"
-            // Дизайн полностью соответствует другим элементам
             className="w-full pr-24 px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 placeholder:text-zinc-500 text-zinc-100 text-lg transition-colors duration-200"
             placeholder={`e.g., ${MIN_STAKE_APT}`}
             value={amountApt}
@@ -72,10 +69,8 @@ export default function StakeForm({
         </div>
       </div>
 
-      {/* Кнопки действий */}
       {activeTab === 'stake' && (
         <>
-          {/* ✅ Кнопка основного действия */}
           <button
             onClick={handleStake}
             disabled={
@@ -94,7 +89,6 @@ export default function StakeForm({
             Stake APT
           </button>
 
-          {/* ✅ Улучшенный текст подсказки */}
           {(!connected || !amountApt || parseFloat(amountApt) < MIN_STAKE_APT) && (
             <p className="text-xs text-zinc-400 text-center mt-3">
               {!connected
@@ -106,7 +100,6 @@ export default function StakeForm({
       )}
 
       {activeTab === 'unstake' && (
-        // ✅ Кнопка второстепенного действия в стиле 'Pro'
         <button
           onClick={handleUnstake}
           disabled={

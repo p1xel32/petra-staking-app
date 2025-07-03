@@ -40,7 +40,6 @@ export default function ConnectWalletButton() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [isModalOpen]);
 
-  // Дизайн модального окна оставлен прежним, так как он соответствует стилю ValidatorInfo
   const modalContent = (
     <div 
       className={`fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-[1000] p-4 transition-opacity duration-300 ease-in-out ${isModalAnimating ? 'opacity-100' : 'opacity-0'}`}
@@ -86,7 +85,6 @@ export default function ConnectWalletButton() {
   return (
     <>
       {connected && address ? (
-        // ✅ ОБНОВЛЕННЫЙ ДИЗАЙН КНОПКИ (PRO СТИЛЬ)
         <button 
           onClick={disconnect} 
           className="group flex items-center gap-x-3 px-5 py-2.5 bg-zinc-800/50 rounded-xl border border-white/10 text-sm font-semibold text-zinc-100 shadow-lg shadow-black/20 hover:bg-zinc-800/80 hover:border-white/20 active:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200" 
@@ -97,7 +95,6 @@ export default function ConnectWalletButton() {
           <ShieldCheck size={18} className="text-green-400" />
         </button>
       ) : (
-        // ✅ ОБНОВЛЕННЫЙ ДИЗАЙН КНОПКИ (PRO СТИЛЬ)
         <button 
           onClick={openModal} 
           className="group flex items-center gap-x-3 px-5 py-2.5 bg-zinc-800/50 rounded-xl border border-white/10 text-sm font-semibold text-zinc-100 shadow-lg shadow-black/20 hover:bg-zinc-800/80 hover:border-white/20 active:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200" 

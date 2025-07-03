@@ -1,4 +1,5 @@
 // blog/tailwind.config.mjs
+
 import defaultTheme from 'tailwindcss/defaultTheme';
 import typography from '@tailwindcss/typography';
 
@@ -11,41 +12,41 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
+        sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'aptcore': {
-          'purple': '#A78BFA', 
-          'cyan': '#22D3EE',   
-          'green': '#4ADE80',  
-          'blue': '#60A5FA',   
+        // ✅ Добавляем цвет фона основного сайта
+        'brand-bg': '#0D0D1F',
+        zinc: {
+          50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8',
+          400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46',
+          800: '#27272a', 900: '#18181b', 950: '#09090b',
         },
-        'brand-bg-dark': '#09090B',     
-        'brand-text-light': '#E5E7EB',    
-        'brand-text-secondary': '#A1A1AA', 
+        purple: {
+          300: '#d8b4fe', 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce',
+        },
+        'aptcore-purple': '#A78BFA',
       },
+      // ✅ Исправляем 'DEFAULT' на 'invert' для прямого применения к .prose-invert
       typography: (theme) => ({
-        DEFAULT: {
+        invert: { 
           css: {
-            '--tw-prose-body': theme('colors.brand-text-light'),
-            '--tw-prose-headings': theme('colors.white'),
+            '--tw-prose-body': theme('colors.zinc[300]'),
+            '--tw-prose-headings': theme('colors.zinc[100]'),
             '--tw-prose-lead': theme('colors.zinc[400]'),
-            '--tw-prose-links': theme('colors.aptcore.purple'),
+            '--tw-prose-links': theme('colors.purple[400]'),
             '--tw-prose-bold': theme('colors.white'),
-            '--tw-prose-counters': theme('colors.brand-text-secondary'),
-            '--tw-prose-bullets': theme('colors.aptcore.purple'),
-            '--tw-prose-hr': theme('colors.zinc[700]'),
-            '--tw-prose-quotes': theme('colors.aptcore.purple'),
-            '--tw-prose-quote-borders': theme('colors.zinc[700]'),
-            '--tw-prose-captions': theme('colors.brand-text-secondary'),
-            '--tw-prose-code': theme('colors.white'),
+            '--tw-prose-counters': theme('colors.zinc[400]'),
+            '--tw-prose-bullets': theme('colors.purple[500]'),
+            '--tw-prose-hr': theme('colors.zinc[800]'),
+            '--tw-prose-quotes': theme('colors.zinc[200]'),
+            '--tw-prose-quote-borders': theme('colors.purple[500]'),
+            '--tw-prose-captions': theme('colors.zinc[400]'),
+            '--tw-prose-code': theme('colors.zinc[200]'),
             '--tw-prose-pre-code': theme('colors.zinc[300]'),
-            '--tw-prose-pre-bg': theme('colors.zinc[800]'),
-            '--tw-prose-th-borders': theme('colors.zinc[600]'),
-            '--tw-prose-td-borders': theme('colors.zinc[700]'),
-            '--tw-prose-invert-body': theme('colors.brand-text-light'),
-            '--tw-prose-invert-headings': theme('colors.white'),
-            '--tw-prose-invert-links': theme('colors.aptcore.purple'),
+            '--tw-prose-pre-bg': theme('colors.zinc[900]'),
+            '--tw-prose-th-borders': theme('colors.zinc[700]'),
+            '--tw-prose-td-borders': theme('colors.zinc[800]'),
           },
         },
       }),

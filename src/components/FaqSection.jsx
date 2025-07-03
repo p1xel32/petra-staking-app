@@ -1,6 +1,6 @@
 import React from 'react';
-import FaqItem from './FaqItem'; // Импортируем FaqItem из соседнего файла
-import StructuredData from './StructuredData'; // Убедитесь, что этот компонент существует
+import FaqItem from './FaqItem'; 
+import StructuredData from './StructuredData'; 
 
 const faqData = [
   { id: 1, question: "How can I start earning rewards with my Aptos (APT) tokens?", answer: "You can earn rewards by staking your Aptos (APT) tokens, which also helps secure the Aptos network. Platforms like aptcore.one offer a simple and secure way to connect your wallet, delegate your APT to our reliable validator, and receive regular staking rewards." },
