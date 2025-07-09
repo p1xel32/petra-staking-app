@@ -11,7 +11,6 @@ const LIVE_POSTS_URL = process.env.POSTS_JSON_URL!;
 const DB_FILE_PATH = path.join(process.cwd(), 'scripts', 'processed_social_posts.json');
 const POSTING_DELAY_DAYS = 2;
 const BATCH_SIZE = 3;
-// УДАЛЕНЫ ПЛАТФОРМЫ, КОТОРЫЕ ВЫ НЕ ИСПОЛЬЗУЕТЕ
 const ALL_PLATFORMS = ['twitter', 'blogger', 'hashnode'];
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -86,7 +85,9 @@ async function rewriteForTwitter(post: Post): Promise<string> {
     const totalReservedChars = twitterLinkLength + accompanyingTextLength;
     const maxCharsForAI = 280 - totalReservedChars;
     const keywordsText = post.keywords && post.keywords.length > 0 ? `Main keywords are: "${post.keywords.join(', ')}".` : '';
-    const prompt = `Write a promotional tweet for a tech blog post about the Aptos blockchain. Your response MUST be strictly under ${maxCharsForAI} characters. ${keywordsText} If possible, naturally weave one of these phrases into the tweet. Use 2-3 relevant hashtags. Article Title: "${post.title}".`;
+    
+    const prompt = `Write a tweet for a tech blog post about the Aptos blockchain. Your response MUST be strictly under ${maxCharsForAI} characters. Frame it as sharing a helpful, informative article. Avoid overly promotional language. Use 2-3 relevant hashtags. ${keywordsText} Article Title: "${post.title}".`;
+    
     try {
         const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'system', content: 'You are an expert SMM manager for a blockchain tech project.' }, { role: 'user', content: prompt }], temperature: 0.7, max_tokens: 120 });
         let rewrittenText = response.choices[0]?.message?.content;
@@ -153,7 +154,6 @@ async function postToHashnode(post: Post, rewrittenPost: { title: string; conten
     if (!hashnode.enabled) return false;
     console.log(`  🔗 Posting to Hashnode...`);
     
-    
     const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
     
     const tagsForApi = post.tags?.slice(0, 5).map(tag => ({
@@ -169,7 +169,6 @@ async function postToHashnode(post: Post, rewrittenPost: { title: string; conten
         .replace(/\s+/g, '-')
         .slice(0, 100);
 
-    
     const mutation = `mutation publishPost($input: PublishPostInput!) { publishPost(input: $input) { post { url } } }`;
     
     const variables = { 
@@ -235,9 +234,8 @@ async function main() {
             rewriteForLongform(post),
         ]);
 
-        
         const postJobs = [
-            { platform: 'twitter', task: () => postToTwitter("Hello World - API test from my bot.")}, // Test line
+            { platform: 'twitter', task: () => postToTwitter(`${twitterText}\n\nRead more: ${post.link}`)},
             { platform: 'blogger', task: () => postToBlogger(post, longformPost)},
             { platform: 'hashnode', task: () => postToHashnode(post, longformPost)},
         ];
