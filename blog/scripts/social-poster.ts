@@ -134,7 +134,7 @@ async function postToBlogger(post: Post, rewrittenPost: { title: string; content
         });
         console.log(`  ✅ Success!`);
         return true;
-    } catch (error) { console.error(`  ❌ Failed:`, error.message); return false; }
+    } catch (error) { console.error(`  ❌ Failed:`, error); return false; }
 }
 
 async function postToDevTo(post: Post, rewrittenPost: { title: string; content: string }): Promise<boolean> {
@@ -153,7 +153,7 @@ async function postToHashnode(post: Post, rewrittenPost: { title: string; conten
     if (!hashnode.enabled) return false;
     console.log(`  🔗 Posting to Hashnode...`);
     
-   
+    
     const absoluteImageUrl = (post.heroImage && !post.heroImage.includes('placeholder')) ? `https://aptcore.one${post.heroImage}` : undefined;
     
     const tagsForApi = post.tags?.slice(0, 5).map(tag => ({
@@ -235,8 +235,9 @@ async function main() {
             rewriteForLongform(post),
         ]);
 
+        
         const postJobs = [
-            { platform: 'twitter', task: () => postToTwitter(`${twitterText}\n\nRead more: ${post.link}`)},
+            { platform: 'twitter', task: () => postToTwitter("Hello World - API test from my bot.")}, // Test line
             { platform: 'blogger', task: () => postToBlogger(post, longformPost)},
             { platform: 'hashnode', task: () => postToHashnode(post, longformPost)},
         ];
