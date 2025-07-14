@@ -11,7 +11,7 @@ const LIVE_POSTS_URL = process.env.POSTS_JSON_URL!;
 const DB_FILE_PATH = path.join(process.cwd(), 'scripts', 'processed_social_posts.json');
 const POSTING_DELAY_DAYS = 2;
 const BATCH_SIZE = 3;
-const ALL_PLATFORMS = ['twitter', 'blogger', 'hashnode'];
+const ALL_PLATFORMS = ['twitter'];
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
