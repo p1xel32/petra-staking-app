@@ -264,39 +264,49 @@ Describe the core visual concept in 5-10 words. Focus on the central elements an
 }
 
 async function createImageWithDalle(articleTitle: string, visualConcept: string): Promise<string | null> {
-    console.log(`   🎨 Generating image for concept: "${visualConcept}"...`);
-    const brandPalette = { background: "#09090B", purple: "#A78BFA", cyan: "#22D3EE", textLight: "#E5E7EB" };
-    const stylePrompt = `
-A minimalist graphic for a technology keynote slide, rendered in a flat 2D vector, UI/UX style.
-The design must use simple, symbolic icons and abstract geometric shapes to represent the core concept.
-The visual aesthetic is clean, using only solid colors without any gradients, shadows, or photographic textures.
-The color palette is strict:
-- Background: A solid dark charcoal color (${brandPalette.background}).
-- Primary Elements: Vibrant purple (${brandPalette.purple}) and bright cyan (${brandPalette.cyan}).
-- Secondary Details: A light gray for minor accents (${brandPalette.textLight}).
-The overall composition must be balanced, professional, and fill the entire 16:9 frame.`;
-    const brandingPrompt = `
-CRITICAL BRANDING INSTRUCTION:
-The central, most prominent icon in the image must be a stylized representation of the Aptos logo. The Aptos logo is a simple circle made of several separate, distinct segments with a small gap in the circular shape.
-DO NOT include logos or symbols of any other cryptocurrency, especially Bitcoin (BTC) or Ethereum (ETH). The focus is exclusively on Aptos.`;
-    const finalPrompt = `Blog post cover image about "${articleTitle}". 
-The image must visually represent the concept: "${visualConcept}".
-${brandingPrompt}
-The required artistic style is as follows: ${stylePrompt}`;
-    
-    try {
-      const response = await openai.images.generate({ model: "dall-e-3", prompt: finalPrompt, n: 1, size: "1792x1024", quality: "standard", style: 'vivid' });
-      const image = response.data?.[0];
-      if (image && image.url) {
-        console.log(`   ✅ Image generated successfully!`);
-        return image.url;
-      } else {
-        throw new Error("DALL-E 3 API response did not contain an image URL.");
-      }
-    } catch (error) {
-      console.error(`   ❌ Error generating image:`, error);
-      return null;
-    }
+    console.log(`   🎨 Generating image for concept: "${visualConcept}"...`);
+
+    // Новый, более гибкий и креативный промт
+    const finalPrompt = `
+Create a visually stunning, abstract blog post cover image for an article titled "${articleTitle}".
+
+The core visual theme to represent is: "${visualConcept}".
+
+**Artistic Style:**
+A beautiful and abstract 3D render. It should have a sophisticated, professional aesthetic with cinematic lighting, a sense of depth, and high detail. Think of a modern, high-end technology visual, not a simple icon.
+
+**Color and Mood:**
+Use a dark, moody background. Key elements should be illuminated with vibrant, glowing accents of purple and cyan. The overall feeling should be futuristic, innovative, and intriguing.
+
+**Crucial Rules:**
+1.  **Absolutely NO text, letters, or numbers.** The image must be purely visual.
+2.  **DO NOT include any recognizable cryptocurrency logos or brand symbols (including Aptos).** The goal is an abstract representation of the *concept*, not a branding image.
+3.  The composition should be clean, captivating, and fill the entire 16:9 frame.
+
+The final result must be an artistic and abstract image that sparks curiosity.
+`;
+    
+    try {
+      const response = await openai.images.generate({
+        model: "dall-e-3",
+        prompt: finalPrompt,
+        n: 1,
+        size: "1792x1024",
+        quality: "hd", // Ставим 'hd' для лучшей детализации и освещения
+        style: 'vivid'
+      });
+
+      const image = response.data?.[0];
+      if (image && image.url) {
+        console.log(`   ✅ Image generated successfully!`);
+        return image.url;
+      } else {
+        throw new Error("DALL-E 3 API response did not contain an image URL.");
+      }
+    } catch (error) {
+      console.error(`   ❌ Error generating image:`, error);
+      return null;
+    }
 }
 
 async function downloadAndOptimizeImage(url: string): Promise<Buffer> {
