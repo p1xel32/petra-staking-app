@@ -3,6 +3,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 export default defineConfig({
   site: 'https://aptcore.one',
@@ -35,6 +37,9 @@ export default defineConfig({
     },
   },
   vite: {
+    define: {
+      '__dirname': JSON.stringify(path.dirname(fileURLToPath(import.meta.url))),
+    },
     build: {
       rollupOptions: {
         external: ['fsevents'],
