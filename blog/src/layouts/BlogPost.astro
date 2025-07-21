@@ -5,186 +5,99 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, BLOG_CANONICAL_ROOT } from '../consts';
+import astroConfig from '../../astro.config.mjs';
 
 const {
-  title,
-  description,
-  pubDate,
-  updatedDate,
-  heroImage,
-  heroImageAlt,
-  faq,
-  keywords,
-  ogType = 'article',
-  lang = 'en',
-  video,
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  heroImageAlt,
+  faq,
+  keywords,
+  ogType = 'article',
+  lang, 
+  video,
+  hreflangLinks,
+  xDefaultHref,
+  content,
+  canonicalUrl, // Используем готовый URL, переданный со страницы
 } = Astro.props;
 
-const postUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/${Astro.params.slug}`, SITE_URL).href;
-
 const resolvedHeroImageUrl = heroImage?.startsWith('http')
-  ? heroImage
-  : new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href;
-
+  ? heroImage
+  : heroImage ? new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href : undefined;
+  
 const resolvedThumbnailUrl = video?.thumbnailUrl?.startsWith('http')
-  ? video.thumbnailUrl
-  : video?.thumbnailUrl
-    ? new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${video.thumbnailUrl.startsWith('/') ? '' : '/'}${video.thumbnailUrl}`, SITE_URL).href
-    : undefined;
+  ? video.thumbnailUrl
+  : video?.thumbnailUrl
+    ? new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${video.thumbnailUrl.startsWith('/') ? '' : '/'}${video.thumbnailUrl}`, SITE_URL).href
+    : undefined;
 
 const ORG_NAME = 'aptcore.one';
 const ORG_LOGO_URL = new URL('/aptcore-logo.svg', SITE_URL).href;
 const ORGANIZATION_SCHEMA_ID = `${SITE_URL}/#organization`;
-
 const jsonLdGraph = [];
-
 const blogPostingSchemaData = {
-  "@type": "BlogPosting",
-  "headline": title,
-  "description": description || SITE_DESCRIPTION,
-  "image": resolvedHeroImageUrl ? [resolvedHeroImageUrl] : undefined,
-  "datePublished": pubDate ? new Date(pubDate).toISOString() : undefined,
-  "dateModified": updatedDate ? new Date(updatedDate).toISOString() : (pubDate ? new Date(pubDate).toISOString() : undefined),
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": postUrl,
-  },
-  "author": {
-    "@type": "Organization",
-    "name": ORG_NAME,
-    "@id": ORGANIZATION_SCHEMA_ID,
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": ORG_NAME,
-    "@id": ORGANIZATION_SCHEMA_ID,
-    "logo": {
-      "@type": "ImageObject",
-      "url": ORG_LOGO_URL,
-    },
-  },
+  "@type": "BlogPosting", "headline": title, "description": description || SITE_DESCRIPTION,
+  "image": resolvedHeroImageUrl ? [resolvedHeroImageUrl] : undefined,
+  "datePublished": pubDate ? new Date(pubDate).toISOString() : undefined,
+  "dateModified": updatedDate ? new Date(updatedDate).toISOString() : (pubDate ? new Date(pubDate).toISOString() : undefined),
+  "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+  "author": { "@type": "Organization", "name": ORG_NAME, "@id": ORGANIZATION_SCHEMA_ID },
+  "publisher": { "@type": "Organization", "name": ORG_NAME, "@id": ORGANIZATION_SCHEMA_ID, "logo": { "@type": "ImageObject", "url": ORG_LOGO_URL, }, },
 };
-
-Object.keys(blogPostingSchemaData).forEach((key) => {
-  if (
-    blogPostingSchemaData[key] === undefined ||
-    (Array.isArray(blogPostingSchemaData[key]) && blogPostingSchemaData[key].length === 0)
-  ) {
-    delete blogPostingSchemaData[key];
-  }
-});
-
+Object.keys(blogPostingSchemaData).forEach((key) => { if (blogPostingSchemaData[key] === undefined || (Array.isArray(blogPostingSchemaData[key]) && blogPostingSchemaData[key].length === 0)) { delete blogPostingSchemaData[key]; } });
 jsonLdGraph.push(blogPostingSchemaData);
-
-if (video) {
-  jsonLdGraph.push({
-    "@type": "VideoObject",
-    "name": video.name,
-    "description": video.description || description,
-    "thumbnailUrl": resolvedThumbnailUrl || resolvedHeroImageUrl,
-    "uploadDate": video.uploadDate,
-    "contentUrl": video.url,
-    "embedUrl": video.url,
-  });
-}
-
-jsonLdGraph.push({
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": SITE_TITLE || 'Home',
-      "item": SITE_URL,
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": 'Blog',
-      "item": BLOG_CANONICAL_ROOT || `${SITE_URL}/blog`,
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": title,
-      "item": postUrl,
-    },
-  ],
-});
-
-if (faq && Array.isArray(faq) && faq.length > 0) {
-  jsonLdGraph.push({
-    "@type": "FAQPage",
-    "mainEntity": faq.map(({ question, answer }) => ({
-      "@type": "Question",
-      "name": question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": answer,
-      },
-    })),
-  });
-}
-
-const finalJsonLd = {
-  "@context": "https://schema.org",
-  "@graph": jsonLdGraph,
-};
+if (video) { jsonLdGraph.push({ "@type": "VideoObject", "name": video.name, "description": video.description || description, "thumbnailUrl": resolvedThumbnailUrl || resolvedHeroImageUrl, "uploadDate": video.uploadDate, "contentUrl": video.url, "embedUrl": video.url, }); }
+jsonLdGraph.push({ "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": SITE_TITLE || 'Home', "item": SITE_URL, }, { "@type": "ListItem", "position": 2, "name": 'Blog', "item": BLOG_CANONICAL_ROOT || `${SITE_URL}/blog`, }, { "@type": "ListItem", "position": 3, "name": title, "item": canonicalUrl, }, ], });
+if (faq && Array.isArray(faq) && faq.length > 0) { jsonLdGraph.push({ "@type": "FAQPage", "mainEntity": faq.map(({ question, answer }) => ({ "@type": "Question", "name": question, "acceptedAnswer": { "@type": "Answer", "text": answer, }, })), }); }
+const finalJsonLd = { "@context": "https://schema.org", "@graph": jsonLdGraph, };
 ---
 <html lang={lang} class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <BaseHead
-      title={title}
-      description={description || SITE_DESCRIPTION}
-      image={resolvedHeroImageUrl}
-      canonicalURL={postUrl}
-      keywords={keywords}
-      ogType={ogType}
-      lang={lang}
-      video={video}
-    />
-    <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
-  </head>
-  <body class="text-zinc-300 font-sans antialiased min-h-screen flex flex-col">
-    <Header />
-    <main class="py-8 sm:py-12 flex-grow">
-      <article class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <p class="text-sm text-zinc-400 mb-2">
-          {pubDate && <FormattedDate date={pubDate} />}
-          {updatedDate && pubDate && (
-            <span class="block italic text-xs mt-1">
-              Last updated on <FormattedDate date={updatedDate} />
-            </span>
-          )}
-        </p>
-        {title && <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 leading-tight">{title}</h1>}
-        {video ? (
-          <div class="aspect-w-16 aspect-h-9 mb-8">
-            <iframe
-              src={video.url}
-              title={video.name}
-              frameborder="0"
-              allowfullscreen
-              class="rounded-lg w-full h-full"
-              loading="lazy"
-            ></iframe>
-          </div>
-        ) : (
-          resolvedHeroImageUrl && (
-            <img
-              src={resolvedHeroImageUrl}
-              alt={heroImageAlt ?? `Hero image for ${title}`}
-              class="w-full h-auto rounded-lg shadow mb-8"
-              loading="lazy"
-            />
-          )
-        )}
-        <div class="prose prose-invert lg:prose-xl max-w-none" data-pagefind-body>
-          <slot />
-        </div>
-      </article>
-    </main>
-    <Footer />
-  </body>
+  <head>
+    <meta charset="utf-8" />
+    <BaseHead
+      title={title}
+      description={description || SITE_DESCRIPTION}
+      image={resolvedHeroImageUrl}
+      canonicalURL={canonicalUrl}
+      keywords={keywords}
+      ogType={ogType}
+      lang={lang}
+      video={video}
+      hreflangLinks={hreflangLinks} xDefaultHref={xDefaultHref}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
+  </head>
+  <body class="text-zinc-300 font-sans antialiased min-h-screen flex flex-col">
+    <Header />
+    <main class="py-8 sm:py-12 flex-grow">
+      <article class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <p class="text-sm text-zinc-400 mb-2">
+          {pubDate && <FormattedDate date={pubDate} />}
+          {updatedDate && pubDate && (
+            <span class="block italic text-xs mt-1">
+              Last updated on <FormattedDate date={updatedDate} />
+            </span>
+          )}
+        </p>
+        {title && <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 leading-tight">{title}</h1>}
+        {video ? (
+          <div class="aspect-w-16 aspect-h-9 mb-8">
+            <iframe src={video.url} title={video.name} frameborder="0" allowfullscreen class="rounded-lg w-full h-full" loading="lazy"></iframe>
+          </div>
+        ) : (
+          resolvedHeroImageUrl && (
+            <img src={resolvedHeroImageUrl} alt={heroImageAlt ?? `Hero image for ${title}`} class="w-full h-auto rounded-lg shadow mb-8" loading="lazy" />
+          )
+        )}
+        
+        <div class="prose prose-invert lg:prose-xl max-w-none" data-pagefind-body set:html={content}></div>
+
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>

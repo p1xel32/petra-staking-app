@@ -1,0 +1,72 @@
+---
+title: "Recompensas de Staking en Aptos: Explicación de APR vs. APY (y cómo aptcore.one las muestra)"
+description: "Desmitificando las recompensas de staking en Aptos. Aprende la diferencia entre APR y APY, cómo se calculan y cómo aptcore.one proporciona información transparente sobre las recompensas."
+pubDate: "2025-08-04"
+keywords: ["Aptos", "Staking", "Rewards", "APR", "APY", "Finance", "aptcore.one"]
+heroImage: "/blog-assets/aptos-rewards-apr-apy.jpg"
+heroImageAlt: "Ilustración comparando los conceptos de APR y APY en el staking de Aptos en la plataforma aptcore.one"
+tags: ["Aptos", "Staking", "Rewards", "APR", "APY", "Finance", "aptcore.one"]
+author: "El equipo de aptcore.one"
+translationKey: "aptos-staking-rewards-apr-vs-apy-explained-and-how-aptcoreone-shows-them"
+---
+
+## Comprendiendo tus Recompensas de Staking en Aptos: APR vs. APY
+
+Cuando haces staking con tus tokens Aptos (APT), esperas ganar recompensas. Pero, ¿cómo se calculan y presentan estas recompensas? A menudo verás términos como APR y APY. Entender la diferencia es clave para evaluar con precisión tus posibles retornos. En [aptcore.one](https://aptcore.one), creemos en la transparencia, así que vamos a desglosarlo.
+
+### ¿Qué es APR (Tasa de Porcentaje Anual)?
+
+**APR** representa la tasa de interés anual simple que ganas sobre tu cantidad en staking, **sin** considerar el efecto del interés compuesto. Es un cálculo sencillo: si haces staking de 100 APT a un 5% de APR, esperarías ganar 5 APT en un año, suponiendo que la tasa se mantenga constante y las recompensas no se reinviertan.
+
+**Cómo aptcore.one calcula el APR Bruto:**
+El APR Bruto mostrado en `aptcore.one` se calcula en base a los parámetros actuales en la cadena de la red Aptos:
+* `rewards_rate` y `rewards_rate_denominator` (de `0x1::staking_config::StakingConfig`)
+* `epoch_interval` (de `0x1::block::BlockResource`)
+
+La fórmula es esencialmente:
+`APR Bruto = (rewards_rate / rewards_rate_denominator) * Número_de_Epocas_en_un_Año * 100%`
+
+Esto te da una instantánea de la tasa de recompensa actual de la red antes de cualquier comisión de los validadores.
+
+### ¿Qué es APY (Rendimiento Porcentual Anual)?
+
+**APY** es donde se pone más interesante para los stakers. APY tiene en cuenta el **interés compuesto**. El interés compuesto significa que las recompensas que ganas se añaden automáticamente a tu principal en staking, y luego esas recompensas reinvertidas también comienzan a generar recompensas.
+
+Debido a que las recompensas de staking en Aptos se suelen reinvertir automáticamente (añadidas a tu staking, aumentando su tamaño con el tiempo), el APY casi siempre será mayor que el APR para la misma tasa de recompensa subyacente. El APY ofrece una imagen más precisa de tu potencial de ganancias real durante un año si mantienes tus recompensas en staking.
+
+**Cómo aptcore.one calcula el APY Bruto:**
+1. **Tasa por Época:** Primero determinamos la tasa de recompensa para una sola época (por ejemplo, `rate_per_epoch = rewards_rate / rewards_rate_denominator`).
+2. **Épocas por Año:** Calculamos cuántas épocas ocurren en un año.
+3. **Fórmula de Composición:** Luego, usamos la fórmula estándar de APY:
+   `APY Bruto = ((1 + rate_per_epoch) ^ epochs_per_year - 1) * 100%`
+
+### APR Neto vs. APY Neto en aptcore.one
+
+Lo que finalmente recibes son recompensas **Netas** – es decir, después de deducir la comisión del validador.
+
+* **APR Neto:** `APR Bruto * (1 - Tasa_de_Comisión_del_Validador)`
+* **APY Neto:** `APY Bruto * (1 - Tasa_de_Comisión_del_Validador)`
+
+En [aptcore.one](https://aptcore.one), principalmente mostramos el **APY Neto Estimado** porque es la cifra más relevante para tus posibles ganancias con composición. Sin embargo, proporcionamos un desglose completo si haces clic en el icono de información:
+
+* **APY Neto Estimado:** Tu rendimiento anual estimado después de nuestra comisión, con recompensas compuestas.
+* **APY Bruto Estimado:** El rendimiento anual estimado de la red antes de la comisión, con recompensas compuestas.
+* **Comisión del Validador:** El porcentaje que `aptcore.one` cobra por su servicio confiable.
+* **APR Neto y Bruto Estimado:** Cifras de interés simple para total transparencia.
+
+### Por Qué la Diferencia Importa
+
+Muchas plataformas podrían mostrar solo una cifra, y a menudo es el APY porque es más alto. Al mostrar ambos (con APY priorizado pero APR disponible), `aptcore.one` asegura que tengas una comprensión clara. Al comparar opciones de staking, siempre verifica si la tasa anunciada es APR o APY.
+
+### Factores que Afectan tus Recompensas Reales
+
+Es importante recordar que tanto APR como APY son *estimaciones*. Las recompensas reales pueden variar debido a:
+* **Cambios en los Parámetros de la Red:** El `rewards_rate` de la red Aptos puede ser ajustado por gobernanza.
+* **Rendimiento del Validador:** El tiempo de actividad y rendimiento consistentes del validador son cruciales. `aptcore.one` se compromete a mantener un alto rendimiento.
+* **Cantidad Total en Staking en la Red:** La participación general en staking de la red puede influir en la distribución de recompensas.
+
+### Haz Staking con Claridad
+
+Creemos que un delegador informado es un delegador feliz. Al entender cómo se calculan tus recompensas, puedes tomar mejores decisiones para tus tenencias de APT.
+
+¿Listo para ver nuestra visualización transparente de recompensas en acción? Haz staking con [aptcore.one](https://aptcore.one) hoy mismo!

@@ -14,7 +14,6 @@ export default async function handler(req, res) {
     }
 
     const [stakeAmounts, poolResource] = await Promise.all([
-      // 1. Get user's stake amounts (correct)
       fetch(`${APTOS_FULLNODE_URL}/view`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,15 +24,13 @@ export default async function handler(req, res) {
         }),
       }).then(r => r.ok ? r.json() : Promise.reject('Failed to get stake amounts')),
 
-      // 2. ✅ FINAL STRATEGY: Get the entire StakePool resource from the VALIDATOR's account
-      // to find the pool's global unlock date.
+     
       fetch(`${APTOS_FULLNODE_URL}/accounts/${poolAddress}/resource/0x1::stake::StakePool`)
         .then(r => r.ok ? r.json() : null),
     ]);
     
     const OCTAS = 100_000_000;
     
-    // ✅ FINAL STRATEGY: Use the pool's global `locked_until_secs` as the best available date.
     const lockupExpirationSecs = poolResource?.data?.locked_until_secs
       ? Number(poolResource.data.locked_until_secs)
       : null;
@@ -43,7 +40,6 @@ export default async function handler(req, res) {
       inactive: Number(BigInt(stakeAmounts[1])) / OCTAS,
       pendingInactive: {
         amountApt: Number(BigInt(stakeAmounts[2])) / OCTAS,
-        // We no longer need lockup_began_timestamp, as we can't calculate progress.
         lockup_expiration_timestamp: lockupExpirationSecs ? (lockupExpirationSecs * 1000000).toString() : null,
         lockup_began_timestamp: null, 
       },

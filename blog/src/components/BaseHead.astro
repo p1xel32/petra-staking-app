@@ -2,52 +2,71 @@
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from '../consts';
 
 export interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonicalURL?: string | URL;
-  keywords?: string | string[];
-  ogType?: string;
-  lang?: string;
-  video?: {
-    url: string;
-    name: string;
-    description?: string;
-    uploadDate?: string;
-    duration?: string;
-    thumbnailUrl?: string;
-  };
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string | URL;
+  keywords?: string | string[];
+  ogType?: string;
+  lang?: string;
+  video?: { /* ... */ };
+  hreflangLinks?: { lang: string; href: string }[];
+  xDefaultHref?: string;
 }
 
 const {
-  title = SITE_TITLE,
-  description = SITE_DESCRIPTION,
-  image = '/og-image.png',
-  canonicalURL = new URL(Astro.url.pathname, SITE_URL),
-  keywords = `${title}, Aptos, aptcore.one`,
-  ogType = Astro.props.video ? 'video.other' : 'website',
-  lang = 'en',
-  video
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = '/og-image.png',
+  canonicalURL = new URL(Astro.url.pathname, SITE_URL),
+  lang = 'en',
+  video,
+  hreflangLinks,
+  xDefaultHref,
+  keywords, 
+  ogType,   
 } = Astro.props;
+
+
+const finalKeywords = keywords ?? `${title}, Aptos, aptcore.one`;
+const finalOgType = ogType ?? (video ? 'video.other' : 'website');
+
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const socialImageURL = image.startsWith('http')
-  ? image
-  : new URL(`${base}${image.startsWith('/') ? '' : '/'}${image}`, SITE_URL).href;
+  ? image
+  : new URL(`${base}${image.startsWith('/') ? '' : '/'}${image}`, SITE_URL).href;
 ---
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>{title}</title>
 <meta name="description" content={description} />
-<meta name="keywords" content={Array.isArray(keywords) ? keywords.join(', ') : keywords} />
+
+<meta name="keywords" content={Array.isArray(finalKeywords) ? finalKeywords.join(', ') : finalKeywords} />
 <link rel="canonical" href={canonicalURL.toString()} />
+
+{hreflangLinks && hreflangLinks.map(link => (
+  <link rel="alternate" hreflang={link.lang} href={link.href} />
+))}
+{xDefaultHref && (
+  <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+)}
+
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={socialImageURL} />
 <meta property="og:url" content={canonicalURL.toString()} />
-<meta property="og:type" content={ogType} />
+<meta property="og:type" content={finalOgType} />
+
 <meta name="twitter:card" content={video ? 'player' : 'summary_large_image'} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImageURL} />
-<link rel="icon" href={`${base}/favicon.ico`} sizes="any" />
-<link rel="icon" type="image/svg+xml" href={`${base}/favicon.ico`} />
-<link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+<link rel="icon" href="/blog/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">

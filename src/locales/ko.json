@@ -1,0 +1,423 @@
+{
+  "site": {
+    "title": "aptcore.one | 안전한 앱토스 스테이킹",
+    "description": "앱토스 네트워크를 위한 안전하고 투명한 비수탁 스테이킹. 신뢰할 수 있는 검증자를 통해 APT 보상을 받으세요."
+  },
+  "header": {
+    "nav": {
+      "blog": "블로그",
+      "help": "도움말"
+    },
+    "aria": {
+      "openMenu": "메인 메뉴 열기",
+      "closeMenu": "메인 메뉴 닫기"
+    }
+  },
+  "footer": {
+    "product": "제품",
+    "productLinks": {
+      "stake": "스테이크",
+      "apyCalculator": "APY 계산기",
+      "lockupVisualizer": "잠금 시각화 도구"
+    },
+    "company": "회사",
+    "companyLinks": {
+      "about": "회사 소개",
+      "contact": "연락처",
+      "disclaimer": "면책 조항",
+      "terms": "약관"
+    },
+    "resources": "리소스",
+    "resourcesLinks": {
+      "blog": "블로그",
+      "faq": "자주 묻는 질문",
+      "help": "도움말 센터"
+    },
+    "tagline": {
+      "line1": "앱토스의 핵심 기여자들의 안전한 스테이킹 인프라 - 첫날부터 삭감하지 않습니다.",
+      "line2": "검증 가능한 온체인"
+    },
+    "rights": "© {{year}} aptcore.one"
+  },
+  "faq": {
+    "title": "자주 묻는 질문"
+  },
+  "common": {
+    "connectWallet": "지갑 연결"
+  },
+  "homePage": {
+    "meta": {
+      "title": "aptcore.one: 안전하고 투명한 앱토스(APT) 스테이킹",
+      "description": "aptcore.one으로 앱토스(APT)를 스테이킹하세요. 보상, 락업 및 현재의 '슬래싱 금지' 환경에 대한 명확한 설명과 함께 투명하고 안전한 앱토스를 스테이킹할 수 있습니다."
+    },
+    "schema": {
+      "name": "앱토스(APT) 스테이킹 aptcore.one"
+    },
+    "hero": {
+      "mainHeading": "aptcore.one",
+      "subHeading": "안전하고 투명한 앱토스 스테이킹",
+      "details": "{{apy}}% APY • 논커스터디얼 • 온체인 검증 가능"
+    },
+    "error": {
+      "title": "데이터 로드 실패"
+    }
+  },
+  "generalFaq": {
+    "title": "자주 묻는 질문",
+    "items": [
+      {
+        "id": 1,
+        "question": "앱토스(APT) 토큰으로 보상을 받으려면 어떻게 해야 하나요?",
+        "answer": "앱토스(APT) 토큰을 스테이킹하여 보상을 받을 수 있으며, 이는 앱토스 네트워크 보안에도 도움이 됩니다. aptcore.one과 같은 플랫폼은 지갑을 연결하고, 신뢰할 수 있는 검증자에게 APT를 위임하고, 정기적인 스테이킹 보상을 받을 수 있는 간단하고 안전한 방법을 제공합니다."
+      },
+      {
+        "id": 2,
+        "question": "앱토스를 스테이킹하기에 aptcore.one이 좋은 이유는 무엇인가요?",
+        "answer": "aptcore.one은 적립된 보상에 대해 4%의 낮은 수수료로 사용자 친화적인 플랫폼을 제공합니다. 가장 최근의 예상 순 수익과 총 수익은 이 페이지에 표시된 실시간 \"검증자 풀 세부 정보\" 대시보드를 참조하시기 바랍니다. 저희는 강력한 보안, 오픈 소스 접근 방식을 통한 투명성, 그리고 모든 사람이 효율적으로 앱토스를 스테이킹할 수 있도록 하는 것을 우선시합니다."
+      },
+      {
+        "id": 3,
+        "question": "aptcore.one을 통한 앱토스의 스테이킹(APT)은 안전한가요?",
+        "answer": "예, 보안은 aptcore.one에서 최우선 순위입니다. 저희는 앱토스 메인넷에서 탄력적인 검증자 노드를 운영하고 업계 모범 사례를 준수합니다. 앱토스 스테이킹은 비수탁형이므로 개인 키를 항상 제어할 수 있으며, 토큰은 안전하게 위임되고 소유권 외부로 이전되지 않습니다."
+      },
+      {
+        "id": 4,
+        "question": "aptcore.one으로 스테이킹을 시작하려면 얼마나 많은 앱토스(APT)가 필요하나요?",
+        "answer": "앱토스 네트워크는 위임 풀과 직접 상호작용하기 위한 최소 권장량(일반적으로 약 11 APT)을 가지고 있지만, aptcore.one은 접근 가능한 스테이킹 경험을 보장합니다. 이 금액으로 스테이킹을 시작하고 보상을 받을 수 있습니다."
+      },
+      {
+        "id": 5,
+        "question": "암호화폐를 처음 사용하는 경우 앱토스를 스테이킹하는 것이 복잡하나요?",
+        "answer": "aptcore.one은 다릅니다! 저희는 플랫폼을 직관적이고 간단하게 설계했습니다. 암호화폐나 스테이킹을 처음 사용하더라도 일반적인 앱토스의 지갑(예: 페트라)을 쉽게 연결하고 화면의 간단한 단계에 따라 APT를 위임할 수 있습니다."
+      }
+    ]
+  },
+  "indexPage": {
+    "connectPrompt": {
+      "title": "앱토스 스테이킹 보상을 받을 준비가 되셨나요?",
+      "description": "시작하려면 앱토스 지갑을 연결하세요."
+    }
+  },
+  "stakeForm": {
+    "tabs": {
+      "stake": "스테이킹",
+      "unstake": "언스테이킹"
+    },
+    "labels": {
+      "amountToStake": "스테이킹할 금액",
+      "amountToUnstake": "언스테이킹할 금액",
+      "available": "사용 가능"
+    },
+    "placeholders": {
+      "amount": "예: {{minStake}}"
+    },
+    "buttons": {
+      "stakeApt": "APT 스테이킹하기",
+      "unstakeApt": "APT 언스테이킹하기"
+    },
+    "helpers": {
+      "connectWallet": "스테이킹을 활성화하려면 지갑을 연결하세요",
+      "minAmount": "활성화하려면 최소 {{minStake}} APT를 입력하세요"
+    }
+  },
+  "stakeControls": {
+    "title": "스테이크 관리",
+    "notConnected": {
+      "description": "지갑을 스테이킹에 연결하고 잔액, 활성 스테이크, 출금 가능한 보상을 확인하세요.",
+      "button": "지갑 연결"
+    },
+    "messages": {
+      "success": "거래 성공! 해시: {{hash}}...",
+      "rejected": "사용자가 트랜잭션을 거부했습니다.",
+      "error": "오류: {{message}}"
+    }
+  },
+  "userStatus": {
+    "countdown": {
+      "calculating": "남은 시간 계산하기...",
+      "awaitingConfirmation": "출금이 가능해지려면 네트워크 확인을 기다리는 중입니다...",
+      "timeRemaining": "남은 시간",
+      "daysShort": "일",
+      "hoursShort": "시간",
+      "minutesShort": "분",
+      "secondsShort": "초"
+    },
+    "rows": {
+      "inWallet": "지갑에서 사용 가능",
+      "activeStake": "활성 스테이크",
+      "unlockingStake": "스테이크 잠금 해제",
+      "unlockTimeAssignedNextEpoch": "다음 에포크에 잠금 해제 시간이 할당됩니다.",
+      "readyToWithdraw": "출금 준비 완료"
+    },
+    "buttons": {
+      "withdraw": "출금"
+    }
+  },
+  "validatorInfo": {
+    "title": "유효성 검사기 풀 세부 정보",
+    "cards": {
+      "totalDelegated": "총 위임",
+      "netYield": "예상 순 수익률",
+      "apySuffix": "APY"
+    },
+    "rows": {
+      "status": "유효성 검사기 상태",
+      "statusValue": "온라인",
+      "commission": "수수료율",
+      "timeUntilUnlock": "잠금 해제까지 남은 시간",
+      "lockupPeriod": "현재 풀 잠금 기간입니다.",
+      "poolAddress": "풀 주소"
+    },
+    "tooltip": {
+      "title": "보상 계산:",
+      "netApyLabel": "예상 순 APY:",
+      "afterCommission": "(수수료 {{commission}}% 후, 복리)",
+      "grossApyLabel": "예상 총 APY:",
+      "footnote": "APY에는 복리가 포함됩니다. 모든 수치는 추정치이며 다를 수 있습니다."
+    }
+  },
+  "apyCalculatorPage": {
+    "meta": {
+      "title": "인터랙티브 앱토스(APT) 스테이킹 APY 계산기 - 보상 추정 | aptcore.one",
+      "description": "aptcore.one의 무료 APY 계산기를 사용하여 잠재적인 앱토스(APT) 스테이킹 보상을 쉽게 계산할 수 있습니다. 스테이크 금액을 입력하고 예상 일일, 월간, 연간 수익을 확인하세요.",
+      "twitterDescription": "잠재적인 앱토스(APT) 스테이キング 보상을 계산하세요. aptcore.one의 APY 도구를 사용하여 스테이크 금액을 입력하고 예상 일일, 주간, 월간 및 연간 수익을 확인하세요."
+    },
+    "hero": {
+      "title": "인터랙티브 앱토스(APT) 스테이킹 APY 계산기",
+      "description": "스테이크 금액을 입력하여 잠재적 보상을 추정해 보세요. 계산기는 실시간 네트워크 APY를 사용하거나 사용자가 직접 지정할 수 있습니다."
+    },
+    "results": {
+      "daily": "매일",
+      "weekly": "주간",
+      "monthly": "월간",
+      "yearly": "연간"
+    },
+    "error": {
+      "title": "데이터 로드 실패"
+    },
+    "form": {
+      "amountLabel": "스테이킹할 APT 수량",
+      "amountError": "유효한 APT 금액을 입력하세요.",
+      "amountPlaceholder": "1000",
+      "specifyApyLabel": "자체 APY 지정",
+      "customApyLabel": "사용자 지정 APY(%)",
+      "customApyError": "유효한 APY를 입력하세요.",
+      "customApyTooltip": "예상 연간 수익률을 입력합니다(예: 7.5%의 경우 7.5).",
+      "customApyPlaceholder": "7.5",
+      "currentApyLabel": "현재 예상 네트워크 APY",
+      "loading": "로드 중...",
+      "notAvailable": "해당 없음"
+    },
+    "resultsDisplay": {
+      "calculating": "수익률 계산하기...",
+      "prompt": {
+        "title": "APT 금액 입력",
+        "description": "잠재적인 수익을 확인하려면 스테이킹하려는 APT의 금액을 입력하세요."
+      },
+      "error": {
+        "title": "반품 계산에 실패했습니다.",
+        "description": "수익을 계산할 수 없습니다. 입력을 확인하고 네트워크 APY를 사용할 수 있는지 확인하세요."
+      },
+      "title": "예상 수익률",
+      "rowLabel": "{{period}} 수익",
+      "priceUnavailable": "~ USD (가격 표시 불가)",
+      "priceFootnote": "*USD 계산은 1 APT = ${{price}} USD 기준입니다."
+    },
+    "disclaimer": {
+      "text": "*모든 계산은 대략적인 수치이며 현재/지정 APY 및 APT/USD 환율을 기준으로 합니다. APY 및 환율은 변경될 수 있습니다. 이 도구는 재정적인 조언을 제공하지 않습니다. 스테이킹 수익에는 검증자 수수료가 적용되며, 이는 계산에 반영되지 않습니다. 앱토스 네트워크의 실제 보상은 에포크별로 분배된다는 점에 유의하시기 바랍니다."
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "items": [
+        {
+          "question": "APY란 무엇이며 APR과 어떻게 다른가요?",
+          "answer": "APY(연 수익률)에는 복리 효과가 포함되며, 이는 수익이 재투자되어 자체 수익을 창출한다는 의미입니다. APR(연이율)에는 복리가 포함되지 않습니다. 이 계산기는 시간 경과에 따른 잠재 수익률을 보다 완벽하게 파악하기 위해 주로 APY에 초점을 맞추지만, 단기간의 기본 계산은 APY에서 파생된 일일 이자율을 기반으로 합니다."
+        },
+        {
+          "question": "'현재 예상 네트워크 APY'가 정확한가요?",
+          "answer": "표시된 네트워크 APY는 앱토스 네트워크의 현재 온체인 데이터(스테이킹 구성 및 블록 정보)를 기반으로 한 추정치입니다. 네트워크 상태, 스테이킹 총량 및 기타 요인에 따라 자주 변동될 수 있습니다. 이는 좋은 현재 추정치 역할을 하지만 보장된 비율은 아닙니다."
+        },
+        {
+          "question": "이 계산에 검증자 수수료가 포함되나요?",
+          "answer": "아니요, 이 계산기는 검증자 수수료가 공제되기 전의 총 수입을 표시합니다. 검증자마다 수수료율은 다릅니다. 선택한 유효성 검사기의 수수료를 고려하여 순 수입을 추정해야 합니다."
+        },
+        {
+          "question": "앱토스에서 스테이킹 보상은 실제로 얼마나 자주 분배되나요?",
+          "answer": "앱토스 네트워크 보상은 일반적으로 각 에포크가 끝날 때 지급됩니다. 에포크는 정해진 기간(예: 대략 2시간이지만 변경될 수 있음)을 의미합니다. 계산기는 연간 APY를 기준으로 일별, 주별 등의 예상치를 표시하여 이를 단순화합니다."
+        },
+        {
+          "question": "이 계산기를 모든 앱토스 유효성 검사기에 사용할 수 있나요?",
+          "answer": "예, 검증자가 제공하는 특정 APY를 알고 있거나(해당 수치를 제공한 경우 수수료 후) 다른 시나리오를 살펴보고 싶은 경우 '자체 APY 지정' 옵션을 사용할 수 있습니다. 기본 네트워크 APY는 일반적인 네트워크 추정치입니다."
+        }
+      ]
+    },
+    "schema": {
+      "faq": {
+        "q1": {
+          "question": "APY란 무엇이며 APR과 어떻게 다른가요?",
+          "answer": "APY(연 수익률)에는 복리 효과가 포함되며, 이는 수익이 재투자되어 자체 수익을 창출한다는 의미입니다. APR(연이율)에는 복리가 포함되지 않습니다. 이 계산기는 주로 APY에 초점을 맞춥니다."
+        },
+        "q2": {
+          "question": "'현재 예상 네트워크 APY'가 정확한가요?",
+          "answer": "표시된 네트워크 APY는 앱토스 네트워크의 현재 온체인 데이터를 기반으로 한 추정치입니다. 이는 변동될 수 있으며 현재 추정치이며 보장된 수익률이 아닙니다."
+        },
+        "q3": {
+          "question": "이 계산에 검증자 수수료가 포함되나요?",
+          "answer": "아니요, 이 계산기는 검증자 수수료가 공제되기 전의 총 수입을 표시합니다. 선택한 검증자의 수수료를 고려하여 순 수입을 계산하세요."
+        },
+        "q4": {
+          "question": "앱토스에서 스테이킹 보상은 실제로 얼마나 자주 분배되나요?",
+          "answer": "앱토스 네트워크 보상은 일반적으로 각 에포크가 끝날 때 분배됩니다. 계산기는 이를 일별, 주별 등으로 단순화하여 APY를 기준으로 예상합니다."
+        },
+        "q5": {
+          "question": "이 계산기를 모든 앱토스 유효성 검사기에 사용할 수 있나요?",
+          "answer": "예, 유효성 검사기가 제공하는 특정 APY를 알고 있거나 다른 시나리오를 살펴보고 싶은 경우 '자체 APY 지정' 옵션을 사용할 수 있습니다. 기본 네트워크 APY는 일반적인 네트워크 예상치입니다."
+        }
+      },
+      "software": {
+        "name": "인터랙티브 앱토스(APT) 스테이킹 APY 계산기",
+        "description": "스테이크 금액과 APY를 기준으로 앱토스(APT) 토큰 스테이킹으로 인한 잠재적 수익을 계산하고 추정할 수 있는 무료 온라인 도구입니다. 잠재적인 일일, 주간, 월간, 연간 보상을 파악할 수 있습니다.",
+        "keywords": "앱토스 스테이킹 APY 계산기, APT APY 계산기, 앱토스 보상 계산기, 앱토스 스테이킹 수익 계산, APT 스테이킹 수익 추정기, 스테이킹 앱토스 계산기, 앱토스 스테이킹 잠재 수익 계산기, 무료 앱토스 APY 도구 aptcore.one, 일일 앱토스 스테이킹 보상 계산기"
+      },
+      "howTo": {
+        "name": "aptcore.one에서 인터랙티브 앱토스 APY 스테이킹 계산기를 사용하는 방법",
+        "description": "스테이크 금액과 선택적으로 사용자 지정 APY를 입력하여 aptcore.one APY 계산기를 사용하여 잠재적인 앱토스(APT) 스테이크 보상을 계산하세요.",
+        "s1": {
+          "name": "스테이킹 금액 입력",
+          "text": "'스테이킹할 APT의 양' 필드에 스테이킹할 총 APT의 양을 입력합니다."
+        },
+        "s2": {
+          "name": "APY 지정(선택 사항)",
+          "text": "계산기는 기본적으로 현재 예상 네트워크 APY를 사용합니다. 다른 APY를 사용하려면 '나만의 APY 지정'에 체크하고 원하는 비율을 입력하세요."
+        },
+        "s3": {
+          "name": "예상 수익률 보기",
+          "text": "계산기는 일별, 주별, 월별, 연간 예상 수입을 APT와 APT 가격을 사용할 수 있는 경우 대략적인 USD 가치로 자동 표시합니다."
+        }
+      }
+    }
+  },
+  "lockupVisualizerPage": {
+    "meta": {
+      "title": "앱토스 스테이킹 잠금 시각화 도구: APT 스테이킹 해제 타임라인 보기 | aptcore.one",
+      "description": "앱토스의 스테이킹 락업(현재 ~14일)을 이해합니다. aptcore.one의 비주얼라이저를 사용하여 스테이킹 해제 후 언제 스테이킹된 APT를 사용할 수 있을지 예상해 보세요.",
+      "twitterDescription": "aptcore.one의 도구로 앱토스의 스테이킹 락업 기간과 스테이킹 해제 타임라인을 시각화하세요. APT를 언제 사용할 수 있는지 확인하세요."
+    },
+    "hero": {
+      "title": "앱토스 스테이킹 잠금 시각화 도구: APT 스테이킹 해제 타임라인 보기",
+      "description": "앱토스의 스테이킹 락업(현재 ~14일)을 이해합니다. aptcore.one의 비주얼라이저를 사용하여 스테이킹 해제 후 언제 스테이킹된 APT를 사용할 수 있을지 예상해 보세요.",
+      "validatorInfo": "이 도구는 검증인 풀의 스테이킹 해제 타임라인을 시각화합니다:"
+    },
+    "loader": {
+      "loadingData": "네트워크 및 유효성 검사기 데이터 로드 중..."
+    },
+    "sections": {
+      "initiationTime": "언스테이크 시작 시간 설정",
+      "parameters": "네트워크 및 스테이킹 매개변수",
+      "timeline": "예상 타임라인"
+    },
+    "error": {
+      "title": "오류",
+      "prefix": ": "
+    },
+    "calculationError": "계산 오류: {{message}}",
+    "remainingTime": {
+      "availableNow": "지금 사용 가능",
+      "inFormat": "약 {{time}} 후",
+      "daysShort": "일",
+      "hoursShort": "시간",
+      "minutesShort": "분",
+      "lessThanAMinute": "1분 미만"
+    },
+    "prompt": {
+      "description": "언스테이크 시작 시간을 선택하거나 '지금부터 시각화'를 클릭하면 예상 타임라인을 확인할 수 있습니다."
+    },
+    "inputControls": {
+      "visualizeNowButton": "지금부터 언스테이킹 시각화하기"
+    },
+    "timelineDisplay": {
+      "event1": {
+        "title": "언스테이킹 시작"
+      },
+      "event2": {
+        "title": "풀 잠금 주기 종료",
+        "details": "펀드가 비활성 상태가 됩니다."
+      },
+      "event3": {
+        "title": "사용 가능한 자금",
+        "details": "에포크 경계에서 출금이 가능해집니다."
+      },
+      "availableNow": "출금 가능",
+      "inFormat": "약 {{time}} 후",
+      "daysShort": "일",
+      "hoursShort": "시간",
+      "minutesShort": "분",
+      "lessThanAMinute": "1분 미만"
+    },
+    "networkInfo": {
+      "stakingCycle": "네트워크 스테이킹 주기 기간",
+      "daysValue": "{{days}}일",
+      "currentEpoch": "현재 에포크 번호",
+      "epochDuration": "평균 에포크 기간",
+      "hoursValue": "약 {{hours}}시간",
+      "dataAsOf": "에포크 데이터 기준",
+      "loading": "로드 중..."
+    },
+    "faq": {
+      "title": "락업 및 스테이킹 해제 FAQ",
+      "items": [
+        {
+          "question": "앱토스 스테이킹 잠금 기간은 어떻게 되나요?",
+          "answer": "앱토스를 스테이킹하면 일반적으로 일정 기간(현재 약 14일) 동안 토큰이 잠깁니다. 스테이킹을 해제하기로 결정한 경우, 선택한 검증자 풀의 현재 잠금 주기가 종료된 후 APT를 사용할 수 있으며, 네트워크가 에포크 경계에서 처리한 후 완전히 출금할 수 있습니다."
+        },
+        {
+          "question": "이 비주얼라이저는 무엇을 표시하나요?",
+          "answer": "이 도구는 Aptos(APT) 토큰의 언스테이킹 타임라인을 추정하는 데 도움이 됩니다. {{address}}에 있는 검증자의 특정 잠금 주기와 Aptos 네트워크 에포크 타이밍을 고려합니다."
+        },
+        {
+          "question": "'풀 주기 종료'와 '자금 사용 가능' 시간이 다른 이유는 무엇인가요?",
+          "answer": "자금은 유효성 검사기의 잠금 주기에 묶여 있습니다. 이 주기가 끝나면 비활성 상태(출금 처리 준비 상태)가 됩니다. 최종 '자금 사용 가능' 시간은 앱토스 네트워크에서 인출이 처리되는 시점으로, 이는 네트워크 에포크 종료 시점과 일치합니다."
+        }
+      ]
+    },
+    "schema": {
+      "software": {
+        "name": "앱토스 스테이킹 잠금 시각화 도구: APT 스테이킹 해제 타임라인 보기",
+        "description": "앱토스의 스테이킹 락업 기간을 시각화하고 스테이킹 해제 후 자금을 사용할 수 있는 시기를 예측할 수 있는 대화형 도구, aptcore.one입니다. 앱토스의 락업 주기(현재 약 14일)를 이해하고 스테이킹 전략을 계획하세요.",
+        "keywords": "앱토스 스테이킹 잠금 시각화 도구, APT 스테이킹 해제 기간 도구, 앱토스 14일 잠금 설명 도구, 앱토스 스테이킹 해제 시간 시각화, 앱토스 스테이킹 해제 날짜 계산기, 스테이킹 된 앱토스 도구는 언제 인출 할 수 있습니까, 앱토스 잠금 달력, aptcore.one"
+      },
+      "howTo": {
+        "name": "앱토스 스테이킹 락업 비주얼라이저를 사용하여 APT 언스테이킹 타임라인을 확인하는 방법",
+        "description": "aptcore.one으로 앱토스(APT) 스테이킹 해제 타임라인을 시각화하세요. 스테이킹 시작 시간을 입력하면 검증자와 네트워크 데이터를 기반으로 예상되는 잠금 해제 일정을 확인할 수 있습니다.",
+        "s1": {
+          "name": "언스테이킹 시작 시간 선택",
+          "text": "언스테이킹 요청을 시작할 날짜와 시간을 선택합니다(또는 이미 시작했거나). 날짜/시간 선택기를 사용하거나 현재 시간에 대해 '지금부터 언스테이킹 시각화'를 클릭할 수 있습니다."
+        },
+        "s2": {
+          "name": "네트워크 및 유효성 검사기 정보 검토",
+          "text": "이 도구는 현재 앱토스 네트워크 스테이킹 구성(약 14일의 잠금 주기 등), 에포크 타이밍 및 {{address}}에 있는 검증자 풀에 특정한 잠금 세부 정보를 표시합니다."
+        },
+        "s3": {
+          "name": "언스테이킹 타임라인 분석",
+          "text": "시각화 도구는 타임라인을 생성하고 표시합니다. 여기에는 검증자의 현재 풀 잠금 주기가 종료될 것으로 예상되는 시기와 앱토스 네트워크 에포크에 맞춰 앱토스(APT) 자금을 출금할 수 있게 될 최종 예상 시간이 표시됩니다."
+        },
+        "toolName": "aptcore.one의 앱토스 스테이킹 잠금 시각화 도구"
+      }
+    },
+    "disclaimer": {
+      "text": "*모든 타임라인 계산은 현재 앱토스 네트워크 매개변수(예: 반복 잠금 기간 및 에포크 간격)와 제공된 시작 시간을 기준으로 한 추정치입니다. 실제 잠금 해제 시간은 에포크 경계에서 발생하며 네트워크 조건이나 네트워크 매개변수의 변경으로 인해 약간 달라질 수 있습니다. 이 도구는 재정적인 조언을 제공하지 않습니다. 중요한 정보는 항상 앱토스 공식 문서를 통해 확인하거나 해당되는 경우 검증자에게 직접 확인하시기 바랍니다."
+    }
+  },
+  "connectWallet": {
+    "selectWalletTitle": "지갑 선택",
+    "closeModalAriaLabel": "지갑 선택 모달 닫기",
+    "noWalletsFound": "지갑을 찾을 수 없습니다.",
+    "pleaseInstallWallet": "앱토스 호환 지갑을 설치하세요.",
+    "connectWithAriaLabel": "Connect with {{walletName}}",
+    "walletIconAlt": "{{walletName}} icon",
+    "disconnectAriaLabel": "Disconnect wallet {{address}}",
+    "connectedWalletIconAlt": "연결된 지갑 아이콘",
+    "connectWalletButton": "지갑 연결",
+    "connectWalletAriaLabel": "지갑 연결"
+  }
+}

@@ -15,7 +15,7 @@ module.exports = {
         noise: "url('/src/assets/noise.png')",
       },
       fontFamily: {
-        sans: ['"Space Grotesk"', 'sans-serif'],
+        sans: ['"Space Grotesk"', '"Noto Sans"', '"Noto Sans JP"', 'sans-serif'],
       },
     },
   },

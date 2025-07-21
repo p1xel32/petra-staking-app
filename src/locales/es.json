@@ -1,0 +1,403 @@
+{
+  "site": {
+    "title": "aptcore.one | Staking Seguro en Aptos",
+    "description": "Staking no custodial seguro y transparente para la red Aptos. Gane recompensas APT con un validador confiable."
+  },
+  "header": {
+    "nav": {
+      "blog": "Blog",
+      "help": "Ayuda"
+    },
+    "aria": {
+      "openMenu": "Abrir menú principal",
+      "closeMenu": "Cerrar menú principal"
+    }
+  },
+  "footer": {
+    "product": "Producto",
+    "productLinks": {
+      "stake": "Staking",
+      "apyCalculator": "Calculadora de APY",
+      "lockupVisualizer": "Visualizador de Bloqueo"
+    },
+    "company": "Compañía",
+    "companyLinks": {
+      "about": "Sobre Nosotros",
+      "contact": "Contacto",
+      "disclaimer": "Aviso Legal",
+      "terms": "Términos"
+    },
+    "resources": "Recursos",
+    "resourcesLinks": {
+      "blog": "Blog",
+      "faq": "Preguntas Frecuentes",
+      "help": "Centro de Ayuda"
+    },
+    "tagline": {
+      "line1": "Infraestructura de staking segura por contribuyentes principales de Aptos — sin slashing desde el primer día.",
+      "line2": "Verificable en la Cadena"
+    },
+    "rights": "© {{year}} aptcore.one"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes"
+  },
+  "common": {
+    "connectWallet": "Conectar Billetera"
+  },
+  "homePage": {
+    "meta": {
+      "title": "aptcore.one: Staking de Aptos (APT) Seguro y Transparente",
+      "description": "Haga staking de su Aptos (APT) con aptcore.one. Ofrecemos staking de Aptos seguro y transparente con explicaciones claras de las recompensas, los bloqueos y el entorno actual 'sin slashing'."
+    },
+    "schema": {
+      "name": "Staking de Aptos (APT) en aptcore.one"
+    },
+    "hero": {
+      "mainHeading": "aptcore.one",
+      "subHeading": "Staking de Aptos Seguro y Transparente",
+      "details": "{{apy}}% APY • No custodial • Verificable en la Cadena"
+    },
+    "error": {
+      "title": "Error al Cargar los Datos"
+    }
+  },
+  "generalFaq": {
+    "title": "Preguntas Frecuentes",
+    "items": [
+      { "id": 1, "question": "¿Cómo puedo empezar a ganar recompensas con mis tokens de Aptos (APT)?", "answer": "Puede ganar recompensas haciendo staking de sus tokens de Aptos (APT), lo que también ayuda a asegurar la red de Aptos. Plataformas como aptcore.one ofrecen una forma simple y segura de conectar su billetera, delegar su APT a nuestro validador confiable y recibir recompensas de staking regulares." },
+      { "id": 2, "question": "¿Qué hace que aptcore.one sea una buena opción para hacer staking en Aptos?", "answer": "aptcore.one ofrece una plataforma fácil de usar con una baja comisión del 4% sobre las recompensas ganadas. Para el APY Neto y Bruto estimado más actual, consulte el panel en vivo \"Detalles del Grupo de Validadores\" que se muestra en esta página. Priorizamos la seguridad robusta, la transparencia con nuestro enfoque de código abierto y hacemos que el staking en Aptos sea eficiente para todos." },
+      { "id": 3, "question": "¿Es seguro hacer staking de Aptos (APT) a través de aptcore.one?", "answer": "Sí, la seguridad es una prioridad principal en aptcore.one. Operamos un nodo validador resiliente en la Mainnet de Aptos y nos adherimos a las mejores prácticas de la industria. El staking en Aptos no es custodial, lo que significa que siempre retiene el control de sus claves privadas y sus tokens se delegan de forma segura, no se transfieren fuera de su posesión." },
+      { "id": 4, "question": "¿Cuánto Aptos (APT) necesito para comenzar a hacer staking con aptcore.one?", "answer": "Aunque la red de Aptos a menudo tiene un mínimo recomendado (generalmente alrededor de 11 APT) para interacciones directas con los grupos de delegación, aptcore.one garantiza una experiencia de staking accesible. Puede comenzar a hacer staking con esta cantidad y empezar a ganar recompensas." },
+      { "id": 5, "question": "¿Es complicado hacer staking en Aptos si soy nuevo en las criptomonedas?", "answer": "¡No con aptcore.one! Hemos diseñado nuestra plataforma para que sea intuitiva y directa. Puede conectar fácilmente billeteras comunes de Aptos (como Petra) y seguir sencillos pasos en pantalla para delegar su APT, incluso si es nuevo en las criptomonedas o el staking." }
+    ]
+  },
+    "indexPage": {
+    "connectPrompt": {
+      "title": "¿Listo para Ganar Recompensas de Staking de Aptos?",
+      "description": "Conecte su billetera de Aptos para comenzar."
+    }
+  },
+    "stakeForm": {
+    "tabs": {
+      "stake": "Staking",
+      "unstake": "Desbloquear"
+    },
+    "labels": {
+      "amountToStake": "Cantidad para Staking",
+      "amountToUnstake": "Cantidad a Desbloquear",
+      "available": "Disponible"
+    },
+    "placeholders": {
+      "amount": "ej., {{minStake}}"
+    },
+    "buttons": {
+      "stakeApt": "Hacer Staking de APT",
+      "unstakeApt": "Desbloquear APT"
+    },
+    "helpers": {
+      "connectWallet": "Conecte la billetera para habilitar el staking",
+      "minAmount": "Ingrese al menos {{minStake}} APT para habilitar"
+    }
+  },
+    "stakeControls": {
+    "title": "Gestiona tu Staking",
+    "notConnected": {
+      "description": "Conecte su billetera para hacer staking, ver su saldo, el staking activo y las recompensas retirables.",
+      "button": "Conectar Billetera"
+    },
+    "messages": {
+      "success": "¡Transacción exitosa! Hash: {{hash}}...",
+      "rejected": "Transacción rechazada por el usuario.",
+      "error": "Error: {{message}}"
+    }
+  },
+    "userStatus": {
+    "countdown": {
+      "calculating": "Calculando tiempo restante...",
+      "awaitingConfirmation": "Esperando confirmación de la red para que sea retirable...",
+      "timeRemaining": "Tiempo restante",
+      "daysShort": "d",
+      "hoursShort": "h",
+      "minutesShort": "m",
+      "secondsShort": "s"
+    },
+    "rows": {
+      "inWallet": "Disponible en Billetera",
+      "activeStake": "Staking Activo",
+      "unlockingStake": "Staking en Desbloqueo",
+      "unlockTimeAssignedNextEpoch": "El tiempo de desbloqueo se asignará en la próxima época",
+      "readyToWithdraw": "Listo para Retirar"
+    },
+    "buttons": {
+      "withdraw": "Retirar"
+    }
+  },
+    "validatorInfo": {
+    "title": "Detalles del Grupo de Validadores",
+    "cards": {
+      "totalDelegated": "Total Delegado",
+      "netYield": "Rendimiento Neto Est.",
+      "apySuffix": "APY"
+    },
+    "rows": {
+      "status": "Estado del Validador",
+      "statusValue": "En Línea",
+      "commission": "Tasa de Comisión",
+      "timeUntilUnlock": "Tiempo Hasta el Desbloqueo",
+      "lockupPeriod": "Período de bloqueo del grupo actual.",
+      "poolAddress": "Dirección del Grupo"
+    },
+    "tooltip": {
+      "title": "Cálculo de Recompensa:",
+      "netApyLabel": "APY Neto Est.:",
+      "afterCommission": "(después de {{commission}}% de comisión, compuesto)",
+      "grossApyLabel": "APY Bruto Est.:",
+      "footnote": "El APY incluye la capitalización. Todas las cifras son estimaciones y pueden variar."
+    }
+  },
+  "apyCalculatorPage": {
+    "meta": {
+      "title": "Calculadora Interactiva de APY de Staking de Aptos (APT) – Estime sus Recompensas | aptcore.one",
+      "description": "Calcule fácilmente sus posibles recompensas de staking de Aptos (APT) con la calculadora de APY gratuita de aptcore.one. Ingrese la cantidad de stake y vea las ganancias diarias, mensuales y anuales estimadas.",
+      "twitterDescription": "Calcule sus posibles recompensas de staking de Aptos (APT). Ingrese la cantidad de stake y vea las ganancias estimadas diarias, semanales, mensuales y anuales con la herramienta de APY de aptcore.one."
+    },
+    "hero": {
+      "title": "Calculadora Interactiva de APY de Staking de Aptos (APT)",
+      "description": "Estime sus recompensas potenciales ingresando una cantidad de stake. La calculadora utiliza un APY de la red en vivo o le permite especificar el suyo propio."
+    },
+    "results": {
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "yearly": "Anual"
+    },
+    "error": {
+      "title": "Error al Cargar los Datos"
+    },
+    "form": {
+      "amountLabel": "Cantidad de APT para hacer staking",
+      "amountError": "Por favor, ingrese una cantidad de APT válida",
+      "amountPlaceholder": "1000",
+      "specifyApyLabel": "Especifique su propio APY",
+      "customApyLabel": "APY Personalizado (%)",
+      "customApyError": "Por favor, ingrese un APY válido",
+      "customApyTooltip": "Ingrese el rendimiento porcentual anual que espera (por ejemplo, 7.5 para 7.5%).",
+      "customApyPlaceholder": "7.5",
+      "currentApyLabel": "APY de la red estimado actual",
+      "loading": "Cargando...",
+      "notAvailable": "N/D"
+    },
+    "resultsDisplay": {
+      "calculating": "Calculando retornos...",
+      "prompt": {
+        "title": "Ingrese la Cantidad de APT",
+        "description": "Ingrese la cantidad de APT que planea poner en staking para ver las ganancias potenciales."
+      },
+      "error": {
+        "title": "Error al Calcular los Retornos",
+        "description": "No se pudieron calcular los retornos. Por favor, verifique su entrada y asegúrese de que el APY de la red esté disponible."
+      },
+      "title": "Retornos Esperados",
+      "rowLabel": "Ganancias {{period}}",
+      "priceUnavailable": "~ USD (precio no disponible)",
+      "priceFootnote": "*Cálculo en USD basado en 1 APT = ${{price}} USD."
+    },
+    "disclaimer": {
+      "text": "*Todos los cálculos son aproximados y se basan en el APY actual/especificado y el tipo de cambio APT/USD. El APY y los tipos de cambio están sujetos a cambios. Esta herramienta no constituye asesoramiento financiero. Los ingresos por staking están sujetos a las comisiones del validador, que no se tienen en cuenta en estos cálculos. Tenga en cuenta que las recompensas reales en la red de Aptos se distribuyen por época."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": [
+        {
+          "question": "¿Qué es APY y en qué se diferencia de APR?",
+          "answer": "APY (Rendimiento Porcentual Anual) incluye el efecto del interés compuesto, lo que significa que las ganancias se reinvierten para generar sus propias ganancias. APR (Tasa de Porcentaje Anual) no incluye la capitalización. Esta calculadora se enfoca principalmente en APY para dar una imagen más completa de los retornos potenciales a lo largo del tiempo, aunque el cálculo subyacente para períodos cortos se basa en una tasa diaria derivada del APY."
+        },
+        {
+          "question": "¿Es preciso el 'APY de red estimado actual'?",
+          "answer": "El APY de la red que se muestra es una estimación basada en datos actuales en cadena de la red Aptos (configuración de staking e información de bloques). Puede fluctuar con frecuencia según las condiciones de la red, la cantidad total en staking y otros factores. Sirve como una buena estimación actual pero no es una tasa garantizada."
+        },
+        {
+          "question": "¿Se incluyen las comisiones del validador en este cálculo?",
+          "answer": "No, esta calculadora muestra las ganancias brutas antes de que se deduzcan las comisiones del validador. Diferentes validadores cobran diferentes tasas de comisión. Debe tener en cuenta la comisión de su validador elegido para estimar sus ganancias netas."
+        },
+        {
+          "question": "¿Con qué frecuencia se distribuyen realmente las recompensas de staking en Aptos?",
+          "answer": "Las recompensas de la red Aptos se distribuyen típicamente al final de cada época. Una época es un período de tiempo establecido (p. ej., aproximadamente 2 horas, pero esto puede cambiar). La calculadora simplifica esto mostrando proyecciones diarias, semanales, etc., basadas en el APY anualizado."
+        },
+        {
+          "question": "¿Puedo usar esta calculadora para cualquier validador de Aptos?",
+          "answer": "Sí, puede usar la opción 'Especificar su propio APY' si conoce el APY específico ofrecido por un validador (después de su comisión, si proporcionan esa cifra) o si desea explorar diferentes escenarios. El APY de red predeterminado es una estimación general de la red."
+        }
+      ]
+    },
+    "schema": {
+      "faq": {
+        "q1": {
+          "question": "¿Qué es APY y en qué se diferencia de APR?",
+          "answer": "APY (Rendimiento Porcentual Anual) incluye el efecto del interés compuesto, lo que significa que las ganancias se reinvierten para generar sus propias ganancias. APR (Tasa de Porcentaje Anual) no incluye la capitalización. Esta calculadora se enfoca principalmente en APY."
+        },
+        "q2": {
+          "question": "¿Es preciso el 'APY de red estimado actual'?",
+          "answer": "El APY de la red que se muestra es una estimación basada en datos actuales en cadena de la red Aptos. Puede fluctuar y sirve como una estimación actual, no una tasa garantizada."
+        },
+        "q3": {
+          "question": "¿Se incluyen las comisiones del validador en este cálculo?",
+          "answer": "No, esta calculadora muestra las ganancias brutas antes de que se deduzcan las comisiones del validador. Tenga en cuenta la comisión de su validador elegido para las ganancias netas."
+        },
+        "q4": {
+          "question": "¿Con qué frecuencia se distribuyen realmente las recompensas de staking en Aptos?",
+          "answer": "Las recompensas de la red Aptos se distribuyen típicamente al final de cada época. La calculadora simplifica esto en proyecciones diarias, semanales, etc., basadas en APY."
+        },
+        "q5": {
+          "question": "¿Puedo usar esta calculadora para cualquier validador de Aptos?",
+          "answer": "Sí, puede usar la opción 'Especificar su propio APY' si conoce el APY específico ofrecido por un validador o si desea explorar diferentes escenarios. El APY de red predeterminado es una estimación general de la red."
+        }
+      },
+      "software": {
+        "name": "Calculadora Interactiva de APY de Staking de Aptos (APT)",
+        "description": "Una herramienta en línea gratuita de aptcore.one para calcular y estimar las ganancias potenciales de hacer staking de tokens de Aptos (APT) según la cantidad de stake y el APY. Comprenda sus posibles recompensas diarias, semanales, mensuales y anuales.",
+        "keywords": "Calculadora APY staking Aptos, calculadora APY APT, calculadora de recompensas Aptos, calcular ganancias staking Aptos, estimador de ganancias staking APT, cuánto puedo ganar haciendo staking de aptos calculadora, calculadora de retorno potencial staking aptos, herramienta gratuita apy aptos aptcore.one, calculadora de recompensas diarias staking aptos"
+      },
+      "howTo": {
+        "name": "Cómo Usar la Calculadora Interactiva de Staking APY de Aptos en aptcore.one",
+        "description": "Calcule sus posibles recompensas de staking de Aptos (APT) con la calculadora de APY de aptcore.one ingresando la cantidad de su stake y opcionalmente un APY personalizado.",
+        "s1": {
+          "name": "Ingrese la Cantidad de Staking",
+          "text": "Ingrese la cantidad total de APT que planea poner en staking en el campo 'Cantidad de APT para hacer staking'."
+        },
+        "s2": {
+          "name": "Especifique el APY (Opcional)",
+          "text": "La calculadora utiliza el APY de red estimado actual de forma predeterminada. Si desea utilizar un APY diferente, marque 'Especificar su propio APY' e ingrese el porcentaje deseado."
+        },
+        "s3": {
+          "name": "Ver Retornos Estimados",
+          "text": "La calculadora mostrará automáticamente sus ganancias estimadas para períodos diarios, semanales, mensuales y anuales tanto en APT como en su valor aproximado en USD si el precio de APT está disponible."
+        }
+      }
+    }
+  },
+    "lockupVisualizerPage": {
+    "meta": {
+      "title": "Visualizador de Bloqueo de Staking de Aptos: Vea su Cronograma de Desbloqueo de APT | aptcore.one",
+      "description": "Comprenda el bloqueo de staking de Aptos (actualmente ~14 días). Use el visualizador de aptcore.one para estimar cuándo estará disponible su APT en staking después de desbloquearlo.",
+      "twitterDescription": "Visualice los períodos de bloqueo de staking de Aptos (APT) y los cronogramas de desbloqueo con la herramienta de aptcore.one. Vea cuándo su APT estará disponible."
+    },
+    "hero": {
+      "title": "Visualizador de Bloqueo de Staking de Aptos: Vea su Cronograma de Desbloqueo de APT",
+      "description": "Comprenda el bloqueo de staking de Aptos (actualmente ~14 días). Use el visualizador de aptcore.one para estimar cuándo estará disponible su APT en staking después de desbloquearlo.",
+      "validatorInfo": "Esta herramienta visualiza los cronogramas de desbloqueo para el grupo de validadores en:"
+    },
+    "loader": {
+      "loadingData": "Cargando Datos de la Red y del Validador..."
+    },
+    "sections": {
+      "initiationTime": "Establecer Hora de Inicio de Desbloqueo",
+      "parameters": "Parámetros de Red y Staking",
+      "timeline": "Su Cronograma Estimado"
+    },
+    "error": {
+      "title": "Error",
+      "prefix": ": "
+    },
+    "calculationError": "Error de cálculo: {{message}}",
+    "remainingTime": {
+      "availableNow": "Disponible ahora",
+      "inFormat": "en ~{{time}}",
+      "daysShort": "d",
+      "hoursShort": "h",
+      "minutesShort": "m",
+      "lessThanAMinute": "<1m"
+    },
+    "prompt": {
+      "description": "Seleccione una hora de inicio de desbloqueo o haga clic en \"Visualizar Desde Ahora\" para ver el cronograma estimado."
+    },
+    "inputControls": {
+      "visualizeNowButton": "Visualizar Desbloqueo Desde Ahora"
+    },
+        "timelineDisplay": {
+      "event1": {
+        "title": "Desbloqueo Iniciado"
+      },
+      "event2": {
+        "title": "Finaliza el Ciclo de Bloqueo del Grupo",
+        "details": "Los fondos se vuelven inactivos"
+      },
+      "event3": {
+        "title": "Fondos Disponibles",
+        "details": "Se vuelve retirable en el límite de la época"
+      },
+      "availableNow": "Disponible para retirar",
+      "inFormat": "en ~{{time}}",
+      "daysShort": "d",
+      "hoursShort": "h",
+      "minutesShort": "m",
+      "lessThanAMinute": "<1m"
+    },
+        "networkInfo": {
+      "stakingCycle": "Duración del Ciclo de Staking de la Red",
+      "daysValue": "{{days}} días",
+      "currentEpoch": "Número de Época Actual",
+      "epochDuration": "Duración Promedio de la Época",
+      "hoursValue": "~{{hours}} horas",
+      "dataAsOf": "Datos de Época a partir de",
+      "loading": "Cargando..."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes sobre Bloqueo y Desbloqueo",
+      "items": [
+        {
+          "question": "¿Cómo funciona el período de bloqueo de staking de Aptos?",
+          "answer": "Cuando hace staking en Aptos, sus tokens generalmente se bloquean por un período recurrente (actualmente alrededor de 14 días). Si decide desbloquearlos, su APT estará disponible después de que finalice el ciclo de bloqueo actual de su grupo de validadores elegido, y luego será totalmente retirable después de que la red lo procese en un límite de época."
+        },
+        {
+          "question": "¿Qué muestra este visualizador?",
+          "answer": "Esta herramienta le ayuda a estimar el cronograma de desbloqueo para los tokens de Aptos (APT). Considera el ciclo de bloqueo específico del validador en {{address}} y los tiempos de época de la red de Aptos."
+        },
+        {
+          "question": "¿Por qué 'Finaliza el Ciclo del Grupo' y 'Fondos Disponibles' son momentos diferentes?",
+          "answer": "Sus fondos están ligados al ciclo de bloqueo del validador. Se vuelven inactivos (listos para el procesamiento del retiro) cuando este ciclo termina. El tiempo final de 'Fondos Disponibles' es cuando este retiro es procesado por la red de Aptos, lo cual está alineado con el final de una época de la red."
+        }
+      ]
+    },
+    "schema": {
+      "software": {
+        "name": "Visualizador de Bloqueo de Staking de Aptos: Vea su Cronograma de Desbloqueo de APT",
+        "description": "Una herramienta interactiva de aptcore.one para visualizar los períodos de bloqueo de staking de Aptos (APT) y estimar cuándo estarán disponibles sus fondos después de desbloquearlos. Comprenda el ciclo de bloqueo de Aptos (actualmente alrededor de 14 días) y planifique su estrategia de staking.",
+        "keywords": "Visualizador de bloqueo de staking de Aptos, herramienta de período de desbloqueo de APT, herramienta explicada del bloqueo de 14 días de Aptos, visualizar tiempo de desbloqueo de aptos, calculadora de fecha de liberación de staking de aptos, cuándo puedo retirar mi herramienta de aptos en staking, calendario de bloqueo de aptos, aptcore.one"
+      },
+      "howTo": {
+        "name": "Cómo Usar el Visualizador de Bloqueo de Staking de Aptos para Ver su Cronograma de Desbloqueo de APT",
+        "description": "Visualice su cronograma de desbloqueo de Aptos (APT) con aptcore.one. Ingrese su hora de inicio de desbloqueo para ver el cronograma de liberación estimado basado en datos del validador y de la red.",
+        "s1": {
+          "name": "Seleccione la Hora de Inicio del Desbloqueo",
+          "text": "Elija la fecha y hora en que planea iniciar (o inició) su solicitud de desbloqueo. Puede usar el selector de fecha/hora o hacer clic en 'Visualizar Desbloqueo Desde Ahora' para la hora actual."
+        },
+        "s2": {
+          "name": "Revise la Información de la Red y del Validador",
+          "text": "La herramienta muestra las configuraciones actuales de staking de la red de Aptos (como el ciclo de bloqueo de ~14 días), el tiempo de la época y los detalles de bloqueo específicos del grupo de validadores en {{address}}."
+        },
+        "s3": {
+          "name": "Analice su Cronograma de Desbloqueo",
+          "text": "El visualizador generará y mostrará un cronograma. Esto muestra cuándo se estima que finalizará el ciclo de bloqueo del grupo actual del validador y la hora final estimada en que sus fondos de Aptos (APT) estarán disponibles para su retiro, alineados con las épocas de la red de Aptos."
+        },
+        "toolName": "Visualizador de Bloqueo de Staking de Aptos en aptcore.one"
+      }
+    },
+        "disclaimer": {
+      "text": "*Todos los cálculos del cronograma son estimaciones basadas en los parámetros actuales de la red de Aptos (como la duración del bloqueo recurrente y el intervalo de la época) y la hora de inicio proporcionada. Los tiempos reales de desbloqueo ocurren en los límites de la época y pueden variar ligeramente debido a las condiciones de la red o cambios en los parámetros de la red. Esta herramienta no constituye asesoramiento financiero. Siempre verifique la información crítica con la documentación oficial de Aptos o directamente con su validador si corresponde."
+    }
+  },
+  "connectWallet": {
+    "selectWalletTitle": "Seleccionar Billetera",
+    "closeModalAriaLabel": "Cerrar modal de selección de billetera",
+    "noWalletsFound": "No se encontraron billeteras.",
+    "pleaseInstallWallet": "Por favor, instale una billetera compatible con Aptos.",
+    "connectWithAriaLabel": "Conectar con {{walletName}}",
+    "walletIconAlt": "Icono de {{walletName}}",
+    "disconnectAriaLabel": "Desconectar billetera {{address}}",
+    "connectedWalletIconAlt": "Icono de billetera conectada",
+    "connectWalletButton": "Conectar Billetera",
+    "connectWalletAriaLabel": "Conectar billetera"
+  }
+}

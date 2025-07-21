@@ -1,11 +1,10 @@
-// File: src/components/ValidatorInfo.jsx
-
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Network, Database, BadgePercent, Signal, CalendarClock,
     Percent, Info as InfoIcon, Loader2, ExternalLink
 } from 'lucide-react';
-import LockupProgressBar from './LockupProgressBar'; 
+import LockupProgressBar from './LockupProgressBar';
 
 
 const StatCard = ({ icon: Icon, label, children }) => (
@@ -51,8 +50,9 @@ const LiveIndicator = () => (
 );
 
 
-// --- ОСНОВНОЙ КОМПОНЕНТ С ИЗМЕНЕНИЯМИ ---
 export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
+    const { t } = useTranslation();
+
     if (!poolInfo) {
         return (
             <div className="w-full rounded-3xl bg-[#0d0d1f]/70 backdrop-blur-xl border border-purple-600 p-8 sm:p-10 shadow-[0_0_20px_rgba(168,85,247,0.25)]">
@@ -65,44 +65,44 @@ export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
   
     const aprApyTooltipContent = (
         <>
-            <p className="font-semibold mb-1 text-sm text-zinc-100">Reward Calculation:</p>
-            {isMounted && apy && <p><strong>Est. Net APY: {(apy * (1 - commissionAsFraction)).toFixed(2)}%</strong></p>}
-            {isMounted && <p className="text-xs text-zinc-400">(after {(commissionAsFraction * 100).toFixed(2)}% commission, compounded)</p>}
+            <p className="font-semibold mb-1 text-sm text-zinc-100">{t('validatorInfo.tooltip.title')}</p>
+            {isMounted && apy && <p><strong>{t('validatorInfo.tooltip.netApyLabel')} {(apy * (1 - commissionAsFraction)).toFixed(2)}%</strong></p>}
+            {isMounted && <p className="text-xs text-zinc-400">{t('validatorInfo.tooltip.afterCommission', { commission: (commissionAsFraction * 100).toFixed(2) })}</p>}
             <hr className="my-1.5 border-zinc-700" />
-            {isMounted && apy && <p className="text-xs">Est. Gross APY: {apy.toFixed(2)}%</p>}
-            <p className="text-xs mt-1.5 italic text-zinc-500">APY includes compounding. All figures are estimates and may vary.</p>
+            {isMounted && apy && <p className="text-xs">{t('validatorInfo.tooltip.grossApyLabel')} {apy.toFixed(2)}%</p>}
+            <p className="text-xs mt-1.5 italic text-zinc-500">{t('validatorInfo.tooltip.footnote')}</p>
         </>
     );
 
     return (
         <div className="w-full rounded-3xl bg-[#0d0d1f]/70 backdrop-blur-xl border border-purple-600 p-8 sm:p-10 shadow-[0_0_20px_rgba(168,85,247,0.25)] hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-shadow duration-300">
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold text-zinc-100 tracking-tight">Validator Pool Details</h2>
+                <h2 className="text-2xl font-semibold text-zinc-100 tracking-tight">{t('validatorInfo.title')}</h2>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                <StatCard icon={Database} label="Total Delegated">
+                <StatCard icon={Database} label={t('validatorInfo.cards.totalDelegated')}>
                     {isMounted ? `${(Number(poolInfo.active_stake_octas) / 1e8).toLocaleString(undefined, { maximumFractionDigits: 0 })} APT` : <Loader2 size={20} className="animate-spin" />}
                 </StatCard>
-                <StatCard icon={BadgePercent} label="Est. Net Yield">
+                <StatCard icon={BadgePercent} label={t('validatorInfo.cards.netYield')}>
                     <div className="flex items-center">
-                        <span className="text-green-400">{isMounted && apy ? `${(apy * (1 - commissionAsFraction)).toFixed(2)}% APY` : <Loader2 size={20} className="animate-spin" />}</span>
+                        <span className="text-green-400">{isMounted && apy ? `${(apy * (1 - commissionAsFraction)).toFixed(2)}% ${t('validatorInfo.cards.apySuffix')}` : <Loader2 size={20} className="animate-spin" />}</span>
                         {isMounted && apy && <LiveIndicator />}
                         <InfoTooltip content={aprApyTooltipContent} />
                     </div>
                 </StatCard>
             </div>
             <div className="divide-y divide-zinc-800 border-t border-zinc-800">
-                <DataRow icon={Signal} label="Validator Status">
-                    <ValueDisplay className="font-semibold text-green-400">Online</ValueDisplay>
+                <DataRow icon={Signal} label={t('validatorInfo.rows.status')}>
+                    <ValueDisplay className="font-semibold text-green-400">{t('validatorInfo.rows.statusValue')}</ValueDisplay>
                 </DataRow>
-                <DataRow icon={Percent} label="Commission Rate">
+                <DataRow icon={Percent} label={t('validatorInfo.rows.commission')}>
                     <ValueDisplay>{isMounted ? `${(commissionAsFraction * 100).toFixed(2)} %` : '...'}</ValueDisplay>
                 </DataRow>
                 <DataRow icon={CalendarClock} label={
                     <div className='max-w-[150px]'>
-                        <div>Time Until Unlock</div>
-                        <div className="text-xs text-zinc-500">Current pool lockup period.</div>
+                        <div>{t('validatorInfo.rows.timeUntilUnlock')}</div>
+                        <div className="text-xs text-zinc-500">{t('validatorInfo.rows.lockupPeriod')}</div>
                     </div>
                 }>
                     {isMounted
@@ -110,7 +110,7 @@ export default function ValidatorInfo({ poolInfo, apy, isMounted }) {
                         : <div className='w-full max-w-[180px] h-8 bg-zinc-800/50 rounded-lg animate-pulse' />
                     }
                 </DataRow>
-                <DataRow icon={Network} label="Pool Address">
+                <DataRow icon={Network} label={t('validatorInfo.rows.poolAddress')}>
                     <LinkValue href={`https://explorer.aptoslabs.com/validator/${poolInfo.poolAddress}?network=mainnet`}>
                         {`${poolInfo.poolAddress.substring(0, 8)}...`}
                     </LinkValue>

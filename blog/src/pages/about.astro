@@ -1,170 +1,187 @@
 ---
+import { getTranslations } from '../i18n';
 import Layout from '@layouts/Layout.astro';
 import { SITE_URL, PATHS, SOCIALS } from '../consts';
 import { Github, Twitter, BookOpenCheck, ShieldCheck, Award } from 'lucide-astro';
+import astroConfig from '../../astro.config.mjs';
+
+const { defaultLocale, locales } = astroConfig.i18n;
+const currentLocale = Astro.currentLocale;
+const t = getTranslations(currentLocale);
 
 const YOUR_VALIDATOR_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 
-// --- SEO & Page Info ---
-const pageTitle = `About aptcore.one | Our Mission & Team`;
-const pageDescription = `Learn about aptcore.one: a top-performing Aptos genesis validator providing secure staking services. Verifiable on-chain expertise.`;
+const pageTitle = t.about.pageTitle;
+const pageDescription = t.about.pageDescription;
 const socialImage = "/blog-assets/aptcore-about-og.jpg";
-const canonicalURL = new URL(PATHS.about, SITE_URL);
 
-// --- TEAM DATA ---
+const canonicalPath = currentLocale === defaultLocale
+  ? PATHS.about
+  : `/${currentLocale}${PATHS.about}`;
+const canonicalURL = new URL(canonicalPath, SITE_URL);
+
+const hreflangLinks = locales.map(lang => {
+    const path = lang === defaultLocale
+        ? PATHS.about
+        : `/${lang}${PATHS.about}`;
+    return {
+        lang: lang,
+        href: new URL(path, SITE_URL).href
+    };
+});
+
+const xDefaultHref = new URL(PATHS.about, SITE_URL).href;
+
 const teamMembers = [
-  {
-    name: "p1xel32",
-    role: "Founder & Genesis Validator",
-    bio: "An original Aptos validator since the genesis block. Author of foundational community guides recognized on the official Aptos developer portal.",
-    links: {
-      github: SOCIALS.github,
-      twitter: SOCIALS.twitter,
-    }
-  },
+  {
+    name: "p1xel32",
+    role: t.about.cards.team.role,
+    bio: t.about.cards.team.bio,
+    links: {
+      github: SOCIALS.github,
+      twitter: SOCIALS.twitter,
+    }
+  },
 ];
 
-// --- CONTRIBUTIONS ---
 const contributions = [
-    {
-        title: "Tools to monitor your validator",
-        url: "https://legacy.aptos.dev/community/external-resources/",
-        description: "Co-authored a comprehensive guide on validator monitoring tools, featured in the official Aptos resources."
-    },
-    {
-        title: "Transfer validator node to other server",
-        url: "https://legacy.aptos.dev/community/external-resources/",
-        description: "Authored the definitive manual for node migration, recognized by the Aptos community."
-    }
+    {
+        title: "Tools to monitor your validator",
+        url: "https://legacy.aptos.dev/community/external-resources/",
+        description: "Co-authored a comprehensive guide on validator monitoring tools, featured in the official Aptos resources."
+    },
+    {
+        title: "Transfer validator node to other server",
+        url: "https://legacy.aptos.dev/community/external-resources/",
+        description: "Authored the definitive manual for node migration, recognized by the Aptos community."
+    }
 ];
 
-// --- JSON-LD SCHEMA ---
 const jsonLdData = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "name": pageTitle,
-  "description": pageDescription,
-  "url": canonicalURL.toString(),
-  "mainEntity": {
-    "@type": "Organization",
-    "name": "aptcore.one",
-    "url": SITE_URL,
-    "logo": `${SITE_URL}/blog/aptcore-logo.svg`,
-    "description": "A secure and reliable staking service provider for the Aptos (APT) blockchain, managed by experienced ecosystem contributors.",
-    "founder": teamMembers.map(member => ({
-      "@type": "Person",
-      "name": member.name,
-      "jobTitle": member.role,
-      "url": member.links.github,
-      "sameAs": Object.values(member.links).filter(Boolean)
-    })),
-    "sameAs": [
-      SOCIALS.twitter,
-      SOCIALS.github,
-      SOCIALS.youtube,
-      SOCIALS.stakingRewards
-    ].filter(Boolean)
-  }
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalURL.toString(),
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "aptcore.one",
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/blog/aptcore-logo.svg`,
+    "description": "A secure and reliable staking service provider for the Aptos (APT) blockchain, managed by experienced ecosystem contributors.",
+    "founder": teamMembers.map(member => ({
+      "@type": "Person",
+      "name": member.name,
+      "jobTitle": member.role,
+      "url": member.links.github,
+      "sameAs": Object.values(member.links).filter(Boolean)
+    })),
+    "sameAs": [
+      SOCIALS.twitter,
+      SOCIALS.github,
+      SOCIALS.youtube,
+      SOCIALS.stakingRewards
+    ].filter(Boolean)
+  }
 };
 ---
 
 <Layout
-  title={pageTitle}
-  description={pageDescription}
-  image={socialImage}
-  canonicalURL={canonicalURL.toString()}
+  title={pageTitle}
+  description={pageDescription}
+  image={socialImage}
+  canonicalURL={canonicalURL.toString()}
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} slot="head-scripts" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} slot="head-scripts" />
 
-  <div class="py-10 md:py-16">
-    <header class="text-center mb-16 px-4">
-        <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 leading-tight">
-            Proven by <span class="text-purple-400">Performance</span>, Not Promises
-        </h1>
-        <p class="text-lg md:text-xl text-zinc-400 mt-4 max-w-3xl mx-auto">
-            Our reputation is built on verifiable, on-chain data and consistent contributions to the Aptos ecosystem.
-        </p>
-    </header>
+  <div class="py-10 md:py-16">
+    <header class="text-center mb-16 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 leading-tight" set:html={t.about.header.title.replace('Performance', '<span class="text-purple-400">Performance</span>').replace('производительностью', '<span class="text-purple-400">производительностью</span>')} />
+        <p class="text-lg md:text-xl text-zinc-400 mt-4 max-w-3xl mx-auto">
+            {t.about.header.subtitle}
+        </p>
+    </header>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 px-4">
-      
-      <!-- Карточка 1: Live Performance -->
-      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
-        <h3 class="text-2xl font-bold text-zinc-100 mb-4">Live Performance</h3>
-        <ul class="space-y-4 text-zinc-300 flex-grow">
-          <li class="flex items-center gap-3">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-            </span>
-            <span><strong>Top-performing validator</strong> in the active set.</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <ShieldCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
-            <span><strong>Genesis Validator:</strong> Actively securing the network since mainnet launch.</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <ShieldCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
-            <span><strong>Zero Slashing Incidents:</strong> 100% clean record.</span>
-          </li>
-        </ul>
-        <div class="mt-8 pt-6 border-t border-zinc-700">
-          <a href={`https://explorer.aptoslabs.com/validator/${YOUR_VALIDATOR_ADDRESS}?network=mainnet`} target="_blank" rel="noopener noreferrer" class="inline-block w-full text-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-white transition">
-            Verify On-chain Data
-          </a>
-        </div>
-      </div>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 px-4">
+      
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
+        <h3 class="text-2xl font-bold text-zinc-100 mb-4">{t.about.cards.performance.title}</h3>
+        <ul class="space-y-4 text-zinc-300 flex-grow">
+          <li class="flex items-center gap-3">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            <span><strong>{t.about.cards.performance.item1}</strong></span>
+          </li>
+          <li class="flex items-start gap-3">
+            <ShieldCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+            <span><strong>{t.about.cards.performance.item2}</strong> {t.about.cards.performance.item2_desc}</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <ShieldCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+            <span><strong>{t.about.cards.performance.item3}</strong> {t.about.cards.performance.item3_desc}</span>
+          </li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-zinc-700">
+          <a href={`https://explorer.aptoslabs.com/validator/${YOUR_VALIDATOR_ADDRESS}?network=mainnet`} target="_blank" rel="noopener noreferrer" class="inline-block w-full text-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-white transition">
+            {t.about.cards.performance.button}
+          </a>
+        </div>
+      </div>
 
-      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
-        <h3 class="text-2xl font-bold text-zinc-100 mb-4">Community Contributions</h3>
-        <ul class="space-y-4 text-zinc-300 flex-grow">
-          {contributions.map(item => (
-            <li class="flex items-start gap-3">
-              <BookOpenCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
-              <div>
-                <a href={item.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-zinc-100 hover:underline">{item.title}</a>
-                <p class="text-sm text-zinc-400">{item.description}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
+        <h3 class="text-2xl font-bold text-zinc-100 mb-4">{t.about.cards.contributions.title}</h3>
+        <ul class="space-y-4 text-zinc-300 flex-grow">
+          {contributions.map(item => (
+            <li class="flex items-start gap-3">
+              <BookOpenCheck class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+              <div>
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-zinc-100 hover:underline">{item.title}</a>
+                <p class="text-sm text-zinc-400">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
-        <h3 class="text-2xl font-bold text-zinc-100 mb-4">Independent Verification</h3>
-        <ul class="space-y-4 text-zinc-300 flex-grow">
-            <li class="flex items-start gap-3">
-                <Award class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
-                <div>
-                    <strong>Staking Rewards Profile</strong>
-                    <p class="text-sm text-zinc-400">View detailed performance metrics, reward history, and compare our validator on a trusted, independent platform.</p>
-                </div>
-            </li>
-        </ul>
-        <div class="mt-8 pt-6 border-t border-zinc-700">
-          <a href={SOCIALS.stakingRewards} target="_blank" rel="noopener noreferrer" class="inline-block w-full text-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-white transition">
-            View Profile
-          </a>
-        </div>
-      </div>
-      
-      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col text-center">
-        <div class="bg-purple-900/40 w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center">
-            <Github size={40} class="text-purple-300" />
-        </div>
-        <div class="flex-grow">
-            <h4 class="text-2xl font-bold text-zinc-100">{teamMembers[0].name}</h4>
-            <p class="text-purple-400 font-medium mb-3">{teamMembers[0].role}</p>
-            <p class="text-zinc-400 text-sm">{teamMembers[0].bio}</p>
-        </div>
-        <div class="mt-8 pt-6 border-t border-zinc-700">
-            <a href={teamMembers[0].links.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-zinc-300 hover:text-white font-semibold">
-              <Github size={18} />
-              View on GitHub
-            </a>
-        </div>
-      </div>
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col">
+        <h3 class="text-2xl font-bold text-zinc-100 mb-4">{t.about.cards.verification.title}</h3>
+        <ul class="space-y-4 text-zinc-300 flex-grow">
+            <li class="flex items-start gap-3">
+                <Award class="w-5 h-5 text-purple-400 mt-1 shrink-0" />
+                <div>
+                    <strong>{t.about.cards.verification.item1_title}</strong>
+                    <p class="text-sm text-zinc-400">{t.about.cards.verification.item1_desc}</p>
+                </div>
+            </li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-zinc-700">
+          <a href={SOCIALS.stakingRewards} target="_blank" rel="noopener noreferrer" class="inline-block w-full text-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-white transition">
+            {t.about.cards.verification.button}
+          </a>
+        </div>
+      </div>
+      
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 flex flex-col text-center">
+        <div class="bg-purple-900/40 w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <Github size={40} class="text-purple-300" />
+        </div>
+        <div class="flex-grow">
+            <h4 class="text-2xl font-bold text-zinc-100">{teamMembers[0].name}</h4>
+            <p class="text-purple-400 font-medium mb-3">{teamMembers[0].role}</p>
+            <p class="text-zinc-400 text-sm">{teamMembers[0].bio}</p>
+        </div>
+        <div class="mt-8 pt-6 border-t border-zinc-700">
+            <a href={teamMembers[0].links.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-zinc-300 hover:text-white font-semibold">
+              <Github size={18} />
+              {t.about.cards.team.button}
+            </a>
+        </div>
+      </div>
 
-    </div>
-  </div>
+    </div>
+  </div>
 </Layout>

@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FormattedDate from './FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL: string;
+  hreflangLinks: { lang: string; href: string }[];
+  xDefaultHref: string;
+  posts: CollectionEntry<'blog'>[];
+  t: any; // Объект с переводами
+}
+
+const {
+    title,
+    description,
+    canonicalURL,
+    hreflangLinks,
+    xDefaultHref,
+    posts,
+    t
+} = Astro.props;
+---
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
+>
+  <section class="text-center mb-12 pt-8 sm:pt-12">
+    <h1 class="text-4xl sm:text-5xl font-bold text-aptcore-purple mb-4">
+      {t.blog_index.header.title}
+    </h1>
+    <p class="text-lg sm:text-xl text-white max-w-2xl mx-auto">
+      {t.blog_index.header.subtitle}
+    </p>
+  </section>
+
+  <section>
+    {posts.length === 0 ? (
+      <p class="text-center text-white text-lg">{t.blog_index.no_posts}</p>
+    ) : (
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {posts.map((post) => {
+            let postSlug = post.slug;
+            // Убираем 'en/' из слага для английских постов
+            if (post.slug.startsWith('en/')) {
+                postSlug = post.slug.slice(3);
+            }
+            const postUrl = `/blog/${postSlug}`;
+            
+            return (
+              <li class="group bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:border-aptcore-purple/70 transition-all duration-300 ease-in-out flex flex-col overflow-hidden">
+                <a href={postUrl} class="block flex-grow flex flex-col">
+                  {post.data.heroImage && (
+                    <div class="w-full h-48 sm:h-56 overflow-hidden">
+                      <img
+                        src={`/blog${post.data.heroImage.startsWith('/') ? '' : '/'}${post.data.heroImage}`}
+                        alt={`Cover image for ${post.data.title}`}
+                        width={720}
+                        height={360}
+                        loading="lazy"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl lg:text-2xl font-semibold text-white group-hover:text-aptcore-purple mb-2 transition-colors duration-200">
+                      {post.data.title}
+                    </h2>
+                    <p class="text-xs text-white mb-3">
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
+                    <p class="text-white text-sm line-clamp-3 flex-grow mb-4">
+                      {post.data.description || t.blog_index.fallback_description}
+                    </p>
+                    <span class="text-sm text-aptcore-purple group-hover:underline self-start mt-auto font-medium">
+                      {t.blog_index.read_post}
+                    </span>
+                  </div>
+                </a>
+              </li>
+            )
+        })}
+      </ul>
+    )}
+  </section>
+</Layout>

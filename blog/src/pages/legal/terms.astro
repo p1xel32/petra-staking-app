@@ -1,60 +1,91 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import { getTranslations } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+import astroConfig from '../../../astro.config.mjs';
+import { PATHS, SITE_URL } from '../../consts';
 
-const pageTitle = "Terms of Service - aptcore.one";
-const pageDescription = "Binding Terms of Service governing the use of the aptcore.one non-custodial staking platform, including user obligations and risk acknowledgments.";
+const { defaultLocale, locales } = astroConfig.i18n;
+const currentLocale = Astro.currentLocale;
+const t = getTranslations(currentLocale).legal.terms;
+
+const pageTitle = t.pageTitle;
+const pageDescription = t.pageDescription;
+
+const canonicalPath = currentLocale === defaultLocale
+  ? PATHS.legal.terms
+  : `/${currentLocale}${PATHS.legal.terms}`;
+const canonicalURL = new URL(canonicalPath, SITE_URL);
+
+const hreflangLinks = locales.map(lang => {
+    let finalPath;
+    if (lang === defaultLocale) {
+        finalPath = PATHS.legal.terms;
+    } else {
+        finalPath = `/${lang}${PATHS.legal.terms}`;
+    }
+    return {
+        lang: lang,
+        href: new URL(finalPath, SITE_URL).href
+    };
+});
+
+const xDefaultHref = new URL(PATHS.legal.terms, SITE_URL).href;
 ---
-<Layout title={pageTitle} description={pageDescription}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL.toString()}
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
+>
   <div class="py-8 md:py-12">
     <header class="text-center mb-10 md:mb-14">
-      <h1 class="text-4xl md:text-5xl font-bold text-white">
-        Terms of <span class="text-purple-400">Use</span>
-      </h1>
+      <h1 class="text-4xl md:text-5xl font-bold text-white" set:html={t.header.replace('Use', '<span class="text-purple-400">Use</span>').replace('использования', '<span class="text-purple-400">использования</span>')} />
     </header>
 
     <div class="prose prose-invert lg:prose-xl max-w-3xl mx-auto">
-        <p>These Terms of Service (“Terms”) constitute a legally binding agreement governing your access to and use of the website https://aptcore.one (the "Site") and the non-custodial staking services offered (the "Services"). By using the Services, you agree to be bound by these Terms.</p>
+        <p>{t.intro}</p>
 
-        <h2>1. Description of the Service (Strictly Non-Custodial)</h2>
-        <p>The Service is a technical interface that allows you to delegate your APT tokens to our validator. The Service is strictly non-custodial. We never take custody or control of your assets or private keys. You interact directly with the Aptos protocol smart contracts.</p>
+        <h2>{t.h2_service}</h2>
+        <p>{t.p_service}</p>
 
-        <h2>2. Eligibility and Prohibited Jurisdictions (OFAC Compliance)</h2>
-        <p>This service is not available to any person or entity who is a resident of, or located in, a jurisdiction subject to a U.S. government embargo (including Cuba, Iran, North Korea, Syria, and certain regions of Ukraine) or who is listed on the OFAC Specially Designated Nationals and Blocked Persons List ("Prohibited Person"). You represent and warrant that you are not a Prohibited Person. Use of a VPN or other methods to circumvent this restriction is strictly prohibited.</p>
+        <h2>{t.h2_eligibility}</h2>
+        <p>{t.p_eligibility}</p>
         
-        <h2>3. User Obligations</h2>
-        <p>You are solely responsible for:</p>
+        <h2>{t.h2_obligations}</h2>
+        <p>{t.p_obligations}</p>
         <ul>
-            <li>The security of your own wallet and private keys.</li>
-            <li>Determining and paying any taxes applicable to your staking rewards.</li>
-            <li>Complying with all laws in your jurisdiction.</li>
-            <li>Verifying all transaction details before signing. Blockchain transactions are irreversible.</li>
+            <li>{t.obligation_item1}</li>
+            <li>{t.obligation_item2}</li>
+            <li>{t.obligation_item3}</li>
+            <li>{t.obligation_item4}</li>
         </ul>
         
-        <h2>4. No Fiduciary Duty</h2>
-        <p>Your use of our Services does not create a fiduciary, agency, or financial advisory relationship. We owe you no fiduciary duties.</p>
+        <h2>{t.h2_fiduciary}</h2>
+        <p>{t.p_fiduciary}</p>
         
-        <h2>5. Staking Rewards and Commission</h2>
-        <p>Staking rewards are generated and distributed by the Aptos protocol, not by aptcore.one. We charge a commission on these rewards, which is displayed on our Site and deducted automatically by the protocol.</p>
+        <h2>{t.h2_rewards}</h2>
+        <p>{t.p_rewards}</p>
         
-        <h2>6. Intellectual Property</h2>
-        <p>All content on the Site is the property of aptcore.one or its licensors and is protected by copyright laws.</p>
+        <h2>{t.h2_ip}</h2>
+        <p>{t.p_ip}</p>
 
-        <h2>7. Limitation of Liability and Indemnification</h2>
-        <p>To the fullest extent permitted by law, our total liability shall not exceed the greater of one hundred U.S. dollars ($100) or the amount of commission fees we received from you in the six months prior to the claim. You agree to indemnify and hold us harmless from any claims arising from your use of the Services or violation of these Terms.</p>
+        <h2>{t.h2_liability}</h2>
+        <p>{t.p_liability}</p>
 
-        <h2>8. Term and Termination</h2>
-        <p>These Terms will remain in full force and effect while you use the Services. You may terminate this agreement at any time by ceasing all use of the Services. We may, in our sole discretion, suspend or terminate your access to the Services for any reason, including for any breach of these Terms.</p>
+        <h2>{t.h2_termination}</h2>
+        <p>{t.p_termination}</p>
 
-        <h2>9. Dispute Resolution by Binding Arbitration</h2>
-        <p>All disputes arising from these Terms shall be resolved solely by binding, individual arbitration and not in a class action lawsuit. The arbitration shall be conducted in accordance with the rules of a recognized international arbitration center agreed upon by the parties, or as otherwise determined in accordance with the governing law of these Terms. YOU AND APTCORE.ONE WAIVE THE RIGHT TO A JURY TRIAL AND TO PARTICIPATE IN A CLASS ACTION.</p>
+        <h2>{t.h2_dispute}</h2>
+        <p>{t.p_dispute}</p>
 
-        <h2>10. Governing Law</h2>
-        <p>These Terms and any action related thereto will be governed by and construed in accordance with the laws of Ukraine, without regard to its conflict of law provisions.</p>
+        <h2>{t.h2_law}</h2>
+        <p>{t.p_law}</p>
 
-        <h2>11. Miscellaneous</h2>
-        <p>These Terms, along with the Legal Disclaimer, constitute the entire agreement between you and us. We may modify these Terms at any time by posting the revised version on the Site. Your continued use of the Services constitutes acceptance of the new Terms.</p>
+        <h2>{t.h2_misc}</h2>
+        <p>{t.p_misc}</p>
         
-        <p class="mt-8"><em>Last Updated: July 2, 2025</em></p>
+        <p class="mt-8"><em>{t.last_updated}</em></p>
     </div>
   </div>
 </Layout>

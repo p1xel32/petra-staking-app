@@ -1,7 +1,6 @@
-// File: src/components/IndexPageContent.jsx
-
 import React, { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { useTranslation } from 'react-i18next'; 
 import { Wallet } from 'lucide-react';
 import ValidatorInfo from '@/components/ValidatorInfo';
 import { EpochInfoProvider } from '@/context/EpochInfoContext.jsx';
@@ -12,6 +11,7 @@ const StakeUnstakeControls = lazy(() => import('@/components/StakeUnstakeControl
 
 
 export default function IndexPageContent({ serverFetchedPoolInfo, serverFetchedApy }) {
+  const { t } = useTranslation(); 
   const { account, connected } = useWallet();
   const userAccountAddress = account?.address ? account.address.toString() : null;
 
@@ -46,19 +46,19 @@ export default function IndexPageContent({ serverFetchedPoolInfo, serverFetchedA
       <div className="w-full max-w-2xl flex flex-col items-center gap-10" id="stake-section">
         <Suspense fallback={<WidgetSkeleton height="h-48" />}>
           <div className="w-full">
-            <ValidatorInfo 
-              poolInfo={serverFetchedPoolInfo} 
-              apy={serverFetchedApy} 
+            <ValidatorInfo
+              poolInfo={serverFetchedPoolInfo}
+              apy={serverFetchedApy}
             />
           </div>
         </Suspense>
         
         {connected && userAccountAddress ? (
           <Suspense fallback={<WidgetSkeleton height="h-64" />}>
-            <StakeUnstakeControls 
-              account={userAccountAddress} 
-              onTransactionSuccess={fetchUserStake} 
-              userStake={userStake} 
+            <StakeUnstakeControls
+              account={userAccountAddress}
+              onTransactionSuccess={fetchUserStake}
+              userStake={userStake}
             />
           </Suspense>
         ) : (
@@ -66,8 +66,9 @@ export default function IndexPageContent({ serverFetchedPoolInfo, serverFetchedA
             <div className="flex justify-center mb-4">
               <Wallet size={32} className="text-purple-400" />
             </div>
-            <h2 className="text-2xl font-semibold mb-3 text-gray-100">Ready to Earn Aptos Staking Rewards?</h2>
-            <p className="text-base text-zinc-300 mb-4">Connect your Aptos wallet to get started.</p>
+            {/* Translated Strings */}
+            <h2 className="text-2xl font-semibold mb-3 text-gray-100">{t('indexPage.connectPrompt.title')}</h2>
+            <p className="text-base text-zinc-300 mb-4">{t('indexPage.connectPrompt.description')}</p>
           </div>
         )}
       </div>

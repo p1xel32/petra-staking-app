@@ -1,0 +1,72 @@
+---
+title: "Phần Thưởng Staking Aptos: Giải Thích APR và APY (và cách aptcore.one hiển thị chúng)"
+description: "Giải mã phần thưởng staking trên Aptos. Tìm hiểu sự khác biệt giữa APR và APY, cách chúng được tính toán, và cách aptcore.one cung cấp thông tin phần thưởng minh bạch."
+pubDate: "2025-08-04"
+keywords: ["Aptos", "Staking", "Rewards", "APR", "APY", "Finance", "aptcore.one"]
+heroImage: "/blog-assets/aptos-rewards-apr-apy.jpg"
+heroImageAlt: "Minh họa so sánh khái niệm APR và APY trong staking Aptos trên nền tảng aptcore.one"
+tags: ["Aptos", "Staking", "Rewards", "APR", "APY", "Finance", "aptcore.one"]
+author: "Nhóm aptcore.one"
+translationKey: "aptos-staking-rewards-apr-vs-apy-explained-and-how-aptcoreone-shows-them"
+---
+
+## Hiểu Về Phần Thưởng Staking Aptos: APR vs. APY
+
+Khi bạn staking token Aptos (APT), bạn mong đợi nhận được phần thưởng. Nhưng phần thưởng này được tính toán và trình bày như thế nào? Bạn thường thấy các thuật ngữ như APR và APY. Hiểu sự khác biệt là chìa khóa để đánh giá chính xác tiềm năng lợi nhuận của bạn. Tại [aptcore.one](https://aptcore.one), chúng tôi tin vào sự minh bạch, vì vậy hãy cùng phân tích.
+
+### APR là gì (Tỷ Lệ Phần Trăm Hàng Năm)?
+
+**APR** đại diện cho lãi suất hàng năm đơn giản mà bạn kiếm được trên số tiền đã staking, **không** tính đến hiệu ứng lãi kép. Đây là một phép tính đơn giản: nếu bạn staking 100 APT với APR 5%, bạn có thể mong đợi kiếm được 5 APT trong một năm, giả sử tỷ lệ này không thay đổi và phần thưởng không được staking lại.
+
+**Cách aptcore.one tính toán APR Gộp:**
+APR Gộp hiển thị trên `aptcore.one` được tính toán dựa trên các tham số hiện tại trên chuỗi của mạng Aptos:
+* `rewards_rate` và `rewards_rate_denominator` (từ `0x1::staking_config::StakingConfig`)
+* `epoch_interval` (từ `0x1::block::BlockResource`)
+
+Công thức cơ bản là:
+`APR Gộp = (rewards_rate / rewards_rate_denominator) * Số_Lượng_Epochs_Trong_Một_Năm * 100%`
+
+Điều này cho bạn một cái nhìn tổng quan về tỷ lệ phần thưởng hiện tại của mạng trước khi trừ hoa hồng của người xác thực.
+
+### APY là gì (Tỷ Lệ Lợi Nhuận Hàng Năm)?
+
+**APY** là nơi mà nó trở nên thú vị hơn cho người staking. APY tính đến **lãi kép**. Lãi kép có nghĩa là phần thưởng bạn kiếm được sẽ tự động được thêm vào số tiền gốc đã staking của bạn, và sau đó những phần thưởng đã staking lại đó cũng bắt đầu kiếm phần thưởng.
+
+Vì phần thưởng staking Aptos thường được tự động cộng dồn (thêm vào số tiền staking của bạn, tăng kích thước của nó theo thời gian), APY sẽ gần như luôn cao hơn APR cho cùng một tỷ lệ phần thưởng cơ bản. APY cung cấp một bức tranh chính xác hơn về tiềm năng kiếm tiền thực sự của bạn trong một năm nếu bạn giữ phần thưởng của mình được staking.
+
+**Cách aptcore.one tính toán APY Gộp:**
+1. **Tỷ lệ mỗi Epoch:** Chúng tôi đầu tiên xác định tỷ lệ phần thưởng cho một epoch (ví dụ: `rate_per_epoch = rewards_rate / rewards_rate_denominator`).
+2. **Số lượng Epochs mỗi Năm:** Chúng tôi tính toán có bao nhiêu epochs xảy ra trong một năm.
+3. **Công thức Lãi Kép:** Sau đó, chúng tôi sử dụng công thức APY tiêu chuẩn:
+   `APY Gộp = ((1 + rate_per_epoch) ^ epochs_per_year - 1) * 100%`
+
+### Net APR vs. Net APY trên aptcore.one
+
+Những gì bạn thực sự nhận được là phần thưởng **Net** – tức là sau khi hoa hồng của người xác thực được trừ đi.
+
+* **Net APR:** `APR Gộp * (1 - Tỷ_Lệ_Hoa_Hồng_Người_Xác_Thực)`
+* **Net APY:** `APY Gộp * (1 - Tỷ_Lệ_Hoa_Hồng_Người_Xác_Thực)`
+
+Trên [aptcore.one](https://aptcore.one), chúng tôi chủ yếu hiển thị **Ước Tính Net APY** vì đây là con số liên quan nhất đến tiềm năng kiếm tiền của bạn với lãi kép. Tuy nhiên, chúng tôi cung cấp một phân tích đầy đủ nếu bạn nhấp vào biểu tượng thông tin:
+
+* **Ước Tính Net APY:** Lợi nhuận hàng năm ước tính của bạn sau khi trừ hoa hồng của chúng tôi, với phần thưởng được cộng dồn.
+* **Ước Tính APY Gộp:** Lợi nhuận hàng năm ước tính của mạng trước khi trừ hoa hồng, với phần thưởng được cộng dồn.
+* **Hoa Hồng Người Xác Thực:** Phần trăm `aptcore.one` tính phí cho dịch vụ đáng tin cậy của mình.
+* **Ước Tính Net APR & APR Gộp:** Các con số lãi suất đơn giản để đảm bảo minh bạch hoàn toàn.
+
+### Tại Sao Sự Khác Biệt Quan Trọng
+
+Nhiều nền tảng có thể chỉ hiển thị một con số, và thường là APY vì nó cao hơn. Bằng cách hiển thị cả hai (với APY được ưu tiên nhưng APR vẫn có sẵn), `aptcore.one` đảm bảo bạn có một cái nhìn rõ ràng. Khi so sánh các tùy chọn staking, luôn kiểm tra xem tỷ lệ được quảng cáo là APR hay APY.
+
+### Các Yếu Tố Ảnh Hưởng Đến Phần Thưởng Thực Tế Của Bạn
+
+Điều quan trọng cần nhớ là cả APR và APY đều là *ước tính*. Phần thưởng thực tế có thể thay đổi do:
+* **Thay Đổi Tham Số Mạng:** `rewards_rate` của mạng Aptos có thể được điều chỉnh bởi quản trị.
+* **Hiệu Suất Người Xác Thực:** Thời gian hoạt động và hiệu suất nhất quán của người xác thực là rất quan trọng. `aptcore.one` cam kết duy trì hiệu suất cao.
+* **Tổng Số Tiền Được Staking Trên Mạng:** Sự tham gia staking của toàn bộ mạng có thể ảnh hưởng đến phân phối phần thưởng.
+
+### Staking Với Sự Rõ Ràng
+
+Chúng tôi tin rằng một người ủy quyền thông thái là một người ủy quyền hạnh phúc. Bằng cách hiểu cách phần thưởng của bạn được tính toán, bạn có thể đưa ra quyết định tốt hơn cho số APT của mình.
+
+Sẵn sàng để xem hiển thị phần thưởng minh bạch của chúng tôi hoạt động? Hãy staking với [aptcore.one](https://aptcore.one) hôm nay!

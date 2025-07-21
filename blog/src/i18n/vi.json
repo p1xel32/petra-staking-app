@@ -1,0 +1,997 @@
+{
+  "about": {
+    "pageTitle": "Giới thiệu về aptcore.one | Sứ mệnh & Đội ngũ của chúng tôi",
+    "pageDescription": "Tìm hiểu về aptcore.one: một trong những validator genesis hàng đầu của Aptos, cung cấp dịch vụ staking an toàn. Chuyên môn được xác minh trên chuỗi khối.",
+    "header": {
+      "title": "Được chứng minh bằng hiệu quả, không phải bằng lời hứa.",
+      "subtitle": "Uy tín của chúng tôi được xây dựng dựa trên dữ liệu có thể xác minh trên chuỗi khối và những đóng góp liên tục cho hệ sinh thái Aptos."
+    },
+    "cards": {
+      "performance": {
+        "title": "Trình diễn trực tiếp",
+        "item1": "Validator có hiệu suất cao nhất trong tập hợp đang hoạt động.",
+        "item2": "Trình xác thực Genesis: Đảm bảo an ninh mạng một cách tích cực kể từ khi mạng chính thức ra mắt.",
+        "item3": "Không có vụ cắt giảm nào: 100% sạch sẽ.",
+        "button": "Xác minh dữ liệu trên chuỗi khối"
+      },
+      "contributions": {
+        "title": "Đóng góp của cộng đồng"
+      },
+      "verification": {
+        "title": "Xác minh độc lập",
+        "item1_title": "Profil Phần Thưởng Staking",
+        "item1_desc": "Xem các chỉ số hiệu suất chi tiết, lịch sử phần thưởng và so sánh trình xác thực của chúng tôi trên một nền tảng đáng tin cậy và độc lập.",
+        "button": "Xem hồ sơ"
+      },
+      "team": {
+        "role": "Người sáng lập & Người xác thực Genesis",
+        "bio": "Một validator gốc của Aptos từ khối genesis. Tác giả của các hướng dẫn cộng đồng cơ bản được công nhận trên trang web chính thức của nhà phát triển Aptos.",
+        "button": "Xem trên GitHub"
+      }
+    }
+  },
+  "contact": {
+    "pageTitle": "Liên hệ với chúng tôi | aptcore.one",
+    "pageDescription": "Liên hệ với đội ngũ aptcore.one. Chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc của bạn về việc staking Aptos (APT), các dịch vụ của chúng tôi hoặc bất kỳ câu hỏi nào khác.",
+    "header": {
+      "title": "Liên hệ với chúng tôi",
+      "subtitle": "Bạn có câu hỏi hoặc phản hồi? Chúng tôi luôn sẵn sàng hỗ trợ."
+    },
+    "left_panel": {
+      "title": "Liên hệ với chúng tôi",
+      "text": "Để liên hệ trực tiếp, đề xuất hợp tác hoặc các câu hỏi hỗ trợ cụ thể, vui lòng sử dụng biểu mẫu hoặc liên hệ với chúng tôi qua email. Chúng tôi đọc mọi tin nhắn và cố gắng trả lời trong vòng 24 giờ làm việc.",
+      "email_us": "Gửi email cho chúng tôi"
+    },
+    "form": {
+      "name": "Họ và tên đầy đủ",
+      "email": "Địa chỉ email",
+      "message": "Thông báo",
+      "button": "Gửi tin nhắn",
+      "sending": "Đang gửi...",
+      "success_title": "Thông điệp đã được gửi!",
+      "success_text": "Cảm ơn bạn đã liên hệ. Chúng tôi sẽ liên hệ lại với bạn sớm nhất có thể.",
+      "error_alert": "Xin lỗi! Có sự cố xảy ra khi gửi biểu mẫu của bạn."
+    }
+  },
+  "help": {
+    "pageTitle": "Trung tâm trợ giúp | aptcore.one",
+    "pageDescription": "Tìm kiếm câu trả lời, hướng dẫn và thông tin chi tiết về nền tảng của chúng tôi. Khám phá phần Câu hỏi thường gặp (FAQ), tìm hiểu về chúng tôi hoặc liên hệ với bộ phận hỗ trợ.",
+    "header": {
+      "title": "Trung tâm Hỗ trợ",
+      "subtitle": "Chúng tôi có thể giúp gì cho bạn? Tìm câu trả lời bên dưới hoặc khám phá các hướng dẫn của chúng tôi."
+    },
+    "sections": {
+      "faq": {
+        "title": "Câu hỏi thường gặp",
+        "description": "Tìm câu trả lời nhanh cho các câu hỏi thường gặp nhất của chúng tôi về staking, bảo mật và Aptos."
+      },
+      "blog": {
+        "title": "Blog & Hướng dẫn",
+        "description": "Khám phá các bài viết chi tiết, hướng dẫn và cập nhật nền tảng từ đội ngũ của chúng tôi."
+      },
+      "apy": {
+        "title": "Máy tính lãi suất hàng năm (APY)",
+        "description": "Tính toán phần thưởng staking tiềm năng của bạn dựa trên các kịch bản khác nhau."
+      },
+      "about": {
+        "title": "Giới thiệu về chúng tôi",
+        "description": "Tìm hiểu thêm về sứ mệnh, giá trị và đội ngũ đứng sau aptcore.one."
+      },
+      "contact": {
+        "title": "Liên hệ Hỗ trợ",
+        "description": "Liên hệ với chúng tôi để được hỗ trợ, hợp tác hoặc bất kỳ câu hỏi nào khác."
+      },
+      "lockup": {
+        "title": "Trình hiển thị trạng thái khóa",
+        "description": "Hiển thị thời gian khóa không thể rút tiền cho các tài sản đã được staking của bạn."
+      }
+    }
+  },
+  "blog_index": {
+    "pageTitle": "Blog | aptcore.one",
+    "pageDescription": "Tin tức mới nhất, hướng dẫn và phân tích về staking Aptos.",
+    "header": {
+      "title": "Blog aptcore.one",
+      "subtitle": "Cập nhật những tin tức mới nhất, hướng dẫn và phân tích về staking Aptos và nền tảng aptcore.one."
+    },
+    "no_posts": "Chưa có bài viết nào trên blog. Vui lòng quay lại sau!",
+    "read_post": "Đọc bài viết →",
+    "fallback_description": "Nhấp vào đây để đọc thêm về chủ đề này..."
+  },
+  "legal": {
+    "disclaimer": {
+      "pageTitle": "Thông báo pháp lý - aptcore.one",
+      "pageDescription": "Thông báo pháp lý toàn diện về việc sử dụng dịch vụ staking không lưu trữ của chúng tôi, rủi ro mất mát và các thông báo pháp lý quan trọng.",
+      "header": "Thông báo pháp lý",
+      "intro": "Bằng việc sử dụng trang web https://aptcore.one (sau đây gọi là \"Trang web\") và bất kỳ dịch vụ liên quan nào (sau đây gọi là \"Dịch vụ\"), bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý tuân thủ các điều khoản của thông báo miễn trừ trách nhiệm này.",
+      "h2_general": "1. Tuyên bố chung",
+      "p_general": "Thông tin được cung cấp trên Trang web, bao gồm nhưng không giới hạn ở các bài đăng trên blog, hướng dẫn và chỉ số hiệu suất, chỉ mang tính chất thông tin chung. Tất cả thông tin được cung cấp với thiện chí; tuy nhiên, chúng tôi không đưa ra bất kỳ đại diện hoặc bảo đảm nào, dù là rõ ràng hay ngụ ý, về tính chính xác, đầy đủ, hợp lệ, đáng tin cậy, sẵn có hoặc hoàn chỉnh của bất kỳ thông tin nào trên Trang web.",
+      "h2_advice": "2. Không cung cấp tư vấn tài chính, đầu tư hoặc pháp lý.",
+      "p_advice": "Nội dung trên Trang web này không được coi là lời khuyên đầu tư, lời khuyên tài chính, lời khuyên giao dịch hoặc bất kỳ loại lời khuyên nào khác. Bạn không được coi bất kỳ nội dung nào trên Trang web này là lời khuyên như vậy. Chúng tôi không khuyến nghị bạn mua, bán, giữ hoặc staking bất kỳ loại tiền điện tử nào. Chúng tôi khuyến nghị mạnh mẽ rằng bạn nên tham khảo ý kiến của một cố vấn tài chính có chuyên môn trước khi đưa ra bất kỳ quyết định tài chính nào.",
+      "h2_risk": "3. Công bố rủi ro toàn diện & Chấp nhận rủi ro",
+      "p_risk": "Bằng cách quyết định staking các token Aptos (APT) của mình, bạn tự nguyện chấp nhận tất cả các rủi ro liên quan, có thể dẫn đến việc mất một phần hoặc toàn bộ tài sản của bạn. Các rủi ro chính bao gồm:",
+      "risk_item1": "Rủi ro biến động thị trường và giá cả: Giá trị của APT mà bạn đã staking có thể giảm đáng kể, có thể dẫn đến thua lỗ lớn hơn bất kỳ phần thưởng staking nào bạn nhận được.",
+      "risk_item2": "Giảm thiểu rủi ro: Một phần hoặc toàn bộ APT đã đặt cọc của bạn có thể bị mất vĩnh viễn nếu validator mắc lỗi nghiêm trọng hoặc bị tấn công. Mặc dù chúng tôi chưa từng có trường hợp mất APT nào, điều này không loại trừ rủi ro trong tương lai.",
+      "risk_item3": "Rủi ro liên quan đến giao thức và hợp đồng thông minh: Lỗi hoặc lỗ hổng trong giao thức blockchain Aptos cơ bản có thể dẫn đến việc mất mát vĩnh viễn số tiền của bạn.",
+      "risk_item4": "Rủi ro thanh khoản và rủi ro không thể rút vốn: APT mà bạn đã staking sẽ bị khóa trong một khoảng thời gian do giao thức quy định, trong thời gian này bạn không thể bán hoặc chuyển nhượng nó.",
+      "risk_item5": "Rủi ro ngừng hoạt động của validator: Bạn có thể mất quyền nhận phần thưởng staking nếu validator ngừng hoạt động.",
+      "risk_item6": "Rủi ro pháp lý: Các luật hoặc quy định trong tương lai có thể thay đổi, ảnh hưởng tiêu cực đến tính hợp pháp, chế độ thuế hoặc giá trị của việc staking.",
+      "h2_guarantees": "4. Không có bảo đảm hoặc bảo hành",
+      "p_guarantees": "Dịch vụ được cung cấp trên cơ sở \"nguyên trạng\" và \"theo tình trạng sẵn có\". Mọi dữ liệu hiệu suất được hiển thị (APY, thứ hạng, v.v.) chỉ mang tính chất lịch sử hoặc minh họa và không phải là chỉ báo về kết quả trong tương lai. Chúng tôi từ chối mọi bảo đảm.",
+      "h2_liability": "5. Giới hạn trách nhiệm",
+      "p_liability": "Trong mọi trường hợp, chúng tôi sẽ không chịu trách nhiệm đối với bất kỳ thiệt hại trực tiếp, gián tiếp hoặc hậu quả nào, bao gồm nhưng không giới hạn ở việc mất lợi nhuận, mất doanh thu hoặc mất dữ liệu, phát sinh từ việc bạn sử dụng Dịch vụ hoặc quyết định của bạn về việc staking tài sản kỹ thuật số. Việc sử dụng Dịch vụ là hoàn toàn do rủi ro của bạn.",
+      "last_updated": "Cập nhật lần cuối: 2 tháng 7 năm 2025"
+    },
+    "terms": {
+      "pageTitle": "Điều khoản dịch vụ - aptcore.one",
+      "pageDescription": "Điều khoản Sử dụng có hiệu lực điều chỉnh việc sử dụng nền tảng staking không lưu ký aptcore.one, bao gồm các nghĩa vụ của người dùng và xác nhận rủi ro.",
+      "header": "Điều khoản sử dụng",
+      "intro": "Điều khoản Dịch vụ (“Điều khoản”) này là thỏa thuận pháp lý có hiệu lực ràng buộc quy định việc truy cập và sử dụng trang web https://aptcore.one (sau đây gọi là “Trang web”) và các dịch vụ staking không lưu trữ (sau đây gọi là “Dịch vụ”) do chúng tôi cung cấp. Bằng việc sử dụng Dịch vụ, bạn đồng ý tuân thủ các Điều khoản này.",
+      "h2_service": "1. Mô tả Dịch vụ (Hoàn toàn không lưu trữ)",
+      "p_service": "Dịch vụ là một giao diện kỹ thuật cho phép bạn ủy quyền các token APT của mình cho trình xác thực của chúng tôi. Dịch vụ này hoàn toàn không lưu trữ tài sản. Chúng tôi không bao giờ lưu trữ hoặc kiểm soát tài sản hoặc khóa riêng tư của bạn. Bạn tương tác trực tiếp với các hợp đồng thông minh của giao thức Aptos.",
+      "h2_eligibility": "2. Điều kiện tham gia và các khu vực bị cấm (Tuân thủ OFAC)",
+      "p_eligibility": "Dịch vụ này không khả dụng cho bất kỳ cá nhân hoặc tổ chức nào là cư dân của, hoặc có trụ sở tại, một khu vực pháp lý chịu sự cấm vận của Chính phủ Hoa Kỳ (bao gồm Cuba, Iran, Triều Tiên, Syria và một số khu vực của Ukraine) hoặc được liệt kê trong Danh sách Các Cá nhân và Tổ chức Bị Cấm Đặc Biệt của OFAC (\"Cá nhân Bị Cấm\"). Bạn xác nhận và cam kết rằng bạn không phải là Người bị cấm. Việc sử dụng VPN hoặc các phương pháp khác để vượt qua hạn chế này bị nghiêm cấm.",
+      "h2_obligations": "3. Nghĩa vụ của người dùng",
+      "p_obligations": "Bạn hoàn toàn chịu trách nhiệm về:",
+      "obligation_item1": "Bảo mật ví của bạn và các khóa riêng tư.",
+      "obligation_item2": "Xác định và thanh toán các khoản thuế áp dụng cho phần thưởng staking của bạn.",
+      "obligation_item3": "Tuân thủ tất cả các quy định pháp luật tại khu vực pháp lý của bạn.",
+      "obligation_item4": "Xác minh tất cả chi tiết giao dịch trước khi ký. Giao dịch blockchain là không thể đảo ngược.",
+      "h2_fiduciary": "4. Không có nghĩa vụ tín thác",
+      "p_fiduciary": "Việc bạn sử dụng Dịch vụ của chúng tôi không tạo ra mối quan hệ ủy thác, đại lý hoặc tư vấn tài chính. Chúng tôi không có nghĩa vụ ủy thác đối với bạn.",
+      "h2_rewards": "5. Phần thưởng staking và hoa hồng",
+      "p_rewards": "Phần thưởng staking được tạo ra và phân phối bởi giao thức Aptos, không phải bởi aptcore.one. Chúng tôi thu một khoản phí hoa hồng trên các phần thưởng này, được hiển thị trên trang web của chúng tôi và được trừ tự động bởi giao thức.",
+      "h2_ip": "6. Quyền sở hữu trí tuệ",
+      "p_ip": "Tất cả nội dung trên Trang web là tài sản của aptcore.one hoặc các bên cấp phép của aptcore.one và được bảo vệ bởi luật bản quyền.",
+      "h2_liability": "7. Giới hạn trách nhiệm và bồi thường",
+      "p_liability": "Trong phạm vi tối đa được pháp luật cho phép, tổng trách nhiệm của chúng tôi sẽ không vượt quá số tiền lớn hơn giữa một trăm đô la Mỹ ($100) hoặc số tiền hoa hồng mà chúng tôi đã nhận từ bạn trong sáu tháng trước khi yêu cầu bồi thường. Bạn đồng ý bồi thường và miễn trừ trách nhiệm cho chúng tôi đối với bất kỳ khiếu nại nào phát sinh từ việc sử dụng Dịch vụ của bạn hoặc vi phạm các Điều khoản này.",
+      "h2_termination": "8. Thời hạn và chấm dứt",
+      "p_termination": "Các Điều khoản này sẽ có hiệu lực đầy đủ và tiếp tục áp dụng trong suốt thời gian bạn sử dụng Dịch vụ. Bạn có thể chấm dứt thỏa thuận này bất cứ lúc nào bằng cách ngừng sử dụng toàn bộ Dịch vụ. Chúng tôi có quyền, theo quyết định riêng của mình, tạm ngừng hoặc chấm dứt quyền truy cập của bạn vào Dịch vụ vì bất kỳ lý do gì, bao gồm nhưng không giới hạn ở việc vi phạm các Điều khoản này.",
+      "h2_dispute": "9. Giải quyết tranh chấp bằng trọng tài bắt buộc",
+      "p_dispute": "Tất cả các tranh chấp phát sinh từ các Điều khoản này sẽ được giải quyết duy nhất thông qua trọng tài bắt buộc, cá nhân và không thông qua vụ kiện tập thể. Trọng tài sẽ được tiến hành theo quy tắc của một trung tâm trọng tài quốc tế được công nhận do các bên thỏa thuận, hoặc theo quy định khác của pháp luật điều chỉnh các Điều khoản này. BẠN VÀ APTCORE.ONE TỪ BỎ QUYỀN YÊU CẦU XÉT XỬ BẰNG HỘI ĐỒNG BẠN BÈ VÀ QUYỀN THAM GIA VỤ KIỆN TẬP THỂ.",
+      "h2_law": "10. Luật áp dụng",
+      "p_law": "Các Điều khoản này và bất kỳ hành động nào liên quan đến chúng sẽ được điều chỉnh và giải thích theo luật pháp của Ukraine, không áp dụng các quy định về xung đột pháp luật.",
+      "h2_misc": "11. Các mục khác",
+      "p_misc": "Các Điều khoản này, cùng với Thông báo Pháp lý, tạo thành thỏa thuận hoàn chỉnh giữa bạn và chúng tôi. Chúng tôi có thể sửa đổi các Điều khoản này bất cứ lúc nào bằng cách đăng phiên bản đã sửa đổi trên Trang web. Việc bạn tiếp tục sử dụng Dịch vụ đồng nghĩa với việc bạn chấp nhận các Điều khoản mới.",
+      "last_updated": "Cập nhật lần cuối: 2 tháng 7 năm 2025"
+    }
+  },
+  "faq": {
+    "pageTitle": "Hướng dẫn chi tiết về Staking Aptos (APT): Phần thưởng, Ví và Hướng dẫn | aptcore.one",
+    "pageDescription": "Hướng dẫn chi tiết về staking Aptos (APT). Tìm hiểu cách staking, hiểu rõ về phần thưởng và rủi ro, chọn ví, rút APT và khám phá các chủ đề nâng cao về Aptos với aptcore.one.",
+    "header": {
+      "title": "Câu hỏi thường gặp về Staking và Hệ sinh thái Aptos",
+      "subtitle": "Hướng dẫn toàn diện của bạn. Tìm câu trả lời cho các câu hỏi của bạn về aptcore.one và hệ sinh thái blockchain Aptos."
+    },
+    "toc_title": "Mục lục",
+    "categories": [
+      {
+        "title": "Khái niệm cơ bản & Nguyên lý cơ bản",
+        "questions": [
+          {
+            "id": "Aptos là gì?",
+            "question": "Aptos là gì?",
+            "answer": "Aptos là một blockchain Layer 1 độc lập, phát triển từ dự án Diem của Meta, tập trung vào khả năng mở rộng, bảo mật, độ tin cậy và khả năng nâng cấp để thúc đẩy việc áp dụng Web3 trên quy mô lớn. Mục tiêu của Aptos là trở thành blockchain an toàn nhất và sẵn sàng cho sản xuất. Tìm hiểu về Aptos và tiềm năng của nó trên blog [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Aptos đang làm gì và sứ mệnh của công ty là gì?",
+            "question": "Aptos đang làm gì và sứ mệnh của nó là gì?",
+            "answer": "Aptos hướng đến mục tiêu cung cấp quyền truy cập phổ quát và công bằng vào tài sản phi tập trung cho hàng tỷ người dùng bằng cách phát triển một blockchain hỗ trợ việc áp dụng Web3 trên quy mô lớn và thúc đẩy sự phát triển của các ứng dụng phi tập trung (dApps) giải quyết các vấn đề thực tế."
+          },
+          {
+            "id": "Ai là đội ngũ đứng sau Aptos?",
+            "question": "Đội ngũ nào đứng sau Aptos?",
+            "answer": "Đội ngũ Aptos bao gồm các nhà sáng lập ban đầu, nhà nghiên cứu, nhà thiết kế và nhà phát triển của blockchain Diem, mang theo kinh nghiệm dày dặn từ dự án đó sang Aptos."
+          },
+          {
+            "id": "Tôi có thể tìm hiểu thêm về Aptos ở đâu?",
+            "question": "Tôi có thể tìm hiểu thêm về Aptos ở đâu (ví dụ: sách trắng, tầm nhìn, bài viết về genesis)?",
+            "answer": "Bạn có thể tìm hiểu thêm thông qua các nguồn tài liệu chính thức như sách trắng Aptos, các bài viết chi tiết về tầm nhìn và nguồn gốc của dự án, cũng như các cuộc thảo luận trong cộng đồng. aptcore.one cũng cung cấp thông tin được tuyển chọn trên trang tài nguyên của chúng tôi [tại đây](https://aptcore.one)."
+          },
+          {
+            "id": "Aptos phân biệt mình như thế nào?",
+            "question": "Aptos có những điểm khác biệt nào so với các đối thủ cạnh tranh?",
+            "answer": "Aptos nổi bật nhờ những đổi mới trong thiết kế hợp đồng thông minh sử dụng ngôn ngữ Move (tập trung vào tính an toàn và khả năng xác minh), động cơ thực thi song song (Block-STM) cho khả năng xử lý cao, cùng các nguyên tắc cốt lõi về khả năng mở rộng, an toàn, độ tin cậy và khả năng nâng cấp."
+          },
+          {
+            "id": "Aptos so sánh với các blockchain khác như thế nào?",
+            "question": "Aptos so sánh như thế nào với các blockchain khác như Ethereum và Solana?",
+            "answer": "Aptos hướng đến việc kết hợp tốc độ thường thấy ở các chuỗi khối như Solana với tính bảo mật và khả năng nâng cấp cao hơn, chủ yếu thông qua ngôn ngữ Move và kiến trúc độc đáo của nó. Mặc dù hệ sinh thái của nó còn mới, Aptos tập trung vào việc cung cấp một nền tảng mạnh mẽ cho các ứng dụng phi tập trung (dApps) sẵn sàng cho sản xuất."
+          }
+        ]
+      },
+      {
+        "title": "Công nghệ & Kiến trúc",
+        "questions": [
+          {
+            "id": "Cách hoạt động của Aptos",
+            "question": "Aptos hoạt động như thế nào?",
+            "answer": "Aptos xử lý giao dịch song song bằng công nghệ Block-STM, sử dụng ngôn ngữ lập trình Move cho hợp đồng thông minh an toàn và áp dụng cơ chế đồng thuận chịu lỗi Byzantine (BFT) (như AptosBFT, đang phát triển hướng tới Raptr) dựa trên cơ chế Proof-of-Stake để đảm bảo an ninh và hiệu quả của mạng lưới."
+          },
+          {
+            "id": "Ngôn ngữ lập trình Move là gì?",
+            "question": "Ngôn ngữ lập trình Move là gì và tại sao nó được sử dụng trên Aptos?",
+            "answer": "Move là một ngôn ngữ lập trình linh hoạt và mô-đun, ban đầu được phát triển cho dự án Diem, được thiết kế đặc biệt cho việc phát triển hợp đồng thông minh an toàn và bảo mật. Nó cung cấp các tính năng như lập trình hướng tài nguyên, trừu tượng hóa dữ liệu mạnh mẽ và khả năng xác minh chính thức để ngăn chặn các lỗ hổng bảo mật phổ biến và quản lý tài sản kỹ thuật số một cách an toàn."
+          },
+          {
+            "id": "Aptos xử lý giao dịch như thế nào?",
+            "question": "Aptos xử lý giao dịch như thế nào để đạt được thông lượng cao?",
+            "answer": "Aptos sử dụng động cơ Block-STM (Bộ nhớ giao dịch phần mềm) để thực thi song song. Điều này cho phép mạng xử lý nhiều giao dịch cùng lúc thay vì theo thứ tự, từ đó tăng đáng kể thông lượng mạng (TPS) và giảm độ trễ."
+          },
+          {
+            "id": "Block STM là gì?",
+            "question": "Block-STM là gì và nó cho phép thực thi song song như thế nào?",
+            "answer": "Block-STM là động cơ thực thi song song của Aptos. Nó thực thi các giao dịch một cách lạc quan và quản lý xung đột, cho phép mạng lưới tận dụng hiệu quả các bộ xử lý đa nhân, từ đó tăng tốc độ và khả năng xử lý."
+          },
+          {
+            "id": "Aptos sử dụng cơ chế đồng thuận nào?",
+            "question": "Aptos sử dụng cơ chế đồng thuận nào?",
+            "answer": "Aptos ban đầu sử dụng AptosBFT, một phiên bản phát triển từ HotStuff. Lớp đồng thuận được thiết kế để có tính mô-đun và đang được phát triển, với các cải tiến như Narwhal & Bullshark cho việc tách biệt mempool và đồng thuận, và Raptr để đạt hiệu suất cao hơn. Hệ thống hoạt động trên mô hình Proof-of-Stake (PoS)."
+          },
+          {
+            "id": "dev-raptr-thỏa thuận đồng thuận được giải thích",
+            "question": "Raptr consensus là gì và các tính năng chính của nó đối với Aptos?",
+            "answer": "Raptr là một giao thức đồng thuận Byzantine Fault Tolerant (BFT) thế hệ mới được phát triển cho blockchain Aptos, được thiết kế để cung cấp tốc độ giao dịch cao và tính cuối cùng gần như tức thì đồng thời duy trì độ tin cậy."
+          },
+          {
+            "id": "Tổng quan về dev-shardines",
+            "question": "Shardines (Shared State Scaling) trên Aptos là gì và nó hoạt động như thế nào để tăng TPS?",
+            "answer": "Shardines là một động cơ thực thi phân mảnh mới được giới thiệu bởi Aptos Labs, được thiết kế để tăng đáng kể khả năng xử lý giao dịch (TPS) của blockchain Aptos thông qua cơ chế mở rộng trạng thái chia sẻ. Đây là thành phần quan trọng trong chiến lược của Aptos nhằm đạt được khả năng mở rộng ngang hàng quy mô lớn, với mục tiêu đạt 1 triệu TPS cho các giao dịch không xung đột và hơn 500.000 TPS cho các giao dịch xung đột."
+          },
+          {
+            "id": "Aptos đảm bảo an toàn và bảo mật như thế nào?",
+            "question": "Aptos đảm bảo an toàn và bảo mật ở cấp độ giao thức như thế nào?",
+            "answer": "Aptos đảm bảo an ninh thông qua nhiều lớp bảo vệ: các tính năng an toàn của ngôn ngữ Move (ngăn chặn tái nhập, đảm bảo an toàn tài nguyên), cơ chế đồng thuận BFT mạnh mẽ, quản trị trên chuỗi cho các bản cập nhật, các biện pháp bảo vệ tích hợp chống lại nhiều lỗ hổng hợp đồng thông minh, và hệ thống xác thực phi tập trung. Đọc thêm về an ninh của Aptos trên blog [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Tài nguyên là gì trong Aptos?",
+            "question": "\"Tài nguyên\" trong Aptos là gì và chúng khác với dữ liệu thông thường như thế nào?",
+            "answer": "Trong Aptos, 'tài nguyên' là các thực thể cấu trúc đặc biệt trong ngôn ngữ Move có khả năng 'key'. Chúng đại diện cho các tài sản kỹ thuật số hiếm hoi hoặc có giá trị và không thể sao chép hoặc bị loại bỏ ngầm, mà chỉ có thể di chuyển giữa các vị trí lưu trữ. Điều này đảm bảo quản lý an toàn và chính xác các tài sản như token hoặc NFT, được điều khiển bởi các mô-đun Move (hợp đồng thông minh)."
+          },
+          {
+            "id": "Cấu trúc tài khoản trên Aptos được thiết kế như thế nào?",
+            "question": "Các tài khoản được cấu trúc như thế nào trên Aptos?",
+            "answer": "Tài khoản Aptos được xác định bằng địa chỉ tài khoản. Chúng có thể lưu trữ các mô-đun Move (hợp đồng thông minh) và tài nguyên (dữ liệu như token). Quyền truy cập vào tài khoản được kiểm soát bằng các khóa xác thực, và các tương tác được điều chỉnh bởi logic được định nghĩa trong các mô-đun Move."
+          },
+          {
+            "id": "Sự kiện là gì trong Aptos?",
+            "question": "Sự kiện trong Aptos là gì và chúng được sử dụng như thế nào trong các ứng dụng phi tập trung (dApps)?",
+            "answer": "Sự kiện trong Aptos là các tín hiệu được phát ra bởi hợp đồng thông minh (các mô-đun Move) để thông báo cho các ứng dụng ngoài chuỗi hoặc người dùng về các sự kiện cụ thể hoặc thay đổi trạng thái trên blockchain. Các ứng dụng phi tập trung (DApps) có thể đăng ký nhận các sự kiện này để phản hồi các hoạt động trên chuỗi."
+          },
+          {
+            "id": "Aptos xử lý lưu trữ dữ liệu như thế nào?",
+            "question": "Aptos xử lý việc lưu trữ dữ liệu như thế nào để ngăn chặn tình trạng phình to trạng thái?",
+            "answer": "Aptos sử dụng một cấu trúc cây Merkle được tối ưu hóa (Jellyfish Merkle Tree) cho trạng thái sổ cái của mình. Cùng với các tính năng như \"state rent\" hoặc \"sharding\" trong tương lai, điều này giúp quản lý dữ liệu hiệu quả, giảm yêu cầu lưu trữ đối với các validator và giảm thiểu tình trạng \"state bloat\" lâu dài."
+          },
+          {
+            "id": "Epoch là gì trong Aptos?",
+            "question": "\"Epoch\" trong Aptos là gì và ý nghĩa của nó?",
+            "answer": "Một 'kỷ nguyên' trong Aptos là một khoảng thời gian được định nghĩa (hiện tại khoảng hai giờ hoặc 7200 giây) trong đó một tập hợp cụ thể các validator tham gia vào quá trình đồng thuận. Vào cuối mỗi kỷ nguyên, các hoạt động mạng như phân phối phần thưởng staking, thay đổi tập hợp validator (dựa trên số lượng stake) và một số hành động quản trị có thể diễn ra."
+          },
+          {
+            "id": "Các trình tổng hợp giúp tối ưu hóa song song như thế nào?",
+            "question": "Các Aggregators trong Move hỗ trợ thực thi giao dịch song song như thế nào, ví dụ trong quá trình đúc NFT?",
+            "answer": "Các trình tổng hợp (Aggregators) trong Move là một tính năng được thiết kế để xử lý các tình huống có độ cạnh tranh cao một cách hiệu quả hơn. Chúng cho phép hoãn việc đọc và ghi vào các giá trị số chung (như một bộ đếm trong quá trình đúc NFT), cho phép nhiều giao dịch vốn có thể xung đột được thực thi song song và kết quả của chúng được kết hợp chính xác ở cuối, từ đó cải thiện thông lượng."
+          }
+        ]
+      },
+      {
+        "title": "APT Token & Tokenomics",
+        "questions": [
+          {
+            "id": "Token gốc của Aptos là gì?",
+            "question": "Token gốc của Aptos là gì, và ký hiệu của nó là gì?",
+            "answer": "Token gốc của blockchain Aptos là APT."
+          },
+          {
+            "id": "Các trường hợp sử dụng của token Apt là gì?",
+            "question": "Các trường hợp sử dụng chính của token APT là gì?",
+            "answer": "APT được sử dụng cho: 1. Thanh toán phí giao dịch và phí mạng. 2. Staking để tham gia vào cơ chế đồng thuận Proof-of-Stake, bảo mật mạng và kiếm phần thưởng. 3. Tham gia vào quản trị trên chuỗi bằng cách bỏ phiếu cho các đề xuất. 4. Có thể được sử dụng như một phương tiện trao đổi trong các ứng dụng phi tập trung (dApps) được xây dựng trên Aptos."
+          },
+          {
+            "id": "Tôi có thể tìm thông tin về tokenomics của Aptos ở đâu?",
+            "question": "Tôi có thể tìm thông tin chính thức về tokenomics của Aptos ở đâu?",
+            "answer": "Thông tin chính thức về tokenomics của Aptos, bao gồm lịch trình phân phối và cung cấp, có thể được tìm thấy trong tài liệu \"Aptos Tokenomics Overview\" và các tài liệu liên quan do Aptos Foundation công bố. Bạn có thể tìm thấy thông tin này trên trang web chính thức của họ."
+          },
+          {
+            "id": "Số lượng ban đầu của tổng nguồn cung Apt là bao nhiêu?",
+            "question": "Số lượng ban đầu của token APT được cung cấp trên mạng chính (mainnet) là bao nhiêu?",
+            "answer": "Tổng nguồn cung ban đầu của APT tại thời điểm ra mắt mạng chính vào ngày 12 tháng 10 năm 2022 là 1 tỷ token."
+          },
+          {
+            "id": "Đơn vị nhỏ nhất của apt là gì?",
+            "question": "Đơn vị nhỏ nhất của token APT là gì?",
+            "answer": "Đơn vị nhỏ nhất của APT được gọi là Octa. Một APT tương đương với 100.000.000 Octa (APT có 8 chữ số thập phân)."
+          },
+          {
+            "id": "Các token apt được phân phối như thế nào?",
+            "question": "Kế hoạch phân phối ban đầu cho token APT là gì?",
+            "answer": "Các token APT ban đầu được phân bổ cho các nhóm sau: Cộng đồng (51,02%), Nhà đóng góp chính (19,00%), Quỹ (13,48%) và Nhà đầu tư (16,50%). Các phân bổ này thường đi kèm với lịch trình giải phóng."
+          },
+          {
+            "id": "Có lịch trình khóa token Apt không?",
+            "question": "Có lịch trình khóa (vesting) cho các token APT được phân bổ cho các nhà đóng góp chính và nhà đầu tư không?",
+            "answer": "Đúng vậy, các token được phân bổ cho nhà đầu tư và các nhà đóng góp chính sẽ chịu sự ràng buộc của một lịch trình khóa (vesting) đa năm kể từ ngày ra mắt mainnet, với việc giải khóa theo từng giai đoạn hàng tháng sau một khoảng thời gian khóa ban đầu (ví dụ: không giải khóa trong 12 tháng đầu tiên)."
+          },
+          {
+            "id": "Tỷ lệ phần trăm token APT được staking là bao nhiêu?",
+            "question": "Tỷ lệ phần trăm token APT đủ điều kiện thường được staking trên mạng là bao nhiêu?",
+            "answer": "Một phần đáng kể của các token APT thường được staking, góp phần vào bảo mật mạng. Để có thông tin chính xác và cập nhật nhất về tỷ lệ APT được staking, tốt nhất là tham khảo trình khám phá blockchain chính thức của Aptos hoặc các nền tảng phân tích staking chuyên dụng như [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Có thể staking các token apt bị khóa bằng can-locked không?",
+            "question": "Các token APT bị khóa (vesting) có thể được staking không?",
+            "answer": "Đúng vậy, cả token APT không bị khóa (liquid) và token APT bị khóa (những token vẫn đang trong giai đoạn khóa) đều có thể được staking trên mạng lưới Aptos để kiếm phần thưởng."
+          },
+          {
+            "id": "Cách thức cung cấp token apt thay đổi như thế nào?",
+            "question": "Tổng nguồn cung của token APT thay đổi như thế nào theo thời gian?",
+            "answer": "Tổng nguồn cung của APT chủ yếu tăng do việc đúc mới các token để làm phần thưởng staking. Tỷ lệ phần thưởng tối đa cho staking được thiết kế để giảm dần theo thời gian. Phí giao dịch, nếu bị đốt, có thể hoạt động như một áp lực giảm phát."
+          },
+          {
+            "id": "Phí giao dịch Are-Aptos đã bị đốt cháy",
+            "question": "Phí giao dịch trên mạng Aptos có bị đốt không?",
+            "answer": "Hiện tại, phí giao dịch thu được trên mạng lưới Aptos được đốt (loại bỏ khỏi lưu thông). Tuy nhiên, cơ chế này, giống như các thông số tokenomics khác, có thể được thay đổi trong tương lai thông qua quản trị trên chuỗi."
+          },
+          {
+            "id": "Có thể thay đổi tokenomics của Can-Aptos không?",
+            "question": "Có thể thay đổi tokenomics của Aptos (ví dụ: tỷ lệ phần thưởng, cơ chế đốt phí) sau khi ra mắt không?",
+            "answer": "Đúng vậy, các thông số tokenomics quan trọng như tỷ lệ phần thưởng staking, cơ chế phân phối phần thưởng và cách xử lý phí giao dịch (ví dụ: đốt token) có thể được điều chỉnh thông qua quy trình quản trị trên chuỗi của Aptos, yêu cầu phiếu bầu từ chủ sở hữu token APT."
+          },
+          {
+            "id": "Thay đổi API cung cấp token aptos",
+            "question": "API Cung cấp Token Aptos đôi khi được cập nhật. Các nhà phát triển nên xử lý những thay đổi này như thế nào?",
+            "answer": "Khi một API quan trọng như API Cung cấp Token Aptos được cập nhật, các nhà phát triển nên thực hiện các bước sau: 1. **Theo dõi thông báo chính thức:** Theo dõi các kênh chính thức của Aptos (ví dụ: blog nhà phát triển, diễn đàn, Discord) để cập nhật thông tin về thay đổi API, thông báo ngừng hỗ trợ và hướng dẫn di chuyển. \n2. **Kiểm tra tài liệu API:** Đọc kỹ tài liệu API đã cập nhật để hiểu rõ các thay đổi về điểm cuối, cấu trúc dữ liệu, định dạng yêu cầu/phản hồi, giới hạn tốc độ và phương thức xác thực. 3. **Kiểm thử kỹ lưỡng:** Triển khai các thay đổi trong môi trường phát triển hoặc staging trước tiên. Kiểm thử tất cả các chức năng phụ thuộc một cách toàn diện để đảm bảo tương thích và phân tích dữ liệu chính xác. 4. **Áp dụng phiên bản hóa (nếu có):** Nếu API hỗ trợ phiên bản, hãy cân nhắc cố định vào một phiên bản cụ thể để tránh sự cố không mong muốn và lập kế hoạch nâng cấp một cách có hệ thống. 5. **Xử lý lỗi và phương án dự phòng:** Cải thiện khả năng xử lý lỗi trong ứng dụng để quản lý các vấn đề API một cách mượt mà trong quá trình chuyển đổi. Cân nhắc sử dụng phương án dự phòng tạm thời nếu khả thi. 6. **Kênh cộng đồng:** Tham gia cộng đồng phát triển Aptos để chia sẻ kinh nghiệm và giải pháp xử lý cập nhật."
+          }
+        ]
+      },
+      {
+        "title": "Hệ sinh thái & Phát triển",
+        "questions": [
+          {
+            "id": "Các trường hợp sử dụng của Aptos là gì?",
+            "question": "Những trường hợp sử dụng nổi bật và các loại ứng dụng phi tập trung (dApp) trên Aptos là gì?",
+            "answer": "Aptos được thiết kế để phục vụ nhiều trường hợp sử dụng đa dạng, bao gồm Tài chính phi tập trung (DeFi), trò chơi (GameFi), Token không thể thay thế (NFTs) và sàn giao dịch, mạng xã hội, giải pháp doanh nghiệp, và các ứng dụng tích hợp trí tuệ nhân tạo (AI). Khám phá các dự án trên trang hệ sinh thái aptcore.one (https://aptcore.one)."
+          },
+          {
+            "id": "Tại sao các dự án lại chọn Aptos?",
+            "question": "Những lý do chính nào khiến các dự án và nhà phát triển lựa chọn xây dựng trên Aptos?",
+            "answer": "Các dự án lựa chọn Aptos vì khả năng xử lý giao dịch cao và độ trễ thấp (thời gian xác nhận nhanh), phí gas thấp, tính an toàn và thân thiện với nhà phát triển của ngôn ngữ lập trình Move, các tính năng bảo mật mạnh mẽ, cũng như khả năng mở rộng và nâng cấp tổng thể của nền tảng."
+          },
+          {
+            "id": "Tôi có thể khám phá các dự án trên Aptos ở đâu?",
+            "question": "Tôi có thể tìm thấy các dự án và dApps được xây dựng trên blockchain Aptos ở đâu?",
+            "answer": "Bạn có thể khám phá hệ sinh thái Aptos thông qua các thư mục trên trang web của Aptos Foundation, danh sách do cộng đồng biên soạn và các nền tảng xếp hạng dApp khác nhau. [aptcore.one](https://aptcore.one) cũng có thể giới thiệu các dự án nổi bật."
+          },
+          {
+            "id": "Nguồn tài nguyên cho nhà phát triển khi chuyển sang Aptos",
+            "question": "Những tài nguyên quan trọng nhất cho nhà phát triển để học lập trình Aptos và Move là gì?",
+            "answer": "Aptos cung cấp các tài nguyên phát triển phong phú, bao gồm tài liệu chính thức trên Trang web Phát triển Aptos, hướng dẫn ngôn ngữ Move, hướng dẫn sử dụng, bộ công cụ phát triển phần mềm (SDK) cho các ngôn ngữ lập trình khác nhau (TypeScript, Python, Rust, Go) và mã nguồn mẫu. Kho GitHub của Quỹ Aptos cũng là một nguồn tài nguyên quý giá."
+          },
+          {
+            "id": "Cách quản lý giao dịch đồng thời trên Aptos",
+            "question": "Các ứng dụng khách nên quản lý việc gửi giao dịch đồng thời trên Aptos như thế nào?",
+            "answer": "Để quản lý khối lượng giao dịch lớn và độ đồng thời cao, các nhà phát triển có thể áp dụng các chiến lược như mở rộng quy mô gửi giao dịch từ một địa chỉ ví duy nhất hoặc sử dụng tài khoản công nhân để phân phối tải, từ đó vượt qua giới hạn về số lượng giao dịch chưa được cam kết trên mỗi tài khoản. Tham khảo tài liệu hướng dẫn phát triển của Aptos để biết các thực hành tốt nhất."
+          },
+          {
+            "id": "Cách triển khai hợp đồng trên Aptos",
+            "question": "Quy trình chung để triển khai hợp đồng thông minh (module Move) trên Aptos là gì?",
+            "answer": "Triển khai mô-đun Move trên Aptos thường bao gồm các bước sau: 1. Viết hợp đồng của bạn bằng ngôn ngữ Move. 2. Biên dịch hợp đồng bằng Aptos CLI hoặc SDK. 3. Khởi tạo dự án bằng lệnh `aptos init` nếu chưa thực hiện (điều này sẽ tạo tài khoản và cấu hình). 4. Đăng tải mô-đun đã biên dịch lên một tài khoản trên mạng Aptos thông qua giao dịch triển khai."
+          },
+          {
+            "id": "Có ví dụ nào về việc triển khai hợp đồng gọi (calling contracts) trên Aptos không?",
+            "question": "Có các ví dụ mã nguồn cho việc triển khai và tương tác với hợp đồng thông minh Aptos sử dụng SDK không?",
+            "answer": "Đúng vậy, hệ sinh thái phát triển của Aptos cung cấp các bộ công cụ phát triển phần mềm (SDK) (ví dụ: TypeScript, Python, Go, Rust SDK) kèm theo tài liệu hướng dẫn và ví dụ minh họa cách triển khai các mô-đun Move và gọi các hàm của chúng."
+          },
+          {
+            "id": "Những lỗ hổng bảo mật phổ biến trong các cuộc tấn công APT",
+            "question": "Những lỗ hổng bảo mật phổ biến nào mà các nhà phát triển sử dụng Move cần lưu ý, ngay cả khi nền tảng này đã có các tính năng bảo mật?",
+            "answer": "Mặc dù Move được thiết kế để đảm bảo an toàn, các nhà phát triển vẫn cần thận trọng với các lỗ hổng logic tiềm ẩn, chẳng hạn như tràn/tràn ngược số nguyên (mặc dù Move có cơ chế bảo vệ), các vector tấn công từ chối dịch vụ (DoS) do các phép tính phức tạp, quyền truy cập hoặc kiểm soát truy cập không đúng cách, tái nhập (mặc dù khó xảy ra trong Move), và đảm bảo xử lý đúng cách các cuộc gọi ngoại vi nếu có."
+          },
+          {
+            "id": "Viết quy trình chung - Bộ xử lý tùy chỉnh - Bộ lập chỉ mục - SDK - Aptos",
+            "question": "Quy trình làm việc chung để viết một trình xử lý dữ liệu tùy chỉnh sử dụng SDK Aptos Indexer là gì?",
+            "answer": "Sử dụng SDK Aptos Indexer cho bộ xử lý tùy chỉnh thường bao gồm các bước sau: 1. Cài đặt môi trường SDK. 2. Định nghĩa các mô hình dữ liệu (schemas) cho thông tin bạn muốn trích xuất và lưu trữ. 3. Viết logic bộ xử lý bằng ngôn ngữ được hỗ trợ để xử lý các giao dịch, sự kiện hoặc thay đổi trạng thái cụ thể. 4. Cấu hình và chạy trình chỉ mục để lắng nghe blockchain, xử lý dữ liệu qua logic tùy chỉnh của bạn và lưu trữ nó trong cơ sở dữ liệu đã chọn để truy vấn."
+          },
+          {
+            "id": "Cách thể hiện tài sản ERC-1155 trên Aptos",
+            "question": "Làm thế nào để tôi có thể đại diện cho các tài sản tương tự như tiêu chuẩn ERC-1155 của Ethereum (tiêu chuẩn đa token) trên Aptos?",
+            "answer": "Tiêu chuẩn Tài sản Kỹ thuật số (DA) của Aptos linh hoạt và có thể được sử dụng để đại diện cho nhiều loại token khác nhau, bao gồm cả những token có chức năng tương tự ERC-1155. Các nhà phát triển có thể tận dụng các tính năng của DA trong ngôn ngữ Move để tạo ra các hợp đồng quản lý nhiều loại token khác nhau hoặc các token bán thay thế (semi-fungible tokens) trong cùng một bộ sưu tập hoặc mô-đun."
+          },
+          {
+            "id": "Mint - Giao dịch trực tiếp từ ví người dùng - Quản trị viên ví ký giao dịch - Aptos",
+            "question": "Có thể thiết kế một hệ thống cho phép ví quản trị viên ký một giao dịch để đúc NFT trực tiếp vào ví của người dùng không?",
+            "answer": "Đúng, điều này thường có thể thực hiện được trên Aptos. Nó có thể được triển khai bằng cách sử dụng các mẫu Move khác nhau, chẳng hạn như: 1. Giao dịch được tài trợ, trong đó người quản trị trả phí gas. 2. Một hàm hợp đồng thông minh nhận địa chỉ người dùng làm tham số và đúc NFT cho họ, với hàm này chỉ có thể được gọi bởi một người quản trị được ủy quyền. 3. Sử dụng tài khoản tài nguyên hoặc các mẫu ủy quyền được định nghĩa trong Move."
+          },
+          {
+            "id": "Tạo ứng dụng Aptos trên nền tảng dev-create",
+            "question": "`create-aptos-dapp` là gì và tôi có thể tìm kiếm sự trợ giúp cho các vấn đề phức tạp hơn ngoài việc cài đặt cơ bản ở đâu?",
+            "answer": "`create-aptos-dapp` là một công cụ tạo khung cơ bản cho dòng lệnh, được thiết kế để giúp các nhà phát triển nhanh chóng thiết lập cấu trúc cơ bản cho một ứng dụng phi tập trung mới trên blockchain Aptos. Công cụ này thường tạo ra một mẫu có khung giao diện người dùng (như React hoặc Vue), ví dụ về hợp đồng thông minh Move và các skript để xây dựng và kiểm thử. Để được hỗ trợ ngoài việc thiết lập cơ bản, các nhà phát triển nên tham khảo: 1. **Tài liệu chính thức của Aptos Developer:** Hướng dẫn về cấu hình nâng cao, vấn đề môi trường cụ thể hoặc yêu cầu tính năng. 2. **Kho lưu trữ GitHub:** Công cụ `create-aptos-dapp` thường có kho lưu trữ GitHub riêng, nơi có thể báo cáo vấn đề, tìm kiếm giải pháp hiện có và đóng góp. \n3. **Diễn đàn và Discord của nhà phát triển Aptos:** Các kênh cộng đồng là nơi tuyệt vời để đặt câu hỏi cụ thể và nhận hỗ trợ từ các nhà phát triển khác và đội ngũ Aptos. 4. **Câu hỏi thường gặp (FAQ) dành cho công cụ cụ thể:** Một số công cụ có thể có FAQ hoặc wiki riêng."
+          },
+          {
+            "id": "Công cụ xây dựng Aptos cho nhà phát triển - Hiệu quả",
+            "question": "Làm thế nào để tối ưu hóa hiệu quả với hệ thống Aptos Build cho phát triển dApp?",
+            "answer": "Tối ưu hóa hiệu suất với hệ thống xây dựng Aptos (thường bao gồm việc biên dịch hợp đồng Move và tích hợp với quá trình xây dựng frontend) đòi hỏi một số thực hành sau: 1. **Hiểu quy trình xây dựng:** Nắm vững cách hoạt động của `Aptos Build` (hoặc các lệnh CLI liên quan như `aptos move compile`), bao gồm các đầu vào, đầu ra và tùy chọn cấu hình. \n2. **Xây dựng tăng dần:** Sử dụng tính năng bộ nhớ đệm và xây dựng tăng dần khi có thể để tránh biên dịch lại mã không thay đổi. 3. **Tối ưu hóa mã Move:** Mã Move được cấu trúc tốt và hiệu quả có thể biên dịch nhanh hơn. 4. **Tối ưu hóa song song:** Nếu hệ thống xây dựng của bạn hỗ trợ cho các dự án lớn, hãy khám phá các tùy chọn xây dựng song song. 5. **Quản lý phụ thuộc hiệu quả:** Giữ cho các phụ thuộc của dự án (cả cho hợp đồng Move và frontend) được tối ưu hóa. 6. **Cập nhật thường xuyên:** Sử dụng các phiên bản ổn định mới nhất của Aptos CLI và SDK, vì chúng thường bao gồm các cải tiến hiệu suất và sửa lỗi cho hệ thống xây dựng. 7. **Kiểm tra ghi chú phát hành:** Chú ý đến ghi chú phát hành của Aptos Build hoặc các công cụ liên quan để biết các tính năng mới nâng cao hiệu suất hoặc hướng dẫn di chuyển cho các thay đổi quan trọng."
+          },
+          {
+            "id": "Trạng thái và cách sử dụng của trình soạn thảo kịch bản động cho nhà phát triển",
+            "question": "Dynamic Script Composer (DSC) trong Aptos SDK là gì, tình trạng hiện tại của nó và các thực hành tốt nhất khi sử dụng?",
+            "answer": "Dynamic Script Composer (DSC) là một tính năng trong SDK TypeScript của Aptos, được thiết kế để cho phép nhà phát triển xây dựng các giao dịch phức tạp, nguyên tử và đa bước một cách lập trình mà không cần viết và triển khai các mô-đun Move mới trên chuỗi cho mỗi chuỗi thao tác duy nhất. \n**Tình trạng hiện tại:** Tình trạng của DSC có thể thay đổi. Trong quá trình nghiên cứu, đã có ghi chú rằng nó có thể tạm thời bị loại bỏ khỏi SDK chính để hoàn thiện (ví dụ: do kích thước gói) với kế hoạch tái giới thiệu, có thể dưới dạng gói mở rộng riêng biệt. Nhà phát triển nên kiểm tra tài liệu và ghi chú phát hành mới nhất của Aptos TypeScript SDK để biết tình trạng hiện tại và cách đóng gói. **Thực hành tốt nhất khi sử dụng:** \n1. **Hiểu rõ giới hạn:** Nắm rõ khả năng của nó về độ phức tạp giao dịch, chi phí gas của các skript ghép và các tính năng Move được hỗ trợ. 2. **Đảm bảo tính nguyên tử:** Kiểm tra rằng chuỗi thao tác ghép hoạt động đúng như mong đợi một cách nguyên tử. \n3. **Bảo mật:** Mặc dù tận dụng tính an toàn của Move, hãy kiểm tra kỹ lưỡng tất cả đầu vào và quyền hạn khi xây dựng logic giao dịch ngoài chuỗi. 4. **Ước tính chi phí gas:** Ước tính và quản lý chi phí gas cho các giao dịch ghép nối. 5. **Xử lý lỗi:** Thực hiện xử lý lỗi mạnh mẽ cho cả quá trình ghép nối kịch bản và thực thi trên chuỗi."
+          },
+          {
+            "id": "Hướng dẫn kiểm thử đột biến trong quá trình di chuyển (dev-move-mutation-testing-guide)",
+            "question": "Làm thế nào để sử dụng các công cụ kiểm thử biến đổi di chuyển (ví dụ: move-mutator) một cách thực tế để cải thiện các bài kiểm thử và quy cách hợp đồng thông minh trên Aptos?",
+            "answer": "Công cụ kiểm thử biến đổi (như `move-mutator` hoặc `move-spec-test`) là các công cụ nâng cao giúp đánh giá và cải thiện chất lượng bộ kiểm thử và các thông số kỹ thuật chính thức cho hợp đồng thông minh Move. **Ứng dụng thực tế:** 1. **Đánh giá chất lượng bộ kiểm thử:** Công cụ biến đổi (mutator) đưa vào mã hợp đồng thông minh của bạn những thay đổi nhỏ, có chủ đích (biến đổi). Nếu các bài kiểm thử hiện có không phát hiện được các phiên bản bị biến đổi (và do đó có thể sai) của mã, điều này cho thấy sự yếu kém hoặc lỗ hổng trong phạm vi kiểm thử của bạn. 2. **Xác định điểm mù trong quy cách:** Tương tự, khi áp dụng cho các quy cách chính thức được viết bằng Ngôn ngữ Quy cách Move (MSL), kiểm thử biến đổi có thể phát hiện xem các quy cách của bạn có đủ mạnh để phát hiện các thực hiện mã sai hay không. \n3. **Cải tiến lặp lại:** Bằng cách phân tích các đột biến \"sống sót\" (tức là không bị phát hiện bởi các bài kiểm thử/đặc tả), các nhà phát triển có thể viết các bài kiểm thử toàn diện hơn và tinh chỉnh các đặc tả MSL để bao phủ các trường hợp biên hoặc các tình huống chưa được xử lý. \n4. **Tích hợp CI/CD:** Các công cụ này có thể được tích hợp vào các đường ống CI/CD để theo dõi liên tục và đảm bảo chất lượng kiểm thử/yêu cầu. Để sử dụng chúng hiệu quả, các nhà phát triển cần hiểu cách chạy các công cụ, giải thích kết quả đầu ra (ví dụ: điểm đột biến) và sau đó viết các bài kiểm thử hoặc điều kiện yêu cầu mục tiêu."
+          },
+          {
+            "id": "Hướng dẫn tính năng nâng cao cho dev-move2",
+            "question": "Các tính năng nâng cao trong Move 2.x như Function Values và Dynamic Dispatch được cải tiến hoạt động như thế nào, và làm thế nào để sử dụng chúng một cách an toàn và hiệu quả?",
+            "answer": "Move 2.x (ám chỉ các phiên bản Move sau khi ra mắt ban đầu, tích hợp các AIP quan trọng) đã giới thiệu các tính năng nâng cao nhằm tăng cường khả năng biểu đạt và chức năng: 1. **Giá trị hàm (Hàm có thể lưu trữ):** Cho phép các hàm được xử lý như giá trị — truyền làm tham số, trả về từ các hàm khác và lưu trữ trong tài nguyên. Điều này cho phép các mẫu thiết kế như callback, mẫu chiến lược và bảng phân phối động. Sử dụng an toàn đòi hỏi hiểu rõ tương tác của chúng với hệ thống sở hữu và mượn của Move, đảm bảo an toàn kiểu dữ liệu và quản lý vòng đời đúng cách, đặc biệt khi lưu trữ. 2. **Phân phối động an toàn nâng cao:** Cung cấp cơ chế cho các cuộc gọi động linh hoạt hơn (nhưng vẫn an toàn) giữa các mô-đun, thường tận dụng hàm giá trị hoặc giao diện tương tự trait. Mặc dù Move hướng đến việc phân phối động an toàn hơn so với một số chuỗi khác (ví dụ: bằng cách tích hợp kiểm soát truy cập vào định nghĩa kiểu), các nhà phát triển vẫn cần thận trọng với các mẫu tái nhập (mặc dù Move có khóa tái nhập tích hợp cho các hàm công khai) và đảm bảo quyền truy cập và xác thực đúng cho các cuộc gọi động. \n**Sử dụng hiệu quả và an toàn:** * Hiểu rõ hệ thống kiểu, quyền sở hữu và an toàn tham chiếu của Move, đặc biệt là cách các tính năng mới tương tác với chúng. * Viết các bài kiểm tra đơn vị toàn diện và xem xét xác minh chính thức cho các hợp đồng sử dụng các tính năng nâng cao này. * Nghiên cứu các ví dụ chính thức và tài liệu từ Aptos Labs về các tính năng cụ thể này. * Nắm rõ các loại lỗi logic mới có thể phát sinh nếu không sử dụng cẩn thận."
+          },
+          {
+            "id": "Revela Aptos là gì? Công cụ bảo mật Revela Aptos là gì?",
+            "question": "Revela là gì, công cụ bảo mật cho Aptos do Verichains phát triển, và nó mang lại lợi ích gì cho nhà phát triển hoặc người dùng?",
+            "answer": "Revela là công cụ phân tích bảo mật được phát triển bởi Verichains, một công ty bảo mật blockchain, dành riêng cho hệ sinh thái Aptos. Nó hoạt động như một công cụ giải mã và phân tích tĩnh cho bytecode Move. **Lợi ích cho nhà phát triển/người dùng:** \n1. **Tăng cường kiểm toán hợp đồng thông minh:** Revela giúp các chuyên gia bảo mật và nhà phát triển hiểu rõ hành vi cấp thấp của các mô-đun Move đã được biên dịch, từ đó dễ dàng phát hiện các lỗ hổng tiềm ẩn hoặc lỗi logic mà không thể nhận ra chỉ qua mã nguồn. \n2. **Nghiên cứu bảo mật:** Nó hỗ trợ nghiên cứu bảo mật bằng cách cho phép kiểm tra sâu hơn các hợp đồng trên chuỗi. 3. **Hiểu mã đã biên dịch:** Đối với các hợp đồng phức tạp hoặc khi mã nguồn không có sẵn, Revela có thể giúp trong việc phân tích ngược hoặc hiểu logic đã biên dịch. Bằng cách cung cấp cái nhìn sâu hơn vào mã bytecode Move, Revela góp phần vào tính bảo mật và độ bền vững của các ứng dụng phi tập trung (dApps) trên Aptos."
+          }
+        ]
+      },
+      {
+        "title": "Ví điện tử, Cầu nối & Giao dịch",
+        "questions": [
+          {
+            "id": "Ví nào cho chuỗi Aptos?",
+            "question": "Tôi có thể sử dụng ví nào để tương tác với chuỗi Aptos?",
+            "answer": "Một số ví hỗ trợ blockchain Aptos, bao gồm Petra (phát triển bởi Aptos Labs), Martian, Pontem, Rise, TokenPocket, WellDone và Trust Wallet, cùng nhiều ví khác. Luôn tải xuống từ các nguồn chính thức. Để xem danh sách các ví tương thích với dịch vụ aptcore.one, vui lòng truy cập [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Aptos Wallet là gì?",
+            "question": "Aptos Wallet là gì?",
+            "answer": "Ví Aptos là một ứng dụng phần mềm (di động, máy tính để bàn hoặc tiện ích mở rộng trình duyệt) hoặc thiết bị phần cứng cho phép bạn lưu trữ, gửi và nhận token APT và các tài sản kỹ thuật số khác dựa trên Aptos (như NFT). Nó cũng cho phép bạn tương tác với các ứng dụng phi tập trung (dApps) được xây dựng trên blockchain Aptos."
+          },
+          {
+            "id": "Cách tạo ví Aptos",
+            "question": "Làm thế nào để tôi có thể tạo hoặc tải xuống ví Aptos (ví dụ: Petra, Trust Wallet)?",
+            "answer": "Để tạo ví Aptos: 1. Chọn nhà cung cấp ví (ví dụ: Petra Wallet cho trình duyệt, Trust Wallet cho thiết bị di động). 2. Tải xuống ứng dụng chính thức từ trang web hoặc cửa hàng ứng dụng của họ. 3. Làm theo hướng dẫn trong ứng dụng để tạo ví mới. 4. Sao lưu an toàn cụm từ khôi phục duy nhất (seed phrase) – điều này rất quan trọng để khôi phục ví nếu bạn mất quyền truy cập."
+          },
+          {
+            "id": "Cách bảo mật ví Aptos",
+            "question": "Những phương pháp tốt nhất để bảo mật ví Aptos của tôi là gì?",
+            "answer": "Để bảo mật ví Aptos của bạn: 1. Lưu trữ cụm từ khôi phục (seed phrase) của bạn ở nhiều vị trí an toàn và ngoại tuyến. Không bao giờ chia sẻ nó với bất kỳ ai. 2. Sử dụng mật khẩu mạnh và duy nhất cho ví của bạn. 3. Cảnh giác với các trò lừa đảo qua email (phishing) và các trang web/ứng dụng giả mạo. 4. Luôn cập nhật phần mềm ví và hệ điều hành thiết bị của bạn. 5. Đối với số tiền lớn, hãy xem xét sử dụng ví phần cứng tương thích với Aptos."
+          },
+          {
+            "id": "Lỗi thêm token Trust Wallet trên Aptos",
+            "question": "Nếu gặp phải vấn đề \"Thêm token không thành công\" với token Aptos trong Trust Wallet, tôi nên làm gì?",
+            "answer": "Hướng dẫn khắc phục sự cố cụ thể khi thêm token dựa trên Aptos (không chỉ riêng APT) vào Trust Wallet. Kiểm tra địa chỉ hợp đồng và mạng lưới đã nhập là chính xác."
+          },
+          {
+            "id": "Trust Wallet - Aptos Coin không hiển thị",
+            "question": "Các đồng Aptos (APT) của tôi không hiển thị trong Trust Wallet. Có thể có vấn đề gì không?",
+            "answer": "Các nguyên nhân phổ biến như vấn đề đồng bộ hóa, chọn sai mạng trong Trust Wallet, hoặc trễ giao dịch. Khuyến nghị kiểm tra trình khám phá (explorer)."
+          },
+          {
+            "id": "Ví Trust Wallet mất hỗ trợ cho Aptos, dẫn đến việc mất quỹ",
+            "question": "Một số người dùng đã báo cáo các vấn đề nghiêm trọng hơn như mất tiền hoặc ví Trust Wallet bị trống khi tương tác với Aptos, và gặp khó khăn trong việc nhận hỗ trợ. Bạn có thể đưa ra lời khuyên nào?",
+            "answer": "Nhấn mạnh rằng giao thức Aptos không tự động xóa sạch ví. Các vấn đề này thường xuất phát từ việc mật khẩu hạt giống bị lộ, lừa đảo (phishing) hoặc phần mềm độc hại. Hướng dẫn về các biện pháp bảo mật tốt nhất, cách liên hệ với bộ phận hỗ trợ Trust Wallet và các kênh hỗ trợ chính thức của Aptos nếu vấn đề có thể nghiêm trọng hơn."
+          },
+          {
+            "id": "Tính toàn vẹn dữ liệu ví aptos vượt ra ngoài TLS",
+            "question": "Aptos đảm bảo tính toàn vẹn của dữ liệu hiển thị trong ví như thế nào, vượt qua tiêu chuẩn TLS/SSL thông thường cho giao tiếp?",
+            "answer": "Giải thích cách ví truy vấn các nút, cách dữ liệu trên chuỗi được bảo mật bằng mã hóa, và tầm quan trọng của việc kết nối với các nút đáng tin cậy."
+          },
+          {
+            "id": "Are-Aptos-Ví-miễn-phí",
+            "question": "Các ví phần mềm Aptos có miễn phí để sử dụng không?",
+            "answer": "Đúng vậy, hầu hết các ví phần mềm cho Aptos (như Petra, Martian, Pontem, Trust Wallet) đều miễn phí tải xuống và sử dụng. Bạn chỉ phải trả phí giao dịch mạng (bằng APT) khi thực hiện giao dịch trên blockchain."
+          },
+          {
+            "id": "Ví Aptos an toàn nhất là gì?",
+            "question": "Loại ví Aptos nào được coi là \"an toàn nhất\"?",
+            "answer": "Ví phần cứng thường được coi là phương án an toàn nhất để lưu trữ tiền điện tử, bao gồm APT, vì chúng giữ các khóa riêng tư của bạn offline. Trong số các ví phần mềm, mức độ an toàn phụ thuộc vào các cuộc kiểm tra bảo mật của ví, các tính năng của ví và đặc biệt là các biện pháp bảo mật của chính bạn (quản lý cụm từ khôi phục, tránh các chiêu trò lừa đảo). Luôn chọn các ví uy tín và được bảo trì tốt."
+          },
+          {
+            "id": "Hướng dẫn chuyển đổi từ BSC sang Aptos",
+            "question": "Làm thế nào để chuyển tài sản từ BSC (Binance Smart Chain) hoặc các chuỗi khối khác sang Aptos?",
+            "answer": "Để chuyển tài sản sang Aptos, bạn cần sử dụng dịch vụ cầu nối chuỗi chéo hỗ trợ Aptos và chuỗi nguồn (ví dụ: BSC, Ethereum). Các ví dụ bao gồm các cầu nối được hỗ trợ bởi LayerZero hoặc các cầu nối của bên thứ ba khác. Luôn nghiên cứu về tính bảo mật và uy tín của cầu nối trước khi sử dụng. Để biết thông tin về các đối tác cầu chuỗi được khuyến nghị/tin cậy do aptcore.one đề cập, vui lòng truy cập [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Tại sao tác động của giá quá cao khi hoán đổi?",
+            "question": "Tại sao tôi thấy cảnh báo \"Giá ảnh hưởng quá cao\" khi cố gắng hoán đổi token trên sàn giao dịch phi tập trung (DEX) Aptos?",
+            "answer": "Cảnh báo này thường có nghĩa là kích thước giao dịch của bạn quá lớn so với thanh khoản có sẵn trong bể giao dịch cụ thể trên Sàn giao dịch phi tập trung (DEX). Một giao dịch lớn có thể làm thay đổi đáng kể giá của các token trong bể, dẫn đến việc bạn nhận được ít token hơn so với dự kiến. Hãy thử giao dịch với số lượng nhỏ hơn hoặc sử dụng công cụ tổng hợp DEX."
+          },
+          {
+            "id": "Không tìm thấy đồng xu để đổi. Làm thế nào để thêm?",
+            "question": "Tôi không thể tìm thấy token dựa trên Aptos cụ thể mà tôi muốn swap trên một sàn giao dịch phi tập trung (DEX). Làm thế nào để thêm nó?",
+            "answer": "Nhiều sàn giao dịch phi tập trung (DEX) trên Aptos cho phép bạn thêm một token tùy chỉnh vào giao diện của họ để trao đổi bằng cách dán địa chỉ hợp đồng token chính thức (địa chỉ mint) của token đó. Hãy đảm bảo bạn lấy địa chỉ hợp đồng từ một nguồn đáng tin cậy để tránh các token lừa đảo."
+          },
+          {
+            "id": "TID giao dịch TXID ở đâu trong Aptos?",
+            "question": "Tôi có thể tìm thấy ID giao dịch (TxID hoặc hash) cho giao dịch Aptos của mình ở đâu?",
+            "answer": "Sau khi bạn gửi giao dịch, ví Aptos của bạn thường sẽ hiển thị ID giao dịch (TxID) hoặc băm. Bạn cũng có thể tìm thấy nó bằng cách tra cứu địa chỉ ví của mình trên trình khám phá khối Aptos (ví dụ: AptoScan, Aptos Explorer)."
+          },
+          {
+            "id": "Cách tìm giao dịch theo người trả phí trên Aptos",
+            "question": "Làm thế nào để tôi tìm tất cả các giao dịch mà địa chỉ Aptos cụ thể là người trả phí?",
+            "answer": "Các trình khám phá blockchain Aptos cho phép bạn tìm kiếm các giao dịch liên quan đến một địa chỉ cụ thể. Trong khi hầu hết các trình khám phá sẽ hiển thị người gửi (thường là người trả phí), các trình khám phá nâng cao hoặc dịch vụ lập chỉ mục có thể cung cấp các bộ lọc cụ thể hơn để lọc các giao dịch dựa trên địa chỉ người trả phí nếu địa chỉ này khác với người gửi chính/người thực hiện trong các giao dịch phức tạp."
+          },
+          {
+            "id": "Phí gas trên Aptos là gì? Cách tính như thế nào?",
+            "question": "Phí gas trên Aptos là gì và được tính như thế nào?",
+            "answer": "Phí gas trên Aptos là các khoản thanh toán bằng APT để bù đắp cho tài nguyên tính toán cần thiết để xử lý và xác minh giao dịch trên mạng. Phí này được thiết kế để ở mức thấp và được tính dựa trên các yếu tố như độ phức tạp của giao dịch, dung lượng lưu trữ sử dụng, băng thông mạng và giá gas động phản ánh nhu cầu hiện tại của mạng."
+          },
+          {
+            "id": "Nếu ngừng sử dụng IAM Federated Keyless Aptos thì sao?",
+            "question": "Nếu tôi ngừng sử dụng nhà cung cấp OIDC đã liên kết (ví dụ: Google) hoặc chuyển sang nhà cung cấp OIDC mới, tài khoản Aptos Keyless của tôi sẽ như thế nào?",
+            "answer": "Nếu bạn chuyển đổi nhà cung cấp OIDC hoặc thay đổi các thông tin quan trọng (như ID khách hàng cho dApp), điều này thường sẽ dẫn đến việc tạo ra một địa chỉ tài khoản Aptos mới và khác biệt. Để duy trì quyền truy cập vào tài sản từ tài khoản Keyless cũ, bạn cần thiết lập khóa riêng tư dự phòng hoặc sử dụng quy trình di chuyển cụ thể của dApp *trước* khi mất quyền truy cập vào tài khoản OIDC liên kết ban đầu. Điều này nhấn mạnh tầm quan trọng của các tùy chọn khôi phục do dApp cung cấp cho tài khoản Keyless."
+          },
+          {
+            "id": "Sử dụng IAM Federated Keyless có tốn phí không? - Aptos",
+            "question": "Sử dụng Nhà cung cấp danh tính OIDC (IAM) cho tài khoản Aptos Keyless có tốn phí không?",
+            "answer": "Chức năng không cần khóa (Keyless) của Aptos không áp đặt phí trực tiếp cho việc sử dụng nhà cung cấp OIDC. Tuy nhiên, các nhà cung cấp OIDC (như Google, Apple, v.v.) có thể có các điều khoản dịch vụ riêng hoặc chi phí liên quan cho các nhà phát triển sử dụng API của họ cho mục đích xác thực, đặc biệt là khi sử dụng quy mô lớn, mặc dù việc sử dụng cơ bản cho người dùng cuối thường miễn phí."
+          },
+          {
+            "id": "Dịch vụ cung cấp danh tính dapp (dapp-iam) ngoại tuyến, truy cập không cần khóa trong mạng liên kết (federated) - Aptos",
+            "question": "Nếu ứng dụng dApp mà tôi sử dụng cho Tài khoản Không Cần Mật Khẩu (Keyless Account) hoặc nhà cung cấp OIDC của tôi bị ngừng hoạt động, làm thế nào để tôi truy cập vào tài khoản Aptos của mình?",
+            "answer": "Đây là một vấn đề quan trọng. Cơ chế khôi phục chính cho Tài khoản Không Cần Khóa (Keyless Accounts) phụ thuộc vào việc ứng dụng phi tập trung (dApp) cho phép người dùng thêm một khóa riêng tư dự phòng truyền thống (tạo ra một tài khoản đa chữ ký 1-trong-2). Nếu khóa dự phòng này không được thiết lập và ứng dụng phi tập trung (dApp) hoặc nhà cung cấp OIDC không thể truy cập được vĩnh viễn, việc khôi phục tài khoản có thể cực kỳ khó khăn hoặc không thể thực hiện được. Aptos không thể khôi phục các tài khoản này."
+          },
+          {
+            "id": "Tôi có thể sử dụng phần mềm nguồn mở IAM Keycloak với tính năng liên kết không cần khóa (federated keyless) trên Aptos không?",
+            "question": "Tôi có thể sử dụng giải pháp quản lý truy cập và xác thực mã nguồn mở (IAM) như Keycloak với tài khoản Aptos Federated Keyless không?",
+            "answer": "Aptos Keyless ban đầu được ra mắt với sự hỗ trợ cho một danh sách được chọn lọc các nhà cung cấp OIDC chính để đảm bảo tính bảo mật và độ tin cậy. Việc hỗ trợ các hệ thống quản lý truy cập (IAM) tự lưu trữ hoặc mã nguồn mở như Keycloak sẽ phụ thuộc vào việc chúng có đáp ứng các yêu cầu kỹ thuật và bảo mật của hệ thống Keyless hay không, và có thể yêu cầu đề xuất (AIPs) hoặc sự tham gia trực tiếp với đội ngũ phát triển Aptos để tích hợp."
+          },
+          {
+            "id": "Phản hồi của người dùng về ví Expo2025",
+            "question": "Expo 2025 Digital Wallet trên Aptos là gì, và phản hồi chung của người dùng về tính tiện dụng và NFTs của nó như thế nào?",
+            "answer": "Ví điện tử Expo 2025, được phát triển bởi Aptos, được tạo ra cho Triển lãm Osaka Kansai Expo tại Nhật Bản. Mục tiêu của nó là cung cấp cho người tham dự, nhiều người trong số họ lần đầu tiên tiếp xúc với Web3, một cách thân thiện với người dùng để tương tác với công nghệ blockchain, bao gồm việc thu thập \"MYAKU-N!\" Soulbound NFTs dưới dạng tem kỹ thuật số hoặc kỷ niệm. \n**Phản hồi của người dùng (theo báo cáo nghiên cứu):** * **Chỉ số so với phản hồi định tính:** Mặc dù Aptos báo cáo khối lượng giao dịch và số tài khoản tạo mới cao, một số phản hồi định tính từ các nguồn như đánh giá trên cửa hàng ứng dụng cho thấy kết quả trái chiều. * **Vấn đề về tính thân thiện với người dùng:** Một số người dùng báo cáo các vấn đề cơ bản về tính thân thiện của ứng dụng, khó khăn khi đăng nhập hoặc cho rằng giao diện khó sử dụng. Có ý kiến cho rằng ứng dụng không được các nhà triển lãm Expo sử dụng rộng rãi. \n* **Giá trị của NFT:** Một số người dùng bày tỏ sự bối rối về mục đích hoặc giá trị lâu dài của NFT MYAKU-N! ngoài việc là một \"cuộc thi sưu tập tem kỹ thuật số vui nhộn\", và đặt câu hỏi về tính hữu ích của chúng. * **Quá trình tiếp cận Web3:** Ví tiền được thiết kế cho việc áp dụng đại trà mà không yêu cầu kiến thức blockchain trước đó. Mặc dù một số người dùng thấy nó thân thiện với người dùng, nhưng các vấn đề về tính dễ sử dụng đôi khi lấn át các khía cạnh đơn giản hóa của Web3. \nSáng kiến này đã đóng vai trò là bài kiểm tra thực tế quan trọng cho Aptos trong việc áp dụng Web3 vào thị trường chính thống, nhấn mạnh các thách thức về tính thân thiện với người dùng của ứng dụng và việc truyền đạt giá trị của các tính năng blockchain đến đối tượng không quen thuộc với công nghệ này."
+          }
+        ]
+      },
+      {
+        "title": "Quản trị & Cộng đồng",
+        "questions": [
+          {
+            "id": "Quản trị được thực hiện như thế nào trên Aptos?",
+            "question": "Hệ thống quản trị trên chuỗi (on-chain governance) hoạt động như thế nào trên blockchain Aptos?",
+            "answer": "Aptos có hệ thống quản trị trên chuỗi (on-chain governance) cho phép chủ sở hữu token APT đề xuất và bỏ phiếu về các thay đổi hoặc cập nhật đối với giao thức. Điều này có thể bao gồm điều chỉnh các thông số mạng, tokenomics (như tỷ lệ phần thưởng staking hoặc cơ chế phí) và phê duyệt các bản nâng cấp mã nguồn chính. Các đề xuất sẽ trải qua một chu kỳ sống được định nghĩa rõ ràng gồm các giai đoạn nộp, bỏ phiếu và thực thi."
+          },
+          {
+            "id": "Aptos Collective là gì?",
+            "question": "Aptos Collective là gì và vai trò của nó là gì?",
+            "answer": "Chương trình Đại sứ Aptos là chương trình đại sứ chính thức của Aptos. Các thành viên của chương trình là những người đam mê và đóng góp cho cộng đồng, hỗ trợ và quảng bá hệ sinh thái Aptos thông qua các hoạt động như tổ chức sự kiện, tạo nội dung giáo dục, dịch tài liệu và phát triển cộng đồng địa phương."
+          },
+          {
+            "id": "Điều kiện để tham gia Aptos Collective là gì?",
+            "question": "Những yêu cầu chung để tham gia chương trình Đại sứ Aptos Collective là gì?",
+            "answer": "Để tham gia vào Aptos Collective, các ứng viên thường cần chứng minh sự tham gia tích cực và đam mê đối với hệ sinh thái Aptos và Web3, sẵn sàng đóng góp kỹ năng và thời gian của mình, tinh thần hợp tác, và sự tham gia tích cực và nhất quán trong cộng đồng."
+          },
+          {
+            "id": "Các thành viên của tập thể Are-Aptos có được trả lương không?",
+            "question": "Các thành viên của Aptos Collective có được trả lương hoặc bồi thường không?",
+            "answer": "Mặc dù không có mức lương hàng tháng tiêu chuẩn cho tất cả thành viên của Aptos Collective, những thành viên có thành tích xuất sắc, thường ở cấp độ \"Vanguard\", có thể nhận được các giải thưởng hàng tháng hoặc trợ cấp. Ngoài ra, các thành viên của Collective có thể nộp đơn xin tài trợ để tài trợ cho các sáng kiến và sự kiện xây dựng cộng đồng cụ thể."
+          },
+          {
+            "id": "Tôi có thể tham gia Aptos Collective nếu là thành viên mới hoặc không nói tiếng Anh không?",
+            "question": "Tôi có thể đăng ký tham gia Aptos Collective nếu tôi là người mới sử dụng Aptos hoặc tiếng Anh không phải là ngôn ngữ mẹ đẻ của tôi không?",
+            "answer": "Vâng, Aptos Collective chào đón những thành viên mới nhiệt tình, sẵn sàng học hỏi và đóng góp. Các thành viên đa ngôn ngữ được đánh giá cao vì khả năng giúp địa phương hóa nội dung, tương tác với các cộng đồng đa dạng và mở rộng phạm vi toàn cầu của Aptos."
+          },
+          {
+            "id": "Tần suất thêm thành viên mới vào Aptos Collective",
+            "question": "Aptos Collective nhận thành viên mới với tần suất như thế nào?",
+            "answer": "Aptos Collective thường tuyển dụng thành viên mới theo từng đợt. Các đợt tuyển dụng thường mở cửa định kỳ, thường có các đợt tuyển dụng lớn diễn ra hàng quý hoặc theo thông báo của Aptos Foundation."
+          },
+          {
+            "id": "Gì là một khoản tài trợ tập thể Aptos?",
+            "question": "Chương trình tài trợ tập thể trong chương trình đại sứ Aptos là gì?",
+            "answer": "Quỹ Hỗ trợ Chung là nguồn kinh phí được dành riêng cho các thành viên của Aptos Collective. Các quỹ này nhằm mục đích hỗ trợ các sáng kiến do thành viên khởi xướng nhằm xây dựng và củng cố cộng đồng Aptos, bao gồm các hoạt động như gặp gỡ địa phương, hội thảo, tạo nội dung giáo dục, hackathon hoặc các nỗ lực thử nghiệm dự án và thu thập phản hồi."
+          },
+          {
+            "id": "Vanguard Tier là gì? Aptos Collective là gì?",
+            "question": "\"Vanguard tier\" trong Aptos Collective là gì?",
+            "answer": "Cấp độ Vanguard trong Aptos Collective thường đại diện cho những đại sứ tích cực và có ảnh hưởng nhất. Những đóng góp viên hàng đầu này (thường là một nhóm nhỏ được chọn lọc) được công nhận vì những nỗ lực xuất sắc và có thể nhận được các lợi ích bổ sung như trợ cấp hàng tháng, cơ hội mentor độc quyền và hợp tác chặt chẽ hơn với Aptos Foundation."
+          },
+          {
+            "id": "Nơi tìm kiếm các cuộc thảo luận và diễn đàn cộng đồng của các nhà phát triển Aptos",
+            "question": "Tôi có thể tìm thấy các diễn đàn thảo luận chính thức của nhà phát triển Aptos hoặc các diễn đàn cộng đồng chung ở đâu?",
+            "answer": "Các nền tảng chính thức cho các cuộc thảo luận của nhà phát triển Aptos bao gồm Aptos GitHub Discussions (thường được phân loại thành Thông báo, Chung, Câu hỏi, Phản hồi). Diễn đàn Aptos Foundation và máy chủ Discord chính thức cũng là những nơi quan trọng cho sự tham gia cộng đồng rộng rãi, hỗ trợ và thông báo."
+          },
+          {
+            "id": "Tác động của AIP đối với người dùng và nhà phát triển",
+            "question": "Các đề xuất cải tiến Aptos (AIPs) ảnh hưởng trực tiếp đến người dùng và nhà phát triển như thế nào?",
+            "answer": "Giải thích các AIP cụ thể như AIP-119 (Phần thưởng Staking) và AIP-62 (Ngừng hỗ trợ ví) như ví dụ về cách các quyết định quản trị ảnh hưởng đến tỷ suất lợi nhuận staking (APY), kinh tế của validator, tương thích ví và yêu cầu SDK cho nhà phát triển. Nhấn mạnh tầm quan trọng của việc theo dõi các cuộc thảo luận về AIP."
+          }
+        ]
+      },
+      {
+        "title": "Đầu tư và Mua lại APT",
+        "questions": [
+          {
+            "id": "Hướng dẫn mua Aptos (APT)",
+            "question": "Có những cách phổ biến nào để mua token Aptos (APT)?",
+            "answer": "Bạn có thể mua token APT thông qua các kênh sau: 1. Sàn giao dịch tiền điện tử tập trung (CEX). 2. Sàn giao dịch phi tập trung (DEX) được xây dựng trên blockchain Aptos. 3. Một số ứng dụng hoặc nền tảng fintech cung cấp dịch vụ giao dịch tiền điện tử. Để tham gia staking với aptcore.one, bạn cần phải sở hữu APT trước tiên."
+          },
+          {
+            "id": "Tôi có thể mua Aptos Apt ở đâu?",
+            "question": "Các nền tảng hoặc sàn giao dịch cụ thể nào niêm yết Aptos (APT) để mua?",
+            "answer": "APT được niêm yết trên nhiều sàn giao dịch tập trung lớn như Binance, Coinbase, Kraken, Bybit, OKX, KuCoin và các sàn khác. Nó cũng có thể được giao dịch trên các sàn giao dịch phi tập trung (DEX) trong hệ sinh thái Aptos. Một số nhà cung cấp dịch vụ tài chính như Revolut cũng đã cho phép giao dịch APT."
+          },
+          {
+            "id": "Chi phí đầu tư vào Aptos là bao nhiêu?",
+            "question": "Khi đầu tư hoặc giao dịch Aptos (APT), tôi nên dự kiến các loại phí nào?",
+            "answer": "Phí dịch vụ thay đổi tùy thuộc vào nền tảng được sử dụng. Các sàn giao dịch tập trung (CEX) thường thu phí giao dịch (phí maker/taker) và phí rút tiền. Các sàn giao dịch phi tập trung (DEX) thu phí hoán đổi. Các nền tảng như Revolut có thể thu phí chênh lệch tỷ giá hối đoái cộng với phí giao dịch, và phí này cũng có thể thay đổi tùy thuộc vào gói tài khoản của bạn."
+          },
+          {
+            "id": "Có an toàn khi mua Aptos không?",
+            "question": "Mua Aptos (APT) trên sàn giao dịch hoặc các nền tảng khác có an toàn không?",
+            "answer": "Các sàn giao dịch và nền tảng uy tín sử dụng nhiều biện pháp bảo mật, bao gồm lưu trữ lạnh cho phần lớn tài sản của người dùng, để bảo vệ tài sản. Tuy nhiên, việc lưu trữ tiền điện tử trên bất kỳ nền tảng bên thứ ba nào đều tiềm ẩn rủi ro đối tác. Để đảm bảo an toàn tối đa cho APT của bạn, hãy cân nhắc chuyển nó sang ví không lưu ký, nơi bạn kiểm soát các khóa riêng tư. Tất cả các khoản đầu tư tiền điện tử cũng tiềm ẩn rủi ro thị trường."
+          },
+          {
+            "id": "Tôi có thể mua Aptos bằng thẻ ghi nợ không?",
+            "question": "Tôi có thể mua Aptos (APT) bằng thẻ ghi nợ không?",
+            "answer": "Đúng vậy, nhiều sàn giao dịch tập trung và nền tảng tài chính (như Revolut) cho phép bạn nạp tiền vào tài khoản hoặc mua trực tiếp các loại tiền điện tử như APT bằng thẻ ghi nợ. Việc mua bằng thẻ tín dụng cũng có thể được hỗ trợ nhưng có thể phát sinh phí cao hơn hoặc được coi là giao dịch rút tiền mặt."
+          },
+          {
+            "id": "Làm thế nào để tôi có thể tìm hiểu thêm về đầu tư vào Aptos?",
+            "question": "Làm thế nào để tôi có thể tự trang bị kiến thức thêm trước khi đầu tư vào Aptos (APT)?",
+            "answer": "Trước khi đầu tư vào bất kỳ loại tiền điện tử nào, bao gồm cả Aptos, điều quan trọng là bạn phải tự nghiên cứu kỹ lưỡng (DYOR). Điều này bao gồm việc hiểu rõ công nghệ nền tảng của Aptos, các trường hợp sử dụng, mô hình kinh tế token, đội ngũ phát triển, lộ trình phát triển, hoạt động của cộng đồng và vị thế của Aptos so với các đối thủ cạnh tranh. Sử dụng các nguồn tài liệu chính thức của Aptos, phân tích độc lập và nhận thức rõ các rủi ro liên quan. [aptcore.one](https://aptcore.one) có thể cung cấp các tài liệu giáo dục trên blog của họ."
+          },
+          {
+            "id": "Is-aptos-apt có phải là một khoản đầu tư tốt?",
+            "question": "Aptos (APT) có được coi là một khoản đầu tư tốt không?",
+            "answer": "Việc Aptos (APT) có phải là một \"đầu tư tốt\" hay không là một đánh giá chủ quan và phụ thuộc vào nhiều yếu tố, bao gồm tình hình tài chính cá nhân của bạn, mục tiêu đầu tư, khả năng chịu rủi ro và nghiên cứu của bạn về dự án. Tiền điện tử là tài sản có tính biến động cao. aptcore.one không cung cấp tư vấn đầu tư."
+          },
+          {
+            "id": "Will Aptos tăng hay giảm?",
+            "question": "Giá của Aptos (APT) được dự đoán sẽ tăng hay giảm?",
+            "answer": "Biến động giá của các loại tiền điện tử như Aptos (APT) mang tính đầu cơ cao và bị ảnh hưởng bởi nhiều yếu tố thị trường, sự phát triển của dự án và xu hướng kinh tế chung. Không thể dự đoán chính xác biến động giá trong tương lai. aptcore.one không cung cấp dự đoán giá."
+          },
+          {
+            "id": "Tôi có nên đầu tư vào Aptos không?",
+            "question": "Tôi có nên xem xét đầu tư vào Aptos (APT) không?",
+            "answer": "Quyết định đầu tư vào Aptos (APT) hoặc bất kỳ loại tiền điện tử nào khác nên được đưa ra một cách cẩn thận sau khi bạn đã tiến hành nghiên cứu kỹ lưỡng (DYOR) và đánh giá tình hình tài chính cá nhân cùng khả năng chịu rủi ro của mình. Bạn nên tham khảo ý kiến của một chuyên gia tài chính có chứng chỉ. aptcore.one không cung cấp tư vấn tài chính."
+          },
+          {
+            "id": "Dự đoán giá Aptos là gì?",
+            "question": "Tôi có thể tìm thấy dự đoán giá Aptos (APT) ở đâu?",
+            "answer": "Các nhà phân tích, trang web và công cụ trí tuệ nhân tạo (AI) cung cấp dự đoán giá cho các loại tiền điện tử như Aptos (APT). Tuy nhiên, những dự đoán này mang tính chất suy đoán cao, thường không chính xác và không nên được sử dụng làm cơ sở chính cho các quyết định đầu tư do tính biến động và khó lường của thị trường tiền điện tử."
+          }
+        ]
+      },
+      {
+        "title": "Hiệu suất mạng & Các vấn đề đã biết",
+        "questions": [
+          {
+            "id": "Cách Aptos đạt được hiệu suất cao và độ trễ thấp",
+            "question": "Những đặc điểm kiến trúc nào giúp Aptos đạt được thông lượng cao và độ trễ thấp?",
+            "answer": "Aptos đạt được hiệu suất cao chủ yếu thông qua: 1. **Thực thi giao dịch song song:** Sử dụng Block-STM để xử lý nhiều giao dịch cùng lúc. 2. **Thuật toán đồng thuận BFT hiệu quả:** Sử dụng các phiên bản tối ưu hóa của thuật toán đồng thuận chịu lỗi Byzantine (như AptosBFT và đang phát triển với Raptr). 3. **Ngôn ngữ di chuyển:** Được thiết kế cho hiệu quả và an toàn. 4. **Xử lý theo ống dẫn:** Trùng lặp các giai đoạn khác nhau của quá trình xử lý giao dịch (thực thi, lưu trữ, đồng thuận) để tối đa hóa việc sử dụng phần cứng."
+          },
+          {
+            "id": "Aptos Target TPS là gì?",
+            "question": "Tốc độ giao dịch (TPS) mục tiêu hoặc đã được chứng minh của Aptos là bao nhiêu?",
+            "answer": "Aptos đã chứng minh khả năng xử lý giao dịch (TPS) rất cao trong môi trường thử nghiệm, với các mục tiêu thường được đề cập lên đến hàng chục nghìn hoặc thậm chí vượt quá 100.000 TPS trong điều kiện lý tưởng. Hiệu suất thực tế trên mạng chính phụ thuộc vào nhiều yếu tố bao gồm tải mạng, độ phức tạp của giao dịch và các tối ưu hóa đang được thực hiện. Vui lòng kiểm tra các trình khám phá mạng hiện tại để xem dữ liệu trực tiếp."
+          },
+          {
+            "id": "Cách Aptos giải quyết vấn đề khả năng mở rộng",
+            "question": "Aptos blockchain dự định giải quyết vấn đề khả năng mở rộng quy mô lâu dài như thế nào?",
+            "answer": "Aptos giải quyết vấn đề khả năng mở rộng thông qua thiết kế lõi cho thực thi song song (Block-STM) và quản lý tài nguyên hiệu quả. Các kế hoạch tương lai bao gồm tối ưu hóa thêm và có thể áp dụng phân chia trạng thái (giống như khái niệm Shardines đã được đề cập) để mở rộng khả năng xử lý giao dịch theo chiều ngang khi mạng lưới và cơ sở người dùng phát triển."
+          },
+          {
+            "id": "Yêu cầu phần cứng cho các nút Aptos là gì?",
+            "question": "Những yêu cầu phần cứng tiêu chuẩn để chạy trình xác thực Aptos hoặc các nút đầy đủ là gì, và điều này ảnh hưởng như thế nào đến hiệu suất và chi phí?",
+            "answer": "Aptos hướng đến hiệu quả phần cứng để khuyến khích sự phi tập trung. Mặc dù các yêu cầu cụ thể được nêu trong tài liệu chính thức (và có thể thay đổi), chúng thường bao gồm CPU đa nhân, RAM đủ dung lượng, bộ nhớ SSD nhanh và kết nối internet băng thông cao. Sử dụng hạ tầng phần cứng trần (bare metal) thường được đề xuất là có lợi cho việc đạt được hiệu suất tối ưu cho các validator, điều này có thể ảnh hưởng đến chi phí vận hành."
+          },
+          {
+            "id": "Đã gặp sự cố kỹ thuật và thời gian ngừng hoạt động.",
+            "question": "Kể từ khi ra mắt mạng chính, mạng Aptos có gặp phải bất kỳ sự cố kỹ thuật nghiêm trọng, thời gian ngừng hoạt động hoặc sự cố ngừng hoạt động mạng nào không?",
+            "answer": "Giống như bất kỳ mạng blockchain phức tạp nào, Aptos có thể gặp phải các vấn đề kỹ thuật hoặc cần bảo trì. Để biết thông tin về các sự cố trong quá khứ, trạng thái mạng hoặc lịch bảo trì, vui lòng tham khảo các thông báo chính thức từ Aptos Foundation, trang trạng thái và các kênh cộng đồng. Để xem hồ sơ thời gian hoạt động của aptcore.one với tư cách là validator, vui lòng truy cập [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Các vấn đề liên quan đến cơ sở mã nguồn trong hoạt động phát triển của aptos",
+            "question": "Có bất kỳ vấn đề đáng chú ý hoặc thảo luận nào liên quan đến hoạt động phát triển của Aptos, các cam kết trên GitHub hoặc giấy phép mã nguồn không?",
+            "answer": "Sức khỏe của một dự án blockchain thường phụ thuộc vào sự phát triển tích cực và tuân thủ các nguyên tắc mã nguồn mở. Để có cái nhìn cập nhật về hoạt động của các nhà phát triển Aptos, tỷ lệ cam kết (commit rates) và các cuộc thảo luận xung quanh mã nguồn hoặc giấy phép (thường là mã nguồn mở, phát triển từ mã nguồn ban đầu của Diem), hãy tham khảo các kho lưu trữ GitHub chính thức của Aptos, các diễn đàn cộng đồng nhà phát triển và các nền tảng phân tích blockchain."
+          },
+          {
+            "id": "State bloat là gì? Aptos xử lý nó như thế nào?",
+            "question": "\"Sự phình to của hệ thống\" trong blockchain là gì, và Aptos dự định quản lý nó như thế nào?",
+            "answer": "Sự phình to của hệ thống (state bloat) đề cập đến sự gia tăng liên tục của dữ liệu mà các nút đầy đủ (full nodes) phải lưu trữ và xử lý, điều này có thể dẫn đến yêu cầu phần cứng cao hơn và sự tập trung hóa theo thời gian. Aptos được thiết kế với các giải pháp giảm thiểu như cấu trúc dữ liệu tối ưu cho trạng thái sổ cái (Jellyfish Merkle Tree) và đã nghiên cứu các khái niệm như \"state rent\" hoặc \"sharding nâng cao\" để quản lý sự gia tăng trạng thái một cách hiệu quả."
+          },
+          {
+            "id": "Nguyên nhân gây suy giảm hiệu suất của dev-aptos-vm",
+            "question": "Những nguyên nhân tiềm ẩn nào có thể gây ra sự suy giảm hiệu suất của Aptos VM và các nhà phát triển hoặc nhà điều hành nút có thể giải quyết chúng như thế nào?",
+            "answer": "Mã hợp đồng thông minh không hiệu quả (lógica phức tạp, sử dụng bộ nhớ lớn), khối lượng giao dịch lớn hoặc xung đột trạng thái cao. Viết mã Move hiệu quả (tối ưu hóa thuật toán, giảm thiểu truy cập bộ nhớ)."
+          }
+        ]
+      },
+      {
+        "title": "Cơ bản về Staking",
+        "questions": [
+          {
+            "id": "Aptos là gì? Apt Staking là gì?",
+            "question": "Aptos (APT) staking là gì và tại sao nó quan trọng?",
+            "answer": "Staking Aptos (APT) là quá trình mà chủ sở hữu token khóa token APT của mình để tham gia tích cực vào cơ chế đồng thuận Proof-of-Stake (PoS) của mạng lưới. Bằng cách ủy quyền token cho một validator như https://aptcore.one, người staking giúp bảo mật mạng lưới, xác thực giao dịch và nhận phần thưởng staking. Điều này rất quan trọng đối với sức khỏe và tính phi tập trung của mạng lưới."
+          },
+          {
+            "id": "Cách hoạt động của việc staking Aptos",
+            "question": "Bạn có thể giải thích cơ chế cơ bản của việc staking Aptos hoạt động như thế nào không?",
+            "answer": "Trong Aptos, chủ sở hữu APT có thể ủy quyền token của mình cho một validator được chọn (ví dụ: aptcore.one) hoặc một pool ủy quyền. Các validator này sử dụng tổng số token được ủy quyền để tham gia vào quá trình đồng thuận: xác thực giao dịch và đề xuất các khối mới. Tham gia thành công sẽ nhận được phần thưởng, sau đó được phân phối tỷ lệ thuận cho validator và các delegator của họ, sau khi trừ đi phí validator. Aptos còn có mô hình \"chủ sở hữu - người vận hành - người bỏ phiếu\" tách biệt các vai trò để tăng cường bảo mật trong các hoạt động staking."
+          },
+          {
+            "id": "Lợi ích của việc staking Aptos (APT) là gì?",
+            "question": "Những lợi ích chính của việc staking token Aptos (APT) là gì?",
+            "answer": "Các lợi ích chính của việc staking APT bao gồm: 1. **Nhận phần thưởng:** Bạn sẽ nhận được thêm APT như phần thưởng cho việc giúp bảo mật mạng lưới. 2. **Bảo mật mạng lưới:** Việc staking của bạn góp phần vào tính bảo mật và tính toàn vẹn của blockchain Aptos. 3. **Ngăn chặn sự pha loãng:** Khi các token mới được mint để làm phần thưởng, việc staking giúp duy trì hoặc tăng tỷ lệ sở hữu của bạn trong mạng lưới. 4. **Hỗ trợ các validator:** Bạn có thể hỗ trợ các validator như [aptcore.one](https://aptcore.one) mà bạn đồng tình với tầm nhìn và dịch vụ của họ."
+          },
+          {
+            "id": "Khi tôi stake Apt, điều gì sẽ xảy ra?",
+            "question": "Khi tôi staking APT, kỹ thuật xảy ra gì với APT của tôi?",
+            "answer": "Khi bạn staking APT, bạn thực chất đang giao quyền \"phiếu bầu\" của mình cho một validator. Các token sẽ bị khóa trong hợp đồng staking trên blockchain và không thể sử dụng cho mục đích khác. Chúng vẫn nằm trong quyền sở hữu của bạn nếu sử dụng phương pháp staking không lưu ký, nhưng đã được cam kết cho validator mà bạn đã chọn."
+          },
+          {
+            "id": "đã được đặt cược và khóa apt",
+            "question": "Các token APT của tôi có bị khóa khi tôi staking chúng không?",
+            "answer": "Đúng vậy, khi bạn staking APT, các token đó sẽ bị khóa và không thể chuyển nhượng hoặc sử dụng cho các giao dịch khác. Để làm cho chúng trở lại trạng thái có thể sử dụng, bạn phải khởi động quá trình unstaking, bao gồm một \"thời gian unbonding\" trước khi các token có thể được rút về ví của bạn."
+          },
+          {
+            "id": "Mô hình bỏ phiếu chủ sở hữu và người vận hành trong Aptos là gì?",
+            "question": "Mô hình \"chủ sở hữu - người vận hành - người bỏ phiếu\" trong staking của Aptos là gì và lợi ích của nó?",
+            "answer": "Mô hình Chủ sở hữu - Người vận hành - Người bỏ phiếu trong Aptos tách biệt các vai trò chính trong hoạt động staking để nâng cao tính bảo mật và linh hoạt: * **Chủ sở hữu:** Tài khoản nắm giữ quỹ APT đã staking. * **Người vận hành:** Tài khoản được ủy quyền quản lý các hoạt động kỹ thuật của nút xác thực (ví dụ: cập nhật khóa, tham gia/rời khỏi tập hợp nút xác thực).\n* **Người bỏ phiếu:** Tài khoản được ủy quyền tham gia bỏ phiếu quản trị trên chuỗi bằng các token đã staking. Sự tách biệt này cho phép chủ sở hữu ủy quyền các nhiệm vụ vận hành cho một nhà điều hành đáng tin cậy và các nhiệm vụ bỏ phiếu cho một thực thể khác (hoặc giữ lại chúng) mà không trao cho họ quyền kiểm soát trực tiếp đối với các quỹ đã staking."
+          }
+        ]
+      },
+      {
+        "title": "Quy trình và yêu cầu về staking",
+        "questions": [
+          {
+            "id": "Làm thế nào để stake APT?",
+            "question": "Các bước chung để staking token APT của tôi là gì?",
+            "answer": "Để staking APT: 1. Đảm bảo bạn có APT trong ví tương thích với Aptos (ví dụ: Petra). 2. Chọn nhà cung cấp staking hoặc validator, như [aptcore.one](https://aptcore.one). 3. Sử dụng ví của bạn để kết nối với giao diện staking của nhà cung cấp đã chọn. 4. Chọn số lượng APT bạn muốn ủy quyền. 5. Xác nhận và hoàn tất giao dịch staking. Luôn đảm bảo bạn đang tương tác với các nền tảng hợp pháp."
+          },
+          {
+            "id": "Số tiền tối thiểu cần thiết để bắt đầu staking Apt là bao nhiêu?",
+            "question": "Số lượng APT tối thiểu cần thiết để bắt đầu staking (đặt cược) là bao nhiêu?",
+            "answer": "Số lượng APT tối thiểu cần thiết để ủy quyền cho một validator có thể thay đổi tùy thuộc vào validator hoặc nền tảng staking. Một số nền tảng cho phép staking với chỉ 10 hoặc 11 APT. Tuy nhiên, để một validator node trở thành thành viên hoạt động trong tập hợp đồng thuận, nó cần tổng số APT staked là 1 triệu APT. Vui lòng kiểm tra [aptcore.one](https://aptcore.one) để biết số lượng ủy quyền tối thiểu cụ thể của chúng tôi."
+          },
+          {
+            "id": "Số lượng tối thiểu cần thêm để đủ điều kiện tham gia staking",
+            "question": "Nếu tôi đã staking APT và muốn staking thêm APT, số lượng tối thiểu là bao nhiêu?",
+            "answer": "Số lượng tối thiểu để thêm APT vào một khoản staking hiện có thường rất thấp, thường dưới 1 APT, nhưng điều này có thể thay đổi tùy thuộc vào nền tảng staking hoặc giao diện ví mà bạn đang sử dụng."
+          },
+          {
+            "id": "Số tiền tối thiểu phải có trong ví",
+            "question": "Tôi có cần giữ một số lượng tối thiểu APT trong ví của mình khi staking không?",
+            "answer": "Thông thường, nên giữ một lượng nhỏ APT (ví dụ: 0,05 APT hoặc nhiều hơn) dưới dạng tiền mặt trong ví của bạn. Điều này nhằm mục đích chi trả phí giao dịch mạng cho các thao tác trong tương lai, chẳng hạn như staking thêm APT, unstaking hoặc nhận thưởng (nếu quy trình cụ thể yêu cầu nhận thưởng thủ công)."
+          },
+          {
+            "id": "Có phí giao dịch khi staking Apt không?",
+            "question": "Có phí giao dịch nào liên quan đến việc staking, unstaking hoặc nhận phần thưởng APT không?",
+            "answer": "Đúng vậy, tất cả các giao dịch trên blockchain Aptos, bao gồm staking, unstaking và (nếu có) nhận phần thưởng, đều là các giao dịch yêu cầu phí mạng. Các phí này được thanh toán bằng APT và dùng để chi trả cho tài nguyên tính toán được sử dụng bởi mạng lưới."
+          },
+          {
+            "id": "Nền tảng xác thực nào đang chuyển giao quỹ cho",
+            "question": "Nếu tôi sử dụng ví hoặc nền tảng của bên thứ ba để staking, làm thế nào để biết APT của tôi được ủy quyền cho validator nào?",
+            "answer": "Một số ví hoặc nền tảng có thể tự động ủy quyền APT của bạn cho một validator đối tác cụ thể (ví dụ: Exodus trước đây đã sử dụng Everstake). Tốt nhất, nền tảng nên hiển thị rõ ràng validator nào đang nhận ủy quyền cho quỹ của bạn. Khi staking trực tiếp với một dịch vụ như [aptcore.one](https://aptcore.one), bạn đang chọn chúng tôi làm validator của mình."
+          },
+          {
+            "id": "Thời gian cần thiết để quá trình staking hoàn tất là bao lâu?",
+            "question": "Sau khi tôi thực hiện giao dịch staking, mất bao lâu để APT của tôi được coi là đã staking hoàn toàn và bắt đầu kiếm được phần thưởng?",
+            "answer": "Sau khi giao dịch staking của bạn được xác nhận trên blockchain Aptos, APT của bạn thường sẽ được staking hoàn toàn và đủ điều kiện để nhận phần thưởng vào đầu epoch tiếp theo. Một epoch trên Aptos kéo dài khoảng hai giờ."
+          },
+          {
+            "id": "Tiền có được chuyển ra khỏi ví khi staking không?",
+            "question": "Khi tôi staking APT bằng một giải pháp không lưu trữ, liệu số tiền của tôi có được chuyển ra khỏi ví của tôi sang một ví khác không?",
+            "answer": "Với hình thức staking không lưu ký, các token APT của bạn thường được ủy quyền cho một hợp đồng thông minh liên kết với validator mà bạn chọn. Trong thời gian token bị khóa và cam kết cho staking, bạn vẫn giữ quyền sở hữu và kiểm soát thông qua khóa riêng tư của ví. Số tiền không được chuyển vào ví cá nhân của validator; bạn luôn có quyền duy nhất để thực hiện việc rút staking."
+          },
+          {
+            "id": "Tôi có thể chọn số tiền trong ví để stake Apt không?",
+            "question": "Tôi có thể chọn chỉ stake một phần số dư ví APT của mình không?",
+            "answer": "Đúng vậy, thông thường, bạn có thể chọn số lượng APT cụ thể từ số dư ví khả dụng của mình để staking. Tuy nhiên, điều này phụ thuộc vào các yêu cầu về số lượng staking tối thiểu do mạng lưới hoặc nền tảng staking/validator cụ thể mà bạn đang sử dụng quy định, ví dụ như."
+          },
+          {
+            "id": "Tại sao trình xác thực APT của tôi không hoạt động?",
+            "question": "Tôi đã giao nhiệm vụ cho một trình xác thực APT, nhưng trạng thái hiển thị là \"không hoạt động\". Tại sao lại xảy ra điều này?",
+            "answer": "Một validator có thể không hoạt động nếu tổng số cổ phần được đóng góp (từ nhà điều hành và tất cả các delegator) chưa đạt đến ngưỡng tối thiểu yêu cầu bởi giao thức Aptos (hiện tại là 1 triệu APT) để tham gia vào tập validator hoạt động. Nó sẽ ở trạng thái chờ cho đến khi đạt được ngưỡng này và có thể trở thành validator hoạt động tại thời điểm thay đổi epoch."
+          }
+        ]
+      },
+      {
+        "title": "Phần thưởng staking",
+        "questions": [
+          {
+            "id": "Tần suất phân phối phần thưởng staking Aptos",
+            "question": "Tần suất phân phối phần thưởng staking Aptos cho người staking là bao lâu một lần?",
+            "answer": "Phần thưởng staking của Aptos được tính toán và phân phối vào cuối mỗi epoch. Một epoch trên Aptos hiện tại kéo dài khoảng hai giờ (7200 giây). Bạn có thể theo dõi phần thưởng của mình tại [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Lợi nhuận staking Are-Aptos được tự động tái đầu tư",
+            "question": "Lợi nhuận staking của tôi trên Aptos có được tự động tái đầu tư không?",
+            "answer": "Đúng vậy, trên mạng lưới Aptos, phần thưởng staking thường được tự động tái đầu tư. Điều này có nghĩa là phần thưởng bạn kiếm được sẽ tự động được cộng vào số tiền staking ban đầu của bạn, và các phần thưởng sau đó sẽ được tính dựa trên số tiền staking mới, lớn hơn này."
+          },
+          {
+            "id": "Khi nào tôi sẽ bắt đầu nhận được phần thưởng sau khi staking Apt?",
+            "question": "Tôi sẽ bắt đầu nhận thưởng sau khi staking APT của mình vào lúc nào?",
+            "answer": "Bạn sẽ bắt đầu nhận phần thưởng sau khi việc ủy quyền APT của bạn trở nên hoạt động, điều này thường xảy ra vào đầu epoch tiếp theo sau giao dịch staking của bạn (một epoch kéo dài khoảng 2 giờ). Phần thưởng sẽ được tích lũy trong epoch đó và được phân phối vào cuối epoch."
+          },
+          {
+            "id": "Tôi có cần phải yêu cầu phần thưởng của mình không?",
+            "question": "Tôi có cần phải yêu cầu phần thưởng staking APT của mình một cách thủ công không?",
+            "answer": "Không, thông thường bạn không cần phải yêu cầu thủ công phần thưởng staking APT. Nhờ tính năng tự động tái đầu tư của mạng Aptos, phần thưởng sẽ được tự động cộng vào số dư staking của bạn mỗi epoch."
+          },
+          {
+            "id": "Cách tính thưởng staking của Aptos được thực hiện như thế nào? Chi tiết",
+            "question": "Bạn có thể cung cấp thêm chi tiết về cách tính thưởng staking của Aptos không?",
+            "answer": "Phần thưởng staking bị ảnh hưởng bởi nhiều yếu tố: tỷ lệ phần thưởng tổng thể của mạng lưới (APY), tổng số APT bạn đã staking, hiệu suất của validator đã chọn (thời gian hoạt động và tỷ lệ thành công trong việc đề xuất khối), và tỷ lệ hoa hồng do validator thu. Càng staking nhiều và hiệu suất validator càng cao, phần thưởng càng lớn, trừ đi hoa hồng của validator. Để biết chi tiết về phí và hiệu suất của aptcore.one, vui lòng truy cập [trang staking của chúng tôi trên aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Tỷ lệ phần thưởng APY cho việc staking Apt",
+            "question": "Hiện tại, tỷ lệ phần thưởng (rewards_rate) hoặc Lãi suất hàng năm (APY) cho việc staking APT là bao nhiêu?",
+            "answer": "Tỷ lệ phần thưởng staking tối đa trên Aptos bắt đầu từ 7% hàng năm và được thiết kế để giảm 1,5% mỗi năm cho đến khi đạt mức tối thiểu 3,25% hàng năm (việc giảm này diễn ra trong nhiều năm). Tỷ lệ APY thực tế mà bạn nhận được cũng phụ thuộc vào phí xác thực và hiệu suất của validator. Để xem ước tính APY hiện tại với aptcore.one, vui lòng truy cập [trang tính toán staking của chúng tôi trên aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "NRR là gì? Tỷ lệ thưởng mạng lưới Aptos",
+            "question": "NRR (Tỷ lệ phần thưởng mạng) trong mạng Aptos có nghĩa là gì?",
+            "answer": "NRR (Tỷ lệ Phần thưởng Mạng) là tỷ lệ tổng cộng mà các token APT mới được đúc và phân phối dưới dạng phần thưởng trên toàn bộ mạng Aptos cho tất cả các nhà staker và validator tham gia, nhằm ghi nhận đóng góp của họ vào an ninh mạng và quá trình đồng thuận, trước khi tính đến hiệu suất cá nhân của validator hoặc các khoản hoa hồng."
+          },
+          {
+            "id": "Phần thưởng cho người xác thực có bị khóa không? - Aptos",
+            "question": "Các phần thưởng mà các validator kiếm được có bị khóa trong một khoảng thời gian nhất định không?",
+            "answer": "Đúng vậy, phần thưởng mà các validator kiếm được (bao gồm cả phần stake của chính họ và phần thuộc về các delegator trước khi trừ phí) thường được cộng vào số tiền stake ban đầu của họ. Do đó, các phần thưởng này cũng chịu các điều kiện khóa và giải khóa tương tự như số tiền stake ban đầu cho đến khi quá trình giải stake được khởi động."
+          },
+          {
+            "id": "Cách tính cân bằng trong epoch n và phân phối phần thưởng trên Aptos",
+            "question": "Trong quá trình phân phối phần thưởng ở Epoch N, số dư nào được sử dụng để tính toán?",
+            "answer": "Thông thường, phần thưởng được phân phối vào cuối Epoch N được tính dựa trên số dư staking hoạt động tại thời điểm bắt đầu Epoch N (đây thực chất là số dư tại cuối Epoch N-1, sau khi phần thưởng trước đó đã được tính lãi)."
+          },
+          {
+            "id": "Cách thanh toán hoa hồng cho các nhà điều hành xác thực trên Aptos",
+            "question": "Phí hoa hồng thực tế được thanh toán cho các validator hoặc nhà cung cấp dịch vụ staking như thế nào?",
+            "answer": "Các trình xác thực hoặc dịch vụ staking như [aptcore.one](https://aptcore.one) thiết lập tỷ lệ hoa hồng. Tỷ lệ phần trăm này sẽ được tự động trừ vào phần thưởng tổng mà các nhà ủy quyền nhận được từ số stake của họ trước khi phần thưởng ròng được cộng dồn vào số dư stake của các nhà ủy quyền mỗi epoch. Phần hoa hồng thu được sau đó sẽ được tích lũy vào tài khoản của trình xác thực."
+          }
+        ]
+      },
+      {
+        "title": "Quy trình giải khóa và khóa tài sản",
+        "questions": [
+          {
+            "id": "Làm thế nào để hủy đặt cược trên apt?",
+            "question": "Các bước để rút APT tokens của tôi là gì?",
+            "answer": "Để rút APT, bạn thường sử dụng giao diện của ví hoặc nền tảng staking (như [bảng điều khiển của aptcore.one](https://aptcore.one)) nơi bạn đã staking token ban đầu. Bạn sẽ tìm tùy chọn \"unstake\", \"unlock\" hoặc \"withdraw stake\", nhập số lượng (nếu hỗ trợ rút một phần) và xác nhận giao dịch. Điều này sẽ khởi động giai đoạn giải phóng token."
+          },
+          {
+            "id": "Có giai đoạn không thể rút vốn trên Aptos không?",
+            "question": "Có thời gian khóa (không thể rút) khi tôi quyết định rút Aptos (APT) của mình không?",
+            "answer": "Đúng, mạng lưới Aptos có giai đoạn không khóa. Khi bạn yêu cầu rút APT, các token sẽ chuyển vào giai đoạn này, trong đó chúng không còn kiếm được phần thưởng staking mới nhưng vẫn chưa thể chuyển nhượng hoặc sử dụng."
+          },
+          {
+            "id": "Thời gian rút vốn trên Aptos là bao lâu?",
+            "question": "Thời gian giải phóng (unstaking/unbonding) cho Aptos là bao lâu? Khi nào APT của tôi sẽ có sẵn sau khi giải phóng?",
+            "answer": "Thời gian khóa không thể rút tiền trên Aptos được xác định bởi hệ thống quản trị trên chuỗi và thường kéo dài khoảng 14 ngày. Các token APT của bạn sẽ có thể rút sau khi kết thúc khoảng thời gian 14 ngày này, thường trùng với thời điểm kết thúc chu kỳ khóa cụ thể mà khoản stake của bạn tham gia khi bạn bắt đầu quá trình rút tiền."
+          },
+          {
+            "id": "Cách thức hoạt động của việc rút vốn trên Aptos - Hướng dẫn chi tiết",
+            "question": "Bạn có thể giải thích chi tiết hơn về quy trình rút vốn khỏi Aptos không?",
+            "answer": "Khi bạn khởi tạo yêu cầu rút APT đã staking, số lượng APT đã staking mà bạn chỉ định (cùng với bất kỳ phần thưởng tự động tái đầu tư nào liên quan đến số vốn gốc đó) sẽ được đánh dấu để giải phóng. Các token này sẽ ngừng kiếm thêm phần thưởng mới. Chúng sẽ bị khóa trong suốt thời gian khóa chuỗi hiện tại (ví dụ: 14 ngày). Sau khi thời gian này kết thúc, bạn thường phải thực hiện giao dịch \"rút\" cuối cùng để chuyển APT đã được giải khóa trở lại số dư ví thanh khoản của bạn."
+          },
+          {
+            "id": "Tôi có thể rút một phần số tiền đã staking trên Aptos không?",
+            "question": "Tôi có thể rút một phần số APT đã stake của mình hay phải rút hết toàn bộ?",
+            "answer": "Khả năng thực hiện việc rút một phần tiền đặt cọc phụ thuộc vào hợp đồng thông minh đặt cọc cụ thể hoặc giao diện được cung cấp bởi ví của bạn hoặc nền tảng đặt cọc. Một số giải pháp cho phép bạn chỉ định số tiền muốn rút (tuân thủ các giới hạn tối thiểu), trong khi những giải pháp khác có thể yêu cầu rút toàn bộ số tiền đặt cọc liên quan đến một ủy quyền cụ thể hoặc mục đặt cọc trong pool."
+          },
+          {
+            "id": "Tôi có cần phải yêu cầu lại các gói apt chưa được stake sau khi thời gian kết thúc không?",
+            "question": "Sau khi thời gian không khóa kết thúc, tôi có cần phải yêu cầu rút APT chưa được khóa để chuyển nó thành tiền mặt không?",
+            "answer": "Đúng vậy, trên Aptos, sau khi APT đã được staking hoàn tất giai đoạn unlock (thời gian khóa), bạn cần thực hiện một giao dịch bổ sung để \"rút\" hoặc \"nhận\" các token đã được unlock. Bước cuối cùng này sẽ chuyển các token từ hợp đồng staking trở lại số dư ví chính của bạn, cho phép bạn sử dụng chúng."
+          },
+          {
+            "id": "Làm thế nào để tôi rút tiền từ tài khoản APT chưa được staking và chưa được khóa?",
+            "question": "Sau khi APT của tôi được giải khóa và thời gian khóa kết thúc, tôi cần làm gì để rút số tiền đó về số dư có thể sử dụng của mình?",
+            "answer": "Sau khi thời gian khóa đã kết thúc, bạn cần quay lại ví của mình hoặc nền tảng staking mà bạn đã sử dụng (ví dụ: [bảng điều khiển của aptcore.one](https://aptcore.one)) và tìm tùy chọn \"rút stake\" hoặc \"nhận APT đã mở khóa\". Thực hiện giao dịch này sẽ chuyển APT vào số dư ví thanh khoản của bạn."
+          },
+          {
+            "id": "Có - Khoản đầu tư không bị khóa có tiếp tục kiếm được phần thưởng trên Aptos không?",
+            "question": "Trong thời gian giải phóng (mở khóa), phần stake của tôi có tiếp tục kiếm được phần thưởng không?",
+            "answer": "Không, thông thường, sau khi bạn khởi tạo yêu cầu rút staking và APT của bạn bước vào giai đoạn giải phóng, nó sẽ ngừng tích lũy phần thưởng staking mới. Bất kỳ phần thưởng nào đã kiếm được cho đến thời điểm khởi tạo yêu cầu rút staking sẽ thường được giải phóng cùng với số tiền gốc của bạn."
+          },
+          {
+            "id": "Khi nào trình xác thực có thể yêu cầu mở khóa cổ phần trên Aptos?",
+            "question": "Khi nào một nhà điều hành validator có thể yêu cầu mở khóa cổ phần của họ (hoặc của pool của họ)?",
+            "answer": "Người vận hành trình xác thực có thể gửi yêu cầu để mở khóa phần stake của mình (hoặc một phần của nó, nếu được hỗ trợ bởi cài đặt của pool) vào bất kỳ thời điểm nào. Tuy nhiên, tương tự như người ủy quyền, APT đã stake chỉ có thể được rút sau khi thời gian khóa trên chuỗi hiện tại (ví dụ: 14 ngày kể từ lần khóa cuối cùng cho phần stake đó) đã hết hạn."
+          }
+        ]
+      },
+      {
+        "title": "Rủi ro và bảo mật khi staking",
+        "questions": [
+          {
+            "id": "Liệu việc staking Apt có an toàn không?",
+            "question": "Độ an toàn của việc staking APT với một validator như aptcore.one là như thế nào?",
+            "answer": "Staking APT tiềm ẩn một số rủi ro, nhưng việc chọn một validator uy tín như [aptcore.one](https://aptcore.one) có thể giảm thiểu một số rủi ro đó. Với staking không lưu ký, bạn giữ quyền kiểm soát các khóa riêng tư của mình, nghĩa là validator không thể truy cập trực tiếp vào quỹ của bạn. Tuy nhiên, các rủi ro bao gồm: 1. **Rủi ro thị trường:** Giá của APT có thể biến động. 2. **Rủi ro bị trừ phần thưởng:** (Xem câu hỏi tiếp theo). 3. **Thời gian ngừng hoạt động của validator:** Nếu validator có thời gian hoạt động kém, điều này có thể ảnh hưởng đến phần thưởng của bạn. 4. **Lỗi hợp đồng thông minh:** Mặc dù Move được thiết kế để đảm bảo an toàn, nhưng không có phần mềm nào hoàn toàn không có rủi ro. Chúng tôi tại aptcore.one ưu tiên bảo mật và hiệu quả hoạt động. Tìm hiểu thêm tại [aptcore.one](https://aptcore.one)."
+          },
+          {
+            "id": "Có rủi ro bị cắt giảm trên Aptos không?",
+            "question": "Có rủi ro \"slashing\" khi staking Aptos (APT) không? Đó là gì?",
+            "answer": "Slashing là một cơ chế phạt trong các blockchain Proof-of-Stake, trong đó một validator (và do đó cả những người ủy quyền cho họ) có thể mất một phần token đã stake do hành vi gian lận (như ký giao dịch hai lần) hoặc thời gian ngừng hoạt động kéo dài. Mặc dù giao thức Aptos được thiết kế với khả năng áp dụng slashing, việc kích hoạt và các điều kiện cụ thể của nó phụ thuộc vào quản trị trên chuỗi. Để giảm thiểu rủi ro này nếu cơ chế slashing đang hoạt động, điều quan trọng là kiểm tra các thông số mạng hiện tại và chọn một validator đáng tin cậy như [aptcore.one](https://aptcore.one)."
+          }
+        ]
+      },
+      {
+        "title": "Hoạt động Staking Nâng cao & Quản lý Validator",
+        "questions": [
+          {
+            "id": "Các trạng thái khác nhau mà trình xác thực có thể ở trong Aptos là gì?",
+            "question": "Các trạng thái hoạt động khác nhau mà một validator Aptos có thể ở trong là gì?",
+            "answer": "Một validator Aptos có thể ở một trong các trạng thái sau: - `Đã đăng ký`: Tài khoản validator đã được tạo trên chuỗi nhưng chưa tham gia vào bất kỳ tập hợp nào. - `Không hoạt động`: Validator có pool stake nhưng không đáp ứng yêu cầu stake tối thiểu để tham gia tập hợp hoạt động, hoặc đã bị loại bỏ. - `Đang chờ hoạt động`: Validator đáp ứng yêu cầu stake tối thiểu và đang chờ tham gia tập hợp validator hoạt động ở epoch tiếp theo.\n- `Hoạt động`: Validator hiện đang tham gia vào quá trình đồng thuận mạng và kiếm được phần thưởng. - `Đang chờ không hoạt động`: Validator đã yêu cầu rời khỏi tập hợp validator hoạt động, hoặc stake của họ đã giảm xuống dưới mức tối thiểu, và đang chờ trở thành không hoạt động tại epoch tiếp theo."
+          },
+          {
+            "id": "Cách trình xác thực chuyển đổi giữa các trạng thái trong Aptos",
+            "question": "Cách thức một validator Aptos chuyển đổi giữa các trạng thái hoạt động khác nhau như thế nào?",
+            "answer": "Các validator chuyển đổi giữa các trạng thái chủ yếu tại các mốc thời gian epoch. Ví dụ: - Tham gia: Một operator đăng ký, chủ sở hữu đặt cọc, và nếu đáp ứng các yêu cầu tối thiểu, validator chuyển sang `pending_active`, sau đó sang `active`.\n- Rời khỏi: Một nhà điều hành yêu cầu rời khỏi, chuyển sang `pending_inactive`, sau đó `inactive`. - Rời khỏi bắt buộc: Nếu số stake của một validator hoạt động giảm xuống dưới mức tối thiểu, nó sẽ chuyển trực tiếp sang `inactive`. Các chuyển đổi này được quản lý bởi giao thức Aptos dựa trên hành động của nhà điều hành, mức stake và quản trị."
+          },
+          {
+            "id": "Nếu số cổ phần của validator giảm xuống dưới mức tối thiểu, điều gì sẽ xảy ra trên Aptos?",
+            "question": "Nếu tổng số cổ phần của một validator đang hoạt động giảm xuống dưới mức tối thiểu do mạng Aptos yêu cầu, thì sẽ xảy ra điều gì?",
+            "answer": "Nếu tổng số cổ phần (bao gồm tất cả các khoản ủy quyền) của một validator đang hoạt động giảm xuống dưới mức tối thiểu của mạng (hiện tại là 1 triệu APT), validator đó sẽ được chuyển từ trạng thái `active` sang trạng thái `inactive` trong lần thay đổi epoch tiếp theo. Validator đó sẽ ngừng tham gia vào quá trình đồng thuận và ngừng nhận phần thưởng cho đến khi tổng số cổ phần của họ đạt lại mức tối thiểu và họ được đưa trở lại tập hợp validator hoạt động."
+          },
+          {
+            "id": "Giới hạn tối thiểu và tối đa của số token cần thiết để trở thành validator trên Aptos là bao nhiêu?",
+            "question": "Số tiền đặt cọc tối thiểu và tối đa mà một validator Aptos cần để hoạt động và kiếm được phần thưởng một cách hiệu quả là bao nhiêu?",
+            "answer": "Để tham gia và duy trì vị trí trong tập hợp validator hoạt động trên Aptos, một validator phải có tổng số stake tối thiểu là 1 triệu APT. Ngoài ra, mỗi validator còn có giới hạn stake hiệu quả tối đa, hiện tại là 50 triệu APT. Số stake vượt quá giới hạn này sẽ không đóng góp thêm vào sức mạnh bỏ phiếu hoặc phần thưởng của validator."
+          },
+          {
+            "id": "Nếu số cổ phần của validator vượt quá giới hạn tối đa của Aptos, điều gì sẽ xảy ra?",
+            "question": "Nếu tổng số tiền đã stake của một validator vượt quá giới hạn stake hiệu quả tối đa, thì điều gì sẽ xảy ra?",
+            "answer": "Nếu tổng số cổ phần của một validator (ví dụ: 60 triệu APT) vượt quá giới hạn cổ phần hiệu quả tối đa (ví dụ: 50 triệu APT), quyền biểu quyết của validator đó trong quá trình đồng thuận và phần thưởng mạng lưới mà validator đó nhận được sẽ được tính toán như thể cổ phần của validator đó chỉ ở mức giới hạn tối đa. Số stake vượt quá giới hạn tối đa sẽ không mang lại phần thưởng bổ sung hoặc ảnh hưởng bỏ phiếu cho nút validator cụ thể đó. Người ủy quyền cho validator đó có thể nhận được phần thưởng bị pha loãng nhẹ nếu validator không quản lý pool của mình hiệu quả."
+          },
+          {
+            "id": "Cách nhà điều hành tham gia tập hợp trình xác thực trong Aptos",
+            "question": "Các bước mà một nhà điều hành mới cần thực hiện để thiết lập một nút và tham gia vào tập hợp validator của Aptos là gì?",
+            "answer": "Để tham gia vào tập hợp validator của Aptos, một nhà điều hành thường cần thực hiện các bước sau: 1. Thiết lập hạ tầng vật lý hoặc đám mây cho một nút validator và một nút FullNode (VFN). 2. Cài đặt và cấu hình phần mềm nút Aptos. 3. Tạo và đăng ký trên chuỗi các tài khoản và khóa cần thiết (chủ sở hữu, nhà điều hành, người bỏ phiếu, khóa đồng thuận, danh tính mạng). 4. Tài khoản chủ sở hữu phải stake số APT tối thiểu yêu cầu (1 triệu) vào pool stake của validator. 5. Nút phải đồng bộ hóa với blockchain. 6. Nếu tất cả các tiêu chí được đáp ứng, validator có thể được đặt thành `pending_active` và sẽ tham gia vào tập hợp validator hoạt động tại thời điểm thay đổi epoch."
+          },
+          {
+            "id": "can-validator-consensus-key-địa-chỉ-mạng-thay-đổi-aptos",
+            "question": "Liệu khóa đồng thuận hoặc địa chỉ mạng của một validator có thể được thay đổi sau khi chúng đã hoạt động không?",
+            "answer": "Đúng, một validator hoạt động có thể cập nhật khóa đồng thuận, địa chỉ mạng validator hoặc địa chỉ mạng fullnode bằng cách gửi một giao dịch trên chuỗi chứa thông tin mới. Các thay đổi này sẽ được xếp hàng và thường có hiệu lực tại ranh giới epoch tiếp theo để đảm bảo quá trình chuyển đổi diễn ra mượt mà mà không làm gián đoạn sự đồng thuận của mạng."
+          },
+          {
+            "id": "Kết nối trình xác thực với VFN, không ngược lại - Aptos",
+            "question": "Có thể cấu hình một nút Validator Aptos để khởi tạo kết nối đến nút VFN (Validator FullNode) của nó, thay vì nút VFN luôn kết nối đến Validator?",
+            "answer": "Cấu hình mạng tiêu chuẩn của Aptos bao gồm các nút Validator FullNodes (VFN) được cấu hình để kết nối với nút Validator liên quan của chúng, tạo thành một mạng lưới fullnode riêng tư nhằm đảm bảo tính khả dụng và bảo mật. Trong trường hợp các cấu trúc mạng đặc thù hoặc thay thế, nơi một nút Validator có thể khởi tạo kết nối ra ngoài đến các VFN của mình, bạn cần tham khảo tài liệu kỹ thuật nâng cao của Aptos hoặc liên hệ với cộng đồng phát triển Aptos để được tư vấn, vì đây không phải là cấu hình tiêu chuẩn."
+          },
+          {
+            "id": "Yêu cầu tối thiểu cho vòi tiền để tạo hợp đồng staking trên Aptos",
+            "question": "Khi thử nghiệm trên devnet/testnet, số lượng tối thiểu từ vòi (faucet) cần thiết cho hàm `stake::create_staking_contract` là bao nhiêu và làm thế nào để có được nó?",
+            "answer": "Khi tương tác với các hợp đồng staking trên mạng devnet hoặc testnet của Aptos (ví dụ: gọi hàm `stake::create_staking_contract`), bạn cần có một lượng nhỏ APT trên mạng testnet/devnet trong tài khoản để thanh toán phí gas. Số lượng chính xác thường rất nhỏ. Các token testnet này có thể được nhận miễn phí từ vòi APT chính thức của Aptos dành cho mạng cụ thể mà bạn đang sử dụng."
+          }
+        ]
+      }
+    ]
+  },
+  "layout": {
+    "header": {
+      "help": "Giúp đỡ",
+      "launch_app": "Khởi chạy ứng dụng",
+      "blog": "Blog",
+      "about": "Về",
+      "contact": "Liên hệ"
+    },
+    "footer": {
+      "product": {
+        "title": "Sản phẩm",
+        "stake": "Cổ phần",
+        "apy_calculator": "Máy tính lãi suất hàng năm (APY)",
+        "lockup_visualizer": "Trình hiển thị trạng thái khóa"
+      },
+      "company": {
+        "title": "Công ty",
+        "about": "Giới thiệu về chúng tôi",
+        "contact": "Liên hệ",
+        "disclaimer": "Lưu ý",
+        "terms": "Điều khoản"
+      },
+      "resources": {
+        "title": "Tài nguyên",
+        "blog": "Blog",
+        "faq": "Câu hỏi thường gặp",
+        "help_center": "Trung tâm Hỗ trợ"
+      },
+      "tagline": "Hạ tầng staking an toàn do các nhà phát triển chính của Aptos cung cấp — không có hình phạt cắt giảm phần thưởng từ ngày đầu tiên.",
+      "onchain": "Xác minh trên chuỗi khối"
+    }
+  }
+}

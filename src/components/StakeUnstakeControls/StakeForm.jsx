@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Loader2, ArrowDownToLine, ArrowUpFromLine } from 'lucide-react';
 
 const MIN_STAKE_APT = 11;
@@ -15,6 +16,8 @@ export default function StakeForm({
   setTxError,
   setTxResult,
 }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="flex w-full rounded-xl mb-4 bg-zinc-900/50 p-1 border border-zinc-800">
@@ -22,21 +25,21 @@ export default function StakeForm({
           onClick={() => setActiveTab('stake')}
           className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors duration-200 focus:outline-none ${
             activeTab === 'stake'
-              ? 'bg-zinc-700 text-white shadow' 
+              ? 'bg-zinc-700 text-white shadow'
               : 'text-zinc-400 hover:text-white'
           }`}
         >
-          Stake
+          {t('stakeForm.tabs.stake')}
         </button>
         <button
           onClick={() => setActiveTab('unstake')}
           className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors duration-200 focus:outline-none ${
             activeTab === 'unstake'
-              ? 'bg-zinc-700 text-white shadow' 
+              ? 'bg-zinc-700 text-white shadow'
               : 'text-zinc-400 hover:text-white'
           }`}
         >
-          Unstake
+          {t('stakeForm.tabs.unstake')}
         </button>
       </div>
 
@@ -45,7 +48,7 @@ export default function StakeForm({
           htmlFor="amount"
           className="block text-xs font-medium text-zinc-400 mb-1.5"
         >
-          {activeTab === 'stake' ? 'Amount to Stake' : 'Amount to Unstake'}
+          {activeTab === 'stake' ? t('stakeForm.labels.amountToStake') : t('stakeForm.labels.amountToUnstake')}
         </label>
         <div className="relative">
           <input
@@ -53,7 +56,7 @@ export default function StakeForm({
             id="amount"
             name="amount"
             className="w-full pr-24 px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 placeholder:text-zinc-500 text-zinc-100 text-lg transition-colors duration-200"
-            placeholder={`e.g., ${MIN_STAKE_APT}`}
+            placeholder={t('stakeForm.placeholders.amount', { minStake: MIN_STAKE_APT })}
             value={amountApt}
             onChange={(e) => {
               setAmountApt(e.target.value);
@@ -64,7 +67,7 @@ export default function StakeForm({
             step="any"
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-zinc-400 pointer-events-none">
-            Available
+            {t('stakeForm.labels.available')}
           </div>
         </div>
       </div>
@@ -86,14 +89,14 @@ export default function StakeForm({
             ) : (
               <ArrowDownToLine size={18} />
             )}
-            Stake APT
+            {t('stakeForm.buttons.stakeApt')}
           </button>
 
           {(!connected || !amountApt || parseFloat(amountApt) < MIN_STAKE_APT) && (
             <p className="text-xs text-zinc-400 text-center mt-3">
               {!connected
-                ? 'Connect wallet to enable staking'
-                : `Enter at least ${MIN_STAKE_APT} APT to enable`}
+                ? t('stakeForm.helpers.connectWallet')
+                : t('stakeForm.helpers.minAmount', { minStake: MIN_STAKE_APT })}
             </p>
           )}
         </>
@@ -108,7 +111,7 @@ export default function StakeForm({
           className="w-full flex items-center justify-center gap-x-3 px-5 py-3 bg-zinc-800/50 rounded-xl border border-white/10 text-sm font-semibold text-zinc-100 shadow-lg shadow-black/20 hover:bg-zinc-800/80 hover:border-white/20 active:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <ArrowUpFromLine size={18} />
-          Unstake APT
+          {t('stakeForm.buttons.unstakeApt')}
         </button>
       )}
     </>

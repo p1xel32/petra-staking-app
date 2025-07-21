@@ -1,0 +1,39 @@
+---
+import { getTranslations } from '../../i18n';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE, SITE_URL } from '../../consts';
+import astroConfig from '../../../astro.config.mjs';
+import BlogIndexPage from '../../components/BlogIndexPage.astro';
+
+const currentLocale = 'ru'; 
+
+const { defaultLocale, locales } = astroConfig.i18n;
+const t = getTranslations(currentLocale);
+
+const pageTitle = t.blog_index.pageTitle.replace('aptcore.one', SITE_TITLE);
+const pageDescription = t.blog_index.pageDescription;
+
+const canonicalURL = new URL(`/blog/${currentLocale}`, SITE_URL);
+const hreflangLinks = locales.map(locale => {
+    const path = locale === defaultLocale ? '/blog' : `/blog/${locale}`;
+    return { lang: locale, href: new URL(path, SITE_URL).href };
+});
+const xDefaultHref = new URL('/blog', SITE_URL).href;
+
+const now = new Date();
+now.setHours(0, 0, 0, 0);
+
+const posts = (await getCollection('blog'))
+  .filter(post => post.slug.startsWith(`${currentLocale}/`))
+  .filter(post => new Date(post.data.pubDate) <= now)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BlogIndexPage
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL.toString()}
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
+  posts={posts}
+  t={t}
+/>

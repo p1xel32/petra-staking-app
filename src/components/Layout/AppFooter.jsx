@@ -1,27 +1,41 @@
-// src/components/Layout/AppFooter.jsx
-
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { Twitter, Youtube, Github, Award } from 'lucide-react';
-import { PATHS, SOCIALS } from '@/config/consts.ts'; 
+import { PATHS, SOCIALS } from '@/config/consts';
 
 const AppFooter = () => {
+  const { t, i18n } = useTranslation();
   const currentYear = new Date().getFullYear();
+  const currentLang = i18n.language;
+  const defaultLang = 'en'; 
+
+  const getLocalizedPath = (path) => {
+    if (currentLang === defaultLang) {
+      return path;
+    }
+    if (path === '/') {
+        return `/${currentLang}`;
+    }
+    return `/${currentLang}${path}`;
+  };
 
   const productLinks = [
-    { label: "Stake", href: PATHS.home },
-    { label: "APY Calculator", href: PATHS.tools.apyCalculator },
-    { label: "Lockup Visualizer", href: PATHS.tools.lockupVisualizer },
+    { label: t('footer.productLinks.stake'), href: getLocalizedPath(PATHS.home) },
+    { label: t('footer.productLinks.apyCalculator'), href: getLocalizedPath(PATHS.tools.apyCalculator) },
+    { label: t('footer.productLinks.lockupVisualizer'), href: getLocalizedPath(PATHS.tools.lockupVisualizer) },
   ];
+
   const companyLinks = [
-    { label: "About Us", href: PATHS.about },
-    { label: "Contact", href: PATHS.contact },
-    { label: "Disclaimer", href: PATHS.legal.disclaimer },
-    { label: "Terms", href: PATHS.legal.terms },
+    { label: t('footer.companyLinks.about'), href: PATHS.about, isExternal: true },
+    { label: t('footer.companyLinks.contact'), href: PATHS.contact, isExternal: true },
+    { label: t('footer.companyLinks.disclaimer'), href: PATHS.legal.disclaimer, isExternal: true },
+    { label: t('footer.companyLinks.terms'), href: PATHS.legal.terms, isExternal: true },
   ];
   const resourcesLinks = [
-    { label: "Blog", href: PATHS.blog },
-    { label: "FAQ", href: PATHS.faq },
-    { label: "Help Center", href: PATHS.help },
+    { label: t('footer.resourcesLinks.blog'), href: PATHS.blog, isExternal: true },
+    { label: t('footer.resourcesLinks.faq'), href: PATHS.faq, isExternal: true },
+    { label: t('footer.resourcesLinks.help'), href: PATHS.help, isExternal: true },
   ];
   const socialLinks = [
     { label: "Twitter", href: SOCIALS.twitter, Icon: Twitter },
@@ -30,33 +44,42 @@ const AppFooter = () => {
     { label: "GitHub", href: SOCIALS.github, Icon: Github },
   ];
 
+  const FooterLink = ({ href, isExternal, children }) => (
+    <a
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      className="text-zinc-400 hover:text-purple-400 transition-colors"
+    >
+      {children}
+    </a>
+  );
+  
   return (
     <footer className="border-t border-zinc-800/50 mt-16">
       <div className="container mx-auto px-4 py-12">
-
-        {/* ✅ ИЗМЕНЕНИЕ ЗДЕСЬ: Заменяем сложную сетку на простую и центрированную */}
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10 text-left sm:text-center">
           <div className="space-y-3">
-            <h4 className="font-semibold text-zinc-200">Product</h4>
+            <h4 className="font-semibold text-zinc-200">{t('footer.product')}</h4>
             <ul className="space-y-2">
               {productLinks.map(link => (
-                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+                <li key={link.label}><FooterLink href={link.href}>{link.label}</FooterLink></li>
               ))}
             </ul>
           </div>
           <div className="space-y-3">
-            <h4 className="font-semibold text-zinc-200">Company</h4>
+            <h4 className="font-semibold text-zinc-200">{t('footer.company')}</h4>
             <ul className="space-y-2">
               {companyLinks.map(link => (
-                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+                <li key={link.label}><FooterLink href={link.href} isExternal={link.isExternal}>{link.label}</FooterLink></li>
               ))}
             </ul>
           </div>
           <div className="space-y-3">
-            <h4 className="font-semibold text-zinc-200">Resources</h4>
+            <h4 className="font-semibold text-zinc-200">{t('footer.resources')}</h4>
             <ul className="space-y-2">
               {resourcesLinks.map(link => (
-                <li key={link.label}><a href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors">{link.label}</a></li>
+                <li key={link.label}><FooterLink href={link.href} isExternal={link.isExternal}>{link.label}</FooterLink></li>
               ))}
             </ul>
           </div>
@@ -71,10 +94,10 @@ const AppFooter = () => {
             ))}
           </div>
           <div className="mb-4 text-xs space-y-1 text-zinc-400">
-            <p>Secure staking infrastructure by core Aptos contributors — no slashing since day one.</p>
-            <p>Verifiable On-chain</p>
+            <p>{t('footer.tagline.line1')}</p>
+            <p>{t('footer.tagline.line2')}</p>
           </div>
-          <p>© {currentYear} aptcore.one</p>
+          <p>{t('footer.rights', { year: currentYear })}</p>
         </div>
       </div>
     </footer>

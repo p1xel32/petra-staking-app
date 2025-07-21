@@ -1,29 +1,94 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 import BlogPostLayout from '../layouts/BlogPost.astro';
+import { SITE_URL } from '../consts';
+import astroConfig from '../../astro.config.mjs';
 
 export async function getStaticPaths() {
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
+  const { defaultLocale, locales } = astroConfig.i18n;
+  const allPosts = await getCollection('blog');
+  
+  const now = new Date();
+  const publishedPosts = allPosts.filter(post => {
+    if (post.data.draft) return false;
+    return import.meta.env.DEV ? true : new Date(post.data.pubDate) <= now;
+  });
 
-  const posts = await getCollection('blog');
-  const visiblePosts = posts.filter(post => {
-    const pubDate = new Date(post.data.pubDate);
-    pubDate.setHours(0, 0, 0, 0);
-    return pubDate <= now;
-  });
+  const getCleanSlug = (post) => {
+    if (post.data.slug) {
+      return post.data.slug;
+    }
+    const slugParts = post.slug.split('/');
+    const isLocalized = locales.includes(slugParts[0]);
+    return isLocalized ? slugParts.slice(1).join('/') : post.slug;
+  };
 
-  return visiblePosts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  return publishedPosts.map((post) => {
+    const postLang = locales.find(l => post.slug.startsWith(l + '/')) || defaultLocale;
+    
+    let pageSlug = post.slug;
+    if (postLang === defaultLocale) {
+        pageSlug = post.slug.replace(new RegExp(`^${defaultLocale}/`), '');
+    }
+
+    const key = post.data.translationKey;
+    
+    if (!key) {
+      const baseSlug = getCleanSlug(post);
+      return { params: { slug: pageSlug }, props: { post, hreflangLinks: [], xDefaultHref: undefined, baseSlug } };
+    }
+    
+    const translations = publishedPosts.filter(p => p.data.translationKey === key);
+    
+    const uniqueTranslationsByLang = new Map();
+    for (const t of translations) {
+        const lang = locales.find(l => t.slug.startsWith(l + '/')) || defaultLocale;
+        if (!uniqueTranslationsByLang.has(lang)) {
+            uniqueTranslationsByLang.set(lang, t);
+        }
+    }
+    const uniqueTranslations = Array.from(uniqueTranslationsByLang.values());
+
+    const hreflangLinks = uniqueTranslations.map(t => {
+      const lang = locales.find(l => t.slug.startsWith(l + '/')) || defaultLocale;
+      const cleanSlug = getCleanSlug(t);
+      const path = (lang === defaultLocale) ? `/blog/${cleanSlug}` : `/blog/${lang}/${cleanSlug}`;
+      return {
+        lang: lang,
+        href: new URL(path, SITE_URL).href
+      };
+    });
+
+    const xDefaultLink = hreflangLinks.find(link => link.lang === defaultLocale);
+    
+    const baseSlug = getCleanSlug(post);
+
+    return {
+      params: { slug: pageSlug }, 
+      props: {
+        post,
+        hreflangLinks,
+        xDefaultHref: xDefaultLink ? xDefaultLink.href : undefined,
+        baseSlug, 
+      },
+    };
+  });
 }
 
-type Props = CollectionEntry<'blog'>;
+const { post, hreflangLinks, xDefaultHref, baseSlug } = Astro.props;
+const htmlContent = await marked.parse(post.body);
+const lang = astroConfig.i18n.locales.find(l => post.slug.startsWith(l + '/')) || astroConfig.i18n.defaultLocale;
 
-const post = Astro.props;
-const { Content } = await post.render();
+const { defaultLocale } = astroConfig.i18n;
+const canonicalPath = lang === defaultLocale ? `/blog/${baseSlug}` : `/blog/${lang}/${baseSlug}`;
+const postUrl = new URL(canonicalPath, SITE_URL).href;
 ---
-<BlogPostLayout {...post.data}>
-  <Content />
-</BlogPostLayout>
+<BlogPostLayout
+  {...post.data}
+  lang={lang}
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
+  content={htmlContent}
+  canonicalUrl={postUrl}
+/>

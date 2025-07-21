@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node ./scripts/generate-sitemap.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -25,10 +26,12 @@
     "antd": "5.25.2",
     "ethers": "^5.7.2",
     "framer-motion": "10.12.5",
+    "i18next": "^25.3.2",
     "lucide-react": "^0.508.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
+    "react-i18next": "^15.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vike": "^0.4.231",
     "vike-react": "^0.6.4",
@@ -40,8 +43,10 @@
     "autoprefixer": "^10.4.14",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
+    "glob": "^11.0.3",
     "postcss": "^8.5.4",
     "rollup-plugin-visualizer": "^6.0.3",
+    "sitemap": "^8.0.0",
     "tailwindcss": "^3.3.2",
     "vite-plugin-cjs-interop": "^2.2.0",
     "vite-plugin-vercel": "^9.0.7"

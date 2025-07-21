@@ -1,30 +1,49 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import { fileURLToPath } from 'url'; 
-import remarkGfm from 'remark-gfm';
-import remarkSmartypants from 'remark-smartypants';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 export default defineConfig({
   site: 'https://aptcore.one',
   base: '/blog',
-  trailingSlash: 'never',
   integrations: [
-    mdx({
-      remarkPlugins: [remarkGfm, remarkSmartypants],
-      rehypePlugins: [],
+    mdx(),
+    tailwind({
+      applyBaseStyles: false,
     }),
-    tailwind(),
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          es: 'es-ES',
+          ja: 'ja-JP',
+          ko: 'ko-KR',
+          ru: 'ru-RU',
+          vi: 'vi-VN',
+        },
+      },
+    }),
     react(),
   ],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es', 'ja', 'ko', 'ru', 'vi'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
-    resolve: {
-      alias: {
-        '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
-      }
-    }
-  }
+    define: {
+      '__dirname': JSON.stringify(path.dirname(fileURLToPath(import.meta.url))),
+    },
+    build: {
+      rollupOptions: {
+        external: ['fsevents'],
+      },
+    },
+  },
 });

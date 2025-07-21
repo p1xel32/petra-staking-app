@@ -1,0 +1,423 @@
+{
+  "site": {
+    "title": "aptcore.one｜安全なアプトスのステーキング",
+    "description": "Aptosネットワークの安全で透明性の高い非保護ステーキング。信頼できるバリデーターでAPTリワードを獲得。"
+  },
+  "header": {
+    "nav": {
+      "blog": "ブログ",
+      "help": "ヘルプ"
+    },
+    "aria": {
+      "openMenu": "メインメニューを開く",
+      "closeMenu": "メインメニューを閉じる"
+    }
+  },
+  "footer": {
+    "product": "製品",
+    "productLinks": {
+      "stake": "ステーク",
+      "apyCalculator": "APY計算機",
+      "lockupVisualizer": "ロックアップ・ビジュアライザー"
+    },
+    "company": "会社概要",
+    "companyLinks": {
+      "about": "会社概要",
+      "contact": "連絡先",
+      "disclaimer": "免責事項",
+      "terms": "用語"
+    },
+    "resources": "リソース",
+    "resourcesLinks": {
+      "blog": "ブログ",
+      "faq": "よくあるご質問",
+      "help": "ヘルプセンター"
+    },
+    "tagline": {
+      "line1": "Aptosの中心的な貢献者による安全なステーキング・インフラストラクチャ - 初日からスラッシングはありません。",
+      "line2": "検証可能なオンチェーン"
+    },
+    "rights": "© {{year}} aptcore.one"
+  },
+  "faq": {
+    "title": "よくある質問"
+  },
+  "common": {
+    "connectWallet": "コネクトウォレット"
+  },
+  "homePage": {
+    "meta": {
+      "title": "aptcore.one：安全で透明なAptos (APT) ステーキング",
+      "description": "aptcore.oneでAptos (APT)をステーキングしましょう。当社は、報酬、ロックアップ、現在の「スラッシングなし」環境について明確に説明し、透明で安全なAptosステーキングを提供します。"
+    },
+    "schema": {
+      "name": "アプトス（APT）がaptcore.oneに賭ける"
+    },
+    "hero": {
+      "mainHeading": "アプトコアワン",
+      "subHeading": "安全で透明性の高いアプトスのステーキング",
+      "details": "{{apy}}% APY • 非カストディアル • オンチェーンで検証可能"
+    },
+    "error": {
+      "title": "データのロードに失敗しました"
+    }
+  },
+  "generalFaq": {
+    "title": "よくある質問",
+    "items": [
+      {
+        "id": 1,
+        "question": "Aptos (APT) トークンで報酬を獲得するにはどうすればよいですか？",
+        "answer": "Aptos(APT)トークンをステーキングすることで報酬を得ることができ、Aptosネットワークの安全性確保にも役立ちます。aptcore.oneのようなプラットフォームは、あなたのウォレットを接続し、信頼できるバリデーターにAPTを委任し、定期的にステーキング報酬を受け取るシンプルで安全な方法を提供します。"
+      },
+      {
+        "id": 2,
+        "question": "aptcore.oneがアプトスのステーキングに適している理由は何ですか？",
+        "answer": "aptcore.oneはユーザーフレンドリーなプラットフォームを提供し、獲得リワードの手数料は4%と低く抑えられています。最新の推定ネットおよびグロスAPYについては、このページに表示されているライブの「Validator Pool Details」ダッシュボードをご覧ください。当社は、強固なセキュリティ、オープンソースアプローチによる透明性、そしてAptosステーキングを誰にとっても効率的なものにすることを優先しています。"
+      },
+      {
+        "id": 3,
+        "question": "aptcore.oneを通じてAptos（APT）をステーキングすることは安全ですか？",
+        "answer": "セキュリティはaptcore.oneの最優先事項です。私たちはAptosメインネット上で弾力性のあるバリデータノードを運用し、業界のベストプラクティスを遵守しています。Aptosのステーキングは非保護的で、秘密鍵の管理は常に保持され、トークンは安全に委譲され、あなたの手元から移されることはありません。"
+      },
+      {
+        "id": 4,
+        "question": "aptcore.oneでステーキングを始めるには、どのくらいのアプトス（APT）が必要ですか？",
+        "answer": "Aptosネットワークでは、デリゲーションプールとの直接のやり取りには推奨最低額（通常約11APT）が設定されていることが多いのですが、aptcore.oneでは利用しやすいステーキング体験をお約束します。この金額からステーキングを開始し、報酬を獲得することができます。"
+      },
+      {
+        "id": 5,
+        "question": "暗号に慣れていない場合、Aptosの賭けは複雑ですか？",
+        "answer": "aptcore.oneは違います！私たちのプラットフォームは直感的でわかりやすく設計されています。暗号通貨やステーキングが初めての方でも、一般的なAptosウォレット（Petraなど）を簡単に接続し、画面上の簡単な手順に従ってAPTを委任することができます。"
+      }
+    ]
+  },
+  "indexPage": {
+    "connectPrompt": {
+      "title": "アプトス・ステーキング・リワードを獲得する準備はできましたか？",
+      "description": "Aptosウォレットに接続して開始します。"
+    }
+  },
+  "stakeForm": {
+    "tabs": {
+      "stake": "ステーク",
+      "unstake": "アンステーク"
+    },
+    "labels": {
+      "amountToStake": "ステークする金額",
+      "amountToUnstake": "アンステークする金額",
+      "available": "利用可能"
+    },
+    "placeholders": {
+      "amount": "例: {{minStake}}"
+    },
+    "buttons": {
+      "stakeApt": "APTをステークする",
+      "unstakeApt": "APTのステークを解除する"
+    },
+    "helpers": {
+      "connectWallet": "ウォレットを接続してステーキングを有効にする",
+      "minAmount": "有効にするには、少なくとも{{minStake}} APTを入力してください"
+    }
+  },
+  "stakeControls": {
+    "title": "賭け金の管理",
+    "notConnected": {
+      "description": "ウォレットに接続して賭け、残高、アクティブな賭け金、引き出し可能な報酬を確認できます。",
+      "button": "コネクトウォレット"
+    },
+    "messages": {
+      "success": "取引成功！ハッシュ: {{hash}}...",
+      "rejected": "ユーザーによって拒否されたトランザクション。",
+      "error": "エラー: {{message}}"
+    }
+  },
+  "userStatus": {
+    "countdown": {
+      "calculating": "残り時間の計算...",
+      "awaitingConfirmation": "出金可能になるにはネットワークの確認を待つ必要がある。",
+      "timeRemaining": "残り時間",
+      "daysShort": "日",
+      "hoursShort": "時間",
+      "minutesShort": "分",
+      "secondsShort": "秒"
+    },
+    "rows": {
+      "inWallet": "ウォレットで利用可能",
+      "activeStake": "アクティブなステーク",
+      "unlockingStake": "ステークのロック解除",
+      "unlockTimeAssignedNextEpoch": "アンロック時間は次のエポックに割り当てられる",
+      "readyToWithdraw": "出金準備完了"
+    },
+    "buttons": {
+      "withdraw": "出金する"
+    }
+  },
+  "validatorInfo": {
+    "title": "バリデータプールの詳細",
+    "cards": {
+      "totalDelegated": "委任合計",
+      "netYield": "推定純利回り",
+      "apySuffix": "APY"
+    },
+    "rows": {
+      "status": "バリデーターのステータス",
+      "statusValue": "オンライン",
+      "commission": "手数料率",
+      "timeUntilUnlock": "アンロックまでの時間",
+      "lockupPeriod": "現在のプールロックアップ期間。",
+      "poolAddress": "プールアドレス"
+    },
+    "tooltip": {
+      "title": "報酬の計算:",
+      "netApyLabel": "推定ネットAPY:",
+      "afterCommission": "（{{commission}}％の手数料後、複利）",
+      "grossApyLabel": "推定グロスAPY:",
+      "footnote": "APYは複利計算を含みます。すべての数値は推定値であり、異なる場合があります。"
+    }
+  },
+  "apyCalculatorPage": {
+    "meta": {
+      "title": "Aptos(APT)ステーキングAPY計算機 - 報酬の見積もり｜aptcore.one",
+      "description": "aptcore.oneの無料APY計算機で、Aptos (APT)の賭け金を簡単に計算できます。賭け金額を入力し、日、月、年の推定収益をご覧ください。",
+      "twitterDescription": "Aptos(APT)のステーク報酬の可能性を計算してみましょう。aptcore.oneのAPYツールで、賭け金額を入力し、日、週、月、年の推定収益をご覧ください。"
+    },
+    "hero": {
+      "title": "インタラクティブAptos (APT) ステーキングAPY計算機",
+      "description": "賭け金額を入力して、潜在的な報酬を見積もりましょう。電卓は、ライブネットワークAPYを使用するか、独自のAPYを指定することができます。"
+    },
+    "results": {
+      "daily": "毎日",
+      "weekly": "ウィークリー",
+      "monthly": "毎月",
+      "yearly": "年間"
+    },
+    "error": {
+      "title": "データのロードに失敗しました"
+    },
+    "form": {
+      "amountLabel": "APTの出資額",
+      "amountError": "有効なAPT金額を入力してください。",
+      "amountPlaceholder": "1000",
+      "specifyApyLabel": "ご希望のAPYをご指定ください。",
+      "customApyLabel": "カスタムAPY (%)",
+      "customApyError": "有効なAPYを入力してください",
+      "customApyTooltip": "期待する年率利回りを入力する（例：7.5%なら7.5）。",
+      "customApyPlaceholder": "7.5",
+      "currentApyLabel": "現在の推定ネットワークAPY",
+      "loading": "読み込み中...",
+      "notAvailable": "該当なし"
+    },
+    "resultsDisplay": {
+      "calculating": "リターンの計算...",
+      "prompt": {
+        "title": "APT金額を入力",
+        "description": "賭ける予定のAPTの金額を入力し、潜在的な収益を確認します。"
+      },
+      "error": {
+        "title": "リターンの計算に失敗",
+        "description": "リターンを計算できませんでした。入力内容を確認し、ネットワークAPYが利用可能であることを確認してください。"
+      },
+      "title": "期待収益率",
+      "rowLabel": "{{period}}の収益",
+      "priceUnavailable": "~ USD (価格未定)",
+      "priceFootnote": "*USD計算は1 APT = ${{price}} USDに基づいています。"
+    },
+    "disclaimer": {
+      "text": "*すべての計算は概算であり、現在/指定のAPYおよびAPT/USD為替レートに基づいています。APYおよび為替レートは変更される場合があります。本ツールは財務アドバイスを提供するものではありません。ステーキング収入には、バリデーター手数料が加算されますが、この計算では考慮されていません。Aptosネットワークにおける実際の報酬は、エポックごとに分配されます。"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "items": [
+        {
+          "question": "APYとは何ですか？APRとの違いは何ですか？",
+          "answer": "APY（Annual Percentage Yield：年利率）には複利の効果が含まれており、これは収益が再投資され、それ自体が収益を生むことを意味する。APR（年率）には複利効果は含まれません。この計算機では、主にAPYに焦点を当て、長期にわたる潜在的なリターンをより完全に把握できるようにしていますが、短期間の基本的な計算はAPYから派生した日割りに基づいています。"
+        },
+        {
+          "question": "現在の推定ネットワークAPY」は正確ですか？",
+          "answer": "表示されるネットワークAPYは、Aptosネットワークからの現在のオンチェーンデータ（ステーキング設定とブロック情報）に基づく推定値です。ネットワーク状況、ステーキングされた合計金額、およびその他の要因に基づいて頻繁に変動する可能性があります。現在の推定値としては役立ちますが、保証されたレートではありません。"
+        },
+        {
+          "question": "バリデーターの手数料はこの計算に含まれますか？",
+          "answer": "いいえ。この計算機は、バリデーターの手数料が差し引かれる前の総収入を示しています。バリデータによって手数料は異なります。あなたの純収入を見積もるには、選択したバリデーターの手数料を考慮する必要があります。"
+        },
+        {
+          "question": "アプトスでは、実際にどれくらいの頻度でステーク報酬が配布されるのですか？",
+          "answer": "Aptosネットワークの報酬は通常、各エポックの終了時に分配される。エポックとは、設定された期間です（例えば、およそ2時間ですが、これは変更される可能性があります）。この計算機では、年率換算されたAPYに基づいて日次、週次などの予測を表示することで、これを簡素化しています。"
+        },
+        {
+          "question": "この計算機はどのAptosバリデータにも使えますか？",
+          "answer": "バリデーターが提示する具体的なAPY（手数料を差し引いた金額）を知っている場合、またはさまざまなシナリオを検討したい場合は、「独自のAPYを指定する」オプションをご利用いただけます。デフォルトのネットワークAPYは、一般的なネットワーク推定値です。"
+        }
+      ]
+    },
+    "schema": {
+      "faq": {
+        "q1": {
+          "question": "APYとは何ですか？APRとの違いは何ですか？",
+          "answer": "APY（Annual Percentage Yield：年利率）には複利の効果が含まれており、これは収益が再投資され、それ自体が収益を生むことを意味する。APR（年率）は複利効果を含みません。この計算機は、主にAPYに焦点を当てています。"
+        },
+        "q2": {
+          "question": "現在の推定ネットワークAPY」は正確ですか？",
+          "answer": "表示されているネットワークAPYは、アプトスネットワークの現在のオンチェーンデータに基づく推定値です。これは変動する可能性があり、保証されたレートではなく、現在の推定値として機能します。"
+        },
+        "q3": {
+          "question": "バリデーターの手数料はこの計算に含まれますか？",
+          "answer": "いいえ、この計算機は、バリデーターの手数料が差し引かれる前の総収入を示しています。純収益については、選択したバリデーターの手数料を考慮してください。"
+        },
+        "q4": {
+          "question": "アプトスでは、実際にどれくらいの頻度でステーク報酬が配布されるのですか？",
+          "answer": "Aptosネットワークの報酬は通常、各エポックの終わりに分配されます。この計算機では、APYに基づいて、これを日次、週次などの予測に単純化します。"
+        },
+        "q5": {
+          "question": "この計算機はどのAptosバリデータにも使えますか？",
+          "answer": "バリデータが提供する特定のAPYをご存知の場合、またはさまざまなシナリオを検討したい場合は、「独自のAPYを指定する」オプションをご利用いただけます。デフォルトのネットワークAPYは、一般的なネットワーク推定値です。"
+        }
+      },
+      "software": {
+        "name": "インタラクティブAptos (APT) ステーキングAPY計算機",
+        "description": "aptcore.oneによる無料のオンラインツールで、ステーク額とAPYに基づいてAptos (APT)トークンのステークによる潜在的な収益を計算し、見積もることができます。毎日、毎週、毎月、毎年の潜在的な報酬を把握できます。",
+        "keywords": "AptosステーキングAPY計算機, APT APY計算機, Aptos報酬計算機, Aptosステーキング利益計算, APTステーキング収益見積もり, Aptosステーキングでどれくらい稼げるか計算機, Aptosステーキング潜在的リターン計算機, 無料Aptos APYツールaptcore.one, 日次Aptosステーキング報酬計算機"
+      },
+      "howTo": {
+        "name": "aptcore.oneのAPYステーキング計算機の使い方",
+        "description": "aptcore.oneのAPY計算機で、賭け金額とカスタムAPYを入力して、Aptos (APT)のステーク報酬の可能性を計算しましょう。",
+        "s1": {
+          "name": "賭け金額を入力",
+          "text": "賭ける予定のAPTの合計金額を「賭けるAPTの金額」フィールドに入力します。"
+        },
+        "s2": {
+          "name": "APYを指定する（オプション）",
+          "text": "電卓はデフォルトで現在の推定ネットワークAPYを使用します。別のAPYを使用したい場合は、「Specify your own APY」をチェックし、希望のパーセンテージを入力してください。"
+        },
+        "s3": {
+          "name": "リターンの目安を見る",
+          "text": "APT価格が利用可能な場合、計算機は自動的にAPTとそのおおよそのUSD値の両方で日、週、月、年の期間の推定収益を表示します。"
+        }
+      }
+    }
+  },
+  "lockupVisualizerPage": {
+    "meta": {
+      "title": "アプトス・ステーキング・ロックアップ・ビジュアライザー：APTアンステーク・タイムラインを見る｜aptcore.one",
+      "description": "Aptosのステーキングロックアップ（現在～14日）を理解する。aptcore.oneのビジュアライザーを使って、杭打ちされたAPTが杭打ち解除後にいつ利用可能になるかを見積もる。",
+      "twitterDescription": "aptcore.oneのツールでAptos (APT)のロックアップ期間とロック解除のタイムラインを視覚化。APTがいつ利用可能になるかを確認できます。"
+    },
+    "hero": {
+      "title": "アプトスステーキングロックアップビジュアライザー：APTアンステークタイムラインを見る",
+      "description": "Aptosのステーキングロックアップ（現在～14日）を理解する。aptcore.oneのビジュアライザーを使って、杭打ちされたAPTが杭打ち解除後にいつ利用可能になるかを見積もる。",
+      "validatorInfo": "このツールは、バリデータ・プールのアンステーク・タイムラインを可視化する："
+    },
+    "loader": {
+      "loadingData": "ネットワークとバリデーターのデータをロードする..."
+    },
+    "sections": {
+      "initiationTime": "アンステーク開始時間の設定",
+      "parameters": "ネットワークとステーキング・パラメーター",
+      "timeline": "あなたの予定スケジュール"
+    },
+    "error": {
+      "title": "エラー",
+      "prefix": ": "
+    },
+    "calculationError": "計算エラー: {{message}}",
+    "remainingTime": {
+      "availableNow": "発売中",
+      "inFormat": "約{{time}}後",
+      "daysShort": "日",
+      "hoursShort": "時間",
+      "minutesShort": "分",
+      "lessThanAMinute": "1分未満"
+    },
+    "prompt": {
+      "description": "開始時刻を選択するか、\"Visualize From Now \"をクリックすると、開始予定時刻が表示されます。"
+    },
+    "inputControls": {
+      "visualizeNowButton": "いまからアンステイキングをイメージする"
+    },
+    "timelineDisplay": {
+      "event1": {
+        "title": "アンステーク開始"
+      },
+      "event2": {
+        "title": "プール・ロックアップ・サイクル終了",
+        "details": "資金が不活発になる"
+      },
+      "event3": {
+        "title": "利用可能な資金",
+        "details": "エポック境界で引き出し可能になる"
+      },
+      "availableNow": "引き出し可能",
+      "inFormat": "約{{time}}後",
+      "daysShort": "日",
+      "hoursShort": "時間",
+      "minutesShort": "分",
+      "lessThanAMinute": "1分未満"
+    },
+    "networkInfo": {
+      "stakingCycle": "ネットワーク・ステーキング・サイクルの期間",
+      "daysValue": "{{days}}日",
+      "currentEpoch": "現在のエポック番号",
+      "epochDuration": "平均エポック期間",
+      "hoursValue": "約{{hours}}時間",
+      "dataAsOf": "エポック・データ",
+      "loading": "読み込み中..."
+    },
+    "faq": {
+      "title": "ロックアップ＆アンステーキング FAQ",
+      "items": [
+        {
+          "question": "アプトスの賭け金ロックアップ期間はどのように機能するのですか？",
+          "answer": "Aptosをステークすると、あなたのトークンは通常、定期的な期間（現在は約14日間）ロックされます。ステークを解除すると、選択したバリデータプールの現在のロックアップサイクルが終了した後、あなたのAPTは利用可能になり、ネットワークがそれをエポック境界で処理した後、完全に引き出し可能になります。"
+        },
+        {
+          "question": "このビジュアライザーは何を示しているのか？",
+          "answer": "このツールは、Aptos（APT）トークンのアンステーキングタイムラインを推定するのに役立ちます。{{address}}にあるバリデーターの特定のロックアップサイクルとAptosネットワークのエポックタイミングを考慮します。"
+        },
+        {
+          "question": "プール・サイクル終了」と「資金利用可能」が異なるのはなぜですか？",
+          "answer": "お客様の資金はバリデーターのロックアップサイクルと連動しています。このサイクルが終了すると、資金は非アクティブ（引き出し処理可能）になります。最終的な「資金利用可能」時間は、この引き出しがAptosネットワークによって処理される時間です。"
+        }
+      ]
+    },
+    "schema": {
+      "software": {
+        "name": "アプトスステーキングロックアップビジュアライザー：APTアンステークタイムラインを見る",
+        "description": "aptcore.oneのインタラクティブツールで、Aptos (APT) のロックアップ期間を視覚化し、ロックアップ解除後に資金が利用可能になる時期を予測します。Aptosのロックアップサイクル（現在約14日）を理解し、ステーキング戦略を立てましょう。",
+        "keywords": "Aptosステーキングロックアップビジュアライザー, APTアンステーキング期間ツール, Aptos 14日ロックアップ説明ツール, Aptosアンステーク時間可視化, Aptosステーキングリリース日計算機, いつステークしたAptosを引き出せるかツール, Aptosロックアップカレンダー, aptcore.one"
+      },
+      "howTo": {
+        "name": "アプトスステーキングロックアップビジュアライザーを使ってAPTアンステークタイムラインを見る方法",
+        "description": "aptcore.oneでAptos (APT)のアンステークタイムラインを可視化しましょう。アンステーク開始時間を入力すると、バリデータとネットワークデータに基づくアンロック予定が表示されます。",
+        "s1": {
+          "name": "アンステーク開始時間を選択",
+          "text": "アンステークリクエストを開始する（または開始した）日時を選択してください。日付/時間ピッカーを使用するか、「現在からアンステークを可視化する」をクリックすると、現在時刻が表示されます。"
+        },
+        "s2": {
+          "name": "ネットワークとバリデーターの情報を見直す",
+          "text": "このツールは、現在のAptosネットワークのステーキング設定（約14日のロックアップサイクルなど）、エポックのタイミング、および{{address}}にあるバリデータープールに固有のロックアップの詳細を表示します。"
+        },
+        "s3": {
+          "name": "不動のタイムラインを分析する",
+          "text": "ビジュアライザーはタイムラインを生成して表示します。これは、バリデータの現在のプールロックアップサイクルがいつ終了すると予測されるかと、Aptos (APT) の資金が引き出し可能になる最終予測時刻を、Aptos ネットワークのエポックに合わせて表示します。"
+        },
+        "toolName": "aptcore.oneのアプトス・ステーキング・ロックアップ・ビジュアライザー"
+      }
+    },
+    "disclaimer": {
+      "text": "*すべてのタイムライン計算は、現在のアプトスネットワークパラメーター（ロックアップの継続時間やエポック間隔など）と提供された開始時間に基づいて推定されたものです。実際のロック解除時間はエпоック境界で発生し、ネットワーク状況やネットワーク・パラメーターの変更により若干異なる場合があります。このツールは財務的なアドバイスを提供するものではありません。重要な情報は必ずAptosの公式文書で確認するか、該当する場合はバリデーターに直接確認してください。"
+    }
+  },
+  "connectWallet": {
+    "selectWalletTitle": "財布を選ぶ",
+    "closeModalAriaLabel": "財布選択のモーダルを閉じる",
+    "noWalletsFound": "財布が見つかりません。",
+    "pleaseInstallWallet": "Aptos互換のウォレットをインストールしてください。",
+    "connectWithAriaLabel": "Connect with {{walletName}}",
+    "walletIconAlt": "{{walletName}} icon",
+    "disconnectAriaLabel": "Disconnect wallet {{address}}",
+    "connectedWalletIconAlt": "コネクテッドウォレットのアイコン",
+    "connectWalletButton": "コネクトウォレット",
+    "connectWalletAriaLabel": "コネクトウォレット"
+  }
+}
