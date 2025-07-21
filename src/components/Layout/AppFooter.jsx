@@ -1,6 +1,7 @@
+// src/components/Layout/AppFooter.jsx
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { Twitter, Youtube, Github, Award } from 'lucide-react';
 import { PATHS, SOCIALS } from '@/config/consts';
 
@@ -20,6 +21,13 @@ const AppFooter = () => {
     return `/${currentLang}${path}`;
   };
 
+  const getBlogLocalizedPath = (path) => {
+      if (currentLang === defaultLang) {
+          return path;
+      }
+      return `${path}/${currentLang}`;
+  }
+
   const productLinks = [
     { label: t('footer.productLinks.stake'), href: getLocalizedPath(PATHS.home) },
     { label: t('footer.productLinks.apyCalculator'), href: getLocalizedPath(PATHS.tools.apyCalculator) },
@@ -27,15 +35,15 @@ const AppFooter = () => {
   ];
 
   const companyLinks = [
-    { label: t('footer.companyLinks.about'), href: PATHS.about, isExternal: true },
-    { label: t('footer.companyLinks.contact'), href: PATHS.contact, isExternal: true },
-    { label: t('footer.companyLinks.disclaimer'), href: PATHS.legal.disclaimer, isExternal: true },
-    { label: t('footer.companyLinks.terms'), href: PATHS.legal.terms, isExternal: true },
+    { label: t('footer.companyLinks.about'), href: getBlogLocalizedPath(PATHS.about) },
+    { label: t('footer.companyLinks.contact'), href: getBlogLocalizedPath(PATHS.contact) },
+    { label: t('footer.companyLinks.disclaimer'), href: getBlogLocalizedPath(PATHS.legal.disclaimer) },
+    { label: t('footer.companyLinks.terms'), href: getBlogLocalizedPath(PATHS.legal.terms) },
   ];
   const resourcesLinks = [
-    { label: t('footer.resourcesLinks.blog'), href: PATHS.blog, isExternal: true },
-    { label: t('footer.resourcesLinks.faq'), href: PATHS.faq, isExternal: true },
-    { label: t('footer.resourcesLinks.help'), href: PATHS.help, isExternal: true },
+    { label: t('footer.resourcesLinks.blog'), href: getBlogLocalizedPath(PATHS.blog) },
+    { label: t('footer.resourcesLinks.faq'), href: getBlogLocalizedPath(PATHS.faq) },
+    { label: t('footer.resourcesLinks.help'), href: getBlogLocalizedPath(PATHS.help) },
   ];
   const socialLinks = [
     { label: "Twitter", href: SOCIALS.twitter, Icon: Twitter },
@@ -44,11 +52,9 @@ const AppFooter = () => {
     { label: "GitHub", href: SOCIALS.github, Icon: Github },
   ];
 
-  const FooterLink = ({ href, isExternal, children }) => (
+  const FooterLink = ({ href, children }) => (
     <a
       href={href}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noopener noreferrer' : undefined}
       className="text-zinc-400 hover:text-purple-400 transition-colors"
     >
       {children}
@@ -71,7 +77,7 @@ const AppFooter = () => {
             <h4 className="font-semibold text-zinc-200">{t('footer.company')}</h4>
             <ul className="space-y-2">
               {companyLinks.map(link => (
-                <li key={link.label}><FooterLink href={link.href} isExternal={link.isExternal}>{link.label}</FooterLink></li>
+                <li key={link.label}><FooterLink href={link.href}>{link.label}</FooterLink></li>
               ))}
             </ul>
           </div>
@@ -79,7 +85,7 @@ const AppFooter = () => {
             <h4 className="font-semibold text-zinc-200">{t('footer.resources')}</h4>
             <ul className="space-y-2">
               {resourcesLinks.map(link => (
-                <li key={link.label}><FooterLink href={link.href} isExternal={link.isExternal}>{link.label}</FooterLink></li>
+                <li key={link.label}><FooterLink href={link.href}>{link.label}</FooterLink></li>
               ))}
             </ul>
           </div>

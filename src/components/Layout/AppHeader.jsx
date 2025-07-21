@@ -1,10 +1,11 @@
+// src/components/Layout/AppHeader.jsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
 import ConnectWalletButton from '../ConnectWalletButton';
 import ClientOnly from '../ClientOnly';
 import { PATHS } from '@/config/consts.ts';
-import { AnimatePresence, motion } from 'framer-motion';
 
 const AppHeader = () => {
   const { t, i18n } = useTranslation();
@@ -13,7 +14,7 @@ const AppHeader = () => {
   const toggleButtonRef = useRef(null);
 
   const currentLang = i18n.language;
-  const defaultLang = 'en'; 
+  const defaultLang = 'en';
 
   const getLocalizedPath = (path) => {
     if (currentLang === defaultLang) {
@@ -24,6 +25,14 @@ const AppHeader = () => {
     }
     return `/${currentLang}${path}`;
   };
+  
+  const getBlogLocalizedPath = (path) => {
+      if (currentLang === defaultLang) {
+          return path;
+      }
+      // Для блога префикс языка идет в конце
+      return `${path}/${currentLang}`;
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,10 +63,9 @@ const AppHeader = () => {
 
   const handleMobileLinkClick = () => setIsMobileMenuOpen(false);
   
-
   const navLinks = [
-    { label: t('header.nav.blog'), href: PATHS.blog },
-    { label: t('header.nav.help'), href: PATHS.help }
+    { label: t('header.nav.blog'), href: getBlogLocalizedPath(PATHS.blog) },
+    { label: t('header.nav.help'), href: getBlogLocalizedPath(PATHS.help) }
   ];
 
   return (
