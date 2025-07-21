@@ -47,7 +47,6 @@ export default defineConfig({
         external: ['fsevents'],
       },
     },
-    // ✅ Вот финальное исправление
     resolve: {
       alias: {
         '@/components': path.resolve(__dirname, 'src/components'),

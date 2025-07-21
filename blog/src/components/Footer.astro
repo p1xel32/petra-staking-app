@@ -1,30 +1,33 @@
 ---
-import { getTranslations } from '../i18n';
+import { getTranslations } from '@/i18n';
 import { Twitter, Youtube, Github, Award } from 'lucide-astro';
-import { PATHS, SOCIALS } from '../consts';
+import { PATHS, SOCIALS } from '@/consts';
 
 const t = getTranslations(Astro.currentLocale);
 
 const currentYear = new Date().getFullYear();
-const base = import.meta.env.BASE_URL; // /blog
+const base = import.meta.env.BASE_URL;
 const localePrefix = Astro.currentLocale === 'en' ? '' : `/${Astro.currentLocale}`;
 
 const productLinks = [
-  { label: t.layout.footer.product.stake, href: PATHS.home }, // Всегда ведет на aptcore.one
-  { label: t.layout.footer.product.apy_calculator, href: `${base}${localePrefix}/tools/apy-calculator` },
-  { label: t.layout.footer.product.lockup_visualizer, href: `${base}${localePrefix}/tools/lockup-visualizer` },
+  { label: t.layout.footer.product.stake, href: PATHS.home },
+  { label: t.layout.footer.product.apy_calculator, href: `${localePrefix}/tools/aptos-staking-apy-calculator` },
+  { label: t.layout.footer.product.lockup_visualizer, href: `${localePrefix}/tools/aptos-staking-lockup-visualizer` },
 ];
+
 const companyLinks = [
   { label: t.layout.footer.company.about, href: `${base}${localePrefix}/about` },
   { label: t.layout.footer.company.contact, href: `${base}${localePrefix}/contact` },
   { label: t.layout.footer.company.disclaimer, href: `${base}${localePrefix}/legal/disclaimer` },
   { label: t.layout.footer.company.terms, href: `${base}${localePrefix}/legal/terms` },
 ];
+
 const resourcesLinks = [
   { label: t.layout.footer.resources.blog, href: `${base}${localePrefix || '/'}` },
   { label: t.layout.footer.resources.faq, href: `${base}${localePrefix}/faq` },
   { label: t.layout.footer.resources.help_center, href: `${base}${localePrefix}/help` },
 ];
+
 const socialLinks = [
   { label: "Twitter", href: SOCIALS.twitter, icon: Twitter },
   { label: "StakingRewards", href: SOCIALS.stakingRewards, icon: Award },
