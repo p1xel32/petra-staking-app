@@ -81,6 +81,9 @@ importers:
         specifier: ^1.23.2
         version: 1.24.0
     devDependencies:
+      '@rollup/rollup-linux-x64-gnu':
+        specifier: latest
+        version: 4.45.1
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.17)
@@ -4663,8 +4666,7 @@ snapshots:
   '@rollup/rollup-linux-s390x-gnu@4.45.1':
     optional: true
 
-  '@rollup/rollup-linux-x64-gnu@4.45.1':
-    optional: true
+  '@rollup/rollup-linux-x64-gnu@4.45.1': {}
 
   '@rollup/rollup-linux-x64-musl@4.45.1':
     optional: true
