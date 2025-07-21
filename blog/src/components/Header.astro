@@ -10,8 +10,8 @@ const t = getTranslations(currentLocale);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
 
-const blogHomePath = `${base}${localePrefix}`;
-const mainAppUrl = localePrefix || '/';
+const blogHomePath = `${base}${localePrefix || '/'}`;
+const mainAppUrl = currentLocale === defaultLocale ? PATHS.home : `${PATHS.home}${localePrefix}`;
 
 const navLinks = [
   { label: t.layout.header.help, href: `${base}${localePrefix}/help` },
@@ -30,7 +30,7 @@ const currentPath = Astro.url.pathname;
 <header class="relative w-full backdrop-blur-xl bg-black/5 border-b border-white/10 px-4 sm:px-6 py-2.5 flex justify-between items-center sticky top-0 z-50">
   
   <div class="flex items-center">
-    <a href={blogHomePath} class="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1 shrink-0" aria-label="aptcore.one blog homepage">
+    <a href={mainAppUrl} class="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1 shrink-0" aria-label="aptcore.one homepage">
       <h1 class="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline bg-gradient-to-r from-[#2196f3] via-[#7b61ff] to-[#b44aff] bg-clip-text text-transparent">
         <span>aptcore</span>
         <img src={`${import.meta.env.BASE_URL}/aptcore-logo.svg`} alt="" class="h-5 w-5 mx-1" aria-hidden="true" width="20" height="20" />

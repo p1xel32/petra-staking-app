@@ -24,18 +24,18 @@ const keywords = "aptos help, aptos support, aptos faq, aptos staking help, apto
 
 const helpPagePath = '/help';
 const canonicalPath = currentLocale === defaultLocale
-  ? `/blog${helpPagePath}`
-  : `/blog/${currentLocale}${helpPagePath}`;
+  ? `/blog${helpPagePath}`
+  : `/blog/${currentLocale}${helpPagePath}`;
 const canonicalURL = new URL(canonicalPath, SITE_URL);
 
 const hreflangLinks = locales.map(lang => {
-    const path = lang === defaultLocale
-        ? `/blog${helpPagePath}`
-        : `/blog/${lang}${helpPagePath}`;
-    return {
-        lang: lang,
-        href: new URL(path, SITE_URL).href
-    };
+    const path = lang === defaultLocale
+        ? `/blog${helpPagePath}`
+        : `/blog/${lang}${helpPagePath}`;
+    return {
+        lang: lang,
+        href: new URL(path, SITE_URL).href
+    };
 });
 
 const xDefaultHref = new URL(`/blog${helpPagePath}`, SITE_URL).href;
@@ -61,12 +61,12 @@ const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
 const blogLocalePrefix = `/blog${localePrefix}`;
 
 const helpSections = [
-  { href: `${blogLocalePrefix}/faq`, title: t.help.sections.faq.title, description: t.help.sections.faq.description, icon: HelpCircle },
-  { href: `${blogLocalePrefix}`, title: t.help.sections.blog.title, description: t.help.sections.blog.description, icon: FileText },
-  { href: `${localePrefix}/tools/apy-calculator`, title: t.help.sections.apy.title, description: t.help.sections.apy.description, icon: Calculator },
-  { href: `${blogLocalePrefix}/about`, title: t.help.sections.about.title, description: t.help.sections.about.description, icon: Info },
-  { href: `${blogLocalePrefix}/contact`, title: t.help.sections.contact.title, description: t.help.sections.contact.description, icon: Phone },
-  { href: `${localePrefix}/tools/lockup-visualizer`, title: t.help.sections.lockup.title, description: t.help.sections.lockup.description, icon: GanttChartSquare },
+  { href: `${blogLocalePrefix}/faq`, title: t.help.sections.faq.title, description: t.help.sections.faq.description, icon: HelpCircle },
+  { href: `${blogLocalePrefix}`, title: t.help.sections.blog.title, description: t.help.sections.blog.description, icon: FileText },
+  { href: `${localePrefix || '/'}${PATHS.tools.apyCalculator.substring(1)}`, title: t.help.sections.apy.title, description: t.help.sections.apy.description, icon: Calculator },
+  { href: `${blogLocalePrefix}/about`, title: t.help.sections.about.title, description: t.help.sections.about.description, icon: Info },
+  { href: `${blogLocalePrefix}/contact`, title: t.help.sections.contact.title, description: t.help.sections.contact.description, icon: Phone },
+  { href: `${localePrefix || '/'}${PATHS.tools.lockupVisualizer.substring(1)}`, title: t.help.sections.lockup.title, description: t.help.sections.lockup.description, icon: GanttChartSquare },
 ];
 ---
 
@@ -76,8 +76,8 @@ const helpSections = [
   canonicalURL={canonicalURL.toString()}
   keywords={keywords}
   ogType="website"
-  hreflangLinks={hreflangLinks}
-  xDefaultHref={xDefaultHref}
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
 >
   <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} slot="head-scripts" />
 
