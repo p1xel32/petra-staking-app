@@ -122,5 +122,13 @@
   "https://aptcore.one/blog/a-data-driven-guide-to-vetting-aptos-validators-analyzing-performance-beyond-commission-rates": [
     "twitter",
     "hashnode"
+  ],
+  "https://aptcore.one/blog/from-staker-to-decision-maker-a-practical-guide-to-aptos-on-chain-governance-and-voting": [
+    "twitter",
+    "hashnode"
+  ],
+  "https://aptcore.one/blog/delegated-proof-of-stake-on-aptos-understanding-the-mechanics-and-your-role-as-a-staker": [
+    "twitter",
+    "hashnode"
   ]
 }
