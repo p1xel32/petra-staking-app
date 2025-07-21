@@ -1,12 +1,14 @@
-// src/components/Header.astro
-
 ---
 import { getTranslations } from '../i18n';
 import { PATHS, SITE_URL } from '../consts';
 import astroConfig from '../../astro.config.mjs';
 
-const { defaultLocale } = astroConfig.i18n;
-const currentLocale = Astro.currentLocale || defaultLocale;
+const { defaultLocale, locales } = astroConfig.i18n;
+
+// Более надежный способ определения языка, который работает везде
+const pathLang = Astro.url.pathname.split('/')[2]; // /blog/ru -> ru
+const currentLocale = locales.includes(pathLang) ? pathLang : defaultLocale;
+
 const t = getTranslations(currentLocale);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
