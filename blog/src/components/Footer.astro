@@ -6,11 +6,11 @@ import { PATHS, SOCIALS } from '@/consts';
 const t = getTranslations(Astro.currentLocale);
 
 const currentYear = new Date().getFullYear();
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL; // Это /blog
 const localePrefix = Astro.currentLocale === 'en' ? '' : `/${Astro.currentLocale}`;
 
 const productLinks = [
-  { label: t.layout.footer.product.stake, href: PATHS.home },
+  { label: t.layout.footer.product.stake, href: `${localePrefix || '/'}` },
   { label: t.layout.footer.product.apy_calculator, href: `${localePrefix}/tools/aptos-staking-apy-calculator` },
   { label: t.layout.footer.product.lockup_visualizer, href: `${localePrefix}/tools/aptos-staking-lockup-visualizer` },
 ];
