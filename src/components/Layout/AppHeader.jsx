@@ -27,11 +27,12 @@ const AppHeader = () => {
   };
   
   const getBlogLocalizedPath = (path) => {
-      if (currentLang === defaultLang) {
-          return path;
-      }
-      // Для блога префикс языка идет в конце
-      return `${path}/${currentLang}`;
+    if (currentLang === defaultLang) {
+      return path;
+    }
+    const base = '/blog';
+    const restOfPath = path.substring(base.length);
+    return `${base}/${currentLang}${restOfPath}`;
   }
 
   useEffect(() => {

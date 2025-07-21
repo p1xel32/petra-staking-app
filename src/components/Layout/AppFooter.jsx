@@ -1,4 +1,4 @@
-// src/components/Layout/AppFooter.jsx
+/ src/components/Layout/AppFooter.jsx
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,10 +22,12 @@ const AppFooter = () => {
   };
 
   const getBlogLocalizedPath = (path) => {
-      if (currentLang === defaultLang) {
-          return path;
-      }
-      return `${path}/${currentLang}`;
+    if (currentLang === defaultLang) {
+      return path;
+    }
+    const base = '/blog';
+    const restOfPath = path.substring(base.length);
+    return `${base}/${currentLang}${restOfPath}`;
   }
 
   const productLinks = [
