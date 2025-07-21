@@ -5,45 +5,62 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE as APP_SITE_TITLE, SITE_DESCRIPTION as APP_SITE_DESCRIPTION } from '../consts';
 
+const GTM_ID = 'GTM-TKTNVW6T';
+
 export interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonicalURL?: string;
-  keywords?: string | string[];
-  ogType?: string;
-  lang?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  keywords?: string | string[];
+  ogType?: string;
+  lang?: string;
+  hreflangLinks?: { lang: string; href: string }[];
+  xDefaultHref?: string;
 }
 
 const {
-  title = `Blog - ${APP_SITE_TITLE || 'aptcore.one'}`,
-  description = APP_SITE_DESCRIPTION || 'News and insights from aptcore.one',
-  image = '/og-image.png',
-  canonicalURL,
-  keywords,
-  ogType,
-  lang = 'en',
+  title = `Blog - ${APP_SITE_TITLE || 'aptcore.one'}`,
+  description = APP_SITE_DESCRIPTION || 'News and insights from aptcore.one',
+  image = '/og-image.png',
+  canonicalURL,
+  keywords,
+  ogType,
+  lang = 'en',
+  hreflangLinks,
+  xDefaultHref,
 } = Astro.props;
 ---
 <!doctype html>
 <html lang={lang} class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <BaseHead 
-      title={title}
-      description={description}
-      image={image}
-      canonicalURL={canonicalURL}
-      keywords={keywords}
-      ogType={ogType}
-      lang={lang}
-    />
-  </head>
-  <body class="text-zinc-300 font-sans antialiased min-h-screen flex flex-col">
-    <Header />
-    <main class="flex-grow container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <slot />
-    </main>
-    <Footer />
-  </body>
+  <head>
+    <script is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','{GTM_ID}');
+    </script>
+    <meta charset="utf-8" />
+    <BaseHead 
+      title={title}
+      description={description}
+      image={image}
+      canonicalURL={canonicalURL}
+      keywords={keywords}
+      ogType={ogType}
+      lang={lang}
+      hreflangLinks={hreflangLinks}
+      xDefaultHref={xDefaultHref}
+    />
+    <slot name="head-scripts" />
+  </head>
+  <body class="text-zinc-300 font-sans antialiased min-h-screen flex flex-col">
+    <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <Header />
+    <main class="flex-grow container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>

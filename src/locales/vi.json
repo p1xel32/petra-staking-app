@@ -1,0 +1,423 @@
+{
+  "site": {
+    "title": "aptcore.one | Đảm bảo an toàn cho việc staking Aptos",
+    "description": "Đặt cược an toàn và minh bạch không lưu trữ cho mạng Aptos. Kiếm phần thưởng APT với một validator đáng tin cậy."
+  },
+  "header": {
+    "nav": {
+      "blog": "Blog",
+      "help": "Giúp đỡ"
+    },
+    "aria": {
+      "openMenu": "Mở menu chính",
+      "closeMenu": "Đóng menu chính"
+    }
+  },
+  "footer": {
+    "product": "Sản phẩm",
+    "productLinks": {
+      "stake": "Đặt",
+      "apyCalculator": "Máy tính APY",
+      "lockupVisualizer": "Trình hiển thị khóa"
+    },
+    "company": "Công ty",
+    "companyLinks": {
+      "about": "Giới thiệu về chúng tôi",
+      "contact": "Liên hệ",
+      "disclaimer": "Lưu ý",
+      "terms": "Điều khoản"
+    },
+    "resources": "Tài nguyên",
+    "resourcesLinks": {
+      "blog": "Blog",
+      "faq": "Hỏi - Đáp",
+      "help": "Trung tâm Hỗ trợ"
+    },
+    "tagline": {
+      "line1": "Hạ tầng staking an toàn do các nhà phát triển chính của Aptos cung cấp — không có hình phạt cắt giảm từ ngày đầu tiên.",
+      "line2": "Xác minh được trên chuỗi khối"
+    },
+    "rights": "© {{year}} aptcore.one"
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp"
+  },
+  "common": {
+    "connectWallet": "Kết nối Ví"
+  },
+  "homePage": {
+    "meta": {
+      "title": "aptcore.one: Đặt cược Aptos (APT) an toàn và minh bạch",
+      "description": "Đặt cược Aptos (APT) của bạn với aptcore.one. Chúng tôi cung cấp dịch vụ đặt cược Aptos minh bạch và an toàn, kèm theo giải thích chi tiết về phần thưởng, thời gian khóa và môi trường hiện tại không áp dụng hình phạt (no slashing)."
+    },
+    "schema": {
+      "name": "Staking Aptos (APT) trên aptcore.one"
+    },
+    "hero": {
+      "mainHeading": "aptcore.one",
+      "subHeading": "An toàn & Minh bạch trong việc staking Aptos",
+      "details": "{{apy}}% APY • Không lưu ký • Có thể xác minh trên chuỗi"
+    },
+    "error": {
+      "title": "Không thể tải dữ liệu"
+    }
+  },
+  "generalFaq": {
+    "title": "Câu hỏi thường gặp",
+    "items": [
+      {
+        "id": 1,
+        "question": "Làm thế nào để tôi bắt đầu kiếm được phần thưởng với các token Aptos (APT) của mình?",
+        "answer": "Bạn có thể kiếm được phần thưởng bằng cách staking các token Aptos (APT) của mình, đồng thời giúp bảo mật mạng lưới Aptos. Các nền tảng như aptcore.one cung cấp một cách đơn giản và an toàn để kết nối ví của bạn, ủy quyền APT cho validator đáng tin cậy của chúng tôi và nhận phần thưởng staking định kỳ."
+      },
+      {
+        "id": 2,
+        "question": "Tại sao aptcore.one là lựa chọn tốt cho việc staking Aptos?",
+        "answer": "aptcore.one cung cấp một nền tảng thân thiện với người dùng với mức hoa hồng thấp chỉ 4% trên phần thưởng kiếm được. Để xem ước tính mới nhất về APY ròng và APY gộp, vui lòng tham khảo bảng điều khiển \"Chi tiết Bể Validator\" trực tiếp trên trang này. Chúng tôi ưu tiên bảo mật mạnh mẽ, tính minh bạch thông qua phương pháp mã nguồn mở và tối ưu hóa việc staking Aptos cho tất cả mọi người."
+      },
+      {
+        "id": 3,
+        "question": "Việc staking Aptos (APT) thông qua aptcore.one có an toàn không?",
+        "answer": "Đúng vậy, bảo mật là ưu tiên hàng đầu tại aptcore.one. Chúng tôi vận hành một nút xác thực (validator node) ổn định trên mạng chính Aptos và tuân thủ các tiêu chuẩn tốt nhất trong ngành. Việc staking Aptos là không lưu ký, nghĩa là bạn luôn giữ quyền kiểm soát các khóa riêng tư của mình, và các token của bạn được ủy quyền một cách an toàn, không được chuyển ra khỏi tài sản của bạn."
+      },
+      {
+        "id": 4,
+        "question": "Tôi cần bao nhiêu Aptos (APT) để bắt đầu staking với aptcore.one?",
+        "answer": "Mặc dù mạng Aptos thường có mức tối thiểu được khuyến nghị (thường khoảng 11 APT) cho các tương tác trực tiếp với các pool ủy quyền, aptcore.one đảm bảo trải nghiệm staking dễ tiếp cận. Bạn có thể bắt đầu staking với số lượng này và bắt đầu kiếm phần thưởng."
+      },
+      {
+        "id": 5,
+        "question": "Việc staking Aptos có phức tạp không nếu tôi mới bắt đầu với tiền điện tử?",
+        "answer": "Không với aptcore.one! Chúng tôi đã thiết kế nền tảng của mình để đơn giản và dễ sử dụng. Bạn có thể dễ dàng kết nối các ví Aptos phổ biến (như Petra) và làm theo các bước đơn giản trên màn hình để ủy quyền APT của mình, ngay cả khi bạn mới bắt đầu với tiền điện tử hoặc staking."
+      }
+    ]
+  },
+  "indexPage": {
+    "connectPrompt": {
+      "title": "Sẵn sàng nhận phần thưởng staking Aptos?",
+      "description": "Kết nối ví Aptos của bạn để bắt đầu."
+    }
+  },
+  "stakeForm": {
+    "tabs": {
+      "stake": "Gửi cược",
+      "unstake": "Rút cược"
+    },
+    "labels": {
+      "amountToStake": "Số tiền để stake",
+      "amountToUnstake": "Số tiền để unstake",
+      "available": "Có sẵn"
+    },
+    "placeholders": {
+      "amount": "ví dụ: {{minStake}}"
+    },
+    "buttons": {
+      "stakeApt": "Gửi cược APT",
+      "unstakeApt": "Rút cược APT"
+    },
+    "helpers": {
+      "connectWallet": "Kết nối ví để kích hoạt staking",
+      "minAmount": "Nhập ít nhất {{minStake}} APT để kích hoạt"
+    }
+  },
+  "stakeControls": {
+    "title": "Quản lý cổ phần của bạn",
+    "notConnected": {
+      "description": "Kết nối ví của bạn để staking, xem số dư, số tiền staking đang hoạt động và phần thưởng có thể rút.",
+      "button": "Kết nối Ví"
+    },
+    "messages": {
+      "success": "Giao dịch thành công! Hash: {{hash}}...",
+      "rejected": "Giao dịch bị người dùng từ chối.",
+      "error": "Lỗi: {{message}}"
+    }
+  },
+  "userStatus": {
+    "countdown": {
+      "calculating": "Đang tính toán thời gian còn lại...",
+      "awaitingConfirmation": "Đang chờ xác nhận từ mạng lưới để có thể rút tiền...",
+      "timeRemaining": "Thời gian còn lại",
+      "daysShort": "ngày",
+      "hoursShort": "giờ",
+      "minutesShort": "phút",
+      "secondsShort": "giây"
+    },
+    "rows": {
+      "inWallet": "Có sẵn trong Ví",
+      "activeStake": "Stake đang hoạt động",
+      "unlockingStake": "Đang mở khóa Stake",
+      "unlockTimeAssignedNextEpoch": "Thời gian mở khóa sẽ được gán cho epoch tiếp theo.",
+      "readyToWithdraw": "Sẵn sàng rút tiền"
+    },
+    "buttons": {
+      "withdraw": "Rút tiền"
+    }
+  },
+  "validatorInfo": {
+    "title": "Chi tiết về nhóm xác thực",
+    "cards": {
+      "totalDelegated": "Tổng số được ủy quyền",
+      "netYield": "Lợi nhuận ròng ước tính",
+      "apySuffix": "APY"
+    },
+    "rows": {
+      "status": "Trạng thái của trình xác thực",
+      "statusValue": "Trực tuyến",
+      "commission": "Tỷ lệ hoa hồng",
+      "timeUntilUnlock": "Thời gian còn lại để mở khóa",
+      "lockupPeriod": "Thời gian khóa hiện tại của pool.",
+      "poolAddress": "Địa chỉ pool"
+    },
+    "tooltip": {
+      "title": "Tính toán phần thưởng:",
+      "netApyLabel": "APY ròng ước tính:",
+      "afterCommission": "(sau {{commission}}% hoa hồng, có lãi kép)",
+      "grossApyLabel": "APY gộp ước tính:",
+      "footnote": "APY bao gồm lãi kép. Tất cả các con số là ước tính và có thể thay đổi."
+    }
+  },
+  "apyCalculatorPage": {
+    "meta": {
+      "title": "Công cụ tính toán APY staking tương tác Aptos (APT) – Ước tính phần thưởng của bạn | aptcore.one",
+      "description": "Dễ dàng tính toán phần thưởng staking tiềm năng của bạn cho Aptos (APT) với công cụ tính APY miễn phí của aptcore.one. Nhập số tiền staking và xem ước tính thu nhập hàng ngày, hàng tháng và hàng năm.",
+      "twitterDescription": "Tính toán phần thưởng staking tiềm năng của bạn cho Aptos (APT). Nhập số tiền staking và xem ước tính thu nhập hàng ngày, hàng tuần, hàng tháng và hàng năm với công cụ APY của aptcore.one."
+    },
+    "hero": {
+      "title": "Công cụ tính lãi suất hàng năm (APY) cho việc staking Aptos (APT) tương tác",
+      "description": "Ước tính phần thưởng tiềm năng của bạn bằng cách nhập số tiền đặt cược. Công cụ tính toán sử dụng tỷ lệ APY trực tiếp từ mạng lưới hoặc cho phép bạn nhập tỷ lệ của riêng mình."
+    },
+    "results": {
+      "daily": "Hàng ngày",
+      "weekly": "Hàng tuần",
+      "monthly": "Hàng tháng",
+      "yearly": "Hàng năm"
+    },
+    "error": {
+      "title": "Không thể tải dữ liệu"
+    },
+    "form": {
+      "amountLabel": "Số lượng APT cần staking",
+      "amountError": "Vui lòng nhập số tiền APT hợp lệ.",
+      "amountPlaceholder": "1000",
+      "specifyApyLabel": "Chọn tỷ lệ lãi suất hàng năm (APY) của riêng bạn.",
+      "customApyLabel": "APY tùy chỉnh (%)",
+      "customApyError": "Vui lòng nhập tỷ lệ phần trăm hàng năm (APY) hợp lệ.",
+      "customApyTooltip": "Nhập tỷ lệ phần trăm hàng năm mà bạn mong đợi (ví dụ: 7,5 cho 7,5%).",
+      "customApyPlaceholder": "7.5",
+      "currentApyLabel": "Lãi suất hàng năm ước tính hiện tại của mạng lưới",
+      "loading": "Đang tải...",
+      "notAvailable": "Không áp dụng"
+    },
+    "resultsDisplay": {
+      "calculating": "Đang tính toán lợi nhuận...",
+      "prompt": {
+        "title": "Nhập số tiền APT",
+        "description": "Nhập số lượng APT bạn dự định staking để xem thu nhập tiềm năng."
+      },
+      "error": {
+        "title": "Không thể tính toán lợi nhuận",
+        "description": "Không thể tính toán lợi nhuận. Vui lòng kiểm tra lại thông tin đầu vào và đảm bảo rằng tỷ suất lợi nhuận hàng năm (APY) của mạng lưới có sẵn."
+      },
+      "title": "Lợi nhuận dự kiến",
+      "rowLabel": "Thu nhập {{period}}",
+      "priceUnavailable": "~ USD (giá chưa có sẵn)",
+      "priceFootnote": "*Tính toán USD dựa trên 1 APT = ${{price}} USD."
+    },
+    "disclaimer": {
+      "text": "*Tất cả các tính toán là gần đúng và dựa trên tỷ lệ APY hiện tại/được chỉ định và tỷ giá hối đoái APT/USD. Tỷ lệ APY và tỷ giá hối đoái có thể thay đổi. Công cụ này không cung cấp tư vấn tài chính. Thu nhập từ staking có thể bị trừ phí hoa hồng của validator, phí này không được tính vào các tính toán này. Lưu ý rằng phần thưởng thực tế trong mạng Aptos được phân phối theo từng epoch."
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "question": "APY là gì và nó khác với APR như thế nào?",
+          "answer": "APY (Lãi suất hàng năm) bao gồm tác động của lãi kép, tức là lợi nhuận được tái đầu tư để sinh ra lợi nhuận mới. APR (Tỷ lệ phần trăm hàng năm) không bao gồm lãi kép. Công cụ tính toán này chủ yếu tập trung vào APY để cung cấp cái nhìn toàn diện hơn về tiềm năng lợi nhuận theo thời gian, mặc dù tính toán cơ bản cho các khoảng thời gian ngắn được dựa trên tỷ lệ hàng ngày được tính từ APY."
+        },
+        {
+          "question": "\"Lãi suất hàng năm ước tính hiện tại của mạng lưới\" có chính xác không?",
+          "answer": "Tỷ suất sinh lời hàng năm (APY) được hiển thị là ước tính dựa trên dữ liệu trên chuỗi hiện tại từ mạng Aptos (cấu hình staking và thông tin khối). Nó có thể thay đổi thường xuyên tùy thuộc vào điều kiện mạng, tổng số lượng staking và các yếu tố khác. Nó là một ước tính hiện tại tốt nhưng không phải là tỷ lệ được đảm bảo."
+        },
+        {
+          "question": "Phí hoa hồng của người xác minh có được tính vào tính toán này không?",
+          "answer": "Không, máy tính này hiển thị thu nhập tổng trước khi trừ bất kỳ khoản hoa hồng nào của người xác thực. Các người xác thực khác nhau có thể áp dụng các tỷ lệ hoa hồng khác nhau. Bạn nên tính toán hoa hồng của người xác thực mà bạn chọn để ước tính thu nhập ròng của mình."
+        },
+        {
+          "question": "Thưởng staking được phân phối trên Aptos với tần suất như thế nào?",
+          "answer": "Phần thưởng của mạng Aptos thường được phân phối vào cuối mỗi epoch. Một epoch là một khoảng thời gian cố định (ví dụ: khoảng 2 giờ, nhưng có thể thay đổi). Công cụ tính toán đơn giản hóa điều này bằng cách hiển thị các dự đoán hàng ngày, hàng tuần, v.v., dựa trên tỷ suất sinh lời hàng năm (APY)."
+        },
+        {
+          "question": "Tôi có thể sử dụng máy tính này cho bất kỳ trình xác thực Aptos nào không?",
+          "answer": "Đúng, bạn có thể sử dụng tùy chọn 'Chỉ định APY của riêng bạn' nếu bạn biết APY cụ thể mà một validator cung cấp (sau khi trừ phí của họ, nếu họ cung cấp con số đó) hoặc nếu bạn muốn khám phá các kịch bản khác nhau. APY mặc định của mạng là ước tính chung của mạng."
+        }
+      ]
+    },
+    "schema": {
+      "faq": {
+        "q1": {
+          "question": "APY là gì và nó khác với APR như thế nào?",
+          "answer": "APY (Lãi suất hàng năm) bao gồm hiệu ứng của lãi kép, tức là lợi nhuận được tái đầu tư để sinh ra lợi nhuận mới. APR (Tỷ lệ phần trăm hàng năm) không bao gồm lãi kép. Công cụ tính toán này chủ yếu tập trung vào APY."
+        },
+        "q2": {
+          "question": "\"Lãi suất hàng năm ước tính hiện tại của mạng lưới\" có chính xác không?",
+          "answer": "Tỷ suất sinh lời hàng năm (APY) được hiển thị là ước tính dựa trên dữ liệu trên chuỗi hiện tại từ mạng Aptos. Con số này có thể thay đổi và chỉ mang tính chất ước tính hiện tại, không phải là tỷ lệ được đảm bảo."
+        },
+        "q3": {
+          "question": "Phí hoa hồng của người xác minh có được tính vào tính toán này không?",
+          "answer": "Không, máy tính này hiển thị thu nhập tổng trước khi trừ bất kỳ khoản hoa hồng nào của người xác thực. Hãy tính thêm khoản hoa hồng của người xác thực mà bạn đã chọn để tính thu nhập ròng."
+        },
+        "q4": {
+          "question": "Thưởng staking được phân phối trên Aptos với tần suất như thế nào?",
+          "answer": "Phần thưởng của mạng Aptos thường được phân phối vào cuối mỗi epoch. Công cụ tính toán đơn giản hóa điều này thành các dự báo hàng ngày, hàng tuần, v.v., dựa trên APY."
+        },
+        "q5": {
+          "question": "Tôi có thể sử dụng máy tính này cho bất kỳ trình xác thực Aptos nào không?",
+          "answer": "Đúng, bạn có thể sử dụng tùy chọn 'Chọn APY của riêng bạn' nếu bạn biết APY cụ thể mà một validator cung cấp hoặc nếu bạn muốn khám phá các tình huống khác nhau. APY mặc định của mạng là ước tính chung cho toàn bộ mạng."
+        }
+      },
+      "software": {
+        "name": "Công cụ tính lãi suất hàng năm (APY) cho việc staking Aptos (APT) tương tác",
+        "description": "Một công cụ trực tuyến miễn phí của aptcore.one giúp tính toán và ước tính thu nhập tiềm năng từ việc staking token Aptos (APT) dựa trên số lượng token staking và tỷ lệ APY. Hiểu rõ thu nhập tiềm năng hàng ngày, hàng tuần, hàng tháng và hàng năm của bạn.",
+        "keywords": "Công cụ tính APY staking Aptos, công cụ tính APY APT, công cụ tính phần thưởng Aptos, tính lợi nhuận staking Aptos, công cụ ước tính thu nhập staking APT, tôi có thể kiếm được bao nhiêu khi staking aptos, công cụ tính lợi nhuận tiềm năng staking aptos, công cụ APY aptos miễn phí aptcore.one, công cụ tính phần thưởng staking aptos hàng ngày"
+      },
+      "howTo": {
+        "name": "Cách sử dụng công cụ tính toán APY tương tác của Aptos trên aptcore.one",
+        "description": "Tính toán phần thưởng staking tiềm năng của bạn cho Aptos (APT) bằng công cụ tính APY của aptcore.one bằng cách nhập số lượng staking và tùy chọn nhập APY tùy chỉnh.",
+        "s1": {
+          "name": "Nhập số tiền đặt cọc",
+          "text": "Nhập tổng số APT mà bạn dự định stake vào ô 'Số lượng APT để stake'."
+        },
+        "s2": {
+          "name": "Chỉ định APY (Tùy chọn)",
+          "text": "Máy tính sử dụng tỷ lệ lãi suất hàng năm (APY) ước tính hiện tại của mạng lưới theo mặc định. Nếu bạn muốn sử dụng một tỷ lệ APY khác, hãy chọn 'Chọn tỷ lệ APY của riêng bạn' và nhập tỷ lệ phần trăm mong muốn."
+        },
+        "s3": {
+          "name": "Xem ước tính lợi nhuận",
+          "text": "Máy tính sẽ tự động hiển thị thu nhập ước tính của bạn cho các khoảng thời gian hàng ngày, hàng tuần, hàng tháng và hàng năm, cả bằng APT và giá trị USD tương đương (nếu giá APT có sẵn)."
+        }
+      }
+    }
+  },
+  "lockupVisualizerPage": {
+    "meta": {
+      "title": "Trình hiển thị khóa staking Aptos: Xem lịch trình giải khóa APT của bạn | aptcore.one",
+      "description": "Hiểu về thời gian khóa staking của Aptos (hiện tại khoảng 14 ngày). Sử dụng công cụ trực quan hóa của aptcore.one để ước tính thời điểm APT đã staking của bạn sẽ có thể rút sau khi hủy staking.",
+      "twitterDescription": "Hiển thị thời gian khóa và thời gian mở khóa staking của Aptos (APT) với công cụ của aptcore.one. Xem thời điểm APT của bạn trở nên sẵn sàng."
+    },
+    "hero": {
+      "title": "Trình hiển thị khóa staking Aptos: Xem lịch trình giải khóa APT của bạn",
+      "description": "Hiểu về thời gian khóa staking của Aptos (hiện tại khoảng 14 ngày). Sử dụng công cụ trực quan hóa của aptcore.one để ước tính thời điểm APT đã staking của bạn sẽ có thể rút sau khi hủy staking.",
+      "validatorInfo": "Công cụ này hiển thị lịch trình rút vốn cho nhóm validator tại:"
+    },
+    "loader": {
+      "loadingData": "Đang tải dữ liệu mạng và trình xác thực..."
+    },
+    "sections": {
+      "initiationTime": "Đặt thời gian bắt đầu hủy khóa",
+      "parameters": "Thông số mạng và staking",
+      "timeline": "Lịch trình dự kiến của bạn"
+    },
+    "error": {
+      "title": "Lỗi",
+      "prefix": ": "
+    },
+    "calculationError": "Lỗi tính toán: {{message}}",
+    "remainingTime": {
+      "availableNow": "Hiện có sẵn",
+      "inFormat": "trong ~{{time}}",
+      "daysShort": "ngày",
+      "hoursShort": "giờ",
+      "minutesShort": "phút",
+      "lessThanAMinute": "<1 phút"
+    },
+    "prompt": {
+      "description": "Chọn thời gian bắt đầu hủy staking hoặc nhấp vào \"Xem từ bây giờ\" để xem thời gian ước tính."
+    },
+    "inputControls": {
+      "visualizeNowButton": "Hình dung việc rút vốn từ bây giờ"
+    },
+    "timelineDisplay": {
+      "event1": {
+        "title": "Đã bắt đầu Unstake"
+      },
+      "event2": {
+        "title": "Kết thúc chu kỳ khóa pool",
+        "details": "Quỹ trở nên không hoạt động"
+      },
+      "event3": {
+        "title": "Số tiền có sẵn",
+        "details": "Trở thành có thể rút tại ranh giới epoch."
+      },
+      "availableNow": "Sẵn sàng để rút",
+      "inFormat": "trong ~{{time}}",
+      "daysShort": "ngày",
+      "hoursShort": "giờ",
+      "minutesShort": "phút",
+      "lessThanAMinute": "<1 phút"
+    },
+    "networkInfo": {
+      "stakingCycle": "Thời gian chu kỳ staking mạng",
+      "daysValue": "{{days}} ngày",
+      "currentEpoch": "Số epoch hiện tại",
+      "epochDuration": "Thời gian trung bình của mỗi epoch",
+      "hoursValue": "~{{hours}} giờ",
+      "dataAsOf": "Dữ liệu Epoch tính đến",
+      "loading": "Đang tải..."
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp về Khóa tài sản và Rút vốn",
+      "items": [
+        {
+          "question": "Thời gian khóa staking của Aptos hoạt động như thế nào?",
+          "answer": "Khi bạn staking Aptos, các token của bạn sẽ bị khóa trong một khoảng thời gian định kỳ (hiện tại khoảng 14 ngày). Nếu bạn quyết định unstaking, APT của bạn sẽ trở nên khả dụng sau khi chu kỳ khóa hiện tại của pool validator bạn chọn kết thúc, và sau đó có thể rút hoàn toàn sau khi mạng xử lý tại ranh giới epoch."
+        },
+        {
+          "question": "Biểu đồ này hiển thị điều gì?",
+          "answer": "Công cụ này giúp bạn ước tính lịch trình rút vốn cho các token Aptos (APT). Nó xem xét chu kỳ khóa cụ thể của validator tại {{address}} và thời gian epoch của mạng Aptos."
+        },
+        {
+          "question": "Tại sao thời gian kết thúc chu kỳ quỹ ('Pool Cycle Ends') và thời gian có sẵn quỹ ('Funds Available') lại khác nhau?",
+          "answer": "Số tiền của bạn được liên kết với chu kỳ khóa của validator. Chúng sẽ trở nên không hoạt động (sẵn sàng để xử lý rút tiền) khi chu kỳ này kết thúc. Thời gian 'Số tiền có sẵn' cuối cùng là khi giao dịch rút tiền này được xử lý bởi mạng Aptos, thời điểm này trùng khớp với cuối của một epoch mạng."
+        }
+      ]
+    },
+    "schema": {
+      "software": {
+        "name": "Trình hiển thị thời gian khóa staking APT: Xem lịch trình giải khóa APT của bạn",
+        "description": "Công cụ tương tác của aptcore.one giúp hiển thị thời gian khóa tài sản khi staking Aptos (APT) và ước tính thời điểm tài sản của bạn sẽ được giải phóng sau khi hủy staking. Nắm rõ chu kỳ khóa tài sản của Aptos (hiện tại khoảng 14 ngày) và lập kế hoạch chiến lược staking của bạn.",
+        "keywords": "công cụ hiển thị thời gian khóa staking aptos, công cụ tính thời gian unstaking apt, công cụ giải thích thời gian khóa 14 ngày của aptos, hiển thị thời gian unstake aptos, công cụ tính ngày phát hành staking aptos, khi nào tôi có thể rút aptos đã stake, lịch khóa aptos, aptcore.one"
+      },
+      "howTo": {
+        "name": "Cách sử dụng công cụ trực quan hóa khóa staking Aptos để xem lịch trình giải khóa APT của bạn",
+        "description": "Hình dung lịch trình giải khóa Aptos (APT) của bạn với aptcore.one. Nhập thời gian bắt đầu giải khóa để xem lịch trình giải khóa dự kiến dựa trên dữ liệu từ validator và mạng lưới.",
+        "s1": {
+          "name": "Chọn thời gian bắt đầu hủy khóa",
+          "text": "Chọn ngày và giờ bạn dự định bắt đầu (hoặc đã bắt đầu) yêu cầu rút vốn. Bạn có thể sử dụng trình chọn ngày/giờ hoặc nhấp vào 'Hiển thị việc rút vốn từ bây giờ' để chọn thời gian hiện tại."
+        },
+        "s2": {
+          "name": "Kiểm tra thông tin mạng và trình xác thực",
+          "text": "Công cụ hiển thị các cấu hình staking hiện tại của mạng Aptos (như chu kỳ khóa ~14 ngày), thời gian epoch và chi tiết khóa cụ thể cho pool validator tại {{address}}."
+        },
+        "s3": {
+          "name": "Phân tích lịch trình rút vốn của bạn",
+          "text": "Trình hiển thị sẽ tạo và hiển thị một dòng thời gian. Dòng thời gian này cho biết thời điểm ước tính kết thúc chu kỳ khóa tài sản hiện tại của trình xác thực và thời gian ước tính cuối cùng mà quỹ Aptos (APT) của bạn sẽ có thể rút được, đồng bộ với các epoch của mạng Aptos."
+        },
+        "toolName": "Trình hiển thị khóa staking Aptos trên aptcore.one"
+      }
+    },
+    "disclaimer": {
+      "text": "*Tất cả các tính toán thời gian trên dòng thời gian là ước tính dựa trên các thông số mạng Aptos hiện tại (như thời gian khóa định kỳ và khoảng thời gian epoch) và thời gian khởi tạo được cung cấp. Thời gian mở khóa thực tế xảy ra tại ranh giới epoch và có thể thay đổi nhẹ do điều kiện mạng hoặc thay đổi trong các thông số mạng. Công cụ này không phải là lời khuyên tài chính. Luôn xác minh thông tin quan trọng với tài liệu chính thức của Aptos hoặc trực tiếp với validator của bạn nếu áp dụng."
+    }
+  },
+  "connectWallet": {
+    "selectWalletTitle": "Chọn Ví",
+    "closeModalAriaLabel": "Đóng cửa sổ chọn ví",
+    "noWalletsFound": "Không tìm thấy ví.",
+    "pleaseInstallWallet": "Vui lòng cài đặt ví tương thích với Aptos.",
+    "connectWithAriaLabel": "Connect with {{walletName}}",
+    "walletIconAlt": "{{walletName}} icon",
+    "disconnectAriaLabel": "Disconnect wallet {{address}}",
+    "connectedWalletIconAlt": "Biểu tượng ví kết nối",
+    "connectWalletButton": "Kết nối Ví",
+    "connectWalletAriaLabel": "Kết nối ví"
+  }
+}

@@ -1,0 +1,73 @@
+---
+title: "Aptos Staking Rewards: APR vs. APY Explained (and how aptcore.one shows them)"
+description: "Demystifying staking rewards on Aptos. Learn the difference between APR and APY, how they are calculated, and how aptcore.one provides transparent reward information."
+pubDate: "2025-05-12" 
+keywords: ["Aptos", "Staking", "Rewards", "APR", "APY", "Finance", "aptcore.one"]
+heroImage: "/blog-assets/aptos-rewards-apr-apy.jpg"
+heroImageAlt: "Illustration comparing APR and APY concepts in Aptos staking on the aptcore.one platform"
+tags: ["Aptos", "Staking", "Rewards", "APR", "APY", "Finance", "aptcore.one"]
+author: "The aptcore.one Team"
+slug: "aptos-rewards-apr-apy-explained"
+translationKey: "aptos-staking-rewards-apr-vs-apy-explained-and-how-aptcoreone-shows-them"
+---
+
+## Understanding Your Aptos Staking Rewards: APR vs. APY
+
+When you stake your Aptos (APT) tokens, you expect to earn rewards. But how are these rewards calculated and presented? You'll often see terms like APR and APY. Understanding the difference is key to accurately gauging your potential returns. At [aptcore.one](https://aptcore.one), we believe in transparency, so let's break it down.
+
+### What is APR (Annual Percentage Rate)?
+
+**APR** represents the simple annual interest rate you earn on your staked amount, **without** considering the effect of compounding. It's a straightforward calculation: if you stake 100 APT at a 5% APR, you'd expect to earn 5 APT over a year, assuming the rate remains constant and rewards are not re-staked.
+
+**How aptcore.one calculates Gross APR:**
+The Gross APR displayed on `aptcore.one` is calculated based on current on-chain parameters of the Aptos network:
+* `rewards_rate` and `rewards_rate_denominator` (from `0x1::staking_config::StakingConfig`)
+* `epoch_interval` (from `0x1::block::BlockResource`)
+
+The formula is essentially:
+`Gross APR = (rewards_rate / rewards_rate_denominator) * Number_of_Epochs_in_a_Year * 100%`
+
+This gives you a snapshot of the network's current reward rate before any validator commissions.
+
+### What is APY (Annual Percentage Yield)?
+
+**APY** is where it gets more interesting for stakers. APY takes into account **compounding interest**. Compounding means that the rewards you earn are automatically added back to your staked principal, and then those re-staked rewards also start earning rewards.
+
+Because Aptos staking rewards are typically auto-compounded (added to your stake, increasing its size over time), APY will almost always be higher than APR for the same underlying reward rate. APY gives a more accurate picture of your actual earning potential over a year if you keep your rewards staked.
+
+**How aptcore.one calculates Gross APY:**
+1.  **Rate per Epoch:** We first determine the reward rate for a single epoch (e.g., `rate_per_epoch = rewards_rate / rewards_rate_denominator`).
+2.  **Epochs per Year:** We calculate how many epochs occur in a year.
+3.  **Compounding Formula:** Then, we use the standard APY formula:
+    `Gross APY = ((1 + rate_per_epoch) ^ epochs_per_year - 1) * 100%`
+
+### Net APR vs. Net APY on aptcore.one
+
+What you ultimately receive are **Net** rewards – that is, after the validator's commission is deducted.
+
+* **Net APR:** `Gross APR * (1 - Validator_Commission_Rate)`
+* **Net APY:** `Gross APY * (1 - Validator_Commission_Rate)`
+
+On [aptcore.one](https://aptcore.one), we primarily display the **Est. Net APY** because it's the most relevant figure for your potential earnings with compounding. However, we provide a full breakdown if you click the info icon:
+
+* **Est. Net APY:** Your estimated annual yield after our commission, with rewards compounded.
+* **Est. Gross APY:** The network's estimated annual yield before commission, with rewards compounded.
+* **Validator Commission:** The percentage `aptcore.one` charges for its reliable service.
+* **Est. Net APR & Gross APR:** Simple interest figures for full transparency.
+
+### Why the Difference Matters
+
+Many platforms might only show one figure, and it's often APY because it's higher. By showing both (with APY prioritized but APR available), `aptcore.one` ensures you have a clear understanding. When comparing staking options, always check if the advertised rate is APR or APY.
+
+### Factors Affecting Your Actual Rewards
+
+It's important to remember that both APR and APY are *estimates*. Actual rewards can vary due to:
+* **Network Parameter Changes:** The Aptos network's `rewards_rate` can be adjusted by governance.
+* **Validator Performance:** Consistent uptime and performance of the validator are crucial. `aptcore.one` is committed to maintaining high performance.
+* **Total Amount Staked on the Network:** Overall network staking participation can influence reward distribution.
+
+### Stake with Clarity
+
+We believe an informed delegator is a happy delegator. By understanding how your rewards are calculated, you can make better decisions for your APT holdings.
+
+Ready to see our transparent reward display in action? Stake with [aptcore.one](https://aptcore.one) today!

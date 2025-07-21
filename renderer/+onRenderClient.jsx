@@ -1,31 +1,39 @@
-// renderer/+onRenderClient.jsx
-
 import React from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import { PageShell } from './PageShell';
-import { HelmetProvider } from 'react-helmet-async';
-import { WalletProvider } from '../src/walletProvider'; 
+import { PageShell } from './PageShell.jsx';
 
-export async function onRenderClient(pageContext) {
- 
-  const { pageProps } = pageContext;
+export function onRenderClient(pageContext) {
+  const { Page, pageProps } = pageContext;
   
-  const { Page } = pageContext;
-  if (!Page) { return; }
+  if (!Page) {
+    throw new Error('Client-side render() hook expects pageContext.Page to be defined');
+  }
   
   const container = document.getElementById('root');
-  if (!container) { return; }
+  if (!container) {
+    throw new Error('DOM element #root not found');
+  }
   
   hydrateRoot(
     container,
-    <React.StrictMode>
-      <HelmetProvider>
-        <WalletProvider>
-          <PageShell pageContext={pageContext}>
-            <Page {...pageProps} />
-          </PageShell>
-        </WalletProvider>
-      </HelmetProvider>
-    </React.StrictMode>
+    <PageShell pageContext={pageContext}>
+      <Page {...pageProps} />
+    </PageShell>
   );
+
+  if (pageContext.isHydration) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'page_view',
+      page: window.location.pathname + window.location.search,
+    });
+  }
 }
+
+export const onPageTransitionEnd = (pageContext) => {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'page_view',
+    page: pageContext.urlPathname + window.location.search,
+  });
+};

@@ -1,13 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import aptcoreLogoUrl from '../../assets/aptcore-logo.svg'; 
+import { useTranslation } from 'react-i18next';
+import aptcoreLogoUrl from '../../assets/aptcore-logo.svg';
 import ConnectWalletButton from '../ConnectWalletButton';
 import ClientOnly from '../ClientOnly';
 import { PATHS } from '@/config/consts.ts';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const AppHeader = () => {
+  const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
+
+  const currentLang = i18n.language;
+  const defaultLang = 'en'; 
+
+  const getLocalizedPath = (path) => {
+    if (currentLang === defaultLang) {
+      return path;
+    }
+    if (path === '/') {
+        return `/${currentLang}`;
+    }
+    return `/${currentLang}${path}`;
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,21 +40,33 @@ const AppHeader = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMobileMenuOpen]);
+  
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const handleMobileLinkClick = () => setIsMobileMenuOpen(false);
+  
 
   const navLinks = [
-    { label: "Blog", href: PATHS.blog },
-    { label: "Help", href: PATHS.help }
+    { label: t('header.nav.blog'), href: PATHS.blog },
+    { label: t('header.nav.help'), href: PATHS.help }
   ];
 
   return (
     <header className="relative w-full backdrop-blur-xl bg-black/5 border-b border-white/10 px-4 sm:px-6 py-2.5 flex justify-between items-center sticky top-0 z-50">
       <div className="flex items-center">
         <a
-          href={PATHS.home}
+          href={getLocalizedPath(PATHS.home)}
           className="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md p-1 -ml-1 shrink-0"
-          aria-label="aptcore.one homepage"
+          aria-label={t('header.aria.homepage')}
         >
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight inline-flex items-baseline bg-gradient-to-r from-[#2196f3] via-[#7b61ff] to-[#b44aff] bg-clip-text text-transparent">
             <span>aptcore</span>
@@ -52,7 +80,7 @@ const AppHeader = () => {
             ref={toggleButtonRef}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-zinc-300 hover:text-purple-400 p-1.5 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 flex items-center justify-center h-8 w-8"
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMobileMenuOpen ? t('header.aria.closeMenu') : t('header.aria.openMenu')}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
           >

@@ -4,9 +4,11 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { X, ShieldCheck, AlertTriangle, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next'; 
 
 export default function ConnectWalletButton() {
   const { account, connected, disconnect, wallets, connect, wallet } = useWallet();
+  const { t } = useTranslation(); 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalAnimating, setIsModalAnimating] = useState(false); 
   const address = account?.address?.toString?.();
@@ -50,8 +52,12 @@ export default function ConnectWalletButton() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-zinc-100 tracking-tight">Select Wallet</h3>
-          <button onClick={closeModal} className="text-zinc-400 hover:text-white p-1 rounded-full hover:bg-zinc-700/60 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#0d0d1f]" aria-label="Close wallet selection modal">
+          <h3 className="text-xl font-semibold text-zinc-100 tracking-tight">{t('connectWallet.selectWalletTitle')}</h3>
+          <button 
+            onClick={closeModal} 
+            className="text-zinc-400 hover:text-white p-1 rounded-full hover:bg-zinc-700/60 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#0d0d1f]" 
+            aria-label={t('connectWallet.closeModalAriaLabel')}
+          >
             <X size={22} />
           </button>
         </div>
@@ -59,8 +65,8 @@ export default function ConnectWalletButton() {
         {(wallets || []).length === 0 ? (
           <div className="text-center py-6">
             <AlertTriangle size={36} className="mx-auto text-yellow-400 mb-3" />
-            <p className="text-zinc-300">No wallets found.</p>
-            <p className="text-sm text-zinc-400">Please install an Aptos-compatible wallet.</p>
+            <p className="text-zinc-300">{t('connectWallet.noWalletsFound')}</p>
+            <p className="text-sm text-zinc-400">{t('connectWallet.pleaseInstallWallet')}</p>
           </div>
         ) : (
           <div className="space-y-2.5 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar"> 
@@ -68,10 +74,10 @@ export default function ConnectWalletButton() {
               <button
                 key={w.name}
                 onClick={() => handleWalletConnect(w.name)}
-                className="w-full flex items-center text-left p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-purple-500/50 text-zinc-100 transition-all duration-200 ease-in-out group transform hover:scale-[1.02] hover:bg-zinc-800/60 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#0d0d1f]"
-                aria-label={`Connect with ${w.name}`}
+                className="w-full flex items-center text-left p-4 rounded-xl text-zinc-100 transition-colors duration-200 group hover:bg-purple-500/10 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#0d0d1f]"
+                aria-label={t('connectWallet.connectWithAriaLabel', { walletName: w.name })}
               >
-                {w.icon && <img src={w.icon} alt={`${w.name} icon`} className="w-8 h-8 mr-4 rounded-full" />}
+                {w.icon && <img src={w.icon} alt={t('connectWallet.walletIconAlt', { walletName: w.name })} className="w-8 h-8 mr-4 rounded-full" />}
                 <span className="flex-grow font-medium text-sm truncate">{w.name}</span>
                 <ChevronRight size={20} className="text-zinc-400 group-hover:text-purple-300 transition-colors flex-shrink-0 ml-2" />
               </button>
@@ -88,21 +94,20 @@ export default function ConnectWalletButton() {
         <button 
           onClick={disconnect} 
           className="group flex items-center gap-x-3 px-5 py-2.5 bg-zinc-800/50 rounded-xl border border-white/10 text-sm font-semibold text-zinc-100 shadow-lg shadow-black/20 hover:bg-zinc-800/80 hover:border-white/20 active:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200" 
-          aria-label={`Disconnect wallet ${address.slice(0, 6)}...${address.slice(-4)}`}
+          aria-label={t('connectWallet.disconnectAriaLabel', { address: `${address.slice(0, 6)}...${address.slice(-4)}` })}
         >
-          {wallet?.icon && <img src={wallet.icon} alt="Wallet icon" className="w-5 h-5 rounded-full" />}
+          {wallet?.icon && <img src={wallet.icon} alt={t('connectWallet.connectedWalletIconAlt')} className="w-5 h-5 rounded-full" />}
           <span className="font-mono">{address.slice(0, 6)}...{address.slice(-4)}</span>
           <ShieldCheck size={18} className="text-green-400" />
         </button>
       ) : (
-        // ✅ ДОБАВЛЕН УНИКАЛЬНЫЙ ID К РАБОЧЕЙ КНОПКЕ
         <button 
           id="main-header-connect-button"
           onClick={openModal} 
           className="group flex items-center gap-x-3 px-5 py-2.5 bg-zinc-800/50 rounded-xl border border-white/10 text-sm font-semibold text-zinc-100 shadow-lg shadow-black/20 hover:bg-zinc-800/80 hover:border-white/20 active:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200" 
-          aria-label="Connect wallet"
+          aria-label={t('connectWallet.connectWalletAriaLabel')}
         >
-          Connect Wallet
+          {t('connectWallet.connectWalletButton')}
         </button>
       )}
 

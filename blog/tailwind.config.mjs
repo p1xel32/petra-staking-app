@@ -1,5 +1,3 @@
-// blog/tailwind.config.mjs
-
 import defaultTheme from 'tailwindcss/defaultTheme';
 import typography from '@tailwindcss/typography';
 
@@ -12,10 +10,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
+        sans: [
+          '"Inter"',           
+          'Noto Sans JP',     
+          'Noto Sans KR',     
+          'Noto Sans',        
+          ...defaultTheme.fontFamily.sans, 
+        ],
       },
       colors: {
-        // ✅ Добавляем цвет фона основного сайта
         'brand-bg': '#0D0D1F',
         zinc: {
           50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8',
@@ -27,7 +30,6 @@ export default {
         },
         'aptcore-purple': '#A78BFA',
       },
-      // ✅ Исправляем 'DEFAULT' на 'invert' для прямого применения к .prose-invert
       typography: (theme) => ({
         invert: { 
           css: {
@@ -47,6 +49,38 @@ export default {
             '--tw-prose-pre-bg': theme('colors.zinc[900]'),
             '--tw-prose-th-borders': theme('colors.zinc[700]'),
             '--tw-prose-td-borders': theme('colors.zinc[800]'),
+            
+            p: {
+              fontSize: '0.9rem',
+              lineHeight: '1.85',
+              letterSpacing: '0.02em',
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+            },
+            'li': {
+              fontSize: '0.9rem',
+              lineHeight: '1.85',
+              marginTop: '0.6em',
+              marginBottom: '0.6em',
+            },
+
+            strong: {
+              fontWeight: '100',
+              color: 'var(--tw-prose-bold)',
+              textShadow: `0 0 8px ${theme('colors.purple[400]/0.3')}`,
+            },
+
+            a: {
+                color: 'var(--tw-prose-links)',
+                textDecoration: 'none',
+                transition: 'color 0.2s ease-in-out',
+                '&:hover': {
+                    color: theme('colors.white'),
+                    textDecoration: 'underline',
+                    textDecorationColor: theme('colors.purple[400]/0.5'),
+                    textUnderlineOffset: '4px',
+                },
+            },
           },
         },
       }),

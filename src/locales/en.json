@@ -1,0 +1,403 @@
+{
+  "site": {
+    "title": "aptcore.one | Secure Aptos Staking",
+    "description": "Secure and transparent non-custodial staking for the Aptos network. Earn APT rewards with a reliable validator."
+  },
+  "header": {
+    "nav": {
+      "blog": "Blog",
+      "help": "Help"
+    },
+    "aria": {
+      "openMenu": "Open main menu",
+      "closeMenu": "Close main menu"
+    }
+  },
+  "footer": {
+    "product": "Product",
+    "productLinks": {
+      "stake": "Stake",
+      "apyCalculator": "APY Calculator",
+      "lockupVisualizer": "Lockup Visualizer"
+    },
+    "company": "Company",
+    "companyLinks": {
+      "about": "About Us",
+      "contact": "Contact",
+      "disclaimer": "Disclaimer",
+      "terms": "Terms"
+    },
+    "resources": "Resources",
+    "resourcesLinks": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "help": "Help Center"
+    },
+    "tagline": {
+      "line1": "Secure staking infrastructure by core Aptos contributors — no slashing since day one.",
+      "line2": "Verifiable On-chain"
+    },
+    "rights": "© {{year}} aptcore.one"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions"
+  },
+  "common": {
+    "connectWallet": "Connect Wallet"
+  },
+  "homePage": {
+    "meta": {
+      "title": "aptcore.one: Secure & Transparent Aptos (APT) Staking",
+      "description": "Stake your Aptos (APT) with aptcore.one. We offer transparent, secure Aptos staking with clear explanations of rewards, lock-ups, and the current 'no slashing' environment."
+    },
+    "schema": {
+      "name": "Aptos (APT) Staking on aptcore.one"
+    },
+    "hero": {
+      "mainHeading": "aptcore.one",
+      "subHeading": "Secure & Transparent Aptos Staking",
+      "details": "{{apy}}% APY • Non-custodial • Verifiable On-chain"
+    },
+    "error": {
+      "title": "Failed to Load Data"
+    }
+  },
+  "generalFaq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      { "id": 1, "question": "How can I start earning rewards with my Aptos (APT) tokens?", "answer": "You can earn rewards by staking your Aptos (APT) tokens, which also helps secure the Aptos network. Platforms like aptcore.one offer a simple and secure way to connect your wallet, delegate your APT to our reliable validator, and receive regular staking rewards." },
+      { "id": 2, "question": "What makes aptcore.one a good choice for staking Aptos?", "answer": "aptcore.one provides a user-friendly platform with a low 4% commission on earned rewards. For the most current estimated Net and Gross APY, please see the live \"Validator Pool Details\" dashboard displayed on this page. We prioritize robust security, transparency with our open-source approach, and making Aptos staking efficient for everyone." },
+      { "id": 3, "question": "Is staking Aptos (APT) through aptcore.one secure?", "answer": "Yes, security is a top priority at aptcore.one. We operate a resilient validator node on the Aptos Mainnet and adhere to industry best practices. Aptos staking is non-custodial, meaning you always retain control of your private keys, and your tokens are delegated securely, not transferred out of your possession." },
+      { "id": 4, "question": "How much Aptos (APT) do I need to start staking with aptcore.one?", "answer": "While the Aptos network often has a recommended minimum (typically around 11 APT) for direct interactions with delegation pools, aptcore.one ensures an accessible staking experience. You can start staking with this amount and begin earning rewards." },
+      { "id": 5, "question": "Is it complicated to stake Aptos if I'm new to crypto?", "answer": "Not with aptcore.one! We've designed our platform to be intuitive and straightforward. You can easily connect common Aptos wallets (like Petra) and follow simple on-screen steps to delegate your APT, even if you're new to cryptocurrency or staking." }
+    ]
+  },
+    "indexPage": {
+    "connectPrompt": {
+      "title": "Ready to Earn Aptos Staking Rewards?",
+      "description": "Connect your Aptos wallet to get started."
+    }
+  },
+    "stakeForm": {
+    "tabs": {
+      "stake": "Stake",
+      "unstake": "Unstake"
+    },
+    "labels": {
+      "amountToStake": "Amount to Stake",
+      "amountToUnstake": "Amount to Unstake",
+      "available": "Available"
+    },
+    "placeholders": {
+      "amount": "e.g., {{minStake}}"
+    },
+    "buttons": {
+      "stakeApt": "Stake APT",
+      "unstakeApt": "Unstake APT"
+    },
+    "helpers": {
+      "connectWallet": "Connect wallet to enable staking",
+      "minAmount": "Enter at least {{minStake}} APT to enable"
+    }
+  },
+    "stakeControls": {
+    "title": "Manage Your Stake",
+    "notConnected": {
+      "description": "Connect your wallet to stake, see your balance, active stake, and withdrawable rewards.",
+      "button": "Connect Wallet"
+    },
+    "messages": {
+      "success": "Transaction successful! Hash: {{hash}}...",
+      "rejected": "Transaction rejected by user.",
+      "error": "Error: {{message}}"
+    }
+  },
+    "userStatus": {
+    "countdown": {
+      "calculating": "Calculating remaining time...",
+      "awaitingConfirmation": "Awaiting network confirmation to become withdrawable...",
+      "timeRemaining": "Time remaining",
+      "daysShort": "d",
+      "hoursShort": "h",
+      "minutesShort": "m",
+      "secondsShort": "s"
+    },
+    "rows": {
+      "inWallet": "Available in Wallet",
+      "activeStake": "Active Stake",
+      "unlockingStake": "Unlocking Stake",
+      "unlockTimeAssignedNextEpoch": "Unlock time will be assigned next epoch",
+      "readyToWithdraw": "Ready to Withdraw"
+    },
+    "buttons": {
+      "withdraw": "Withdraw"
+    }
+  },
+    "validatorInfo": {
+    "title": "Validator Pool Details",
+    "cards": {
+      "totalDelegated": "Total Delegated",
+      "netYield": "Est. Net Yield",
+      "apySuffix": "APY"
+    },
+    "rows": {
+      "status": "Validator Status",
+      "statusValue": "Online",
+      "commission": "Commission Rate",
+      "timeUntilUnlock": "Time Until Unlock",
+      "lockupPeriod": "Current pool lockup period.",
+      "poolAddress": "Pool Address"
+    },
+    "tooltip": {
+      "title": "Reward Calculation:",
+      "netApyLabel": "Est. Net APY:",
+      "afterCommission": "(after {{commission}}% commission, compounded)",
+      "grossApyLabel": "Est. Gross APY:",
+      "footnote": "APY includes compounding. All figures are estimates and may vary."
+    }
+  },
+  "apyCalculatorPage": {
+    "meta": {
+      "title": "Interactive Aptos (APT) Staking APY Calculator – Estimate Your Rewards | aptcore.one",
+      "description": "Easily calculate your potential Aptos (APT) staking rewards with aptcore.one's free APY calculator. Input stake amount & see estimated daily, monthly, and yearly earnings.",
+      "twitterDescription": "Calculate your potential Aptos (APT) staking rewards. Input stake amount & see estimated daily, weekly, monthly, and yearly earnings with aptcore.one's APY tool."
+    },
+    "hero": {
+      "title": "Interactive Aptos (APT) Staking APY Calculator",
+      "description": "Estimate your potential rewards by entering a stake amount. The calculator uses a live network APY or lets you specify your own."
+    },
+    "results": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "error": {
+      "title": "Failed to Load Data"
+    },
+    "form": {
+      "amountLabel": "Amount of APT to stake",
+      "amountError": "Please enter a valid APT amount",
+      "amountPlaceholder": "1000",
+      "specifyApyLabel": "Specify your own APY",
+      "customApyLabel": "Custom APY (%)",
+      "customApyError": "Please enter a valid APY",
+      "customApyTooltip": "Enter the annual percentage yield you expect (e.g., 7.5 for 7.5%).",
+      "customApyPlaceholder": "7.5",
+      "currentApyLabel": "Current estimated network APY",
+      "loading": "Loading...",
+      "notAvailable": "N/A"
+    },
+    "resultsDisplay": {
+      "calculating": "Calculating returns...",
+      "prompt": {
+        "title": "Enter APT Amount",
+        "description": "Input the amount of APT you plan to stake to see potential earnings."
+      },
+      "error": {
+        "title": "Failed to Calculate Returns",
+        "description": "Could not calculate returns. Please check your input and ensure network APY is available."
+      },
+      "title": "Expected Returns",
+      "rowLabel": "{{period}} Earnings",
+      "priceUnavailable": "~ USD (price unavailable)",
+      "priceFootnote": "*USD calculation based on 1 APT = ${{price}} USD."
+    },
+    "disclaimer": {
+      "text": "*All calculations are approximate and based on the current/specified APY and APT/USD exchange rate. APY and exchange rates are subject to change. This tool does not constitute financial advice. Staking income is subject to validator commission fees, which are not factored into these calculations. Note that actual rewards in the Aptos network are distributed per epoch."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "What is APY and how is it different from APR?",
+          "answer": "APY (Annual Percentage Yield) includes the effect of compounding interest, meaning that earnings are reinvested to generate their own earnings. APR (Annual Percentage Rate) does not include compounding. This calculator primarily focuses on APY to give a more complete picture of potential returns over time, though the underlying calculation for short periods is based on a daily rate derived from APY."
+        },
+        {
+          "question": "Is the 'Current estimated network APY' accurate?",
+          "answer": "The network APY displayed is an estimate based on current on-chain data from the Aptos network (staking config and block information). It can fluctuate frequently based on network conditions, total amount staked, and other factors. It serves as a good current estimate but is not a guaranteed rate."
+        },
+        {
+          "question": "Are validator commissions included in this calculation?",
+          "answer": "No, this calculator shows gross earnings before any validator commissions are deducted. Different validators charge different commission rates. You should factor in your chosen validator's commission to estimate your net earnings."
+        },
+        {
+          "question": "How often are staking rewards actually distributed on Aptos?",
+          "answer": "Aptos network rewards are typically distributed at the end of each epoch. An epoch is a set period of time (e.g., roughly 2 hours, but this can change). The calculator simplifies this by showing daily, weekly, etc., projections based on the annualized APY."
+        },
+        {
+          "question": "Can I use this calculator for any Aptos validator?",
+          "answer": "Yes, you can use the 'Specify your own APY' option if you know the specific APY offered by a validator (after their commission, if they provide that figure) or if you want to explore different scenarios. The default network APY is a general network estimate."
+        }
+      ]
+    },
+    "schema": {
+      "faq": {
+        "q1": {
+          "question": "What is APY and how is it different from APR?",
+          "answer": "APY (Annual Percentage Yield) includes the effect of compounding interest, meaning that earnings are reinvested to generate their own earnings. APR (Annual Percentage Rate) does not include compounding. This calculator primarily focuses on APY."
+        },
+        "q2": {
+          "question": "Is the 'Current estimated network APY' accurate?",
+          "answer": "The network APY displayed is an estimate based on current on-chain data from the Aptos network. It can fluctuate and serves as a current estimate, not a guaranteed rate."
+        },
+        "q3": {
+          "question": "Are validator commissions included in this calculation?",
+          "answer": "No, this calculator shows gross earnings before any validator commissions are deducted. Factor in your chosen validator's commission for net earnings."
+        },
+        "q4": {
+          "question": "How often are staking rewards actually distributed on Aptos?",
+          "answer": "Aptos network rewards are typically distributed at the end of each epoch. The calculator simplifies this into daily, weekly, etc., projections based on APY."
+        },
+        "q5": {
+          "question": "Can I use this calculator for any Aptos validator?",
+          "answer": "Yes, you can use the 'Specify your own APY' option if you know the specific APY offered by a validator or if you want to explore different scenarios. The default network APY is a general network estimate."
+        }
+      },
+      "software": {
+        "name": "Interactive Aptos (APT) Staking APY Calculator",
+        "description": "A free online tool by aptcore.one to calculate and estimate potential earnings from staking Aptos (APT) tokens based on stake amount and APY. Understand your potential daily, weekly, monthly, and yearly rewards.",
+        "keywords": "Aptos staking APY calculator, APT APY calculator, Aptos rewards calculator, calculate Aptos staking profit, APT staking earnings estimator, how much can i earn staking aptos calculator, aptos staking potential return calculator, free aptos apy tool aptcore.one, daily aptos staking rewards calculator"
+      },
+      "howTo": {
+        "name": "How to Use the Interactive Aptos APY Staking Calculator on aptcore.one",
+        "description": "Calculate your potential Aptos (APT) staking rewards with the aptcore.one APY calculator by entering your stake amount and optionally a custom APY.",
+        "s1": {
+          "name": "Enter Staking Amount",
+          "text": "Input the total amount of APT you plan to stake into the 'Amount of APT to stake' field."
+        },
+        "s2": {
+          "name": "Specify APY (Optional)",
+          "text": "The calculator uses the current estimated network APY by default. If you want to use a different APY, check 'Specify your own APY' and enter your desired percentage."
+        },
+        "s3": {
+          "name": "View Estimated Returns",
+          "text": "The calculator will automatically display your estimated earnings for daily, weekly, monthly, and yearly periods in both APT and its approximate USD value if the APT price is available."
+        }
+      }
+    }
+  },
+    "lockupVisualizerPage": {
+    "meta": {
+      "title": "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline | aptcore.one",
+      "description": "Understand Aptos's staking lock-up (currently ~14 days). Use aptcore.one's visualizer to estimate when your staked APT will be available after unstaking.",
+      "twitterDescription": "Visualize Aptos (APT) staking lock-up periods and unstake timelines with aptcore.one's tool. See when your APT becomes available."
+    },
+    "hero": {
+      "title": "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline",
+      "description": "Understand Aptos's staking lock-up (currently ~14 days). Use aptcore.one's visualizer to estimate when your staked APT will be available after unstaking.",
+      "validatorInfo": "This tool visualizes unstaking timelines for the validator pool at:"
+    },
+    "loader": {
+      "loadingData": "Loading Network & Validator Data..."
+    },
+    "sections": {
+      "initiationTime": "Set Unstake Initiation Time",
+      "parameters": "Network & Staking Parameters",
+      "timeline": "Your Estimated Timeline"
+    },
+    "error": {
+      "title": "Error",
+      "prefix": ": "
+    },
+    "calculationError": "Calculation error: {{message}}",
+    "remainingTime": {
+      "availableNow": "Available now",
+      "inFormat": "in ~{{time}}",
+      "daysShort": "d",
+      "hoursShort": "h",
+      "minutesShort": "m",
+      "lessThanAMinute": "<1m"
+    },
+    "prompt": {
+      "description": "Select an unstake initiation time or click \"Visualize From Now\" to see the estimated timeline."
+    },
+    "inputControls": {
+      "visualizeNowButton": "Visualize Unstaking From Now"
+    },
+        "timelineDisplay": {
+      "event1": {
+        "title": "Unstake Initiated"
+      },
+      "event2": {
+        "title": "Pool Lockup Cycle Ends",
+        "details": "Funds become inactive"
+      },
+      "event3": {
+        "title": "Funds Available",
+        "details": "Becomes withdrawable at epoch boundary"
+      },
+      "availableNow": "Available for withdrawal",
+      "inFormat": "in ~{{time}}",
+      "daysShort": "d",
+      "hoursShort": "h",
+      "minutesShort": "m",
+      "lessThanAMinute": "<1m"
+    },
+        "networkInfo": {
+      "stakingCycle": "Network Staking Cycle Duration",
+      "daysValue": "{{days}} days",
+      "currentEpoch": "Current Epoch Number",
+      "epochDuration": "Average Epoch Duration",
+      "hoursValue": "~{{hours}} hours",
+      "dataAsOf": "Epoch Data as of",
+      "loading": "Loading..."
+    },
+    "faq": {
+      "title": "Lockup & Unstaking FAQs",
+      "items": [
+        {
+          "question": "How does the Aptos staking lock-up period work?",
+          "answer": "When you stake Aptos, your tokens are typically locked for a recurring period (currently around 14 days). If you decide to unstake, your APT becomes available after the current lock-up cycle of your chosen validator pool ends, and then fully withdrawable after the network processes it at an epoch boundary."
+        },
+        {
+          "question": "What does this visualizer show?",
+          "answer": "This tool helps you estimate the unstaking timeline for Aptos (APT) tokens. It considers the specific lock-up cycle of the validator at {{address}} and Aptos network epoch timings."
+        },
+        {
+          "question": "Why are 'Pool Cycle Ends' and 'Funds Available' different times?",
+          "answer": "Your funds are tied to the validator's lockup cycle. They become inactive (ready for withdrawal processing) when this cycle ends. The final 'Funds Available' time is when this withdrawal is processed by the Aptos network, which is aligned to the end of a network epoch."
+        }
+      ]
+    },
+    "schema": {
+      "software": {
+        "name": "Aptos Staking Lock-Up Visualizer: See Your APT Unstake Timeline",
+        "description": "An interactive tool by aptcore.one to visualize Aptos (APT) staking lock-up periods and estimate when your funds will be available after unstaking. Understand the Aptos lock-up cycle (currently around 14 days) and plan your staking strategy.",
+        "keywords": "Aptos staking lock up visualizer, APT unstaking period tool, Aptos 14 day lockup explained tool, visualize aptos unstake time, aptos staking release date calculator, when can I withdraw my staked aptos tool, aptos lockup calendar, aptcore.one"
+      },
+      "howTo": {
+        "name": "How to Use the Aptos Staking Lock-Up Visualizer to See Your APT Unstake Timeline",
+        "description": "Visualize your Aptos (APT) unstaking timeline with aptcore.one. Enter your unstake initiation time to see the estimated unlock schedule based on validator and network data.",
+        "s1": {
+          "name": "Select Unstake Initiation Time",
+          "text": "Choose the date and time you plan to initiate (or did initiate) your unstake request. You can use the date/time picker or click 'Visualize Unstaking From Now' for the current time."
+        },
+        "s2": {
+          "name": "Review Network & Validator Information",
+          "text": "The tool displays current Aptos network staking configurations (like the ~14 day lockup cycle), epoch timing, and lock-up details specific to the validator pool at {{address}}."
+        },
+        "s3": {
+          "name": "Analyze Your Unstaking Timeline",
+          "text": "The visualizer will generate and display a timeline. This shows when the validator's current pool lockup cycle is estimated to end and the final estimated time your Aptos (APT) funds will become available for withdrawal, aligned with Aptos network epochs."
+        },
+        "toolName": "Aptos Staking Lock-Up Visualizer on aptcore.one"
+      }
+    },
+        "disclaimer": {
+      "text": "*All timeline calculations are estimates based on current Aptos network parameters (such as recurring lockup duration and epoch interval) and the provided initiation time. Actual unlock times occur at epoch boundaries and may vary slightly due to network conditions or changes in network parameters. This tool does not constitute financial advice. Always verify critical information with official Aptos documentation or directly with your validator if applicable."
+    }
+  },
+  "connectWallet": {
+    "selectWalletTitle": "Select Wallet",
+    "closeModalAriaLabel": "Close wallet selection modal",
+    "noWalletsFound": "No wallets found.",
+    "pleaseInstallWallet": "Please install an Aptos-compatible wallet.",
+    "connectWithAriaLabel": "Connect with {{walletName}}",
+    "walletIconAlt": "{{walletName}} icon",
+    "disconnectAriaLabel": "Disconnect wallet {{address}}",
+    "connectedWalletIconAlt": "Connected wallet icon",
+    "connectWalletButton": "Connect Wallet",
+    "connectWalletAriaLabel": "Connect wallet"
+  }
+}

@@ -18,7 +18,6 @@ export default async function handler(req, res) {
         const aptosResponse = await fetch(resourceUrl);
 
         if (!aptosResponse.ok) {
-            // Если ресурс не найден (например, новый кошелек), возвращаем 0
             if (aptosResponse.status === 404) {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

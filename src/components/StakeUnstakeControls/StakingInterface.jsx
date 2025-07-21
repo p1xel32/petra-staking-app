@@ -4,7 +4,6 @@ import React, { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { motion } from 'framer-motion';
 
-// ✅ ИСПРАВЛЕНИЕ: Используем правильный относительный путь с двумя точками.
 import { EpochInfoProvider } from '../../context/EpochInfoContext.jsx'; 
 
 import ValidatorInfo from '../ValidatorInfo.jsx'; 

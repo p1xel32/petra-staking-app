@@ -1,80 +1,105 @@
 ---
+import { getTranslations } from '../i18n';
 import Layout from '../layouts/Layout.astro';
 import Search from '../components/Search.astro';
 import SectionCard from '../components/SectionCard.astro';
 import { PATHS, SITE_URL } from '../consts';
-import { 
-  HelpCircle, 
-  Info, 
-  Phone, 
-  FileText, 
-  Calculator, 
-  GanttChartSquare 
+import astroConfig from '../../astro.config.mjs';
+import {
+  HelpCircle,
+  Info,
+  Phone,
+  FileText,
+  Calculator,
+  GanttChartSquare
 } from 'lucide-astro';
 
-// SEO
-const pageTitle = "Help Center | aptcore.one";
-const pageDescription = "Find answers, tutorials, and details about our platform. Explore our FAQ, learn about us, or get in touch with support.";
-const canonicalURL = new URL(PATHS.help, SITE_URL);
+const { defaultLocale, locales } = astroConfig.i18n;
+const currentLocale = Astro.currentLocale;
+const t = getTranslations(currentLocale);
+
+const pageTitle = t.help.pageTitle;
+const pageDescription = t.help.pageDescription;
 const keywords = "aptos help, aptos support, aptos faq, aptos staking help, aptos guides, aptcore.one support, aptos contact";
 
-// Schema.org
+const helpPagePath = '/help';
+const canonicalPath = currentLocale === defaultLocale
+  ? `/blog${helpPagePath}`
+  : `/blog/${currentLocale}${helpPagePath}`;
+const canonicalURL = new URL(canonicalPath, SITE_URL);
+
+const hreflangLinks = locales.map(lang => {
+    const path = lang === defaultLocale
+        ? `/blog${helpPagePath}`
+        : `/blog/${lang}${helpPagePath}`;
+    return {
+        lang: lang,
+        href: new URL(path, SITE_URL).href
+    };
+});
+
+const xDefaultHref = new URL(`/blog${helpPagePath}`, SITE_URL).href;
+
 const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": pageTitle,
-  "description": pageDescription,
-  "url": canonicalURL.toString(),
-  "isPartOf": {
-    "@type": "WebSite",
-    "url": PATHS.home,
-    "name": "aptcore.one"
-  },
-  "mainEntity": {
-    "@type": "QAPage", 
-    "name": "aptcore.one Help Center"
-  }
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalURL.toString(),
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": SITE_URL.toString(),
+    "name": "aptcore.one"
+  },
+  "mainEntity": {
+    "@type": "QAPage",
+    "name": "aptcore.one Help Center"
+  }
 };
 
-// Данные для карточек
+const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
+const blogLocalePrefix = `/blog${localePrefix}`;
+
 const helpSections = [
-  { href: PATHS.faq, title: "FAQ", description: "Find quick answers to our most common questions about staking, security, and Aptos.", icon: HelpCircle },
-  { href: PATHS.blog, title: "Blog & Guides", description: "Explore in-depth articles, guides, and platform updates from our team.", icon: FileText },
-  { href: PATHS.tools.apyCalculator, title: "APY Calculator", description: "Calculate your potential staking rewards based on different scenarios.", icon: Calculator },
-  { href: PATHS.about, title: "About Us", description: "Learn more about our mission, values, and the team behind aptcore.one.", icon: Info },
-  { href: PATHS.contact, title: "Contact Support", description: "Get in touch with us for support, partnership, or any other inquiries.", icon: Phone },
-  { href: PATHS.tools.lockupVisualizer, title: "Lockup Visualizer", description: "Visualize the unstaking lockup periods for your staked assets.", icon: GanttChartSquare },
+  { href: `${blogLocalePrefix}/faq`, title: t.help.sections.faq.title, description: t.help.sections.faq.description, icon: HelpCircle },
+  { href: `${blogLocalePrefix}`, title: t.help.sections.blog.title, description: t.help.sections.blog.description, icon: FileText },
+  { href: `${localePrefix}/tools/apy-calculator`, title: t.help.sections.apy.title, description: t.help.sections.apy.description, icon: Calculator },
+  { href: `${blogLocalePrefix}/about`, title: t.help.sections.about.title, description: t.help.sections.about.description, icon: Info },
+  { href: `${blogLocalePrefix}/contact`, title: t.help.sections.contact.title, description: t.help.sections.contact.description, icon: Phone },
+  { href: `${localePrefix}/tools/lockup-visualizer`, title: t.help.sections.lockup.title, description: t.help.sections.lockup.description, icon: GanttChartSquare },
 ];
 ---
 
-<Layout 
-  title={pageTitle} 
-  description={pageDescription} 
-  canonicalURL={canonicalURL.toString()}
-  keywords={keywords}
-  ogType="website"
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL.toString()}
+  keywords={keywords}
+  ogType="website"
+  hreflangLinks={hreflangLinks}
+  xDefaultHref={xDefaultHref}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} slot="head-scripts" />
+  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} slot="head-scripts" />
 
-  <div class="text-center mb-12 py-8">
-    <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 tracking-tight mb-4">Help Center</h1>
-    <p class="text-lg text-zinc-400 max-w-2xl mx-auto">
-      How can we help you? Find answers below or explore our guides.
-    </p>
-  </div>
+  <div class="text-center mb-12 py-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 tracking-tight mb-4">{t.help.header.title}</h1>
+    <p class="text-lg text-zinc-400 max-w-2xl mx-auto">
+      {t.help.header.subtitle}
+    </p>
+  </div>
 
-  <div class="mb-12 max-w-2xl mx-auto">
-    <Search />
-  </div>
+  <div class="mb-12 max-w-2xl mx-auto">
+    <Search />
+  </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {helpSections.map(section => (
-      <SectionCard
-        href={section.href}
-        title={section.title}
-        description={section.description}
-        icon={section.icon}
-      />
-    ))}
-  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {helpSections.map(section => (
+      <SectionCard
+        href={section.href}
+        title={section.title}
+        description={section.description}
+        icon={section.icon}
+      />
+    ))}
+  </div>
 </Layout>
