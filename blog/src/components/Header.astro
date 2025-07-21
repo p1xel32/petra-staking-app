@@ -1,6 +1,8 @@
+// src/components/Header.astro (Исправлено)
+
 ---
 import { getTranslations } from '../i18n';
-import { PATHS } from '../consts';
+import { PATHS, SITE_URL } from '../consts';
 import astroConfig from '../../astro.config.mjs';
 
 const { defaultLocale } = astroConfig.i18n;
@@ -11,7 +13,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
 
 const blogHomePath = `${base}${localePrefix || '/'}`;
-const mainAppUrl = currentLocale === defaultLocale ? PATHS.home : `${PATHS.home}${localePrefix}`;
+const mainAppUrl = new URL(localePrefix || '/', SITE_URL).href;
 
 const navLinks = [
   { label: t.layout.header.help, href: `${base}${localePrefix}/help` },
