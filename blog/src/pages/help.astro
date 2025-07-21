@@ -1,3 +1,5 @@
+// src/pages/[lang]/help.astro
+
 ---
 import { getTranslations } from '../i18n';
 import Layout from '../layouts/Layout.astro';
@@ -22,26 +24,17 @@ const pageTitle = t.help.pageTitle;
 const pageDescription = t.help.pageDescription;
 const keywords = "aptos help, aptos support, aptos faq, aptos staking help, aptos guides, aptcore.one support, aptos contact";
 
-const helpPagePath = '/help';
-const canonicalPath = currentLocale === defaultLocale
-  ? `/blog${helpPagePath}`
-  : `/blog/${currentLocale}${helpPagePath}`;
-const canonicalURL = new URL(canonicalPath, SITE_URL);
+const canonicalURL = new URL(currentLocale === defaultLocale ? PATHS.help : `${PATHS.blog}/${currentLocale}/help`, SITE_URL);
 
 const hreflangLinks = locales.map(lang => {
-    const path = lang === defaultLocale
-        ? `/blog${helpPagePath}`
-        : `/blog/${lang}${helpPagePath}`;
-    return {
-        lang: lang,
-        href: new URL(path, SITE_URL).href
-    };
+    const path = lang === defaultLocale ? PATHS.help : `${PATHS.blog}/${lang}/help`;
+    return { lang, href: new URL(path, SITE_URL).href };
 });
 
-const xDefaultHref = new URL(`/blog${helpPagePath}`, SITE_URL).href;
+const xDefaultHref = new URL(PATHS.help, SITE_URL).href;
 
 const webPageSchema = {
-  "@context": "https://schema.org",
+  "@context": "[https://schema.org](https://schema.org)",
   "@type": "WebPage",
   "name": pageTitle,
   "description": pageDescription,
@@ -57,16 +50,19 @@ const webPageSchema = {
   }
 };
 
-const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
-const blogLocalePrefix = `/blog${localePrefix}`;
+const getToolUrl = (fullUrl) => {
+    if (currentLocale === defaultLocale) return fullUrl;
+    const url = new URL(fullUrl);
+    return `${url.protocol}//${url.hostname}/${currentLocale}${url.pathname}`;
+};
 
 const helpSections = [
-  { href: `${blogLocalePrefix}/faq`, title: t.help.sections.faq.title, description: t.help.sections.faq.description, icon: HelpCircle },
-  { href: `${blogLocalePrefix}`, title: t.help.sections.blog.title, description: t.help.sections.blog.description, icon: FileText },
-  { href: `${localePrefix}/tools/aptos-staking-apy-calculator`, title: t.help.sections.apy.title, description: t.help.sections.apy.description, icon: Calculator },
-  { href: `${blogLocalePrefix}/about`, title: t.help.sections.about.title, description: t.help.sections.about.description, icon: Info },
-  { href: `${blogLocalePrefix}/contact`, title: t.help.sections.contact.title, description: t.help.sections.contact.description, icon: Phone },
-  { href: `${localePrefix}/tools/aptos-staking-lockup-visualizer`, title: t.help.sections.lockup.title, description: t.help.sections.lockup.description, icon: GanttChartSquare },
+  { href: currentLocale === defaultLocale ? PATHS.faq : `${PATHS.blog}/${currentLocale}/faq`, title: t.help.sections.faq.title, description: t.help.sections.faq.description, icon: HelpCircle },
+  { href: currentLocale === defaultLocale ? PATHS.blog : `${PATHS.blog}/${currentLocale}`, title: t.help.sections.blog.title, description: t.help.sections.blog.description, icon: FileText },
+  { href: getToolUrl(PATHS.tools.apyCalculator), title: t.help.sections.apy.title, description: t.help.sections.apy.description, icon: Calculator },
+  { href: currentLocale === defaultLocale ? PATHS.about : `${PATHS.blog}/${currentLocale}/about`, title: t.help.sections.about.title, description: t.help.sections.about.description, icon: Info },
+  { href: currentLocale === defaultLocale ? PATHS.contact : `${PATHS.blog}/${currentLocale}/contact`, title: t.help.sections.contact.title, description: t.help.sections.contact.description, icon: Phone },
+  { href: getToolUrl(PATHS.tools.lockupVisualizer), title: t.help.sections.lockup.title, description: t.help.sections.lockup.description, icon: GanttChartSquare },
 ];
 ---
 
