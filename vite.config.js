@@ -5,7 +5,6 @@ import vike from 'vike/plugin';
 import path from 'path';
 import vercel from 'vite-plugin-vercel';
 import { cjsInterop } from 'vite-plugin-cjs-interop';
-import sitemapPlugin from './scripts/sitemap-plugin.js';
 
 const localApiServerPlugin = () => ({
   name: 'local-api-server',
@@ -41,8 +40,7 @@ export default defineConfig({
     vike(),
     vercel(),
     cjsInterop({ dependencies: ['react-helmet-async'] }),
-    localApiServerPlugin(),
-    sitemapPlugin(),
+    localApiServerPlugin()
   ],
   resolve: {
     alias: {

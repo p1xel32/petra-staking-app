@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://aptcore.one/</loc>
     <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://aptcore.one/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://aptcore.one/es"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://aptcore.one/ja"/>
@@ -11,10 +13,11 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://aptcore.one/ru"/>
     <xhtml:link rel="alternate" hreflang="vi" href="https://aptcore.one/vi"/>
   </url>
+
   <url>
     <loc>https://aptcore.one/tools/aptos-staking-lockup-visualizer</loc>
     <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://aptcore.one/tools/aptos-staking-lockup-visualizer"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://aptcore.one/es/tools/aptos-staking-lockup-visualizer"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://aptcore.one/ja/tools/aptos-staking-lockup-visualizer"/>
@@ -22,10 +25,11 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://aptcore.one/ru/tools/aptos-staking-lockup-visualizer"/>
     <xhtml:link rel="alternate" hreflang="vi" href="https://aptcore.one/vi/tools/aptos-staking-lockup-visualizer"/>
   </url>
+  
   <url>
     <loc>https://aptcore.one/tools/aptos-staking-apy-calculator</loc>
     <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://aptcore.one/tools/aptos-staking-apy-calculator"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://aptcore.one/es/tools/aptos-staking-apy-calculator"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://aptcore.one/ja/tools/aptos-staking-apy-calculator"/>
@@ -33,4 +37,5 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://aptcore.one/ru/tools/aptos-staking-apy-calculator"/>
     <xhtml:link rel="alternate" hreflang="vi" href="https://aptcore.one/vi/tools/aptos-staking-apy-calculator"/>
   </url>
+
 </urlset>
