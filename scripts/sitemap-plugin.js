@@ -53,7 +53,7 @@ export default function sitemapPlugin() {
     async buildStart() {
       console.log('Генерация sitemap через Vite плагин...');
       const sitemapContent = await generateSitemapContent();
-      await fs.writeFile('public/sitemap-main.xml', sitemapContent);
+      await fs.writeFile('public/sitemap-v2.xml', sitemapContent);
       console.log('✅ Файл sitemap-main.xml создан в папке public!');
     }
   };
