@@ -1,4 +1,3 @@
-// scripts/generate-sitemap.mjs
 import { promises as fs } from 'fs';
 import { glob } from 'glob';
 import { SitemapStream, streamToPromise } from 'sitemap';
@@ -9,28 +8,58 @@ async function generateSitemap() {
   console.log('Генерация sitemap для основного сайта...');
 
   const pageFiles = await glob('pages/**/+Page.jsx');
-
   const locales = ['en', 'es', 'ja', 'ko', 'ru', 'vi'];
-  const links = [];
+  
+  const pageGroups = new Map();
 
-  pageFiles.forEach((file) => {
-    let path = file
+  for (const file of pageFiles) {
+    if (file.includes('_error')) {
+      continue;
+    }
+
+    let canonicalPath = file
       .replace('pages', '')
       .replace('/+Page.jsx', '')
-      .replace('index', ''); 
+      .replace('/(locale)', '')
+      .replace(/\/index$/, '') 
+      .replace(/\/$/, ''); 
 
-    if (path.includes('(locale)')) {
-      locales.forEach(locale => {
-        
-        const localizedPath = locale === 'en'
-          ? path.replace('/(locale)', '')
-          : path.replace('(locale)', locale);
-        links.push({ url: `${localizedPath || '/'}`, changefreq: 'daily', priority: 0.7 });
-      });
-    } else {
-      links.push({ url: path, changefreq: 'daily', priority: 0.7 });
+    if (canonicalPath === '') {
+      canonicalPath = '/';
     }
-  });
+
+    if (file.includes('(locale)')) {
+      if (!pageGroups.has(canonicalPath)) {
+        pageGroups.set(canonicalPath, { allLocales: true });
+      }
+    } else {
+      if (!pageGroups.has(canonicalPath)) {
+        pageGroups.set(canonicalPath, { allLocales: false });
+      }
+    }
+  }
+  
+  const links = [];
+  for (const [path, data] of pageGroups.entries()) {
+    const usedLocales = data.allLocales ? locales : ['en'];
+
+    const xhtmlLinks = usedLocales.map(locale => {
+      let localizedPath;
+      if (locale === 'en') {
+        localizedPath = path;
+      } else {
+        localizedPath = path === '/' ? `/${locale}` : `/${locale}${path}`;
+      }
+      return { lang: locale, url: `${SITE_URL}${localizedPath}` };
+    });
+
+    links.push({
+      url: path,
+      changefreq: 'daily',
+      priority: 0.7,
+      links: xhtmlLinks,
+    });
+  }
 
   const stream = new SitemapStream({ hostname: SITE_URL });
   links.forEach(link => stream.write(link));
