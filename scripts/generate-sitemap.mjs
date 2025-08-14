@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { glob } from 'glob';
 import sitemap from 'sitemap';
-const { buildSitemap } = sitemap;
+const { SitemapStream, streamToPromise } = sitemap;
 
 const SITE_URL = 'https://aptcore.one';
 
@@ -62,7 +62,11 @@ async function generateSitemap() {
     });
   }
 
-  const sitemapXml = await buildSitemap({ hostname: SITE_URL }, links);
+  const stream = new SitemapStream({ hostname: SITE_URL });
+  
+  const sitemapXml = await streamToPromise(stream.pipe(links)).then((data) =>
+    data.toString()
+  );
 
   await fs.writeFile('public/sitemap-main.xml', sitemapXml);
 
