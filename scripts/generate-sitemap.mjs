@@ -63,8 +63,14 @@ async function generateSitemap() {
   }
 
   const stream = new SitemapStream({ hostname: SITE_URL });
+
+  links.forEach(link => {
+    stream.write(link);
+  });
   
-  const sitemapXml = await streamToPromise(stream.pipe(links)).then((data) =>
+  stream.end();
+
+  const sitemapXml = await streamToPromise(stream).then((data) =>
     data.toString()
   );
 
