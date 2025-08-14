@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { glob } from 'glob';
-// ИЗМЕНЕНИЕ: Импортируем другую функцию
-import { buildSitemap } from 'sitemap';
+import sitemap from 'sitemap';
+const { buildSitemap } = sitemap;
 
 const SITE_URL = 'https://aptcore.one';
 
