@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import path from 'path';
 import { glob } from 'glob';
 
 const SITE_URL = 'https://aptcore.one';
@@ -48,13 +49,19 @@ async function generateSitemapContent() {
 }
 
 export default function sitemapPlugin() {
+  let outDir;
+
   return {
     name: 'sitemap-generator',
-    async buildStart() {
-      console.log('Генерация sitemap через Vite плагин...');
+    configResolved(resolvedConfig) {
+      outDir = resolvedConfig.build.outDir;
+    },
+    async writeBundle() {
+      console.log(`Генерация sitemap в финальной директории: ${outDir}`);
       const sitemapContent = await generateSitemapContent();
-      await fs.writeFile('public/sitemap-v2.xml', sitemapContent);
-      console.log('✅ Файл sitemap-main.xml создан в папке public!');
+      
+      await fs.writeFile(path.resolve(outDir, 'static/sitemap-main.xml'), sitemapContent);
+      console.log('✅ Файл sitemap-main.xml успешно создан в итоговой сборке!');
     }
   };
 }
