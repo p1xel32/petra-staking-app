@@ -60,7 +60,7 @@ export default function sitemapPlugin() {
       console.log(`Генерация sitemap в финальной директории: ${outDir}`);
       const sitemapContent = await generateSitemapContent();
       
-      await fs.writeFile(path.resolve(outDir, 'static/sitemap-main.xml'), sitemapContent);
+      await fs.writeFile(path.resolve(outDir, 'sitemap-main.xml'), sitemapContent);
       console.log('✅ Файл sitemap-main.xml успешно создан в итоговой сборке!');
     }
   };
