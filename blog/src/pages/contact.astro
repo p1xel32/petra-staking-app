@@ -36,16 +36,16 @@ const xDefaultHref = new URL(PATHS.contact, SITE_URL).href;
 // --- Конец логики ---
 
 const jsonLdData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "aptcore.one",
-  "url": SITE_URL,
-  "logo": `${SITE_URL}/blog/aptcore-logo.svg`,
-  "contactPoint": [{
-    "@type": "ContactPoint",
-    "contactType": "customer support",
-    "email": contactEmail
-  }]
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "aptcore.one",
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/blog/aptcore-logo.svg`,
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "email": contactEmail
+  }]
 };
 ---
 
@@ -57,138 +57,139 @@ const jsonLdData = {
     hreflangLinks={hreflangLinks}
     xDefaultHref={xDefaultHref}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} slot="head-scripts" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} slot="head-scripts" />
 
-  <div class="max-w-6xl mx-auto px-4 py-16">
-    <header class="text-center mb-14">
-      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 tracking-tight">{t.contact.header.title}</h1>
-      <p class="text-lg text-zinc-400 mt-4 max-w-2xl mx-auto">
-        {t.contact.header.subtitle}
-      </p>
-    </header>
+  <div class="max-w-6xl mx-auto px-4 py-16">
+    <header class="text-center mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 tracking-tight">{t.contact.header.title}</h1>
+      <p class="text-lg text-zinc-400 mt-4 max-w-2xl mx-auto">
+        {t.contact.header.subtitle}
+      </p>
+    </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-      
-      <div class="prose prose-invert prose-lg max-w-none text-zinc-300">
-        <h2 class="text-zinc-100">{t.contact.left_panel.title}</h2>
-        <p>
-          {t.contact.left_panel.text}
-        </p>
-        
-        <div class="mt-8 space-y-4">
-          <a href={`mailto:${contactEmail}`} class="flex items-center gap-4 group text-zinc-300 hover:text-purple-400 transition-colors not-prose">
-            <div class="w-12 h-12 bg-zinc-800/80 border border-zinc-700 rounded-lg flex items-center justify-center group-hover:border-purple-500/50 transition-colors">
-              <Mail class="w-6 h-6 text-purple-400" />
-            </div>
-            <div>
-              <h3 class="font-semibold text-zinc-100">{t.contact.left_panel.email_us}</h3>
-              <p class="text-sm">{contactEmail}</p>
-            </div>
-          </a>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      
+      <div class="prose prose-invert prose-lg max-w-none text-zinc-300">
+        <h2 class="text-zinc-100">{t.contact.left_panel.title}</h2>
+        <p>
+          {t.contact.left_panel.text}
+        </p>
+        
+        <div class="mt-8 space-y-4">
+          <a href={`mailto:${contactEmail}`} class="flex items-center gap-4 group text-zinc-300 hover:text-purple-400 transition-colors not-prose">
+            <div class="w-12 h-12 bg-zinc-800/80 border border-zinc-700 rounded-lg flex items-center justify-center group-hover:border-purple-500/50 transition-colors">
+              <Mail class="w-6 h-6 text-purple-400" />
+            </div>
+            <div>
+              <h3 class="font-semibold text-zinc-100">{t.contact.left_panel.email_us}</h3>
+              <p class="text-sm">{contactEmail}</p>
+            </div>
+          </a>
 
-          <a href="https://maps.google.com/?q=Bolsunovska+St,+13-15,+Kyiv,+Ukraine" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 group text-zinc-300 hover:text-purple-400 transition-colors not-prose">
-                <div class="w-12 h-12 bg-zinc-800/80 border border-zinc-700 rounded-lg flex items-center justify-center group-hover:border-purple-500/50 transition-colors">
-                    <MapPin class="w-6 h-6 text-purple-400" />
-                </div>
-                <div>
-                    <h3 class="font-semibold text-zinc-100">{t.contact.left_panel.address_title}</h3>
-                    <p class="text-sm">{t.contact.left_panel.address_text}</p>
-                </div>
-            </a>
+          <a href="https://maps.google.com/?q=Bolsunovska+St,+13-15,+Kyiv,+Ukraine" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 group text-zinc-300 hover:text-purple-400 transition-colors not-prose">
+            <div class="w-12 h-12 bg-zinc-800/80 border border-zinc-700 rounded-lg flex items-center justify-center group-hover:border-purple-500/50 transition-colors">
+              <MapPin class="w-6 h-6 text-purple-400" />
+            </div>
+            <div>
+              <h3 class="font-semibold text-zinc-100">{t.contact.left_panel.address_title}</h3>
+              <p class="text-sm">{t.contact.left_panel.address_text}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8">
+        
+        <div id="contact-form-wrapper">
+          <form id="contact-form" action={formspreeEndpoint} method="POST">
+            <div class="space-y-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-zinc-300 mb-1.5">{t.contact.form.name}</label>
+                <input type="text" name="name" id="name" required class="w-full bg-zinc-800 border-zinc-700 rounded-lg text-zinc-100 py-2.5 px-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-zinc-300 mb-1.5">{t.contact.form.email}</label>
+                <input type="email" name="_replyto" id="email" required class="w-full bg-zinc-800 border-zinc-700 rounded-lg text-zinc-100 py-2.5 px-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-zinc-300 mb-1.5">{t.contact.form.message}</label>
+                <textarea name="message" id="message" required rows="5" class="w-full bg-zinc-800 border-zinc-700 rounded-lg text-zinc-100 py-2.5 px-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"></textarea>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <button id="submit-button" type="submit" class="w-full flex items-center justify-center gap-x-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-base font-semibold text-white transition-all duration-200">
+                <Send size={18} />
+                {t.contact.form.button}
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <div id="success-message" class="hidden text-center">
+          <CheckCircle class="w-16 h-16 text-green-500 mx-auto mb-4" />
+          <h3 class="text-2xl font-bold text-zinc-100">{t.contact.form.success_title}</h3>
+          <p class="text-zinc-400 mt-2">{t.contact.form.success_text}</p>
         </div>
 
-      <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8">
-        
-        <div id="contact-form-wrapper">
-          <form id="contact-form" action={formspreeEndpoint} method="POST">
-            <div class="space-y-6">
-              <div>
-                <label for="name" class="block text-sm font-medium text-zinc-300 mb-1.5">{t.contact.form.name}</label>
-                <input type="text" name="name" id="name" required class="w-full bg-zinc-800 border-zinc-700 rounded-lg text-zinc-100 py-2.5 px-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
-              </div>
+      </div>
+    </div>
+  </div>
 
-              <div>
-                <label for="email" class="block text-sm font-medium text-zinc-300 mb-1.5">{t.contact.form.email}</label>
-                <input type="email" name="_replyto" id="email" required class="w-full bg-zinc-800 border-zinc-700 rounded-lg text-zinc-100 py-2.5 px-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
-              </div>
+  <script define:vars={{
+      sendingText: t.contact.form.sending,
+      errorAlertText: t.contact.form.error_alert
+  }}>
+    const form = document.getElementById('contact-form');
+    const formWrapper = document.getElementById('contact-form-wrapper');
+    const successMessage = document.getElementById('success-message');
+    const submitButton = document.getElementById('submit-button');
 
-              <div>
-                <label for="message" class="block text-sm font-medium text-zinc-300 mb-1.5">{t.contact.form.message}</label>
-                <textarea name="message" id="message" required rows="5" class="w-full bg-zinc-800 border-zinc-700 rounded-lg text-zinc-100 py-2.5 px-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"></textarea>
-              </div>
-            </div>
-            
-            <div class="mt-8">
-              <button id="submit-button" type="submit" class="w-full flex items-center justify-center gap-x-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-base font-semibold text-white transition-all duration-200">
-                <Send size={18} />
-                {t.contact.form.button}
-              </button>
-            </div>
-          </form>
-        </div>
-        
-        <div id="success-message" class="hidden text-center">
-          <CheckCircle class="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h3 class="text-2xl font-bold text-zinc-100">{t.contact.form.success_title}</h3>
-          <p class="text-zinc-400 mt-2">{t.contact.form.success_text}</p>
-        </div>
+    async function handleSubmit(event) {
+      event.preventDefault();
+      
+      const originalButtonContent = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        ${sendingText}
+      `;
 
-      </div>
-    </div>
-  </div>
+      const data = new FormData(event.target);
+      
+      try {
+        const response = await fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
 
-  <script define:vars={{
-      sendingText: t.contact.form.sending,
-      errorAlertText: t.contact.form.error_alert
-  }}>
-    const form = document.getElementById('contact-form');
-    const formWrapper = document.getElementById('contact-form-wrapper');
-    const successMessage = document.getElementById('success-message');
-    const submitButton = document.getElementById('submit-button');
+        if (response.ok) {
+          formWrapper.classList.add('hidden');
+          successMessage.classList.remove('hidden');
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              alert(data["errors"].map(error => error["message"]).join(", "));
+            } else {
+              alert(errorAlertText);
+            }
+          });
+          submitButton.disabled = false;
+          submitButton.innerHTML = originalButtonContent;
+        }
+      } catch (error) {
+        alert(errorAlertText);
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonContent;
+      }
+    }
 
-    async function handleSubmit(event) {
-      event.preventDefault();
-      
-      const originalButtonContent = submitButton.innerHTML;
-      submitButton.disabled = true;
-      submitButton.innerHTML = `
-        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        ${sendingText}
-      `;
-
-      const data = new FormData(event.target);
-      
-      try {
-        const response = await fetch(event.target.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          formWrapper.classList.add('hidden');
-          successMessage.classList.remove('hidden');
-        } else {
-          response.json().then(data => {
-            if (Object.hasOwn(data, 'errors')) {
-              alert(data["errors"].map(error => error["message"]).join(", "));
-            } else {
-              alert(errorAlertText);
-            }
-          });
-          submitButton.disabled = false;
-          submitButton.innerHTML = originalButtonContent;
-        }
-      } catch (error) {
-        alert(errorAlertText);
-        submitButton.disabled = false;
-        submitButton.innerHTML = originalButtonContent;
-      }
-    }
-
-    form.addEventListener("submit", handleSubmit);
-  </script>
+    form.addEventListener("submit", handleSubmit);
+  </script>
 </Layout>
