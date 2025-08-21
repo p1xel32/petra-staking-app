@@ -2,7 +2,7 @@
 import { getTranslations } from '../i18n';
 import Layout from '@layouts/Layout.astro';
 import { SITE_URL, PATHS } from '../consts';
-import { Mail, Send, CheckCircle } from 'lucide-astro';
+import { Mail, Send, CheckCircle, MapPin } from 'lucide-astro';
 import astroConfig from '../../astro.config.mjs';
 
 const { defaultLocale, locales } = astroConfig.i18n;
@@ -85,8 +85,17 @@ const jsonLdData = {
               <p class="text-sm">{contactEmail}</p>
             </div>
           </a>
-        </div>
-      </div>
+
+          <a href="https://maps.google.com/?q=Bolsunovska+St,+13-15,+Kyiv,+Ukraine" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 group text-zinc-300 hover:text-purple-400 transition-colors not-prose">
+                <div class="w-12 h-12 bg-zinc-800/80 border border-zinc-700 rounded-lg flex items-center justify-center group-hover:border-purple-500/50 transition-colors">
+                    <MapPin class="w-6 h-6 text-purple-400" />
+                </div>
+                <div>
+                    <h3 class="font-semibold text-zinc-100">{t.contact.left_panel.address_title}</h3>
+                    <p class="text-sm">{t.contact.left_panel.address_text}</p>
+                </div>
+            </a>
+        </div>
 
       <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8">
         

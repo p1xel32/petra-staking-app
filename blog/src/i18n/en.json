@@ -40,7 +40,9 @@
     "left_panel": {
       "title": "Get in Touch",
       "text": "For direct inquiries, partnership proposals, or specific support questions, please use the form or contact us via email. We read every message and aim to respond within 24 business hours.",
-      "email_us": "Email Us"
+      "email_us": "Email Us",
+      "address_title": "Our Location",
+      "address_text": "Bolsunovska St, 13-15, Kyiv, Ukraine"
     },
     "form": {
       "name": "Full Name",
