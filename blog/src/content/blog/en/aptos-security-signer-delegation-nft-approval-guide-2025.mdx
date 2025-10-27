@@ -1,0 +1,58 @@
+---
+title: "The Real Hidden Dangers on Aptos: A Guide to NFT Approvals & Signer Delegation"
+translationKey: "aptos-security-signer-delegation-nft-approval-guide-2025"
+pubDate: "2025-11-03T11:30:00.000Z"
+description: "Forget EVM habits. Learn the *real* security risks on Aptos that hackers exploit. This is a critical guide to 'Signer Delegation' and 'NFT Approvals'—the threats you don't see."
+author: "The aptcore.one Team"
+heroImage: "/blog-assets/aptos-real-security-risks.jpg"
+heroImageAlt: "A digital vault with a complex lock, representing the advanced security model of the Aptos blockchain."
+keywords: ["Aptos security", "signer delegation Aptos", "Aptos wallet hacked", "set_approval_for_all", "NFT security Aptos", "grant_signer_capability", "Move language security"]
+tags: ["Aptos", "security", "DeFi", "NFT", "tutorial", "advanced", "wallet"]
+---
+
+If you come from Ethereum or other EVM chains, you’ve been trained to "revoke your token approvals." This is a common security step to prevent dApps from draining your ERC-20 tokens.
+
+Let's get one thing straight: **This model does not exist for standard tokens on Aptos.**
+
+Thanks to the Move language's resource model, you don't "approve" a contract to spend your APT or USDC. You *send* (transfer) your tokens to the protocol, and they are held in the contract. To get them back, you call a `withdraw` function.
+
+This is fundamentally more secure for most DeFi interactions. But it has led many to a false sense of security. Hackers are smart—they don't use attacks that don't work. Instead, they target two *other* types of permissions available on Aptos, and they are far more dangerous.
+
+This is the advanced security guide every active Aptos user *must* understand.
+
+### Danger #1: The NFT Blank Check (`set_approval_for_all`)
+
+While standard tokens are safe from "approval" attacks, Aptos NFTs have a special function that works just like on EVM.
+
+* **What it is:** A function that grants another account (like an NFT marketplace) the permission to transfer *all* your NFTs from a specific collection on your behalf.
+* **The Legitimate Use:** You grant this to a marketplace like Topaz or Wapal so they can automatically transfer your NFT when someone buys it.
+* **The Scam:** A "new, free mint" site pops up. You click "mint," and your wallet asks for a signature. You're rushing and you sign it. You've just signed a `set_approval_for_all` transaction. The scammer's contract now has permission to instantly steal every valuable NFT you own from a different, high-value collection.
+
+**How to Protect Yourself:**
+* **Read the Transaction:** Your wallet (like Petra or Pontem) will try to warn you. If a "Free Mint" is asking for `set_approval_for_all`, it is a 100% scam. **REJECT IT.**
+* **Use a Burner Wallet:** We've said it before, and we'll say it again. Your "degen" activities like minting new, unverified NFTs should *always* be done from a [burner wallet](link-to-your-security-checklist-article) that holds no valuable assets.
+* **Revoke It:** You can use a tool like the Petra wallet's "Permissions" tab or Aptoscan to find and revoke these approvals.
+
+### Danger #2: Signer Delegation (The "Keys to the Kingdom")
+
+This is, without a doubt, the single most dangerous permission you can grant on Aptos. It's called `grant_full_signer_capability`.
+
+* **What it is:** This function gives another account (like a dApp's contract) the **full and complete ability to sign transactions on your behalf.** It's not an approval. It *is* your signature. They can do *anything* you can do: drain your APT, unstake your funds, sell all your NFTs, and empty your wallet.
+* **The Legitimate Use:** Some dApps, particularly in gaming (GameFi) or social media (SocialFi), request this to create "session keys." This allows you to play a game or interact for 30 minutes without having to sign 200 individual transactions, which improves user experience.
+* **The Scam:** A malicious dApp asks for this permission under the guise of "improving your experience" or for a "one-time setup." You grant it, and the hacker has full control. Even worse, a *legitimate* dApp you granted this to could be hacked, and the hacker could then use the dApp's "delegated key" to drain all of its users.
+
+**How to Protect Yourself:**
+* **NEVER, EVER Grant This Permission...** unless you are 110% certain of the protocol's legitimacy AND you fully understand the risk.
+* **...Except With a Burner Wallet:** If you *must* use a dApp that requires this, only do it from a burner wallet with a small, expendable amount of funds.
+* **Check Your Status:** Go to your wallet's security or permissions settings **right now** and check if you have delegated your signer capability to *any* application. If you see one you don't recognize or no longer use, **REVOKE IT IMMEDIATELY.**
+
+### Your Security Model: The Vault & The Playground
+
+Your Aptos security strategy should be simple:
+
+1.  **The Vault (Main Wallet):** This wallet holds 95% of your assets. It is ideally secured by a Ledger. Its only interactions are staking to a trusted, high-performance validator (like **[aptcore.one](https://aptcore.one)**) and voting on governance. It *never* mints NFTs or interacts with new dApps.
+2.  **The Playground (Burner Wallet):** This wallet holds 5% of your assets. You use it for all your degen activities: trying new dApps, minting NFTs, and hunting airdrops. You assume this wallet *will* be compromised one day, and you are financially prepared for it.
+
+Staking your APT natively is the bedrock of your security. It keeps your funds in your own wallet, under your control, earning yield without being exposed to the risks of new, untested protocols.
+
+**Secure your foundation first. Then, play safely.**
