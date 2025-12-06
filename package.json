@@ -34,7 +34,7 @@
     "tailwindcss-animate": "^1.0.7",
     "vike": "^0.4.231",
     "vike-react": "^0.6.4",
-    "vite": "^5.4.0"
+    "vite": "^5.4.21"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
@@ -42,7 +42,7 @@
     "autoprefixer": "^10.4.14",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
-    "glob": "^11.0.3",
+    "glob": "^11.1.0",
     "postcss": "^8.5.4",
     "rollup-plugin-visualizer": "^6.0.3",
     "sitemap": "^8.0.0",
@@ -52,11 +52,14 @@
   },
   "pnpm": {
     "overrides": {
-      "axios": "^1.9.0",
+      "axios": "^1.12.0",
       "esbuild": "^0.25.0",
       "path-to-regexp": "^6.3.0",
       "@aptos-labs/ts-sdk": "$@aptos-labs/ts-sdk",
-      "aptos": "npm:@aptos-labs/ts-sdk@^2.0.0"
+      "aptos": "npm:@aptos-labs/ts-sdk@^2.0.0",
+      "form-data": "^4.0.4",
+      "js-yaml": "^4.1.1",
+      "glob": "^11.1.0"
     }
   }
 }
