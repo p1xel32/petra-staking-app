@@ -29,8 +29,8 @@ export default async function handler(req, res) {
         const denominator = BigInt(stakingConfig.data.rewards_rate_denominator);
         const epochsPerYear = 31536000 / Number(BigInt(blockResource.data.epoch_interval) / 1_000_000n);
         
-        const annualApr = Number(rewardRate) / Number(denominator);
-        const apy = (Math.pow(1 + (annualApr / epochsPerYear), epochsPerYear) - 1) * 100;
+        const epochRate = Number(rewardRate) / Number(denominator);
+        const apy = (Math.pow(1 + epochRate, epochsPerYear) - 1) * 100;
 
         const responseData = { serverFetchedPoolInfo: sanitizedPoolInfo, serverFetchedApy: apy, error: null };
 

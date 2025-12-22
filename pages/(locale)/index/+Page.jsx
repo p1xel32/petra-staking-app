@@ -27,8 +27,8 @@ export default function Page() {
   const pageTitle = t('homePage.meta.title');
   const pageDescription = t('homePage.meta.description');
 
-  const commissionPercent = Number(serverFetchedPoolInfo?.operator_commission_percentage ?? 0);
-  const netApy = (serverFetchedApy && serverFetchedPoolInfo) ? (serverFetchedApy * (1 - (commissionPercent / 100))) : 0;
+  const commissionBps = Number(serverFetchedPoolInfo?.operator_commission_percentage ?? 0);
+  const netApy = (serverFetchedApy && serverFetchedPoolInfo) ? (serverFetchedApy * (1 - (commissionBps / 10000))) : 0;
   
   const mainPageSchema = {
     "@context": "https://schema.org",
