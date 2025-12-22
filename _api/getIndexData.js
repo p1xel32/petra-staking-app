@@ -1,8 +1,7 @@
 import { TARGET_POOL_ADDRESS } from '../src/config/consts';
 
 const APTOS_FULLNODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
-// Коэффициент эффективности валидатора (Realized vs Target). 
-// 0.88 (88%) скорректирует теоретические 7% до реальных ~6.1%, как в Explorer.
+// Коэффициент эффективности. 0.88 (88%) подгоняет теоретические цифры под реальность эксплорера.
 const VALIDATOR_PERFORMANCE_FACTOR = 0.88; 
 
 async function fetchResource(address, type) {
@@ -33,11 +32,13 @@ export default async function handler(req, res) {
         const denominator = BigInt(stakingConfig.data.rewards_rate_denominator);
         const epochsPerYear = 31536000 / Number(BigInt(blockResource.data.epoch_interval) / 1_000_000n);
         
-        // Считаем теоретическую ставку и умножаем на реальную эффективность
+        // 1. Считаем теоретический APR (около 7.2%)
         const theoreticalApr = Number(rewardRate) / Number(denominator);
+        
+        // 2. Корректируем на реальную эффективность валидаторов (получаем около 6.3%)
         const realizedApr = theoreticalApr * VALIDATOR_PERFORMANCE_FACTOR;
 
-        // Считаем APY (сложный процент) на основе скорректированной ставки
+        // 3. Считаем APY (сложный процент)
         const apy = (Math.pow(1 + (realizedApr / epochsPerYear), epochsPerYear) - 1) * 100;
 
         const responseData = { serverFetchedPoolInfo: sanitizedPoolInfo, serverFetchedApy: apy, error: null };

@@ -1,6 +1,7 @@
 // src/config/consts.js
 
 export const SITE_URL = 'https://aptcore.one';
+export const TARGET_POOL_ADDRESS = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 
 export const PATHS = {
   home: '/',
