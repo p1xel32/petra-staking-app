@@ -1,5 +1,3 @@
-// Файл: _api/getIndexData.js
-
 const APTOS_FULLNODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
 const TARGET_POOL = '0xf747e3a6282cc0dee1c89239c529b039c64fe48e88b50e5cedd40e9c094800bb';
 
@@ -30,7 +28,9 @@ export default async function handler(req, res) {
         const rewardRate = BigInt(stakingConfig.data.rewards_rate);
         const denominator = BigInt(stakingConfig.data.rewards_rate_denominator);
         const epochsPerYear = 31536000 / Number(BigInt(blockResource.data.epoch_interval) / 1_000_000n);
-        const apy = (Math.pow(1 + (Number(rewardRate) / Number(denominator)), epochsPerYear) - 1) * 100;
+        
+        const annualApr = Number(rewardRate) / Number(denominator);
+        const apy = (Math.pow(1 + (annualApr / epochsPerYear), epochsPerYear) - 1) * 100;
 
         const responseData = { serverFetchedPoolInfo: sanitizedPoolInfo, serverFetchedApy: apy, error: null };
 
