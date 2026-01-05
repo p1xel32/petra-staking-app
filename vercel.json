@@ -20,15 +20,15 @@
   "rewrites": [
     {
       "source": "/blog/_astro/:path*",
-      "destination": "https://v0-aptos-staking.vercel.app/_astro/:path*"
+      "destination": "https://v0-aptos-staking.vercel.app/blog/_astro/:path*"
     },
     {
       "source": "/blog/:path*",
-      "destination": "https://v0-aptos-staking.vercel.app/:path*"
+      "destination": "https://v0-aptos-staking.vercel.app/blog/:path*"
     },
     {
       "source": "/blog",
-      "destination": "https://v0-aptos-staking.vercel.app"
+      "destination": "https://v0-aptos-staking.vercel.app/blog"
     }
   ]
 }

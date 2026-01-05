@@ -12,6 +12,7 @@ node_modules/.cache
 # dist # 
 
 !api/**
+!blog/**
 !pages/**
 !public/**
 !renderer/**
