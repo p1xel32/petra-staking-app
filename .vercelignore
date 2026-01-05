@@ -12,6 +12,9 @@ node_modules/.cache
 # dist # 
 
 !api/**
+!blog/**
+blog/node_modules
+blog/.astro
 !pages/**
 !public/**
 !renderer/**
