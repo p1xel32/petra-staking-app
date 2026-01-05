@@ -19,7 +19,7 @@ const hreflangLinks = locales.map(locale => {
 const xDefaultHref = canonicalURL.href;
 
 const now = new Date();
-now.setHours(0, 0, 0, 0);
+now.setHours(23, 59, 59, 999);
 
 const posts = (await getCollection('blog'))
   .filter(post => {
