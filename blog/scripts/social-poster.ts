@@ -292,21 +292,28 @@ async function main() {
 
         const remainingPlatforms = relevantPlatforms.filter(p => !postedPlatforms.includes(p));
 
-        // Check if article is old enough to be posted (using created_at as fallback for pubDate)
         const articleDate = new Date(article.publish_date || article.created_at);
         const daysOld = (now.getTime() - articleDate.getTime()) / (1000 * 3600 * 24);
 
         if (daysOld >= POSTING_DELAY_DAYS && remainingPlatforms.length > 0) {
-            console.log(`  [PENDING] "${article.title}" (${lang}) - ${Math.floor(daysOld)} days old - Missing: ${remainingPlatforms.join(', ')}`);
+            console.log(`  [PENDING] "${article.title}" (${lang}) - Metadata: ${article.keywords ? '✅' : '❌'} Keywords, ${article.description ? '✅' : '❌'} Desc`);
             
+            // Ensure keywords is an array (Supabase might return it as object or string)
+            let keywords = [];
+            if (Array.isArray(article.keywords)) {
+                keywords = article.keywords;
+            } else if (typeof article.keywords === 'string') {
+                try { keywords = JSON.parse(article.keywords); } catch (e) { keywords = [article.keywords]; }
+            }
+
             postsToProcess.push({
                 title: article.title,
                 pubDate: articleDate.toISOString(),
                 description: article.description || article.title,
                 link: link,
                 heroImage: article.hero_image || '',
-                keywords: article.keywords || [],
-                tags: article.tags || [],
+                keywords: keywords,
+                tags: article.tags || keywords,
                 author: article.author || 'The aptcore.one Team'
             });
         }
