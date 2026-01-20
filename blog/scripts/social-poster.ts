@@ -6,14 +6,20 @@ import OpenAI from 'openai';
 import { google } from 'googleapis';
 import showdown from 'showdown';
 import { TwitterApi } from 'twitter-api-v2';
+import { createClient } from '@supabase/supabase-js';
 
 const LIVE_POSTS_URL = process.env.POSTS_JSON_URL!;
 const DB_FILE_PATH = path.join(process.cwd(), 'scripts', 'processed_social_posts.json');
 const POSTING_DELAY_DAYS = 2;
 const BATCH_SIZE = 3;
-const ALL_PLATFORMS = ['twitter'];
+const ALL_PLATFORMS = ['twitter', 'blogger', 'hashnode'];
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+// Supabase Setup
+const supabaseUrl = process.env.SUPABASE_URL!;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const twitter = {
     client: new TwitterApi({
@@ -64,19 +70,69 @@ const sd = new showdown.Converter();
 interface Post { title: string; pubDate: string; description: string; link: string; heroImage: string; keywords: string[]; tags?: string[]; author: string; }
 type ProcessedDb = Record<string, string[]>;
 
-async function getProcessedDb(): Promise<ProcessedDb> {
+function getLanguageFromLink(link: string): string {
     try {
-        const data = await fs.readFile(DB_FILE_PATH, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        if (error.code === 'ENOENT') return {};
-        throw error;
+        const url = new URL(link);
+        const pathParts = url.pathname.split('/').filter(Boolean);
+        // Path is usually /blog/[locale]/slug or /blog/slug
+        if (pathParts[0] === 'blog') {
+            const potentialLocale = pathParts[1];
+            const locales = ['es', 'ja', 'ko', 'ru', 'vi'];
+            if (locales.includes(potentialLocale)) {
+                return potentialLocale;
+            }
+        }
+    } catch (e) {
+        console.error(`  ❌ Error parsing link for language: ${link}`);
     }
+    return 'en';
 }
 
-async function saveProcessedDb(db: ProcessedDb): Promise<void> {
-    const data = JSON.stringify(db, null, 2);
-    await fs.writeFile(DB_FILE_PATH, data, 'utf-8');
+async function getProcessedPlatformsFromSupabase(link: string): Promise<string[]> {
+    const { data, error } = await supabase
+        .from('distribution_log')
+        .select('channels')
+        .eq('article_url', link)
+        .maybeSingle();
+
+    if (error) {
+        console.error(`  ❌ Supabase error fetching ${link}:`, error.message);
+        return [];
+    }
+
+    if (!data || !data.channels) return [];
+    
+    // Convert channels object { twitter: 'published' } to array ['twitter']
+    return Object.keys(data.channels).filter(key => data.channels[key] === 'published');
+}
+
+async function markAsPublishedInSupabase(link: string, platform: string) {
+    // First get existing record
+    const { data } = await supabase
+        .from('distribution_log')
+        .select('channels, id')
+        .eq('article_url', link)
+        .maybeSingle();
+
+    const channels = data?.channels || {};
+    channels[platform] = 'published';
+
+    const lang = getLanguageFromLink(link);
+    const filename = link.split('/').pop() || 'unknown';
+
+    const { error } = await supabase
+        .from('distribution_log')
+        .upsert({
+            article_url: link,
+            filename,
+            lang,
+            channels,
+            last_attempt: new Date().toISOString()
+        }, { onConflict: 'article_url' });
+
+    if (error) {
+        console.error(`  ❌ Supabase error updating ${link}:`, error.message);
+    }
 }
 
 async function rewriteForTwitter(post: Post): Promise<string> {
@@ -86,7 +142,7 @@ async function rewriteForTwitter(post: Post): Promise<string> {
     const maxCharsForAI = 280 - totalReservedChars;
     const keywordsText = post.keywords && post.keywords.length > 0 ? `Main keywords are: "${post.keywords.join(', ')}".` : '';
     
-    const prompt = `Write a tweet for a tech blog post about the Aptos blockchain. Your response MUST be strictly under ${maxCharsForAI} characters. Frame it as sharing a helpful, informative article. Avoid overly promotional language. Use 2-3 relevant hashtags. ${keywordsText} Article Title: "${post.title}".`;
+    const prompt = `Write a tweet in English for a tech blog post about the Aptos blockchain. Your response MUST be strictly under ${maxCharsForAI} characters. Frame it as sharing a helpful, informative article. Avoid overly promotional language. Use 2-3 relevant hashtags. ${keywordsText} Article Title: "${post.title}". Ensure the response is 100% in English.`;
     
     try {
         const response = await openai.chat.completions.create({ model: 'gpt-4o-mini', messages: [{ role: 'system', content: 'You are an expert SMM manager for a blockchain tech project.' }, { role: 'user', content: prompt }], temperature: 0.7, max_tokens: 120 });
@@ -102,7 +158,7 @@ async function rewriteForTwitter(post: Post): Promise<string> {
 
 async function rewriteForLongform(post: Post): Promise<{ title: string; content: string }> {
     const keywordsText = post.keywords && post.keywords.length > 0 ? `Main keywords to include: "${post.keywords.join(', ')}".` : '';
-    const prompt = `You are a blog editor. Take the following article information and write a high-quality summary of about 300-400 words. This will be published on a satellite blog. Structure the text with paragraphs using Markdown. End with a strong call to action to read the full, original article. Original Title: "${post.title}". Original Description: "${post.description}". ${keywordsText}`;
+    const prompt = `You are a blog editor. Take the following article information and write a high-quality summary of about 300-400 words in English. This will be published on a satellite blog. Structure the text with paragraphs using Markdown. End with a strong call to action to read the full, original article. Original Title: "${post.title}". Original Description: "${post.description}". ${keywordsText} Ensure the response is 100% in English.`;
     try {
         const response = await openai.chat.completions.create({ model: 'gpt-4o', messages: [{ role: 'user', content: prompt }], temperature: 0.7 });
         const content = response.choices[0]?.message?.content || post.description;
@@ -200,7 +256,7 @@ async function postToHashnode(post: Post, rewrittenPost: { title: string; conten
 }
 
 async function main() {
-    console.log('🤖 Starting SMM Poster Bot...');
+    console.log('🤖 Starting SMM Poster Bot (Supabase Mode)...');
     let allPosts: Post[];
     try {
         const response = await axios.get<Post[]>(LIVE_POSTS_URL);
@@ -209,13 +265,25 @@ async function main() {
         console.error(`❌ Could not fetch posts from ${LIVE_POSTS_URL}.`); return;
     }
 
-    const processedDb = await getProcessedDb();
-    
     const postsToProcess: Post[] = [];
     const now = new Date();
+    
+    console.log(`🔍 Checking ${allPosts.length} posts for new distribution...`);
+    
     for (const post of allPosts) {
-        const postedPlatforms = processedDb[post.link] || [];
-        if ( (now.getTime() - new Date(post.pubDate).getTime()) / (1000 * 3600 * 24) >= POSTING_DELAY_DAYS && postedPlatforms.length < ALL_PLATFORMS.length ) {
+        const lang = getLanguageFromLink(post.link);
+        const postedPlatforms = await getProcessedPlatformsFromSupabase(post.link);
+        
+        // Define which platforms are relevant for this post
+        const relevantPlatforms = ALL_PLATFORMS.filter(p => {
+            if (p === 'twitter' && lang !== 'en') return false;
+            return true;
+        });
+
+        const remainingPlatforms = relevantPlatforms.filter(p => !postedPlatforms.includes(p));
+
+        if ( (now.getTime() - new Date(post.pubDate).getTime()) / (1000 * 3600 * 24) >= POSTING_DELAY_DAYS && remainingPlatforms.length > 0 ) {
+            console.log(`  [PENDING] "${post.title}" (${lang}) - Missing: ${remainingPlatforms.join(', ')}`);
             postsToProcess.push(post);
         }
     }
@@ -225,36 +293,41 @@ async function main() {
 
     console.log(`\n🔥 Processing a batch of ${batch.length} article(s)...`);
     for (const post of batch) {
-        console.log(`\n- - - - - \n- Processing: "${post.title}"`);
-        const alreadyPostedTo = processedDb[post.link] || [];
-        const originalPostCount = alreadyPostedTo.length;
+        const lang = getLanguageFromLink(post.link);
+        console.log(`\n- - - - - \n- Processing: "${post.title}" [Lang: ${lang.toUpperCase()}]`);
+        const alreadyPostedTo = await getProcessedPlatformsFromSupabase(post.link);
         
+        console.log(`  Current status: ${alreadyPostedTo.length > 0 ? alreadyPostedTo.join(', ') : 'No platforms yet'}`);
+
         const [twitterText, longformPost] = await Promise.all([
             rewriteForTwitter(post),
             rewriteForLongform(post),
         ]);
 
         const postJobs = [
-            { platform: 'twitter', task: () => postToTwitter(`${twitterText}\n\nRead more: ${post.link}`)},
-            { platform: 'blogger', task: () => postToBlogger(post, longformPost)},
-            { platform: 'hashnode', task: () => postToHashnode(post, longformPost)},
+            { platform: 'twitter', enabled: lang === 'en', reason: lang !== 'en' ? 'Skipped (Twitter is English only)' : 'Eligible', task: () => postToTwitter(`${twitterText}\n\nRead more: ${post.link}`)},
+            { platform: 'blogger', enabled: true, reason: 'Eligible', task: () => postToBlogger(post, longformPost)},
+            { platform: 'hashnode', enabled: true, reason: 'Eligible', task: () => postToHashnode(post, longformPost)},
         ];
 
         for (const job of postJobs) {
-            if (!alreadyPostedTo.includes(job.platform)) {
-                if (await job.task()) {
-                    alreadyPostedTo.push(job.platform);
-                }
+            if (alreadyPostedTo.includes(job.platform)) {
+                console.log(`  ⏭️ ${job.platform.padEnd(8)}: Already published.`);
+                continue;
             }
-        }
-        
-        if (alreadyPostedTo.length > originalPostCount) {
-            processedDb[post.link] = alreadyPostedTo;
-            console.log(`\n- Marking "${post.title}" as partially/fully processed.`);
-            await saveProcessedDb(processedDb);
-            console.log(`- SMM database updated for this post.`);
-        } else {
-            console.log(`\n- No new platforms were posted for "${post.title}".`);
+
+            if (!job.enabled) {
+                console.log(`  🚫 ${job.platform.padEnd(8)}: ${job.reason}`);
+                continue;
+            }
+
+            console.log(`  🚀 ${job.platform.padEnd(8)}: Executing...`);
+            if (await job.task()) {
+                await markAsPublishedInSupabase(post.link, job.platform);
+                console.log(`  ✅ ${job.platform.padEnd(8)}: Successfully updated in database.`);
+            } else {
+                console.log(`  ❌ ${job.platform.padEnd(8)}: Task failed.`);
+            }
         }
     }
 
@@ -264,3 +337,4 @@ async function main() {
 main().catch(error => {
     console.error('❌ A critical error occurred in SMM Bot:', error);
 });
+
