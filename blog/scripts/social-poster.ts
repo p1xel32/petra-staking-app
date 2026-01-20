@@ -257,22 +257,32 @@ async function postToHashnode(post: Post, rewrittenPost: { title: string; conten
 
 async function main() {
     console.log('🤖 Starting SMM Poster Bot (Supabase Mode)...');
-    let allPosts: Post[];
-    try {
-        const response = await axios.get<Post[]>(LIVE_POSTS_URL);
-        allPosts = response.data;
-    } catch (error) {
-        console.error(`❌ Could not fetch posts from ${LIVE_POSTS_URL}.`); return;
+    
+    // Fetch articles from Supabase 'articles' table instead of external JSON
+    console.log('📥 Fetching latest articles from Supabase...');
+    const { data: articles, error: fetchError } = await supabase
+        .from('articles')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50); // Get recent 50 articles
+
+    if (fetchError || !articles) {
+        console.error(`❌ Could not fetch articles from Supabase:`, fetchError?.message);
+        return;
     }
 
     const postsToProcess: Post[] = [];
     const now = new Date();
     
-    console.log(`🔍 Checking ${allPosts.length} posts for new distribution...`);
+    console.log(`🔍 Checking ${articles.length} articles for new distribution...`);
     
-    for (const post of allPosts) {
-        const lang = getLanguageFromLink(post.link);
-        const postedPlatforms = await getProcessedPlatformsFromSupabase(post.link);
+    for (const article of articles) {
+        // Reconstruct post link: https://aptcore.one/blog/[lang/][filename]
+        const langPath = article.lang === 'en' ? '' : `${article.lang}/`;
+        const link = `https://aptcore.one/blog/${langPath}${article.filename}`;
+        
+        const lang = article.lang || 'en';
+        const postedPlatforms = await getProcessedPlatformsFromSupabase(link);
         
         // Define which platforms are relevant for this post
         const relevantPlatforms = ALL_PLATFORMS.filter(p => {
@@ -282,9 +292,23 @@ async function main() {
 
         const remainingPlatforms = relevantPlatforms.filter(p => !postedPlatforms.includes(p));
 
-        if ( (now.getTime() - new Date(post.pubDate).getTime()) / (1000 * 3600 * 24) >= POSTING_DELAY_DAYS && remainingPlatforms.length > 0 ) {
-            console.log(`  [PENDING] "${post.title}" (${lang}) - Missing: ${remainingPlatforms.join(', ')}`);
-            postsToProcess.push(post);
+        // Check if article is old enough to be posted (using created_at as fallback for pubDate)
+        const articleDate = new Date(article.publish_date || article.created_at);
+        const daysOld = (now.getTime() - articleDate.getTime()) / (1000 * 3600 * 24);
+
+        if (daysOld >= POSTING_DELAY_DAYS && remainingPlatforms.length > 0) {
+            console.log(`  [PENDING] "${article.title}" (${lang}) - ${Math.floor(daysOld)} days old - Missing: ${remainingPlatforms.join(', ')}`);
+            
+            postsToProcess.push({
+                title: article.title,
+                pubDate: articleDate.toISOString(),
+                description: article.description || article.title,
+                link: link,
+                heroImage: article.hero_image || '',
+                keywords: article.keywords || [],
+                tags: article.tags || [],
+                author: article.author || 'The aptcore.one Team'
+            });
         }
     }
     
