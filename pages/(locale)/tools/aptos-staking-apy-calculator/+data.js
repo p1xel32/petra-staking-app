@@ -1,3 +1,4 @@
+import { NETWORK_BASE_APR } from '../../../../src/config/consts';
 const APTOS_FULLNODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
 
 async function fetchResource(address, type) {
@@ -31,10 +32,9 @@ export async function data(pageContext) {
             fetchResource('0x1', '0x1::block::BlockResource'),
             fetchAptPrice()
         ]);
-        const rewardRate = BigInt(stakingConfig.data.rewards_rate);
-        const denominator = BigInt(stakingConfig.data.rewards_rate_denominator);
         const epochsPerYear = 31536000 / (Number(BigInt(blockResource.data.epoch_interval)) / 1_000_000);
-        const defaultApy = (Math.pow(1 + (Number(rewardRate) / Number(denominator)), epochsPerYear) - 1) * 100;
+        const realizedApr = NETWORK_BASE_APR / 100;
+        const defaultApy = (Math.pow(1 + (realizedApr / epochsPerYear), epochsPerYear) - 1) * 100;
         return { defaultApy, aptPriceUSD, error: null };
     } catch(error) {
         console.error("API Error in apy-calculator/+data.js:", error);

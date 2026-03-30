@@ -1,4 +1,4 @@
-import { TARGET_POOL_ADDRESS } from '../src/config/consts';
+import { TARGET_POOL_ADDRESS, NETWORK_BASE_APR } from '../src/config/consts';
 
 const APTOS_FULLNODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
 // Коэффициент эффективности. 0.88 (88%) подгоняет теоретические цифры под реальность эксплорера.
@@ -18,6 +18,7 @@ export default async function handler(req, res) {
             fetchResource('0x1', '0x1::block::BlockResource')
         ]);
         
+        // Забираем только данные о пуле (комиссия, стейк), пропускаем устаревшую формулу
         const stakePoolRes = poolResources.find(r => r.type === '0x1::stake::StakePool');
         const delegationPoolRes = poolResources.find(r => r.type.startsWith('0x1::delegation_pool::DelegationPool'));
 
@@ -28,17 +29,13 @@ export default async function handler(req, res) {
             operator_commission_percentage: String(delegationPoolRes.data.operator_commission_percentage || '0'),
         };
 
-        const rewardRate = BigInt(stakingConfig.data.rewards_rate);
-        const denominator = BigInt(stakingConfig.data.rewards_rate_denominator);
         const epochsPerYear = 31536000 / Number(BigInt(blockResource.data.epoch_interval) / 1_000_000n);
         
-        // 1. Считаем теоретический APR (около 7.2%)
-        const theoreticalApr = Number(rewardRate) / Number(denominator);
-        
-        // 2. Корректируем на реальную эффективность валидаторов (получаем около 6.3%)
-        const realizedApr = theoreticalApr * VALIDATOR_PERFORMANCE_FACTOR;
+        // Используем свежий исторический консенсус вместо устаревшего StakingConfig
+        // Переводим APR в дробь (например, 2.6 / 100 = 0.026)
+        const realizedApr = NETWORK_BASE_APR / 100;
 
-        // 3. Считаем APY (сложный процент)
+        // Считаем итоговый Gross APY (премия за автореинвестирование каждую эпоху)
         const apy = (Math.pow(1 + (realizedApr / epochsPerYear), epochsPerYear) - 1) * 100;
 
         const responseData = { serverFetchedPoolInfo: sanitizedPoolInfo, serverFetchedApy: apy, error: null };

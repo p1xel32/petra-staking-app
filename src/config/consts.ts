@@ -25,5 +25,8 @@ export const SOCIALS = {
   youtube: 'https://googleusercontent.com/youtube/1',
   github: 'https://github.com/p1xel32/petra-staking-app',
   stakingRewards: 'https://www.stakingrewards.com/provider/aptcore-one'
-
 };
+
+// Update this periodically based on average network historical payout from Explorer
+// e.g., 2.6 represents 2.6% APR.
+export const NETWORK_BASE_APR = 2.600;

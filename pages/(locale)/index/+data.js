@@ -1,3 +1,4 @@
+import { NETWORK_BASE_APR } from '../../../src/config/consts';
 const APTOS_FULLNODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
 
 async function fetchResource(address, type) {
@@ -22,10 +23,9 @@ export async function data(pageContext) {
             active_stake_octas: String(stakePoolRes.data.active?.value || '0'),
             operator_commission_percentage: String(delegationPoolRes.data.operator_commission_percentage || '0'),
         };
-        const rewardRate = BigInt(stakingConfig.data.rewards_rate);
-        const denominator = BigInt(stakingConfig.data.rewards_rate_denominator);
         const epochsPerYear = 31536000 / (Number(BigInt(blockResource.data.epoch_interval)) / 1_000_000);
-        const serverFetchedApy = (Math.pow(1 + (Number(rewardRate) / Number(denominator)), epochsPerYear) - 1) * 100;
+        const realizedApr = NETWORK_BASE_APR / 100;
+        const serverFetchedApy = (Math.pow(1 + (realizedApr / epochsPerYear), epochsPerYear) - 1) * 100;
         return { serverFetchedPoolInfo, serverFetchedApy, error: null };
     } catch(error) {
         console.error("API Error in index/+data.js:", error);
