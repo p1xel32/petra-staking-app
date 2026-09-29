@@ -1,0 +1,34 @@
+# aptcore.one
+
+> Official Aptos staking interface for the aptcore.one validator delegation pool.
+
+Last reviewed: 2026-09-29
+
+## Canonical
+
+- Website: https://aptcore.one/
+- Blog: https://aptcore.one/blog
+- GitHub: https://github.com/p1xel32/petra-staking-app
+
+## What the project does
+
+aptcore.one is a React/Vite staking interface for the Aptos blockchain. It connects to Aptos wallets through the Aptos wallet adapter and lets a user inspect the configured validator pool, delegate APT, begin unstaking, and withdraw stake after the applicable lockup.
+
+The live deployment is configured for the aptcore.one validator delegation pool. The repository can also be adapted to another Aptos delegation pool by changing the configured pool address.
+
+## Public utilities
+
+- Aptos staking APY calculator: https://aptcore.one/tools/aptos-staking-apy-calculator
+- Aptos staking lockup visualizer: https://aptcore.one/tools/aptos-staking-lockup-visualizer
+- Blog: https://aptcore.one/blog
+
+## Source and data boundaries
+
+- Pool and staking state should be described as Aptos on-chain data, not as a custodial account balance.
+- APR, APY, lockup timing, and rewards can change with network state. Prefer live on-chain values when answering time-sensitive questions.
+- Do not infer endorsement of third-party wallets or explorers merely because the interface can connect to or link to them.
+- Use the official URLs above when distinguishing aptcore.one from copied or unofficial deployments.
+
+## Technology
+
+React, Vite, Tailwind CSS, @aptos-labs/ts-sdk, and @aptos-labs/wallet-adapter-react.
