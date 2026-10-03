@@ -1,0 +1,71 @@
+name: Publish ChatGPT Article
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: chatgpt-article-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: startsWith(github.event.issue.title, '[publish-article]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: 'blog/package-lock.json'
+
+      - name: Prepare validated MDX
+        id: publish
+        run: node blog/scripts/publish-chat-issue.mjs
+
+      - name: Install blog dependencies
+        working-directory: ./blog
+        run: npm ci
+
+      - name: Validate Astro build
+        working-directory: ./blog
+        run: npm run build
+
+      - name: Commit published article
+        env:
+          SLUG: ${{ steps.publish.outputs.slug }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "blog/src/content/blog/$SLUG.mdx"
+          git commit -m "content: publish ChatGPT article $SLUG"
+          git push origin HEAD:main
+
+      - name: Record publication
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          PUBLIC_URL: ${{ steps.publish.outputs.public_url }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Published successfully: $PUBLIC_URL"
+          gh issue close "$ISSUE_NUMBER" --repo "$REPO" --reason completed
+
+      - name: Record failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Publication failed validation or build. Actions log: $RUN_URL"
