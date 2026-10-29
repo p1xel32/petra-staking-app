@@ -1,4 +1,5 @@
 ---
+import UnsplashPhoto from '../components/UnsplashPhoto';
 import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
@@ -90,7 +91,7 @@ const finalJsonLd = { "@context": "https://schema.org", "@graph": jsonLdGraph, }
           </div>
         ) : (
           resolvedHeroImageUrl && (
-            <img src={resolvedHeroImageUrl} alt={heroImageAlt ?? `Hero image for ${title}`} class="w-full h-auto rounded-lg shadow mb-8" loading="lazy" />
+            <div class="w-full aspect-[4/3] md:aspect-video rounded-lg overflow-hidden mb-8"><UnsplashPhoto client:load site="aptcore" articleKey={Astro.props.translationKey || Astro.url.pathname} title={title} category="technology" replace eager /></div>
           )
         )}
         

@@ -1,4 +1,5 @@
 ---
+import UnsplashPhoto from './UnsplashPhoto';
 import Layout from '../layouts/Layout.astro';
 import FormattedDate from './FormattedDate.astro';
 import type { CollectionEntry } from 'astro:content';
@@ -55,18 +56,7 @@ const {
             return (
               <li class="group bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:border-aptcore-purple/70 transition-all duration-300 ease-in-out flex flex-col overflow-hidden">
                 <a href={postUrl} class="block flex-grow flex flex-col">
-                  {post.data.heroImage && (
-                    <div class="w-full h-48 sm:h-56 overflow-hidden">
-                      <img
-                        src={`/blog${post.data.heroImage.startsWith('/') ? '' : '/'}${post.data.heroImage}`}
-                        alt={`Cover image for ${post.data.title}`}
-                        width={720}
-                        height={360}
-                        loading="lazy"
-                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300 ease-in-out"
-                      />
-                    </div>
-                  )}
+                  <div class="w-full h-48 sm:h-56 overflow-hidden"><UnsplashPhoto client:visible site="aptcore" articleKey={post.data.translationKey} title={post.data.title} category="technology" replace /></div>
                   <div class="p-6 flex flex-col flex-grow">
                     <h2 class="text-xl lg:text-2xl font-semibold text-white group-hover:text-aptcore-purple mb-2 transition-colors duration-200">
                       {post.data.title}
