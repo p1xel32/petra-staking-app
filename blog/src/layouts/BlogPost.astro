@@ -1,4 +1,5 @@
 ---
+import UnsplashPhoto from '../components/UnsplashPhoto';
 import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
@@ -25,10 +26,9 @@ const {
   canonicalUrl, // Используем готовый URL, переданный со страницы
 } = Astro.props;
 
-const resolvedHeroImageUrl = heroImage?.startsWith('http')
-  ? heroImage
-  : heroImage ? new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${heroImage.startsWith('/') ? '' : '/'}${heroImage}`, SITE_URL).href : undefined;
-  
+const editorialPhotoKey = Astro.props.translationKey || Astro.url.pathname.split('/').filter(Boolean).at(-1);
+const resolvedHeroImageUrl = `https://sic-group.us/api/editorial-photo/image?${new URLSearchParams({site: 'aptcore', key: editorialPhotoKey, title, variant: 'desktop', width: '1600'})}`;
+
 const resolvedThumbnailUrl = video?.thumbnailUrl?.startsWith('http')
   ? video.thumbnailUrl
   : video?.thumbnailUrl
@@ -89,8 +89,8 @@ const finalJsonLd = { "@context": "https://schema.org", "@graph": jsonLdGraph, }
             <iframe src={video.url} title={video.name} frameborder="0" allowfullscreen class="rounded-lg w-full h-full" loading="lazy"></iframe>
           </div>
         ) : (
-          resolvedHeroImageUrl && (
-            <img src={resolvedHeroImageUrl} alt={heroImageAlt ?? `Hero image for ${title}`} class="w-full h-auto rounded-lg shadow mb-8" loading="lazy" />
+          (
+            <div class="w-full aspect-[4/3] md:aspect-video rounded-lg overflow-hidden mb-8"><UnsplashPhoto client:load site="aptcore" articleKey={editorialPhotoKey} title={title} category="technology" replace eager /></div>
           )
         )}
         
